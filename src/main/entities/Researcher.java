@@ -1,13 +1,14 @@
-package Entities;
+package entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Researcher extends User {
 
     /**
      * A list of Study objects that the this researcher belongs to (works in).
      */
-    private ArrayList<Study> listStudies = new ArrayList<Study>();
+    private List<Study> listStudies = new ArrayList<Study>();
 
     /**
      * @param username the username of this Researcher
@@ -21,17 +22,24 @@ public class Researcher extends User {
     /**
      * @return the list of Study objects this Researcher belongs to, i.e. works in
      */
-    public ArrayList<Study> getListStudies() {
+    public List<Study> getListStudies() {
         return listStudies;
     }
 
+    public boolean listStudiesContains(Study study){
+        return listStudies.contains(study);
+    }
     public boolean addToListStudies(Study study){
+
+        if (this.listStudiesContains(study))){
+            return false;
+        }
         listStudies.add(study);
         return true;
     }
 
     public boolean removeFromListStudies(Study study){
-        if (listStudies.contains(study)){
+        if (this.listStudiesContains(study)){
             listStudies.remove(study);
             return true;
         }

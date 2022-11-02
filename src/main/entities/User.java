@@ -1,6 +1,4 @@
-package Entities;
-
-import java.util.List;
+package entities;
 
 /**
  * A user class.
