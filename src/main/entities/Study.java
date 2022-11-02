@@ -141,6 +141,26 @@ public class Study {
 
 
     /**
+     * Construct a study object with the following parameters specified:
+     * A third constructor, where the grouping is left by default - there is only one group, and the study type is
+     * "General" by default.
+     * <p>
+     *
+     * @param studyName       The name of the study that the researcher specifies
+     * @param targetStudySize The target study size. What is the number of participants the researchers of this study
+     *                        want to achieve?
+     */
+    public Study(String studyName, int targetStudySize) {
+        // update the current ID
+        currID++;
+        this.id = currID;
+        this.studyType = "General";
+        this.studyName = studyName;
+        this.targetStudySize = targetStudySize;
+    }
+
+
+    /**
      * Return the name of the study.
      *
      * @return the name of the study.
@@ -418,6 +438,20 @@ public class Study {
         if (!researcherList.isEmpty()) {
             this.researchers.addAll(researcherList);
             return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Remove a researcher from the list of researchers in the study.
+     *
+     * @param researcher researcher to be removed.
+     * @return whether the removal is successful.
+     */
+    public boolean removeResearcher(Researcher researcher) {
+        if (this.researchers.contains(researcher)) {
+            return this.researchers.remove(researcher);
         }
         return false;
     }
