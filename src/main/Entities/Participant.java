@@ -21,4 +21,12 @@ public class Participant extends User {
     public Study getStudy() {
         return study;
     }
+
+    /**
+     * @param study
+     * Set this participant to a study, i.e. enrolling a participant to a Study
+     */
+    public void setStudy(Study study) {
+        this.study = study;
+    }
 }

@@ -18,11 +18,25 @@ public class Researcher extends User {
 
     }
 
-
     /**
      * @return the list of Study objects this Researcher belongs to, i.e. works in
      */
     public ArrayList<Study> getListStudies() {
         return listStudies;
     }
+
+    public boolean addToListStudies(Study study){
+        listStudies.add(study);
+        return true;
+    }
+
+    public boolean removeFromListStudies(Study study){
+        if (listStudies.contains(study)){
+            listStudies.remove(study);
+            return true;
+        }
+        return false;
+    }
+
+
 }
