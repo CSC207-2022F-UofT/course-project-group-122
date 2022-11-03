@@ -2,12 +2,18 @@ package entities;
 
 public class UserFactory implements UserFactoryInterface{
 
-    public User create(String type, String username, String name) throws Exception {
+    /**
+     *
+     * @param type of the user
+     * @param username of the user
+     * @param name of the user
+     * @return the new User object
+     */
+    public User create(String type, String username, String name){
         switch (type){
             case "Researcher" : return new Researcher(username, name);
             case "Participant" : return new Participant(username, name);
-            default:
-                throw new Exception("Wrong user type passed.");
         }
+        return null;
     }
 }

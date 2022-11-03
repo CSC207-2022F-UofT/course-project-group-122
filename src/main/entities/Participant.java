@@ -8,8 +8,8 @@ public class Participant extends User {
     private Study study = null;
 
     /**
-     * @param username the username of this Participant
-     * @param name the name of this Participant
+     * @param username the username of this Participant.
+     * @param name     the name of this Participant.
      */
     public Participant(String username, String name) {
         super(username, name);
@@ -23,8 +23,7 @@ public class Participant extends User {
     }
 
     /**
-     * @param study
-     * Set this participant to a study, i.e. enrolling a participant to a Study
+     * @param study Set this participant to a study, i.e. enrolling a participant to a Study.
      */
     public void setStudy(Study study) {
         this.study = study;
