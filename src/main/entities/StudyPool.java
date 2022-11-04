@@ -58,7 +58,7 @@ public class StudyPool {
      * Checks the type of the study with the given study ID.
      *
      * @param studyID the ID of the study to be checked.
-     * @return the type of the study.
+     * @return the type of the study if the given study ID exists, null otherwise.
      */
     public String checkStudyType(int studyID) {
         if (this.studies.containsKey(studyID)) {
