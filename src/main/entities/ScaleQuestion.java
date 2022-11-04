@@ -14,40 +14,57 @@ public class ScaleQuestion extends Question {
     public int scaleRange = 0;
 
     /**
+     * The bottom label for the range of this ScaleQuestion.
+     */
+    public String bottomLabel = "";
+
+    /**
+     * The top label for the range of this ScaleQuestion.
+     */
+    public String topLabel = "";
+
+    /**
      * A List of integer values in the range of this ScaleQuestion.
      */
     private List<Integer> scale = new ArrayList<>();
 
+
     /**
-     * The Constructor for the ScaleQuestion class.
+     * The constructor for the ScaleQuestion class.
      * This Constructor is overloaded. User specify the scaleRange when creating an instance of ScaleQuestion.
      *
-     * @param questionnaireID
-     * @param description
-     * @param content
-     * @param scaleRange
+     * @param questionnaire     The questionnaire this question is part of.
+     * @param variableName      Keyword that describes the content of this Question
+     * @param content           What is being asked the participants.
+     * @param scaleRange        The specified range of this ScaleQuestion.
      */
-    public ScaleQuestion(int questionnaireID, String description, String content, int scaleRange) {
-        super(questionnaireID, description, content);
+    public ScaleQuestion(Questionnaire questionnaire, String variableName, String content, int scaleRange,
+                         String bottomLabel, String topLabel) {
+        super(questionnaire, variableName, content);
+        this.scaleRange = scaleRange;
+        this.bottomLabel = bottomLabel;
+        this.topLabel = topLabel;
         this.modifyScaleRange(scaleRange);
     }
 
+
     /**
      * The Constructor for the ScaleQuestion class.
-     * This Constructor is overloaded. User specify doesn't the scaleRange when creating an instance of ScaleQuestion.
+     * This Constructor is overloaded. User doesn't specify the scaleRange when creating an instance of ScaleQuestion.
      *
-     * @param questionnaireID
-     * @param description
-     * @param content
+     * @param questionnaire     The questionnaire this question is part of.
+     * @param variableName      Keyword that describes the content of this Question
+     * @param content           What is being asked the participants.
      */
-    public ScaleQuestion(int questionnaireID, String description, String content) {
-        super(questionnaireID, description, content);
+    public ScaleQuestion(Questionnaire questionnaire, String variableName, String content) {
+        super(questionnaire, variableName, content);
     }
+
 
     /**
      * Modify the scaleRange of this ScaleQuestion.
      *
-     * @param newRange
+     * @param newRange     The new scaleRange of this ScaleQuestion.
      * @return true if the scaleRange was successfully modified.
      */
     public boolean modifyScaleRange(int newRange) {
@@ -61,6 +78,7 @@ public class ScaleQuestion extends Question {
         return false;
     }
 
+
     /**
      * @return the scaleRange of this ScaleQuestion.
      */
@@ -68,10 +86,27 @@ public class ScaleQuestion extends Question {
         return scaleRange;
     }
 
+
     /**
      * @return the list of integer values in the range of this ScaleQuestion.
      */
     public List<Integer> getScale() {
         return scale;
+    }
+
+    /**
+     * @return The type of this Question.
+     */
+    @Override
+    public String getQuestionType() {
+        return "Scale";
+    }
+
+    /**
+     * @return The String representation of this Question's potential answers.
+     */
+    @Override
+    public String getAnswerChoices() {
+        return bottomLabel + " - " + scale.toString() + " - " + topLabel;
     }
 }
