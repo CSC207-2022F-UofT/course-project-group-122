@@ -46,7 +46,7 @@ public class UserPool {
      * Check the type of user given its username.
      *
      * @param username the username of the user to be checked.
-     * @return the type of user.
+     * @return the type of user if the given username exists, null otherwise.
      */
     public String checkUserType(String username) {
         User user = this.users.get(username);
