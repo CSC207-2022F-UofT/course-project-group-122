@@ -54,7 +54,7 @@ public class Study {
     /*
     A list storing the name for each of the groups defined.
      */
-    private String[] groupNames = {"Default Group"};
+    private String[] groupNames = {"Group 1"};
 
 
     // User management of the study
