@@ -26,7 +26,8 @@ public class Researcher extends User {
     }
 
     /**
-     * @param study
+     * @param study a Study object that this Researcher wants to check if it is contained in listStudies.
+
      * @return true if this Researcher is part of study.
      */
     public boolean listStudiesContains(Study study) {
@@ -36,7 +37,8 @@ public class Researcher extends User {
     /**
      * Enroll this researcher to study
      *
-     * @param study
+     * @param study a Study object that this Researcher wants to be enrolled in.
+
      * @return true iff researcher was enrolled in study.
      */
     public boolean addToListStudies(Study study) {
@@ -51,7 +53,8 @@ public class Researcher extends User {
      * Removes the a Study from this researcher's list of Studies. Either because the study was close, or the Researcher
      * is no longer part of the Study.
      *
-     * @param study
+     * @param study a Study object that this Researcher wants to leave.
+
      * @return
      */
     public boolean removeFromListStudies(Study study) {

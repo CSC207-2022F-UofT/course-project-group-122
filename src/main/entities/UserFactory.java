@@ -4,6 +4,8 @@ public class UserFactory implements UserFactoryInterface{
 
     /**
      *
+     *Precondition: the type of user must be either "Participant" or "Researcher"
+
      * @param type of the user
      * @param username of the user
      * @param name of the user
