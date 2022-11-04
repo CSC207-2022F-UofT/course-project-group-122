@@ -2,9 +2,11 @@ package entities;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class VersionedAnswer implements Viewable{
+public class VersionedAnswer {
     /**
      * A version of the answers for a particular questionnaire and a particular participant.
      * This is a version of the answers, so it is not necessarily the final version.
@@ -37,7 +39,7 @@ public class VersionedAnswer implements Viewable{
     /*
     The actual answer contents to the questionnaire.
      */
-    private final List answers;
+    private final HashMap<String, String> answers;
 
     /*
     The user who created this particular version of VersionedAnswer. This is used to determine who is responsible for
@@ -55,16 +57,16 @@ public class VersionedAnswer implements Viewable{
     /**
      * Constructor for the VersionedAnswer class.
      * @param version The version of the answers.
-     * @param modifer The user who created this particular version of VersionedAnswer.
+     * @param modifier The user who created this particular version of VersionedAnswer.
      * @param answerContent The actual answer contents to the questionnaire.
      * @param answer The ID of the Answer that the VersionedAnswer is a part of.
      */
-    public VersionedAnswer(int version, User modifer, List answerContent, Answer answer) {
+    public VersionedAnswer(int version, User modifier, HashMap<String,String> answerContent, Answer answer) {
         currID++;
         this.id = currID;
         this.version = version;
         this.answers = answerContent;
-        this.modifer = modifer;
+        this.modifer = modifier;
         this.answer = answer;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -94,7 +96,7 @@ public class VersionedAnswer implements Viewable{
      * Returns the answer contents of the VersionedAnswer.
      * @return the answer contents of the VersionedAnswer.
      */
-    public List getAnswer() {
+    public HashMap<String, String> getAnswer() {
         return answers;
     }
 
@@ -125,15 +127,5 @@ public class VersionedAnswer implements Viewable{
         return timeOfModification;
     }
 
-
-    /**
-     * Returns a view object that represents the answer contents of the VersionedAnswer.
-     * TODO: Need to define a view object used to store the information about a questionnaire and its answers.
-     * @return a view object that represents the answer contents of the VersionedAnswer.
-     */
-    @Override
-    public List view() {
-        return answers;
-    }
 
 }

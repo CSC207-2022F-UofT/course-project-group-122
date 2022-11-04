@@ -2,7 +2,9 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Answer {
@@ -70,7 +72,7 @@ public class Answer {
         this.id = currID;
         this.participant = participant;
         this.questionnaire = questionnaire;
-        this.numQuestions = questionnaire.getNumQuestions();
+        this.numQuestions = questionnaire.getNumOfQuestions();
         this.currentVersion = firstVersionAnswer;
         this.allVersions.add(firstVersionAnswer);
     }
