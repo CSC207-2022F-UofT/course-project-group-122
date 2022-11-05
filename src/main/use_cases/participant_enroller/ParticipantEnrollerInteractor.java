@@ -1,15 +1,28 @@
 package use_cases.participant_enroller;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+
+/**
+ * Use case layer.
+ * <p>
+ * This is the ParticipantEnroller use case interactor. The interactor enrolls a participant in a study based on the
+ * eligibility of the participant to the particular study and the type of study to assign the participant to a certain
+ * group. The group is either automatically assigned in a Randomized Study or manually assigned by the researcher in a
+ * General study.
+ * <p>
+ * The interactor does not manipulate the eligibility of the participant to the study. Uses the eligibility of the
+ * participant to the study to determine if a participant is able to be enrolled in a study.
+ */
 public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBoundary {
 
     private ParticipantEnrollerOutputBoundary participantEnrollerPresenter;
 
-    public ParticipantEnrollerInteractor(ParticipantEnrollerOutputBoundary presenter) {
-        this.presenter = presenter;
-    }
-
-    public void enrollParticipant() {
-        presenter.presentEnrollment();
+    public ParticipantEnrollerInteractor(ParticipantEnrollerOutputBoundary participantEnrollerPresenter) {
+        this.participantEnrollerPresenter = participantEnrollerPresenter;
     }
 
 
@@ -27,10 +40,20 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * @param participant The participant to enroll.
      * @param study       The study to enroll the participant in.
      * @return a success or failure message to be presented to the researcher. It also contains the participant's group.
+     * TODO: Implement this method.
      */
     @Override
     public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study) {
-        return null;
+        if (enrollable(participant, study)) {
+            if (study.getType().equals("Randomized")) {
+                participant.setGroup(study.getRandomGroup());
+            } else {
+                participant.setGroup(study.getDefaultGroup());
+            }
+            participantEnrollerPresenter.presentSuccess(participant, study);
+        } else {
+            participantEnrollerPresenter.presentFailure(participant, study);
+        }
     }
 
 
@@ -49,13 +72,63 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * @param study       The study to enroll the participant in.
      * @param group       The group number to enroll the participant in.
      * @return a success or failure message to be presented to the researcher. It also contains the participant's group.
+     * TODO: Implement this method.
      */
     @Override
     public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study, int group) {
-        return null;
+        if enrollable(participant, study) {
+            if (study.getType() == "Randomized") {
+                return
+            }
+            if (study.getGroups().contains(group)) {
+                participant.setGroup(group);
+                study.addParticipant(participant);
+                return
+            } else {
+                return
+            }
+        } else {
+            return
+        }
     }
 
 
-    private boolean isParticipantEligible(Participant participant, Study study) {
+    /**
+     * Checks the eligibility of a participant for this study.
+     * This is a private helper method.
+     *
+     * @param participant   The participant to check the eligibility of.
+     * @param study         The study to check the eligibility of the participant for.
+     * @return true if the participant is eligible for the study, false otherwise.
+     */
+    private boolean isParticipantEligible(@NotNull Participant participant, Study study) {
+        return participant.getStudy() == study && participant.isEligible();
+    }
+
+
+    /**
+     * Checks if the participant is able to be enrolled in the study.
+     * This is a private helper method.
+     * <p>
+     * A participant can only be enrolled if and only if:
+     * - the study is open for enrollment, i.e. the study is active
+     * - the participant is not already enrolled in the study
+     * - the participant is eligible for the study
+     *
+     * @param participant   The participant to check if they are enrolled in the study.
+     * @param study         The study to check if the participant is able to be enrolled in.
+     * @return true if the participant can be enrolled in the study, false otherwise.
+     */
+    private boolean enrollable(Participant participant, @NotNull Study study) {
+        return study.isActive() &&
+                !study.getParticipants().contains(participant) &&
+                !participant.isEnrolled() &&
+                isParticipantEligible(participant, study);
+    }
+
+
+    private int randomGroupGenerator(@NotNull Study study) {
+        return ThreadLocalRandom.current().nextInt(1, study.getNumGroups() + 1);
+    }
 
 }
