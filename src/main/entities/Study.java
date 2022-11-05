@@ -7,105 +7,105 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
+/**
+ * The study entity.
+ * A study is the overarching entity of the software, in which the creation of the users and all data collection
+ * instruments support the study.
+ * <p>
+ * Representation Invariants:
+ *       potentialParticipants, participants, researchers, and questionnaires do not contain duplicates.
+ */
 public class Study {
-    /**
-     * The study entity.
-     * A study is the overarching entity of the software, in which the creation of the users and all data collection
-     * instruments support the study.
-     */
+
 
     // Basic study attributes and parameters.
-    /*
+    /**
     The ID of the study
      */
     private final int id;
 
-    /*
+    /**
     Current study ID
      */
     private static int currID = 0;
 
-    /*
+    /**
     The type of the study. The type must be either "Randomized" or "General"
      */
     private String studyType;
 
-    /*
+    /**
     The title of the study
      */
     private String studyName;
 
-    /*
+    /**
     The target study size of the study.
      */
     private int targetStudySize;
 
-    /*
+    /**
     The status of the study. If the study is active, then the isActive == true, otherwise it is false.
      */
     private boolean isActive = true;
 
-    /*
+    /**
     The number of groups in the study. The default number of groups is 1.
      */
     private int numGroups = 1;
 
-    /*
+    /**
     A list storing the name for each of the groups defined.
      */
     private String[] groupNames = {"Group 1"};
 
 
     // User management of the study
-    /*
+    /**
     The potential participants of the study. Their eligibility of the study has not been checked.
      */
     private Set<Participant> potentialParticipants = new HashSet<Participant>();
 
-    /*
+    /**
     The eligible participants of the study. These participants are considered as part of the study.
      */
     private Set<Participant> participants = new HashSet<Participant>();
 
-    /*
+    /**
     The researchers involved in the study.
      */
     private Set<Researcher> researchers = new HashSet<Researcher>();
 
 
     // Data collection instruments
-    /*
+    /**
     The eligibility questionnaire of the study, stored as a separate attribute to the other regular questionnaires which
     are stored separately in another attribute.
      */
     private Questionnaire eligibilityQuestionnaire;
 
-    /*
+    /**
     The list of all questionnaires created by the researchers for this study.
      */
-    private List<Questionnaire> questionnaires;
-
-    /*
-      Representation Invariants:
-      potentialParticipants, participants, researchers, and questionnaires do not contain duplicates.
-     */
+    private List<Questionnaire> questionnaires = new ArrayList<Questionnaire>();
 
 
     /**
      * Construct a study object with the following parameters specified:
      * The first constructor where the researchers define custom groupings of the study participants.
      * <p>
-     * Precondition: the type of the study must be either "Randomized" or "General"
+     * Precondition: the type of the study must be either "Randomized" or "General". The number of groups must be
+     * the same as the number of group names specified. This condition is checked in the use case class.
      *
      * @param studyType       The type of the study, which must be either "Randomized" or "General"
      * @param studyName       The name of the study that the researcher specifies
      * @param targetStudySize The target study size. What is the number of participants the researchers of this study
      *                        want to achieve?
-     * @param numGroups       The number of groups that the researchers specify. The researchers specify the custom grouping
-     *                        they want.
-     * @param groupNames      The name for each of the group that researcher specifies. The length of the list must be the
-     *                        same as the number of groups, and each name corresponds to the right index to be referred to.
+     * @param numGroups       The number of groups that the researchers specify. The researchers specify the custom
+     *                        grouping they want.
+     * @param groupNames      The name for each of the group that researcher specifies. The length of the list must be
+     *                        the same as the number of groups, and each name corresponds to the right index to be
+     *                        referred to.
      */
     public Study(String studyType, String studyName, int targetStudySize, int numGroups, String[] groupNames) {
         // update the current ID
@@ -123,7 +123,7 @@ public class Study {
      * Construct a study object with the following parameters specified:
      * A second constructor, where the grouping is left by default - there is only one group.
      * <p>
-     * Precondition: the type of the study must be either "Randomized" or "General"
+     * Precondition: the type of the study must be either "Randomized" or "General".
      *
      * @param studyType       The type of the study, which must be either "Randomized" or "General"
      * @param studyName       The name of the study that the researcher specifies
@@ -144,7 +144,6 @@ public class Study {
      * Construct a study object with the following parameters specified:
      * A third constructor, where the grouping is left by default - there is only one group, and the study type is
      * "General" by default.
-     * <p>
      *
      * @param studyName       The name of the study that the researcher specifies
      * @param targetStudySize The target study size. What is the number of participants the researchers of this study
@@ -247,10 +246,11 @@ public class Study {
         return numGroups;
     }
 
+
     /**
      * Return the names of the groups in order.
      *
-     * @return the name of each group
+     * @return the names of each groups
      */
     public String[] getGroupNames() {
         return groupNames;
@@ -478,7 +478,7 @@ public class Study {
 
 
     /**
-     * Retrieve the list of questionnaires of the study.
+     * Retrieve the list of questionnaires of the study. Return a copy.
      *
      * @return the list of questionnaires of the study.
      */
