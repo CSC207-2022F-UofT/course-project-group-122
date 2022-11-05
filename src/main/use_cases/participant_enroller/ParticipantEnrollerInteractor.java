@@ -2,7 +2,6 @@ package use_cases.participant_enroller;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -19,7 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBoundary {
 
-    private ParticipantEnrollerOutputBoundary participantEnrollerPresenter;
+    private final ParticipantEnrollerOutputBoundary participantEnrollerPresenter;
 
     public ParticipantEnrollerInteractor(ParticipantEnrollerOutputBoundary participantEnrollerPresenter) {
         this.participantEnrollerPresenter = participantEnrollerPresenter;
@@ -40,19 +39,22 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * @param participant The participant to enroll.
      * @param study       The study to enroll the participant in.
      * @return a success or failure message to be presented to the researcher. It also contains the participant's group.
-     * TODO: Implement this method.
      */
     @Override
     public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study) {
         if (enrollable(participant, study)) {
             if (study.getType().equals("Randomized")) {
-                participant.setGroup(study.getRandomGroup());
+                int group = randomGroup(study);
+                participant.setGroup(group);
             } else {
-                participant.setGroup(study.getDefaultGroup());
+                participant.setGroup(1);
             }
-            participantEnrollerPresenter.presentSuccess(participant, study);
+            study.removePotentialParticipant(participant);
+            study.addParticipant(participant);
+            participant.enroll();
+            return participantEnrollerPresenter.presentSuccess();
         } else {
-            participantEnrollerPresenter.presentFailure(participant, study);
+            return participantEnrollerPresenter.presentFailure();
         }
     }
 
@@ -75,20 +77,25 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * TODO: Implement this method.
      */
     @Override
-    public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study, int group) {
-        if enrollable(participant, study) {
-            if (study.getType() == "Randomized") {
-                return
-            }
-            if (study.getGroups().contains(group)) {
-                participant.setGroup(group);
-                study.addParticipant(participant);
-                return
-            } else {
-                return
-            }
+    public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant,
+                                                               @NotNull Study study,
+                                                               int group) {
+        if (study.getType().equals("Randomized")) {
+            return participantEnrollerPresenter.presentFailure();
         } else {
-            return
+            if (enrollable(participant, study)) {
+                if (1 <= group && group <= study.getNumGroups()) {
+                    participant.setGroup(group);
+                    study.removePotentialParticipant(participant);
+                    study.addParticipant(participant);
+                    participant.enroll();
+                    return participantEnrollerPresenter.presentSuccess();
+                } else {
+                    return participantEnrollerPresenter.presentFailure();
+                }
+            } else {
+                return participantEnrollerPresenter.presentFailure();
+            }
         }
     }
 
@@ -113,6 +120,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * A participant can only be enrolled if and only if:
      * - the study is open for enrollment, i.e. the study is active
      * - the participant is not already enrolled in the study
+     * - the participant is included in the collection of potential participants of the study
      * - the participant is eligible for the study
      *
      * @param participant   The participant to check if they are enrolled in the study.
@@ -123,10 +131,21 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
         return study.isActive() &&
                 !study.getParticipants().contains(participant) &&
                 !participant.isEnrolled() &&
+                study.getPotentialParticipants().contains(participant) &&
                 isParticipantEligible(participant, study);
     }
 
 
+    /**
+     * A random group number generator. It generates a random group number within the range of the number of groups,
+     * i.e., the group number is between 1 and the number of groups.
+     * Use a pseudo-random number generator to generate a random number.
+     * Assume that the number generated follows simple uniform distribution.
+     * This is a private helper method.
+     *
+     * @param study The study to assign the participant to a group at random.
+     * @return the group number that the participant is assigned to.
+     */
     private int randomGroupGenerator(@NotNull Study study) {
         return ThreadLocalRandom.current().nextInt(1, study.getNumGroups() + 1);
     }
