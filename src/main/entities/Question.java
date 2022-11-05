@@ -35,14 +35,13 @@ public abstract class Question {
      * The constructor for the Question class. It is called when the constructors of the subclasses of Question is
      * called.
      * This constructor is called within a Questionnaire to create a question for that questionnaire. It means that the
-     * Questionnaire is already created, and the Questionnaire ID is already known.
+     * Questionnaire is already created, and the Questionnaire is already known.
      *
      * @param questionnaire   The questionnaire this question is part of.
      * @param variableName    Keyword that describes the content of this Question
      * @param content         What is being asked the participants.
      */
     public Question(Questionnaire questionnaire, String variableName, String content) {
-
         currID++;
         this.id = currID;
         this.variableName = variableName;

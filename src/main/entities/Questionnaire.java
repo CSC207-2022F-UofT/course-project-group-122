@@ -9,14 +9,22 @@ import java.util.List;
 /**
  * A Questionnaire class. A Questionnaire is part of a Study object and contains the Question objects that a Researcher
  * User specifies for this particular Questionnaire.
+ * <p>
  * A Questionnaire is a collection of Questions.
+ * <p>
  * Each Questionnaire has a unique ID.
+ * <p>
  * Each Questionnaire has a unique title.
+ * <p>
  * Each Questionnaire has a description.
+ * <p>
  * Each Questionnaire has a list of Questions.
+ * <p>
  * Each Questionnaire has a defined number of Questions. This number is defaulted to 0 when the Questionnaire is
  * created, and is incremented when a Question is added to the Questionnaire.
+ * <p>
  * Each Questionnaire has a status. The status indicates whether the Questionnaire is open or closed.
+ * <p>
  * Each Questionnaire has a status of whether it is published. If it is published, it is available to be taken by
  * Participants, and is allowed to be assigned to the participants. It is also marked final and cannot be edited.
  */
@@ -83,6 +91,7 @@ public class Questionnaire {
      * This value is incremented when a new Question is added to the Questionnaire.
      */
     private int numOfQuestion = 0;
+
     /**
      * The list of Questions in this Questionnaire. The questions are stored in the order that they are added. The order
      * of the questions is important, as it determines how the questions are displayed to the Participant User.
@@ -406,11 +415,15 @@ public class Questionnaire {
 
     /**
      * Publish this Questionnaire. Only allowed when the Questionnaire is not closed.
+     *
+     * @return true if the Questionnaire was successfully published.
      */
-    public void publish() {
+    public boolean publish() {
         if (!this.closedStatus) {
             this.publishedStatus = true;
+            return true;
         }
+        return false;
     }
 
 
