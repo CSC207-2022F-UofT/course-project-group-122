@@ -1,9 +1,14 @@
 package entities;
 
+
+/**
+ * A UserFactory that creates and returns User object.
+ */
 public class UserFactory implements UserFactoryInterface{
 
     /**
-     *
+     * The create method that gets called with a specified type  when creating a User object.
+     * Precondition : type is a valid User type.
      *Precondition: the type of user must be either "Participant" or "Researcher"
 
      * @param type of the user
