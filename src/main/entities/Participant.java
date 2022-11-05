@@ -20,6 +20,11 @@ public class Participant extends User {
     private Study study = null;
 
     /**
+     * The group this Participant belongs to.
+     */
+    private int group;
+
+    /**
      * Whether the participant is eligible to participate in the study.
      */
     private boolean eligible = false;
@@ -62,6 +67,22 @@ public class Participant extends User {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * @return the group this Participant belongs to.
+     */
+    public int getGroup() {
+        return group;
+    }
+
+
+    /**
+     * @param group the group this Participant belongs to.
+     */
+    public void setGroup(int group) {
+        this.group = group;
     }
 
 
