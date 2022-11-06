@@ -46,7 +46,7 @@ public class Study {
      * "Stratified", the stratification method must not be "N/A". The stratification method can be changed to a
      * non-empty string if the user wishes to do so, but this is done after the study is initialized.
      */
-    private String stratetificationMethod = "N/A";
+    private String stratificationMethod = "N/A";
 
     /**
      * The title of the study
