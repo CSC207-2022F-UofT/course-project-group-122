@@ -573,7 +573,7 @@ public class Study {
      * @param consentForm the consent form.
      * @return whether the consent form is set successfully.
      */
-    public boolean setConsentForm(@NotNull ConscentForm consentForm) {
+    public boolean setConsentForm(@NotNull ConsentForm consentForm) {
         if (consentForm.getStudy().equals(this)) {
             this.studyQuestionnaireManager.setConsentForm(consentForm);
             return true;
