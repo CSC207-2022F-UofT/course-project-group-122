@@ -1,5 +1,7 @@
 package entities;
 
+import org.jetbrains.annotations.NotNull;
+
 public class UserFactory implements UserFactoryInterface{
 
     /**
@@ -11,7 +13,7 @@ public class UserFactory implements UserFactoryInterface{
      * @param name of the user
      * @return the new User object
      */
-    public User create(String type, String username, String name){
+    public User create(@NotNull String type, String username, String name){
         switch (type){
             case "Researcher" : return new Researcher(username, name);
             case "Participant" : return new Participant(username, name);

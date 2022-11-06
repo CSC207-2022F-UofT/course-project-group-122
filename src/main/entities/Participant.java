@@ -1,5 +1,14 @@
 package entities;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * A participant class. A participant is a user who is participating in a study. Each participant object is associated
+ * with only one study.
+ */
 public class Participant extends User {
 
     /**
@@ -18,6 +27,11 @@ public class Participant extends User {
      * - withdrawn from the study
      */
     private Study study = null;
+
+    /**
+     * The data manager for this participant.
+     */
+    private final ParticipantDataManager dataManager;
 
     /**
      * The group this Participant belongs to.
@@ -39,12 +53,14 @@ public class Participant extends User {
      */
     private boolean droppedOff = false;
 
+
     /**
-     * @param username the username of this Participant.
-     * @param name     the name of this Participant.
+     * @param username    the username of this Participant.
+     * @param name        the name of this Participant.
      */
     public Participant(String username, String name) {
         super(username, name);
+        this.dataManager = new ParticipantDataManager(this);
     }
 
     /**
@@ -152,5 +168,132 @@ public class Participant extends User {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * @return the assigned eligibility questionnaire for this participant.
+     */
+    public Questionnaire getEligibilityQuestionnaire() {
+        return this.dataManager.getEligibilityQuestionnaire();
+    }
+
+
+    /**
+     * @param eligibilityQuestionnaire the assigned eligibility questionnaire for this participant.
+     */
+    public void setEligibilityQuestionnaire(Questionnaire eligibilityQuestionnaire) {
+        this.dataManager.setEligibilityQuestionnaire(eligibilityQuestionnaire);
+    }
+
+
+    /**
+     * @return the assigned questionnaires for this participant.
+     */
+    public List<Questionnaire> getAssignedQuestionnaires() {
+        return this.dataManager.getAssignedQuestionnaires();
+    }
+
+
+    /**
+     * @return the completed questionnaires for this participant.
+     */
+    public List<Questionnaire> getCompletedQuestionnaires() {
+        return this.dataManager.getCompletedQuestionnaires();
+    }
+
+
+    /**
+     * Assign a questionnaire to a participant.
+     * <p>
+     * Conditions:
+     * - the participant and the questionnaire are associated with the same study
+     * - the questionnaire has not been assigned to the participant
+     * - the questionnaire has not been completed by the participant
+     * - the questionnaire is not the eligibility questionnaire of the participant
+     *
+     * @param questionnaire the questionnaire to be assigned to the participant.
+     * @return true if the questionnaire has been assigned to the participant, false otherwise.
+     */
+    public boolean assignQuestionnaire(Questionnaire questionnaire) {
+        return this.dataManager.assignQuestionnaire(questionnaire);
+    }
+
+
+    /**
+     * Complete a questionnaire assigned to a participant.
+     * This method only deals with the storage of the questionnaire associated with the participant. It does not
+     * deal with the storage of the answers to the questionnaire.
+     * <p>
+     * Conditions:
+     * - the questionnaire has been assigned to the participant
+     * - the questionnaire has not been completed by the participant
+     *
+     * @param questionnaire the questionnaire to be completed by the participant.
+     */
+    public boolean completeQuestionnaire(Questionnaire questionnaire) {
+        return this.dataManager.completeQuestionnaire(questionnaire);
+    }
+
+
+    /**
+     * @return the answer to the eligibility questionnaire of this participant in this study.
+     */
+    public Answer getEligibilityQuestionnaireAnswer() {
+        return this.dataManager.getEligibilityQuestionnaireAnswer();
+    }
+
+
+    /**
+     * @return the answer content of the most recent version of the eligibility questionnaire.
+     */
+    public Map<String, String> getCurrEligibilityAnswerContent() {
+        return this.dataManager.getCurrEligibilityAnswerContent();
+    }
+
+
+    /**
+     * @return if the eligibility questionnaire has been answered by this participant.
+     */
+    public boolean hasCompletedEligibilityQuestionnaire() {
+        return this.dataManager.hasCompletedEligibilityQuestionnaire();
+    }
+
+    /**
+     * @param eligibilityQuestionnaireAnswer the answer to the eligibility questionnaire of this participant in this
+     *                                       study.
+     */
+    public void setEligibilityQuestionnaireAnswer(Answer eligibilityQuestionnaireAnswer) {
+        this.dataManager.setEligibilityQuestionnaireAnswer(eligibilityQuestionnaireAnswer);
+    }
+
+
+    /**
+     * @return the answers to all the questionnaires of this participant in this study.
+     */
+    public List<Answer> getQuestionnaireAnswers() {
+        return this.dataManager.getQuestionnaireAnswers();
+    }
+
+
+    /**
+     * Retrieve the answer given a questionnaire.
+     *
+     * @param questionnaire the questionnaire to retrieve the answer for.
+     * @return the answer to the questionnaire.
+     */
+    public Answer getQuestionnaireAnswer(Questionnaire questionnaire) {
+        return this.dataManager.getQuestionnaireAnswer(questionnaire);
+    }
+
+
+    /**
+     * Retrieve the most recent version of the answer given a questionnaire.
+     *
+     * @param questionnaire the questionnaire to retrieve the answer for.
+     * @return the most recent version of the questionnaire.
+     */
+    public VersionedAnswer getCurrVersionQuestionnaireAnswer(Questionnaire questionnaire) {
+        return this.dataManager.getCurrVersionQuestionnaireAnswer(questionnaire);
     }
 }
