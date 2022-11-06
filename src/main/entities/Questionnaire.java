@@ -27,6 +27,9 @@ import java.util.List;
  * <p>
  * Each Questionnaire has a status of whether it is published. If it is published, it is available to be taken by
  * Participants, and is allowed to be assigned to the participants. It is also marked final and cannot be edited.
+ * <p>
+ *     Representation Invariant:
+ *     <ul> <li> The variable names of all questions in a questionnaire must be unique </li>
  */
 public class Questionnaire {
 
@@ -450,4 +453,49 @@ public class Questionnaire {
         return version;
     }
 
+
+    /**
+     * Retrieve a Question from the list of Questions in this Questionnaire by its id.
+     *
+     * @param id    The id of the Question to be retrieved.
+     * @return the Question with the provided id.
+     */
+    public Question getQuestionById(int id) {
+        for (Question question : this.listOfQuestion) {
+            if (question.getId() == id) {
+                return question;
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Retrieve a Question from the list of Questions in this Questionnaire by its variable name.
+     *
+     * @param variableName  The variable name of the Question to be retrieved.
+     * @return the Question with the provided variable name.
+     */
+    public Question getQuestionByVariableName(String variableName) {
+        for (Question question : this.listOfQuestion) {
+            if (question.getVariableName().equals(variableName)) {
+                return question;
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Retrieve the variable names of all the Questions in this Questionnaire.
+     *
+     * @return the variable names of all the Questions in this Questionnaire.
+     */
+    public List<String> getVariableNames() {
+        List<String> variableNames = new ArrayList<>();
+        for (Question question : this.listOfQuestion) {
+            variableNames.add(question.getVariableName());
+        }
+        return variableNames;
+    }
 }
