@@ -105,6 +105,16 @@ public class ConsentForm {
 
 
     /**
+     * Set the description of the study.
+     *
+     * @param studyDescription  the description of the study.
+     */
+    public void setStudyDescription(String studyDescription) {
+        this.studyDescription = studyDescription;
+    }
+
+
+    /**
      * Retrieve the risks of the study.
      *
      * @return the risks of the study.
@@ -115,11 +125,31 @@ public class ConsentForm {
 
 
     /**
+     * Set the risks of the study.
+     *
+     * @param risksAndBenefits  the risks of the study.
+     */
+    public void setRisksAndBenefits(String risksAndBenefits) {
+        this.risksAndBenefits = risksAndBenefits;
+    }
+
+
+    /**
      * Retrieve the rights of the participant.
      *
      * @return the rights of the participant.
      */
     public String getParticipantRights() {
         return participantRights;
+    }
+
+
+    /**
+     * Set the rights of the participant.
+     *
+     * @param participantRights the rights of the participant.
+     */
+    public void setParticipantRights(String participantRights) {
+        this.participantRights = participantRights;
     }
 }

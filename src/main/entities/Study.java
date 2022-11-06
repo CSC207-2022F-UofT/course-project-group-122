@@ -34,6 +34,8 @@ public class Study {
      * randomization method must not be "N/A". For randomized studies, the randomization method is by default set to
      * "Block". The randomization method can be changed to "Simple" if the user wishes to do so, but this is done after
      * the study is initialized.
+     * <p>
+     *
      */
     private String randomizationMethod = "N/A";
 
