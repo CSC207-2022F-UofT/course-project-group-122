@@ -24,7 +24,7 @@ public class StudyQuestionnaireManager {
     /**
      * The conscent form of the study.
      */
-    private ConscentForm consentForm;
+    private ConsentForm consentForm;
 
 
     /**
