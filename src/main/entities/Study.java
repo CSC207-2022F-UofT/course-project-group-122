@@ -37,17 +37,35 @@ public class Study {
 
     /**
      * The randomization method of the study. The randomization method is "N/A" if and only if the study type is
-     * "General". The randomization method must be either "Simple" or "Block" when the study type is "Randomized". This
-     * attribute is initally set to "N/A". If the study type is changed to "Randomized", the randomization method must
-     * not be "N/A". For randomized studies, the randomization method is by default set to "Block". The randomization
-     * method can be changed to "Simple" if the user wishes to do so, but this is done after the study is initialized.
+     * "General". The randomization method must be "Simple", "Block", or "Stratified" when the study type is
+     * "Randomized". This attribute is initally set to "N/A". If the study type is changed to "Randomized", the
+     * randomization method must not be "N/A". For randomized studies, the randomization method is by default set to
+     * "Block". The randomization method can be changed to "Simple" if the user wishes to do so, but this is done after
+     * the study is initialized.
      */
     private String randomizationMethod = "N/A";
+
+
+    /**
+     * The stratification method of the study. The stratification method is "N/A" if and only if (the study type is
+     * "General") or (the study type is "Randomized" AND the randomizationMethod is not "Stratified"). The
+     * stratification method must be a non-empty string indicating a variable name in the eligibility questionnaire and
+     * that the question this variable refers to is a multiple choice or a scale question. This attribute is initially
+     * set to "N/A". If the study type is changed to "Randomized" and the randomization method is changed to
+     * "Stratified", the stratification method must not be "N/A". The stratification method can be changed to a
+     * non-empty string if the user wishes to do so, but this is done after the study is initialized.
+     */
+    private String stratetificationMethod = "N/A";
 
     /**
      * The title of the study
      */
     private String studyName;
+
+    /**
+     * The description of the study
+     */
+    private String studyDescription;
 
     /**
      * The target study size of the study.
@@ -98,6 +116,7 @@ public class Study {
      * The list of all questionnaires created by the researchers for this study.
      */
     private List<Questionnaire> questionnaires = new ArrayList<Questionnaire>();
+
 
 
     /**
@@ -212,6 +231,15 @@ public class Study {
      */
     public void modifyTargetStudySize(int targetStudySize) {
         this.targetStudySize = targetStudySize;
+    }
+
+
+    /**
+     * The current number of participants in the study.
+     * @return the current number of participants in the study.
+     */
+    public int currentStudySize() {
+        return participants.size();
     }
 
 
@@ -372,7 +400,7 @@ public class Study {
      * Only allowed when there is no eligible participants in the study. Also only allowed when the study type is
      * "Randomized".
      * <p>
-     * Precondition: the randomization method of the study must be either "Block" or "Simple".
+     * Precondition: the randomization method of the study must be "Block", "Simple", or "Stratified".
      *
      * @param randomizationMethod the randomization method of the study
      * @return whether the change is successful
@@ -383,6 +411,56 @@ public class Study {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * Retrieve the stratification method of the study.
+     *
+     * @return the stratification method of the study.
+     */
+    public String getStratetificationMethod() {
+        return stratetificationMethod;
+    }
+
+
+    /**
+     * Reset the stratification method of the study.
+     * Only allowed when there is no eligible participants in the study. Also only allowed when the study type is
+     * "Randomized" and the randomization method is "Stratified".
+     * <p>
+     * The stratification method of the study must be a valid variable name in the eligibility questionnaire.
+     *
+     * @param stratetificationMethod the stratification method of the study
+     * @return whether the change is successful
+     */
+    public boolean setStratetificationMethod(String stratetificationMethod) {
+        if (this.participants.isEmpty() && this.studyType.equals("Randomized") &&
+                this.randomizationMethod.equals("Stratified")) {
+            this.stratetificationMethod = stratetificationMethod;
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Retrieve the description of the study.
+     *
+     * @return the description of the study.
+     */
+    public String getStudyDescription() {
+        return studyDescription;
+    }
+
+
+    /**
+     * Modify the description of the study.
+     *
+     * @param studyDescription the new description of the study.
+     */
+    public void setStudyDescription(String studyDescription) {
+        this.studyDescription = studyDescription;
     }
 
 
