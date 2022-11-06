@@ -380,7 +380,7 @@ public class Study {
      * <p>
      * The stratification method of the study must be a valid variable name in the eligibility questionnaire.
      *
-     * @param stratetificationMethod the stratification method of the study
+     * @param stratificationMethod the stratification method of the study
      * @return whether the change is successful
      */
     public boolean setStratetificationMethod(String stratetificationMethod) {
