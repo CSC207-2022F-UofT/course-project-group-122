@@ -5,7 +5,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SimpleRandomGroupGenerator implements RandomGroupGenerator {
+
+
+
+    /**
+     * A random group number generator. It generates a random group number within the range of the number of groups,
+     * i.e., the group number is between 1 and the number of groups.
+     * <p>
+     * - SimpleRandomGroupGenerator: generates a random group number using a pseudo-random number generator.
+     */
     public SimpleRandomGroupGenerator() {
+
     }
 
     /**

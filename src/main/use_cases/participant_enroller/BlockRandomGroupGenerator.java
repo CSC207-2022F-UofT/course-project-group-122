@@ -9,7 +9,11 @@ import java.util.Random;
 
 public class BlockRandomGroupGenerator implements RandomGroupGenerator {
 
-    private static final int BLOCKSIZEFACTOR = 2;
+    /**
+     * The factor used to determine the size of the block. The block size is the number of participants in each block.
+     * Block size = number of groups * block factor.
+     */
+    protected static final int BLOCKSIZEFACTOR = 2;
 
     /**
      * The block size of the block randomization technique.
