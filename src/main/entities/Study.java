@@ -20,72 +20,82 @@ public class Study {
 
     // Basic study attributes and parameters.
     /**
-    The ID of the study
+     * The ID of the study
      */
     private final int id;
 
     /**
-    Current study ID
+     * Current study ID
      */
     private static int currID = 0;
 
     /**
-    The type of the study. The type must be either "Randomized" or "General"
+     * The type of the study. The type must be either "Randomized" or "General"
      */
     private String studyType;
 
+
     /**
-    The title of the study
+     * The randomization method of the study. The randomization method is "N/A" if and only if the study type is
+     * "General". The randomization method must be either "Simple" or "Block" when the study type is "Randomized". This
+     * attribute is initally set to "N/A". If the study type is changed to "Randomized", the randomization method must
+     * not be "N/A". For randomized studies, the randomization method is by default set to "Block". The randomization
+     * method can be changed to "Simple" if the user wishes to do so, but this is done after the study is initialized.
+     */
+    private String randomizationMethod = "N/A";
+
+    /**
+     * The title of the study
      */
     private String studyName;
 
     /**
-    The target study size of the study.
+     * The target study size of the study.
      */
     private int targetStudySize;
 
     /**
-    The status of the study. If the study is active, then the isActive == true, otherwise it is false.
+     * The status of the study. If the study is active, then the isActive == true, otherwise it is false.
      */
     private boolean isActive = true;
 
     /**
-    The number of groups in the study. The default number of groups is 1.
+     * The number of groups in the study. The default number of groups is 1.
      */
     private int numGroups = 1;
 
     /**
-    A list storing the name for each of the groups defined.
+     * A list storing the name for each of the groups defined.
      */
     private String[] groupNames = {"Group 1"};
 
 
     // User management of the study
     /**
-    The potential participants of the study. Their eligibility of the study has not been checked.
+     * The potential participants of the study. Their eligibility of the study has not been checked.
      */
     private Set<Participant> potentialParticipants = new HashSet<Participant>();
 
     /**
-    The eligible participants of the study. These participants are considered as part of the study.
+     * The eligible participants of the study. These participants are considered as part of the study.
      */
     private Set<Participant> participants = new HashSet<Participant>();
 
     /**
-    The researchers involved in the study.
+     * The researchers involved in the study.
      */
     private Set<Researcher> researchers = new HashSet<Researcher>();
 
 
     // Data collection instruments
     /**
-    The eligibility questionnaire of the study, stored as a separate attribute to the other regular questionnaires which
-    are stored separately in another attribute.
+     * The eligibility questionnaire of the study, stored as a separate attribute to the other regular questionnaires which
+     * are stored separately in another attribute.
      */
     private Questionnaire eligibilityQuestionnaire;
 
     /**
-    The list of all questionnaires created by the researchers for this study.
+     * The list of all questionnaires created by the researchers for this study.
      */
     private List<Questionnaire> questionnaires = new ArrayList<Questionnaire>();
 
@@ -107,11 +117,14 @@ public class Study {
      *                        the same as the number of groups, and each name corresponds to the right index to be
      *                        referred to.
      */
-    public Study(String studyType, String studyName, int targetStudySize, int numGroups, String[] groupNames) {
+    public Study(@NotNull String studyType, String studyName, int targetStudySize, int numGroups, String[] groupNames) {
         // update the current ID
         currID++;
         this.id = currID;
         this.studyType = studyType;
+        if (studyType.equals("Randomized")) {
+            this.randomizationMethod = "Block";
+        }
         this.studyName = studyName;
         this.targetStudySize = targetStudySize;
         this.numGroups = numGroups;
@@ -130,11 +143,14 @@ public class Study {
      * @param targetStudySize The target study size. What is the number of participants the researchers of this study
      *                        want to achieve?
      */
-    public Study(String studyType, String studyName, int targetStudySize) {
+    public Study(@NotNull String studyType, String studyName, int targetStudySize) {
         // update the current ID
         currID++;
         this.id = currID;
         this.studyType = studyType;
+        if (studyType.equals("Randomized")) {
+            this.randomizationMethod = "Block";
+        }
         this.studyName = studyName;
         this.targetStudySize = targetStudySize;
     }
@@ -330,6 +346,40 @@ public class Study {
     public boolean setStudyType(String studyType) {
         if (this.participants.isEmpty()) {
             this.studyType = studyType;
+            if (studyType.equals("Randomized")) {
+                this.randomizationMethod = "Block";
+            } else {
+                this.randomizationMethod = "N/A";
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Retrieve the randomization method of the study.
+     *
+     * @return the randomization method of the study.
+     */
+    public String getRandomizationMethod() {
+        return randomizationMethod;
+    }
+
+
+    /**
+     * Reset the randomization method of the study.
+     * Only allowed when there is no eligible participants in the study. Also only allowed when the study type is
+     * "Randomized".
+     * <p>
+     * Precondition: the randomization method of the study must be either "Block" or "Simple".
+     *
+     * @param randomizationMethod the randomization method of the study
+     * @return whether the change is successful
+     */
+    public boolean setRandomizationMethod(String randomizationMethod) {
+        if (this.participants.isEmpty() && this.studyType.equals("Randomized")) {
+            this.randomizationMethod = randomizationMethod;
             return true;
         }
         return false;
