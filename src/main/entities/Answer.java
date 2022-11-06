@@ -2,10 +2,9 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * An answer to a questionnaire for a particular participant.
@@ -45,7 +44,7 @@ public class Answer {
     /**
     The list of all the versions of the answers to the questionnaire. Stored in chronological order.
      */
-    private List<VersionedAnswer> allVersions = new ArrayList<VersionedAnswer>();
+    private List<VersionedAnswer> allVersions = new ArrayList<>();
 
     /**
     The current version of the answers. This is used to determine which version of the answers is the most recent.
@@ -76,12 +75,68 @@ public class Answer {
     /**
      * Modify the answer to the questionnaire.
      * Updates the current version of the answer to the questionnaire.
-     * It is up to the use case to determine the most current version number and create a new versioned answer with an
-     * updated version number and the new answers.
-     * @param newVersionAnswer The new version of the answer to the questionnaire.
+     *
+     * @param newAnswers                The new answers to the questionnaire.
+     * @param modifier                  The user who is modifying the answers.
+     * @param reasonForModification     The reason for the modification of the answers.
      */
-    public void modifyAnswer(VersionedAnswer newVersionAnswer) {
-        this.currentVersion = newVersionAnswer;
-        this.allVersions.add(newVersionAnswer);
+    public void modifyAnswer(Map<String, String> newAnswers, User modifier, String reasonForModification) {
+        VersionedAnswer newVersion = this.currentVersion.modify(newAnswers, modifier, reasonForModification);
+        this.currentVersion = newVersion;
+        this.allVersions.add(newVersion);
+    }
+
+
+    /**
+     * Get the ID of the answer.
+     * @return The ID of the answer.
+     */
+    public int getId() {
+        return id;
+    }
+
+
+    /**
+     * Get the participant which this answer belongs to.
+     * @return The participant which this answer belongs to.
+     */
+    public Participant getParticipant() {
+        return participant;
+    }
+
+
+    /**
+     * Get the questionnaire which this answer belongs to.
+     * @return The questionnaire which this answer belongs to.
+     */
+    public Questionnaire getQuestionnaire() {
+        return questionnaire;
+    }
+
+
+    /**
+     * Get the number of questions in the questionnaire, in which this answer belongs to.
+     * @return The number of questions in the questionnaire, in which this answer belongs to.
+     */
+    public int getNumQuestions() {
+        return numQuestions;
+    }
+
+
+    /**
+     * Get the list of all the versions of the answers to the questionnaire. Returns a copy of the list.
+     * @return The list of all the versions of the answers to the questionnaire.
+     */
+    public List<VersionedAnswer> getAllVersions() {
+        return new ArrayList<VersionedAnswer>(allVersions);
+    }
+
+
+    /**
+     * Get the current version of the answers.
+     * @return The current version of the answers.
+     */
+    public VersionedAnswer getCurrentVersion() {
+        return currentVersion;
     }
 }
