@@ -2,8 +2,6 @@ package use_cases.participant_enroller;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 
 /**
  * Use case layer.
@@ -44,7 +42,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
     public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study) {
         if (enrollable(participant, study)) {
             if (study.getType().equals("Randomized")) {
-                int group = randomGroup(study);
+                int group = RandomGroupGenerator.generateRandomGroup(study);
                 participant.setGroup(group);
             } else {
                 participant.setGroup(1);
@@ -52,9 +50,14 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             study.removePotentialParticipant(participant);
             study.addParticipant(participant);
             participant.enroll();
-            return participantEnrollerPresenter.presentSuccess();
+            return participantEnrollerPresenter.presentSuccess("Successfully enrolled participant to " +
+                    "(" + String.valueOf(study.getId) + ") " + study.getStudyName(), 
+                    participant.getId(),
+                    participant.getGroup());
         } else {
-            return participantEnrollerPresenter.presentFailure();
+            return participantEnrollerPresenter.presentFailure("Cannot enroll the participant into the study. " +
+                    "Please ensure that the study is open for enrollment, the participant is eligible for the study, " +
+                    "and the participant is not already enrolled in another study.", participant.getId());
         }
     }
 
@@ -135,19 +138,5 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
                 isParticipantEligible(participant, study);
     }
 
-
-    /**
-     * A random group number generator. It generates a random group number within the range of the number of groups,
-     * i.e., the group number is between 1 and the number of groups.
-     * Use a pseudo-random number generator to generate a random number.
-     * Assume that the number generated follows simple uniform distribution.
-     * This is a private helper method.
-     *
-     * @param study The study to assign the participant to a group at random.
-     * @return the group number that the participant is assigned to.
-     */
-    private int randomGroupGenerator(@NotNull Study study) {
-        return ThreadLocalRandom.current().nextInt(1, study.getNumGroups() + 1);
-    }
 
 }

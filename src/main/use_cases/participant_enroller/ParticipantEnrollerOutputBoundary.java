@@ -1,7 +1,7 @@
 package use_cases.participant_enroller;
 
 public interface ParticipantEnrollerOutputBoundary {
-    ParticipantEnrollerOutputBoundary presentFailure();
+    ParticipantEnrollerResponseModel presentFailure(String message, int participantId);
 
-    ParticipantEnrollerOutputBoundary presentSuccess();
+    ParticipantEnrollerResponseModel presentSuccess(String message, int participantId, int groupNumber);
 }

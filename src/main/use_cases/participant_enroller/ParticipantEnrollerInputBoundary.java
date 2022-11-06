@@ -22,7 +22,7 @@ public interface ParticipantEnrollerInputBoundary {
      *
      * @return a success or failure message to be presented to the researcher. It also contains the participant's group.
      */
-    public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study);
+    ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study);
 
 
     /**
@@ -42,6 +42,6 @@ public interface ParticipantEnrollerInputBoundary {
      *
      * @return a success or failure message to be presented to the researcher. It also contains the participant's group.
      */
-    public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study, int group);
+    ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study, int group);
 
 }
