@@ -22,7 +22,7 @@ public class StudyQuestionnaireManager {
     private List<Questionnaire> questionnaires = new ArrayList<Questionnaire>();
 
     /**
-     * The conscent form of the study.
+     * The consent form of the study.
      */
     private ConsentForm consentForm;
 
@@ -104,7 +104,7 @@ public class StudyQuestionnaireManager {
      *
      * @return the consent form.
      */
-    protected ConscentForm getConsentForm() {
+    protected ConsentForm getConsentForm() {
         return consentForm;
     }
 

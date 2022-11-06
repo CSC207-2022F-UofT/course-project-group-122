@@ -35,8 +35,20 @@ public class Study {
      * "Block". The randomization method can be changed to "Simple" if the user wishes to do so, but this is done after
      * the study is initialized.
      * <p>
-     *
+     * There are three types of randomization methods:
+     * - Simple randomization: each participant is assigned to a group using a pseudo-random number generator based on
+     * simple uniform distribution.
+     * - Block randomization: each participant is assigned to a group using a pseudo-random number generator based on
+     * randomization within a block. The participants are evenly distributed across the groups within a block. The block
+     * size is a multiple of the number of groups. This method is used to ensure a balance in sample size across groups
+     * over time.
+     * - Stratified randomization: each participant is assigned to a group using a pseudo-random number generator based
+     * on randomization within a stratum. The participants are evenly distributed across the groups within a stratum.
+     * The stratum is a subset of the participants that have the same value for a certain attribute. This attribute is
+     * defined by the user as a variable (question) in the eligibility questionnaire. This method is used to ensure a
+     * balance in sample size across groups over time.
      */
+
     private String randomizationMethod = "N/A";
 
     /**
@@ -370,8 +382,8 @@ public class Study {
      *
      * @return the stratification method of the study.
      */
-    public String getStratetificationMethod() {
-        return stratetificationMethod;
+    public String getstratificationethod() {
+        return stratificationMethod;
     }
 
 
@@ -385,10 +397,10 @@ public class Study {
      * @param stratificationMethod the stratification method of the study
      * @return whether the change is successful
      */
-    public boolean setStratetificationMethod(String stratetificationMethod) {
+    public boolean setstratificationMethod(String stratificationMethod) {
         if (this.studyUserManager.getParticipants().isEmpty() && this.studyType.equals("Randomized") &&
                 this.randomizationMethod.equals("Stratified")) {
-            this.stratetificationMethod = stratetificationMethod;
+            this.stratificationMethod = stratificationMethod;
             return true;
         }
         return false;

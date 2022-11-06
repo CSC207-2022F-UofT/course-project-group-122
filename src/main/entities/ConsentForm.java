@@ -37,7 +37,7 @@ public class ConsentForm {
      * @param risksAndBenefits  the risks of the study.
      * @param participantRights the rights of the participant.
      */
-    public ConscentForm(Study study, String studyDescription, String risksAndBenefits, String participantRights) {
+    public ConsentForm(Study study, String studyDescription, String risksAndBenefits, String participantRights) {
         this.study = study;
         this.studyDescription = studyDescription;
         this.risksAndBenefits = risksAndBenefits;
@@ -51,7 +51,7 @@ public class ConsentForm {
      *
      * @param study the study that this consent form is form.
      */
-    public ConscentForm(Study study) {
+    public ConsentForm(Study study) {
         this.study = study;
     }
 
@@ -72,7 +72,7 @@ public class ConsentForm {
      */
     @Override
     public String toString() {
-        return "ConscentForm: \n" +
+        return "ConsentForm: \n" +
                 "Study:" + study.getStudyName() + '\n' +
                 "Study Description: \n" + studyDescription + '\n' +
                 "Risks and Benefits \n" + risksAndBenefits + '\n' +
