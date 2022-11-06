@@ -113,7 +113,7 @@ public class StudyQuestionnaireManager {
      *
      * @param consentForm the consent form.
      */
-    protected void setConsentForm(ConscentForm consentForm) {
+    protected void setConsentForm(ConsentForm consentForm) {
         this.consentForm = consentForm;
     }
 }
