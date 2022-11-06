@@ -16,11 +16,6 @@ public class BlockRandomGroupGenerator implements RandomGroupGenerator {
     protected static final int BLOCKSIZEFACTOR = 2;
 
     /**
-     * The block size of the block randomization technique.
-     */
-    private final int blockSize;
-
-    /**
      * The number of groups in the study.
      */
     private final int numGroups;
@@ -58,9 +53,7 @@ public class BlockRandomGroupGenerator implements RandomGroupGenerator {
      */
     @Override
     public int generateRandomGroup(Study study, Participant participant) {
-        if (isBlockFull()) {
-            resetBlock();
-        }
+        resetBlock();
         List<Integer> availableGroups = availableGroups();
         Random rand = new Random();
         int randomGroup = availableGroups.get(rand.nextInt(availableGroups.size()));

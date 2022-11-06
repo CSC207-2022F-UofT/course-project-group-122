@@ -4,12 +4,10 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.Random;
 
 import static use_cases.participant_enroller.BlockRandomGroupGenerator.BLOCKSIZEFACTOR;
 
@@ -44,7 +42,8 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
     private final Question stratifiedQuestion;
 
     /**
-     * The strata specified by the stratified variable.
+     * The strata specified by the stratified variable. This is a list of all the possible answers to the stratified
+     * question. Use the index of the list to indicate the stratum number.
      */
     private final List<Integer> strata;
 
@@ -58,7 +57,7 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
 
     /**
      * The constructor of the StratifiedRandomGroupGenerator class.
-     *
+     * <p>
      * Precondition: The study must have a stratified variable. The stratified variable must correspond to a variable in
      * the eligibility questionnaire that is a multiple choice question or a scale question.
      *
@@ -100,10 +99,13 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
     @Override
     public int generateRandomGroup(Study study, Participant participant) {
         int stratum = getStratum(participant);
-//        int[] participantsInGroup = participantsInStratum.get(stratum);
-//        int group = getGroup(participantsInGroup);
-//        participantsInGroup[group]++;
-//        return group;
+        int[] block = participantsInStratum.get(stratum);
+        resetBlock(block);
+        List<Integer> availableGroups = availableGroups(block);
+        Random rand = new Random();
+        int randomGroup = availableGroups.get(rand.nextInt(availableGroups.size()));
+        block[randomGroup - 1]++;
+        return randomGroup;
     }
 
 
@@ -128,9 +130,21 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
     }
 
 
+    /**
+     * Gets the stratum of the participant.
+     * This is a helper method for the generateRandomGroup method.
+     *
+     * Precondition: The participant must have a response to the stratified question.
+     *
+     * @param participant   The participant to assign to a group at random.
+     * @return the stratum of the participant. Use the index in the strata list to represent the stratum within the
+     * stratifiedRandomGroupGenerator.
+     */
     @Contract(pure = true)
     private int getStratum(@NotNull Participant participant) {
-        int response = participant.get
+        int response = Integer.valueOf(participant.getCurrEligibilityAnswerContent().get(stratifiedVariable));
+        return strata.indexOf(response);
+
     }
 
 
@@ -138,10 +152,10 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
      * A helper method to check if the block is full.
      * @return true if the block is full, false otherwise.
      */
-    private boolean isBlockFull(int[] participantsInBlock) {
+    private boolean isBlockFull(int[] block) {
         boolean blockFull = true;
         for (int i = 0; i < numGroups; i++) {
-            if (!(participantsInBlock[i] == BLOCKSIZEFACTOR)) {
+            if (!(block[i] == BLOCKSIZEFACTOR)) {
                 blockFull = false;
                 break;
             }
@@ -154,10 +168,10 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
      * A helper method to reset the number of participants in each group in the current block. It clears the block once
      * the block is full.
      */
-    private void resetBlock(int[] participantsInBlock) {
-        if (isBlockFull()) {
+    private void resetBlock(int[] block) {
+        if (isBlockFull(block)) {
             for (int i = 0; i < numGroups; i++) {
-                participantsInBlock[i] = 0;
+                block[i] = 0;
             }
         }
     }
@@ -168,10 +182,10 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
      * @return a list of the group number that is available in the current block.
      */
     @Contract(pure = true)
-    private @NotNull List<Integer> availableGroups() {
+    private @NotNull List<Integer> availableGroups(int[] block) {
         List<Integer> availableGroups = new ArrayList<>();
         for (int i = 0; i < numGroups; i++) {
-            if (participantsInBlock[i] < BLOCKSIZEFACTOR) {
+            if (block[i] < BLOCKSIZEFACTOR) {
                 availableGroups.add(i + 1);
             }
         }
