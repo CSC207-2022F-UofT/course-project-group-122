@@ -2,10 +2,7 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * The study entity.
@@ -13,27 +10,22 @@ import java.util.Set;
  * instruments support the study.
  * <p>
  * Representation Invariants:
- *       potentialParticipants, participants, researchers, and questionnaires do not contain duplicates.
+ * potentialParticipants, participants, researchers, and questionnaires do not contain duplicates.
  */
 public class Study {
-
-
-    // Basic study attributes and parameters.
-    /**
-     * The ID of the study
-     */
-    private final int id;
 
     /**
      * Current study ID
      */
     private static int currID = 0;
-
+    /**
+     * The ID of the study
+     */
+    private final int id;
     /**
      * The type of the study. The type must be either "Randomized" or "General"
      */
     private String studyType;
-
 
     /**
      * The randomization method of the study. The randomization method is "N/A" if and only if the study type is
@@ -44,7 +36,6 @@ public class Study {
      * the study is initialized.
      */
     private String randomizationMethod = "N/A";
-
 
     /**
      * The stratification method of the study. The stratification method is "N/A" if and only if (the study type is
@@ -78,45 +69,18 @@ public class Study {
     private boolean isActive = true;
 
     /**
-     * The number of groups in the study. The default number of groups is 1.
+     * The study user manager of the study. The study user manager manages the users of the study. The study user
+     * manager is initialized when the study is initialized. This includes the researchers, potential participants,
+     * and participants of the study.
      */
-    private int numGroups = 1;
+    private StudyUserManager studyUserManager = new StudyUserManager(this);
 
     /**
-     * A list storing the name for each of the groups defined.
+     * The study questionnaire manager of the study. The study questionnaire manager manages the questionnaires of
+     * the study. The study questionnaire manager is initialized when the study is initialized. This includes the
+     * eligibility questionnaire, the consent form, and the questionnaires for the participants.
      */
-    private String[] groupNames = {"Group 1"};
-
-
-    // User management of the study
-    /**
-     * The potential participants of the study. Their eligibility of the study has not been checked.
-     */
-    private Set<Participant> potentialParticipants = new HashSet<Participant>();
-
-    /**
-     * The eligible participants of the study. These participants are considered as part of the study.
-     */
-    private Set<Participant> participants = new HashSet<Participant>();
-
-    /**
-     * The researchers involved in the study.
-     */
-    private Set<Researcher> researchers = new HashSet<Researcher>();
-
-
-    // Data collection instruments
-    /**
-     * The eligibility questionnaire of the study, stored as a separate attribute to the other regular questionnaires which
-     * are stored separately in another attribute.
-     */
-    private Questionnaire eligibilityQuestionnaire;
-
-    /**
-     * The list of all questionnaires created by the researchers for this study.
-     */
-    private List<Questionnaire> questionnaires = new ArrayList<Questionnaire>();
-
+    private StudyQuestionnaireManager studyQuestionnaireManager = new StudyQuestionnaireManager(this);
 
 
     /**
@@ -146,8 +110,7 @@ public class Study {
         }
         this.studyName = studyName;
         this.targetStudySize = targetStudySize;
-        this.numGroups = numGroups;
-        this.groupNames = groupNames;
+        this.studyUserManager.resetGroups(numGroups, groupNames);
     }
 
 
@@ -236,10 +199,11 @@ public class Study {
 
     /**
      * The current number of participants in the study.
+     *
      * @return the current number of participants in the study.
      */
     public int currentStudySize() {
-        return participants.size();
+        return studyUserManager.currentStudySize();
     }
 
 
@@ -287,7 +251,7 @@ public class Study {
      * @return the number of groups in the study.
      */
     public int getNumGroups() {
-        return numGroups;
+        return studyUserManager.getNumGroups();
     }
 
 
@@ -297,7 +261,7 @@ public class Study {
      * @return the names of each groups
      */
     public String[] getGroupNames() {
-        return groupNames;
+        return studyUserManager.getGroupNames();
     }
 
     /**
@@ -315,12 +279,7 @@ public class Study {
      * @return whether the change is successful
      */
     public boolean resetGroups(int numGroups, String[] groupNames) {
-        if (this.participants.isEmpty()) {
-            this.numGroups = numGroups;
-            this.groupNames = groupNames;
-            return true;
-        }
-        return false;
+        return studyUserManager.resetGroups(numGroups, groupNames);
     }
 
 
@@ -338,17 +297,7 @@ public class Study {
      * @return whether the change is successful
      */
     public boolean resetGroups(int numGroups) {
-        if (this.participants.isEmpty()) {
-            String[] groupNames = new String[numGroups];
-            for (int i = 0; i < numGroups; i++) {
-                int group = i + 1;
-                groupNames[i] = "Group " + group;
-            }
-            this.numGroups = numGroups;
-            this.groupNames = groupNames;
-            return true;
-        }
-        return false;
+        return studyUserManager.resetGroups(numGroups);
     }
 
 
@@ -372,7 +321,7 @@ public class Study {
      * @return whether the change is successful
      */
     public boolean setStudyType(String studyType) {
-        if (this.participants.isEmpty()) {
+        if (this.studyUserManager.getParticipants().isEmpty()) {
             this.studyType = studyType;
             if (studyType.equals("Randomized")) {
                 this.randomizationMethod = "Block";
@@ -406,7 +355,7 @@ public class Study {
      * @return whether the change is successful
      */
     public boolean setRandomizationMethod(String randomizationMethod) {
-        if (this.participants.isEmpty() && this.studyType.equals("Randomized")) {
+        if (this.studyUserManager.getParticipants().isEmpty() && this.studyType.equals("Randomized")) {
             this.randomizationMethod = randomizationMethod;
             return true;
         }
@@ -435,7 +384,7 @@ public class Study {
      * @return whether the change is successful
      */
     public boolean setStratetificationMethod(String stratetificationMethod) {
-        if (this.participants.isEmpty() && this.studyType.equals("Randomized") &&
+        if (this.studyUserManager.getParticipants().isEmpty() && this.studyType.equals("Randomized") &&
                 this.randomizationMethod.equals("Stratified")) {
             this.stratetificationMethod = stratetificationMethod;
             return true;
@@ -470,7 +419,7 @@ public class Study {
      * @return the list of potential participants.
      */
     public List<Participant> getPotentialParticipants() {
-        return new ArrayList<Participant>(this.potentialParticipants);
+        return studyUserManager.getPotentialParticipants();
     }
 
 
@@ -481,10 +430,7 @@ public class Study {
      * @return whether the removal is successful.
      */
     public boolean removePotentialParticipant(Participant p) {
-        if (this.potentialParticipants.contains(p)) {
-            return this.potentialParticipants.remove(p);
-        }
-        return false;
+        return studyUserManager.removePotentialParticipant(p);
     }
 
 
@@ -495,10 +441,7 @@ public class Study {
      * @return whether the addition is successful.
      */
     public boolean addPotentialParticipant(Participant p) {
-        if (!this.potentialParticipants.contains(p)) {
-            return this.potentialParticipants.add(p);
-        }
-        return false;
+        return studyUserManager.addPotentialParticipant(p);
     }
 
 
@@ -508,7 +451,7 @@ public class Study {
      * @return the list of all eligible participants.
      */
     public List<Participant> getParticipants() {
-        return new ArrayList<Participant>(this.participants);
+        return studyUserManager.getParticipants();
     }
 
 
@@ -519,10 +462,7 @@ public class Study {
      * @return whether the removal is successful.
      */
     public boolean removeParticipant(Participant p) {
-        if (this.participants.contains(p)) {
-            return this.participants.remove(p);
-        }
-        return false;
+        return studyUserManager.removeParticipant(p);
     }
 
 
@@ -534,14 +474,7 @@ public class Study {
      * @return whether the addition is successful.
      */
     public boolean addParticipant(Participant p) {
-        if (this.participants.contains(p)) {
-            if (this.potentialParticipants.contains(p)) {
-                this.potentialParticipants.remove(p);
-                return this.participants.add(p);
-            }
-            return false;
-        }
-        return false;
+        return studyUserManager.addParticipant(p);
     }
 
 
@@ -551,7 +484,7 @@ public class Study {
      * @return the list of all researchers in the study.
      */
     public List<Researcher> getResearchers() {
-        return new ArrayList<Researcher>(this.researchers);
+        return studyUserManager.getResearchers();
     }
 
 
@@ -563,11 +496,7 @@ public class Study {
      * @return whether the addition is successful.
      */
     public boolean addResearchers(@NotNull List<Researcher> researcherList) {
-        if (!researcherList.isEmpty()) {
-            this.researchers.addAll(researcherList);
-            return true;
-        }
-        return false;
+        return studyUserManager.addResearchers(researcherList);
     }
 
 
@@ -578,10 +507,7 @@ public class Study {
      * @return whether the removal is successful.
      */
     public boolean removeResearcher(Researcher researcher) {
-        if (this.researchers.contains(researcher)) {
-            return this.researchers.remove(researcher);
-        }
-        return false;
+        return studyUserManager.removeResearcher(researcher);
     }
 
 
@@ -591,9 +517,8 @@ public class Study {
      * @return the eligibility questionnaire.
      */
     public Questionnaire getEligibilityQuestionnaire() {
-        return eligibilityQuestionnaire;
+        return this.studyQuestionnaireManager.getEligibilityQuestionnaire();
     }
-
 
     /**
      * Set the eligibility questionnaire.
@@ -601,9 +526,8 @@ public class Study {
      * @param eligibilityQuestionnaire the eligibility questionnaire.
      */
     public void setEligibilityQuestionnaire(Questionnaire eligibilityQuestionnaire) {
-        this.eligibilityQuestionnaire = eligibilityQuestionnaire;
+        this.studyQuestionnaireManager.setEligibilityQuestionnaire(eligibilityQuestionnaire);
     }
-
 
     /**
      * Retrieve the list of questionnaires of the study. Return a copy.
@@ -611,9 +535,8 @@ public class Study {
      * @return the list of questionnaires of the study.
      */
     public List<Questionnaire> getQuestionnaires() {
-        return new ArrayList<Questionnaire>(this.questionnaires);
+        return this.studyQuestionnaireManager.getQuestionnaires();
     }
-
 
     /**
      * Add a questionnaire to the list of questionnaires.
@@ -622,12 +545,8 @@ public class Study {
      * @return whether the addition is successful.
      */
     public boolean addQuestionnaire(Questionnaire q) {
-        if (!this.questionnaires.contains(q)) {
-            return this.questionnaires.add(q);
-        }
-        return false;
+        return this.studyQuestionnaireManager.addQuestionnaire(q);
     }
-
 
     /**
      * Remove a questionnaire from the list of questionnaires.
@@ -636,8 +555,28 @@ public class Study {
      * @return whether the removal is successful.
      */
     public boolean removeQuestionnaire(Questionnaire q) {
-        if (this.questionnaires.contains(q)) {
-            return this.questionnaires.remove(q);
+        return this.studyQuestionnaireManager.removeQuestionnaire(q);
+    }
+
+    /**
+     * Retrieve the consent form.
+     *
+     * @return the consent form.
+     */
+    public ConscentForm getConsentForm() {
+        return this.studyQuestionnaireManager.getConsentForm();
+    }
+
+    /**
+     * Set the consent form. Returns true if the consent form is set successfully.
+     *
+     * @param consentForm the consent form.
+     * @return whether the consent form is set successfully.
+     */
+    public boolean setConsentForm(@NotNull ConscentForm consentForm) {
+        if (consentForm.getStudy().equals(this)) {
+            this.studyQuestionnaireManager.setConsentForm(consentForm);
+            return true;
         }
         return false;
     }
