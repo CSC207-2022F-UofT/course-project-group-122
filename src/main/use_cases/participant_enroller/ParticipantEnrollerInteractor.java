@@ -42,7 +42,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
     public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study) {
         if (enrollable(participant, study)) {
             if (study.getType().equals("Randomized")) {
-                int group = RandomGroupGenerator.generateRandomGroup(study);
+                int group = RandomGroupGenerator.generateRandomGroup(study, participant);
                 participant.setGroup(group);
             } else {
                 participant.setGroup(1);

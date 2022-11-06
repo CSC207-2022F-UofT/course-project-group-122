@@ -31,10 +31,11 @@ public class SimpleRandomGroupGenerator implements RandomGroupGenerator {
      * group. For example, if there are 3 groups, the number of participants in each group may be 10, 11, and 9. This
      * is not the default randomization technique.
      *
-     * @param study The study to assign the participant to a group at random.
+     * @param study         The study to assign the participant to a group at random.
+     * @param participant   The participant to assign to a group at random.
      * @return the group number that the participant is assigned to.
      */
-    public int generateRandomGroup(@NotNull Study study) {
+    public int generateRandomGroup(@NotNull Study study, Participant participant) {
         return ThreadLocalRandom.current().nextInt(1, study.getNumGroups() + 1);
     }
 }

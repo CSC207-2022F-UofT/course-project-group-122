@@ -52,11 +52,12 @@ public class BlockRandomGroupGenerator implements RandomGroupGenerator {
      * example, if there are 3 groups, the block size is 6. The participants are evenly distributed into the blocks
      * using simple randomization.
      *
-     * @param study The study to assign the participant to a group at random.
+     * @param study         The study to assign the participant to a group at random.
+     * @param participant   The participant to assign to a group at random.
      * @return the group number that the participant is assigned to.
      */
     @Override
-    public int generateRandomGroup(Study study) {
+    public int generateRandomGroup(Study study, Participant participant) {
         if (isBlockFull()) {
             resetBlock();
         }

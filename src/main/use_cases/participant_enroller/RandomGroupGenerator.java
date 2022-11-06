@@ -19,5 +19,5 @@ public interface RandomGroupGenerator {
      * @param study     The study to assign the participant to a group at random.
      * @return the group number that the participant is assigned to.
      */
-    int generateRandomGroup(Study study);
+    int generateRandomGroup(Study study, Participant participant);
 }
