@@ -563,7 +563,7 @@ public class Study {
      *
      * @return the consent form.
      */
-    public ConscentForm getConsentForm() {
+    public ConsentForm getConsentForm() {
         return this.studyQuestionnaireManager.getConsentForm();
     }
 
