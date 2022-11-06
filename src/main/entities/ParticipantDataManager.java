@@ -62,7 +62,7 @@ public class ParticipantDataManager {
     /**
      * @return the assigned eligibility questionnaire for this participant.
      */
-    public Questionnaire getEligibilityQuestionnaire() {
+    protected Questionnaire getEligibilityQuestionnaire() {
         return eligibilityQuestionnaire;
     }
 
@@ -70,7 +70,7 @@ public class ParticipantDataManager {
     /**
      * @param eligibilityQuestionnaire the assigned eligibility questionnaire for this participant.
      */
-    public void setEligibilityQuestionnaire(Questionnaire eligibilityQuestionnaire) {
+    protected void setEligibilityQuestionnaire(Questionnaire eligibilityQuestionnaire) {
         this.eligibilityQuestionnaire = eligibilityQuestionnaire;
     }
 
@@ -78,7 +78,7 @@ public class ParticipantDataManager {
     /**
      * @return the assigned questionnaires for this participant.
      */
-    public List<Questionnaire> getAssignedQuestionnaires() {
+    protected List<Questionnaire> getAssignedQuestionnaires() {
         return assignedQuestionnaires;
     }
 
@@ -86,7 +86,7 @@ public class ParticipantDataManager {
     /**
      * @return the completed questionnaires for this participant.
      */
-    public List<Questionnaire> getCompletedQuestionnaires() {
+    protected List<Questionnaire> getCompletedQuestionnaires() {
         return completedQuestionnaires;
     }
 
@@ -103,7 +103,7 @@ public class ParticipantDataManager {
      * @param questionnaire the questionnaire to be assigned to the participant.
      * @return true if the questionnaire has been assigned to the participant, false otherwise.
      */
-    public boolean assignQuestionnaire(Questionnaire questionnaire) {
+    protected boolean assignQuestionnaire(Questionnaire questionnaire) {
         if (canBeAssigned(questionnaire)) {
             this.assignedQuestionnaires.add(questionnaire);
             return true;
@@ -144,7 +144,7 @@ public class ParticipantDataManager {
      *
      * @param questionnaire the questionnaire to be completed by the participant.
      */
-    public boolean completeQuestionnaire(Questionnaire questionnaire) {
+    protected boolean completeQuestionnaire(Questionnaire questionnaire) {
         if (this.assignedQuestionnaires.contains(questionnaire) &&
                 !this.completedQuestionnaires.contains(questionnaire)) {
             this.assignedQuestionnaires.remove(questionnaire);
@@ -158,14 +158,14 @@ public class ParticipantDataManager {
     /**
      * @return the answer to the eligibility questionnaire of this participant in this study.
      */
-    public Answer getEligibilityQuestionnaireAnswer() {
+    protected Answer getEligibilityQuestionnaireAnswer() {
         return eligibilityQuestionnaireAnswer;
     }
 
     /**
      * @return the answer content of the most recent version of the eligibility questionnaire.
      */
-    public Map<String, String> getCurrEligibilityAnswerContent() {
+    protected Map<String, String> getCurrEligibilityAnswerContent() {
         return eligibilityQuestionnaireAnswer.getCurrentVersion().getAnswer();
     }
 
@@ -173,7 +173,7 @@ public class ParticipantDataManager {
     /**
      * @return if the eligibility questionnaire has been answered by this participant.
      */
-    public boolean hasCompletedEligibilityQuestionnaire() {
+    protected boolean hasCompletedEligibilityQuestionnaire() {
         return eligibilityQuestionnaireAnswer != null;
     }
 
@@ -181,7 +181,7 @@ public class ParticipantDataManager {
      * @param eligibilityQuestionnaireAnswer the answer to the eligibility questionnaire of this participant in this
      *                                       study.
      */
-    public void setEligibilityQuestionnaireAnswer(Answer eligibilityQuestionnaireAnswer) {
+    protected void setEligibilityQuestionnaireAnswer(Answer eligibilityQuestionnaireAnswer) {
         this.eligibilityQuestionnaireAnswer = eligibilityQuestionnaireAnswer;
     }
 
@@ -189,7 +189,7 @@ public class ParticipantDataManager {
     /**
      * @return the answers to all the questionnaires of this participant in this study.
      */
-    public List<Answer> getQuestionnaireAnswers() {
+    protected List<Answer> getQuestionnaireAnswers() {
         return questionnaireAnswers;
     }
 
@@ -200,7 +200,7 @@ public class ParticipantDataManager {
      * @param questionnaire the questionnaire to retrieve the answer for.
      * @return the answer to the questionnaire.
      */
-    public Answer getQuestionnaireAnswer(Questionnaire questionnaire) {
+    protected Answer getQuestionnaireAnswer(Questionnaire questionnaire) {
         for (Answer answer : questionnaireAnswers) {
             if (answer.getQuestionnaire().equals(questionnaire)) {
                 return answer;
@@ -216,7 +216,7 @@ public class ParticipantDataManager {
      * @param questionnaire the questionnaire to retrieve the answer for.
      * @return the most recent version of the questionnaire.
      */
-    public VersionedAnswer getCurrVersionQuestionnaireAnswer(Questionnaire questionnaire) {
+    protected VersionedAnswer getCurrVersionQuestionnaireAnswer(Questionnaire questionnaire) {
         for (Answer answer : questionnaireAnswers) {
             if (answer.getQuestionnaire().equals(questionnaire)) {
                 return answer.getCurrentVersion();
