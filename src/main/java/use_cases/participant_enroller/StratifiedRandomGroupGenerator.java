@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.Random;
 
-import static use_cases.participant_enroller.BlockRandomGroupGenerator.BLOCKSIZEFACTOR;
-
 
 /**
  * The StratifiedRandomGroupGenerator class is a random group number generator that generates a random group number
@@ -155,7 +153,7 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
     private boolean isBlockFull(int[] block) {
         boolean blockFull = true;
         for (int i = 0; i < numGroups; i++) {
-            if (!(block[i] == BLOCKSIZEFACTOR)) {
+            if (!(block[i] == BlockRandomGroupGenerator.BLOCKSIZEFACTOR)) {
                 blockFull = false;
                 break;
             }
@@ -185,7 +183,7 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
     private @NotNull List<Integer> availableGroups(int[] block) {
         List<Integer> availableGroups = new ArrayList<>();
         for (int i = 0; i < numGroups; i++) {
-            if (block[i] < BLOCKSIZEFACTOR) {
+            if (block[i] < BlockRandomGroupGenerator.BLOCKSIZEFACTOR) {
                 availableGroups.add(i + 1);
             }
         }
