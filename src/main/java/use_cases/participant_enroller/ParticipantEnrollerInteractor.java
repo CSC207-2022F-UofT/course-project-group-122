@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * group. The group is either automatically assigned in a Randomized Study or manually assigned by the researcher in a
  * General study.
  * <p>
- * The interactor does not manipulate the eligibility of the participant to the study. Uses the eligibility of the
+ * The interactor does not manipulate the eligibility of the participant to the study. It uses the eligibility of the
  * participant to the study to determine if a participant is able to be enrolled in a study.
  */
 public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBoundary {
