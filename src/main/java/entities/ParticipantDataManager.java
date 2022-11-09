@@ -28,14 +28,14 @@ public class ParticipantDataManager {
      * questionnaire is considered assigned to a participant if and only if a researcher assigns the questionnaire to
      * the participant and the participant has not completed the questionnaire.
      */
-    private final List<Questionnaire> assignedQuestionnaires = new ArrayList<Questionnaire>();
+    private final List<Questionnaire> assignedQuestionnaires = new ArrayList<>();
 
     /**
      * The completed questionnaires for this participant. A questionnaire is considered completed by a participant if
      * and only if the participant has completed the questionnaire. The completed questionnaires are not included in
      * the assigned questionnaire list.
      */
-    private final List<Questionnaire> completedQuestionnaires = new ArrayList<Questionnaire>();
+    private final List<Questionnaire> completedQuestionnaires = new ArrayList<>();
 
     /**
      * The answer to the eligibility questionnaire of this participant in this study.
@@ -46,7 +46,7 @@ public class ParticipantDataManager {
      * The answers to all the questionnaires of this participant in this study. The number of answers in this list
      * should be the same as the number of questionnaires in the completedQuestionnaires list.
      */
-    private final List<Answer> questionnaireAnswers = new ArrayList<Answer>();
+    private final List<Answer> questionnaireAnswers = new ArrayList<>();
 
 
     /**

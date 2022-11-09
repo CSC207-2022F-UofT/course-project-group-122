@@ -26,7 +26,7 @@ public class ScaleQuestion extends Question {
     /**
      * A List of integer values in the range of this ScaleQuestion.
      */
-    private List<Integer> scale = new ArrayList<>();
+    private final List<Integer> scale = new ArrayList<>();
 
 
     /**
@@ -107,6 +107,6 @@ public class ScaleQuestion extends Question {
      */
     @Override
     public String getAnswerChoices() {
-        return bottomLabel + " - " + scale.toString() + " - " + topLabel;
+        return bottomLabel + " - " + scale + " - " + topLabel;
     }
 }

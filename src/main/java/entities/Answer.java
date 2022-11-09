@@ -44,7 +44,7 @@ public class Answer {
     /**
     The list of all the versions of the answers to the questionnaire. Stored in chronological order.
      */
-    private List<VersionedAnswer> allVersions = new ArrayList<>();
+    private final List<VersionedAnswer> allVersions = new ArrayList<>();
 
     /**
     The current version of the answers. This is used to determine which version of the answers is the most recent.
@@ -128,7 +128,7 @@ public class Answer {
      * @return The list of all the versions of the answers to the questionnaire.
      */
     public List<VersionedAnswer> getAllVersions() {
-        return new ArrayList<VersionedAnswer>(allVersions);
+        return new ArrayList<>(allVersions);
     }
 
 

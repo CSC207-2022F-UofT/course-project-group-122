@@ -17,7 +17,7 @@ public class MultipleChoiceQuestion extends Question {
      * The choices for this MultipleChoiceQuestion.
      * The choices have an order to them, based on their index in the list.
      */
-    private List<String> choices = new ArrayList<>();
+    private final List<String> choices = new ArrayList<>();
 
 
     /**

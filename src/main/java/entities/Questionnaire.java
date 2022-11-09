@@ -99,7 +99,7 @@ public class Questionnaire {
      * The list of Questions in this Questionnaire. The questions are stored in the order that they are added. The order
      * of the questions is important, as it determines how the questions are displayed to the Participant User.
      */
-    private List<Question> listOfQuestion = new ArrayList<>();
+    private final List<Question> listOfQuestion = new ArrayList<>();
 
 
     /**
@@ -497,5 +497,14 @@ public class Questionnaire {
             variableNames.add(question.getVariableName());
         }
         return variableNames;
+    }
+
+
+    /**
+     * Retrieve the study that this Questionnaire belongs to.
+     * @return the study that this Questionnaire belongs to.
+     */
+    public Object getStudy() {
+        return study;
     }
 }

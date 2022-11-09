@@ -30,7 +30,7 @@ public class Study {
     /**
      * The randomization method of the study. The randomization method is "N/A" if and only if the study type is
      * "General". The randomization method must be "Simple", "Block", or "Stratified" when the study type is
-     * "Randomized". This attribute is initally set to "N/A". If the study type is changed to "Randomized", the
+     * "Randomized". This attribute is initially set to "N/A". If the study type is changed to "Randomized", the
      * randomization method must not be "N/A". For randomized studies, the randomization method is by default set to
      * "Block". The randomization method can be changed to "Simple" if the user wishes to do so, but this is done after
      * the study is initialized.
@@ -87,14 +87,14 @@ public class Study {
      * manager is initialized when the study is initialized. This includes the researchers, potential participants,
      * and participants of the study.
      */
-    private StudyUserManager studyUserManager = new StudyUserManager(this);
+    private final StudyUserManager studyUserManager = new StudyUserManager(this);
 
     /**
      * The study questionnaire manager of the study. The study questionnaire manager manages the questionnaires of
      * the study. The study questionnaire manager is initialized when the study is initialized. This includes the
      * eligibility questionnaire, the consent form, and the questionnaires for the participants.
      */
-    private StudyQuestionnaireManager studyQuestionnaireManager = new StudyQuestionnaireManager(this);
+    private final StudyQuestionnaireManager studyQuestionnaireManager = new StudyQuestionnaireManager(this);
 
 
     /**
@@ -360,7 +360,7 @@ public class Study {
 
     /**
      * Reset the randomization method of the study.
-     * Only allowed when there is no eligible participants in the study. Also only allowed when the study type is
+     * Only allowed when there is no eligible participants in the study. Also, only allowed when the study type is
      * "Randomized".
      * <p>
      * Precondition: the randomization method of the study must be "Block", "Simple", or "Stratified".
@@ -382,14 +382,14 @@ public class Study {
      *
      * @return the stratification method of the study.
      */
-    public String getstratificationethod() {
+    public String getStratificationMethod() {
         return stratificationMethod;
     }
 
 
     /**
      * Reset the stratification method of the study.
-     * Only allowed when there is no eligible participants in the study. Also only allowed when the study type is
+     * Only allowed when there is no eligible participants in the study. Also, only allowed when the study type is
      * "Randomized" and the randomization method is "Stratified".
      * <p>
      * The stratification method of the study must be a valid variable name in the eligibility questionnaire.
@@ -397,7 +397,7 @@ public class Study {
      * @param stratificationMethod the stratification method of the study
      * @return whether the change is successful
      */
-    public boolean setstratificationMethod(String stratificationMethod) {
+    public boolean setStratificationMethod(String stratificationMethod) {
         if (this.studyUserManager.getParticipants().isEmpty() && this.studyType.equals("Randomized") &&
                 this.randomizationMethod.equals("Stratified")) {
             this.stratificationMethod = stratificationMethod;

@@ -43,7 +43,7 @@ public class VersionedAnswer {
      * The user who created this particular version of VersionedAnswer. This is used to determine who is responsible for
      * the last modification of the answers this versioned answer belongs to.
      */
-    private final User modifer;
+    private final User modifier;
 
     /**
      * The date and time that the VersionedAnswer was created. This is used to determine when the last modification of
@@ -74,7 +74,7 @@ public class VersionedAnswer {
         this.id = currID;
         this.version = version;
         this.answers = answerContent;
-        this.modifer = modifier;
+        this.modifier = modifier;
         this.answer = answer;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -99,7 +99,7 @@ public class VersionedAnswer {
         this.id = currID;
         this.version = version;
         this.answers = answerContent;
-        this.modifer = modifier;
+        this.modifier = modifier;
         this.answer = answer;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -153,8 +153,8 @@ public class VersionedAnswer {
      *
      * @return the user who created this particular version of VersionedAnswer.
      */
-    public User getModifer() {
-        return modifer;
+    public User getModifier() {
+        return modifier;
     }
 
 

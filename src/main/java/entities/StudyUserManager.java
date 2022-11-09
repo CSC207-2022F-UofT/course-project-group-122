@@ -12,7 +12,7 @@ public class StudyUserManager {
     /**
      * The study that this manager is managing.
      */
-    private Study study;
+    private final Study study;
 
     /**
      * The number of groups in the study. The default number of groups is 1.
@@ -25,15 +25,15 @@ public class StudyUserManager {
     /**
      * The potential participants of the study. Their eligibility of the study has not been checked.
      */
-    private Set<Participant> potentialParticipants = new HashSet<Participant>();
+    private final Set<Participant> potentialParticipants = new HashSet<>();
     /**
      * The eligible participants of the study. These participants are considered as part of the study.
      */
-    private Set<Participant> participants = new HashSet<Participant>();
+    private final Set<Participant> participants = new HashSet<>();
     /**
      * The researchers involved in the study.
      */
-    private Set<Researcher> researchers = new HashSet<Researcher>();
+    private final Set<Researcher> researchers = new HashSet<>();
 
 
     /**
@@ -139,7 +139,7 @@ public class StudyUserManager {
      * @return the list of potential participants.
      */
     protected List<Participant> getPotentialParticipants() {
-        return new ArrayList<Participant>(this.potentialParticipants);
+        return new ArrayList<>(this.potentialParticipants);
     }
 
     /**
@@ -174,7 +174,7 @@ public class StudyUserManager {
      * @return the list of all eligible participants.
      */
     protected List<Participant> getParticipants() {
-        return new ArrayList<Participant>(this.participants);
+        return new ArrayList<>(this.participants);
     }
 
     /**
@@ -214,7 +214,7 @@ public class StudyUserManager {
      * @return the list of all researchers in the study.
      */
     protected List<Researcher> getResearchers() {
-        return new ArrayList<Researcher>(this.researchers);
+        return new ArrayList<>(this.researchers);
     }
 
     /**

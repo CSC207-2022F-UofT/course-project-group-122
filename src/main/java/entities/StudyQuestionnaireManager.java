@@ -8,7 +8,7 @@ public class StudyQuestionnaireManager {
     /**
      * The study that this manager is managing.
      */
-    private Study study;
+    private final Study study;
 
     /**
      * The eligibility questionnaire of the study, stored as a separate attribute to the other regular questionnaires which
@@ -19,7 +19,7 @@ public class StudyQuestionnaireManager {
     /**
      * The list of all questionnaires created by the researchers for this study.
      */
-    private List<Questionnaire> questionnaires = new ArrayList<Questionnaire>();
+    private final List<Questionnaire> questionnaires = new ArrayList<>();
 
     /**
      * The consent form of the study.
@@ -70,7 +70,7 @@ public class StudyQuestionnaireManager {
      * @return the list of questionnaires of the study.
      */
     protected List<Questionnaire> getQuestionnaires() {
-        return new ArrayList<Questionnaire>(this.questionnaires);
+        return new ArrayList<>(this.questionnaires);
     }
 
     /**

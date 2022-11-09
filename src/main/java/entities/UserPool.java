@@ -18,7 +18,7 @@ public class UserPool {
     The key is the user's username.
     The value is the user.
      */
-    private Map<String, User> users;
+    private final Map<String, User> users;
 
 
     /**

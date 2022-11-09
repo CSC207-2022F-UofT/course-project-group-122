@@ -19,7 +19,7 @@ public class StudyPool {
     The key is the study's ID.
     The value is the study.
      */
-    private Map<Integer, Study> studies;
+    private final Map<Integer, Study> studies;
 
 
     /**
