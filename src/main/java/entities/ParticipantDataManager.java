@@ -211,6 +211,33 @@ public class ParticipantDataManager {
 
 
     /**
+     * Add an answer to the list of answers. This method is used when a new answer for a new questionnaire is created.
+     * <p>
+     * This should execute immediately following the creation of a new answer and marking the questionnaire as
+     * completed using the completeQuestionnaire method.
+     * <p>
+     * Conditions:
+     * - the questionnaire has been completed by the participant
+     * - the questionnaire is not the eligibility questionnaire of the participant
+     * - the questionnaire is not already in the list of answers
+     * - the answer is associated with the participant
+     * - the answer is associated with the questionnaire
+     */
+    protected boolean addAnswer(@NotNull Answer answer, @NotNull Questionnaire questionnaire) {
+        if (this.completedQuestionnaires.contains(answer.getQuestionnaire()) &&
+                !answer.getQuestionnaire().equals(this.eligibilityQuestionnaire) &&
+                !this.questionnaireAnswers.contains(answer) &&
+                answer.getParticipant().equals(this.participant) &&
+                answer.getQuestionnaire().equals(questionnaire)) {
+            this.questionnaireAnswers.add(answer);
+            return true;
+        }
+        return false;
+    }
+
+
+
+    /**
      * Retrieve the most recent version of the answer given a questionnaire.
      *
      * @param questionnaire the questionnaire to retrieve the answer for.
