@@ -12,14 +12,15 @@ public class FailedScreenTemplate extends JFrame{
 
     public JPanel failedPanel = new JPanel(new GridLayout(1,1));
     public FailedScreenTemplate(String message){
-        SetScreenToCenter toCenter = new SetScreenToCenter(this, new GridLayout(1,1), 200, 100);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        failedLabel = new JLabel(message, SwingConstants.CENTER);
-        failedPanel.add(failedLabel);
-
-        this.add(failedPanel);
-        this.setVisible(true);
+//        SetScreenToCenter toCenter = new SetScreenToCenter(this, new GridLayout(1,1), 200, 100);
+//        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//
+//        failedLabel = new JLabel(message, SwingConstants.CENTER);
+//        failedPanel.add(failedLabel);
+//
+//        this.add(failedPanel);
+//        this.setVisible(true);
+        JOptionPane.showMessageDialog(null, message);
     }
 
     public static void main(String[] args) {
