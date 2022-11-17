@@ -43,6 +43,21 @@ public class UserPool {
 
 
     /**
+     * Returns the user with the given id.
+     * @param id    The id of the user to be returned.
+     * @return The user with the given id.
+     */
+    public User getUserById(int id) {
+        for (User user : users.values()) {
+            if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+
+    /**
      * Check the type of user given its username.
      *
      * @param username the username of the user to be checked.

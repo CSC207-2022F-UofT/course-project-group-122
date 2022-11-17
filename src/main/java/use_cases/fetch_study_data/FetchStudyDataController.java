@@ -1,7 +1,5 @@
 package use_cases.fetch_study_data;
 
-import entities.User;
-
 /**
  * Controller for the Fetch Study Data use case.
  */
@@ -15,10 +13,10 @@ public class FetchStudyDataController {
 
     /**
      * Fetches the study data for the given user.
-     * @param user  The user to fetch the study data for.
+     * @param userId  The user to fetch the study data for.
      * @return The study data for the given user.
      */
-    public void fetchStudyData(User user) {
-        fetchStudyDataInteractor.fetchStudyData(user);
+    public void fetchStudyData(int userId) {
+        fetchStudyDataInteractor.fetchStudyData(userId);
     }
 }

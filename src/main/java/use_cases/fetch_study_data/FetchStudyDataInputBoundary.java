@@ -1,7 +1,5 @@
 package use_cases.fetch_study_data;
 
-import entities.User;
-
 /**
  * This interface defines the input boundary for the FetchStudyData use case.
  */
@@ -25,5 +23,5 @@ interface FetchStudyDataInputBoundary {
      *
      * @param user The user whose study data is to be fetched.
      */
-    void fetchStudyData(User user);
+    void fetchStudyData(int userId);
 }

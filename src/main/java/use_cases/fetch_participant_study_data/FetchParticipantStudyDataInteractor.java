@@ -2,6 +2,7 @@ package use_cases.fetch_participant_study_data;
 
 import entities.*;
 import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_id.FetchId;
 
 import java.util.List;
 
@@ -25,15 +26,35 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
         Questionnaire eligibilityQuestionnaire = participant.getEligibilityQuestionnaire();
         List<Questionnaire> assignedQuestionnaires = participant.getAssignedQuestionnaires();
         List<Questionnaire> completedQuestionnaires = participant.getCompletedQuestionnaires();
-        Answer eligibilityQuestionnaireAnswer = participant.getEligibilityQuestionnaireAnswer();
         String eligibilityQuestionnaireAnswerStatus = getEligibilityQuestionnaireAnswerStatus(participant);
         List<Answer> questionnaireAnswers = participant.getQuestionnaireAnswers();
         FetchParticipantStudyDataResponseModel responseModel = new FetchParticipantStudyDataResponseModel(participant);
         responseModel.setStudyData(study, studyStatus, group, participantStatus);
-        responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire, eligibilityQuestionnaireAnswer,
-                eligibilityQuestionnaireAnswerStatus);
-        responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers);
+        responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire, eligibilityQuestionnaireAnswerStatus,
+                participant);
+        responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers, participant);
         fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user);
+    }
+
+    /**
+     * Fetches the study data for a participant.
+     * Precondition: the participant is associated with a study.
+     * It retrieves a comprehensive list of all the data for the participant, including:
+     * - the participant's personal information (name, id etc.)
+     * - the participant's study data (study id, study name, study description, group assignment, etc.)
+     * - the participant's status in the study (eligibility, enrollment, dropped out)
+     * - the questionnaires associated with the participant
+     * - the status of the questionnaires (active or closed)
+     * - the answers to the questionnaires
+     *
+     * @param participantId The participant to fetch the study data for.
+     * @param userId        The current user.
+     */
+    @Override
+    public void fetchParticipantStudyData(int participantId, int userId) {
+        Participant participant = (Participant) FetchId.getUser(participantId);
+        User user = FetchId.getUser(userId);
+        fetchParticipantStudyData(participant, user);
     }
 
 

@@ -5,6 +5,7 @@ import entities.Researcher;
 import entities.Study;
 import entities.User;
 import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_id.FetchId;
 
 import java.util.List;
 
@@ -49,10 +50,11 @@ public class FetchStudyDataInteractor implements FetchStudyDataInputBoundary {
      * is involved in the study (i.e., their status in the study, the questionnaires assigned to the participant,
      * the answers of these participants that they have provided, etc.).
      *
-     * @param user The user whose study data is to be fetched.
+     * @param userId The user whose study data is to be fetched.
      */
     @Override
-    public void fetchStudyData(User user) {
+    public void fetchStudyData(int userId) {
+        User user = FetchId.getUser(userId);
         if (user instanceof Researcher) {
             fetchAllStudyData((Researcher) user);
         } else if (user instanceof Participant) {

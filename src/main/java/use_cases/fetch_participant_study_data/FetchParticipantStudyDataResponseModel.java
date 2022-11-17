@@ -13,10 +13,6 @@ import java.util.Map;
  */
 public class FetchParticipantStudyDataResponseModel {
 
-    /**
-     * The participant to fetch the study data for.
-     */
-    private Participant participant;
 
     /**
      * The ID of the participant.
@@ -32,11 +28,6 @@ public class FetchParticipantStudyDataResponseModel {
      * The status of the participant.
      */
     private String participantStatus;
-
-    /**
-     * The study the participant is in.
-     */
-    private Study study;
 
     /**
      * The ID of the study.
@@ -66,12 +57,7 @@ public class FetchParticipantStudyDataResponseModel {
     /**
      * The eligibility questionnaire attached to this participant.
      */
-    private Questionnaire eligibilityQuestionnaire;
-
-    /**
-     * The eligibility questionnaire answer attached to this participant.
-     */
-    private Answer eligibilityQuestionnaireAnswer;
+    private int eligibilityQuestionnaireId;
 
     /**
      * The status of the eligibility questionnaire answer.
@@ -81,17 +67,17 @@ public class FetchParticipantStudyDataResponseModel {
     /**
      * The questionnaires assigned to this participant.
      */
-    private List<Questionnaire> assignedQuestionnaires;
+    private List<Integer> assignedQuestionnaires;
 
     /**
      * The questionnaires completed by this participant.
      */
-    private List<Questionnaire> completedQuestionnaires;
+    private List<Integer> completedQuestionnaires;
 
     /**
      * The answers to the questionnaires completed by this participant.
      */
-    private List<Answer> questionnaireAnswers;
+    private List<Integer> questionnaireAnswers;
 
     /**
      * The data of the eligibility questionnaire.
@@ -101,12 +87,12 @@ public class FetchParticipantStudyDataResponseModel {
     /**
      * The data of the assigned questionnaires.
      */
-    private Map<Questionnaire, String[]> assignedQuestionnaireData;
+    private Map<Integer, String[]> assignedQuestionnaireData;
 
     /**
      * The data of the completed questionnaires.
      */
-    private Map<Questionnaire, String[]> completedQuestionnaireData;
+    private Map<Integer, String[]> completedQuestionnaireData;
 
     /**
      * This history of all versions of the eligibility questionnaire.
@@ -116,7 +102,7 @@ public class FetchParticipantStudyDataResponseModel {
     /**
      * This history of all versions of the completed questionnaires.
      */
-    private Map<Questionnaire, List<String[]>> completedQuestionnaireAnswerHistory;
+    private Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory;
 
 
     /**
@@ -124,7 +110,6 @@ public class FetchParticipantStudyDataResponseModel {
      * @param participant   The participant to fetch the study data for.
      */
     public FetchParticipantStudyDataResponseModel(@NotNull Participant participant) {
-        this.participant = participant;
         this.participantId = participant.getId();
         this.participantName = participant.getName();
     }
@@ -138,7 +123,6 @@ public class FetchParticipantStudyDataResponseModel {
      * @param participantStatus     The status of the participant.
      */
     public void setStudyData(@NotNull Study study, String studyStatus, int groupNumber, String participantStatus) {
-        this.study = study;
         this.studyId = study.getId();
         this.studyName = study.getStudyName();
         this.studyDescription = study.getStudyDescription();
@@ -151,17 +135,15 @@ public class FetchParticipantStudyDataResponseModel {
     /**
      * Sets the eligibility questionnaire data.
      * @param eligibilityQuestionnaire              The eligibility questionnaire attached to this participant.
-     * @param eligibilityQuestionnaireAnswer        The eligibility questionnaire answer attached to this participant.
      * @param eligibilityQuestionnaireAnswerStatus  The status of the eligibility questionnaire answer.
      */
     public void setEligibilityQuestionnaireData(@NotNull Questionnaire eligibilityQuestionnaire,
-                                                @NotNull Answer eligibilityQuestionnaireAnswer,
-                                                String eligibilityQuestionnaireAnswerStatus) {
-        this.eligibilityQuestionnaire = eligibilityQuestionnaire;
-        this.eligibilityQuestionnaireAnswer = eligibilityQuestionnaireAnswer;
+                                                String eligibilityQuestionnaireAnswerStatus,
+                                                Participant participant) {
+        this.eligibilityQuestionnaireId = eligibilityQuestionnaire.getId();
         this.eligibilityQuestionnaireAnswerStatus = eligibilityQuestionnaireAnswerStatus;
         this.eligibilityQuestionnaireData = compileQuestionnaire(eligibilityQuestionnaire);
-        this.eligibilityQuestionnaireAnswerHistory = compileAnswerHistory(eligibilityQuestionnaire);
+        this.eligibilityQuestionnaireAnswerHistory = compileAnswerHistory(eligibilityQuestionnaire, participant);
     }
 
 
@@ -170,16 +152,27 @@ public class FetchParticipantStudyDataResponseModel {
      * @param assignedQuestionnaires    The questionnaires assigned to this participant.
      * @param completedQuestionnaires   The questionnaires completed by this participant.
      * @param questionnaireAnswers      The answers to the questionnaires completed by this participant.
+     * @param participant               The participant.
      */
-    public void setQuestionnaireData(List<Questionnaire> assignedQuestionnaires,
+    public void setQuestionnaireData(@NotNull List<Questionnaire> assignedQuestionnaires,
                                      List<Questionnaire> completedQuestionnaires,
-                                     List<Answer> questionnaireAnswers) {
-        this.assignedQuestionnaires = assignedQuestionnaires;
-        this.completedQuestionnaires = completedQuestionnaires;
-        this.questionnaireAnswers = questionnaireAnswers;
+                                     List<Answer> questionnaireAnswers,
+                                     Participant participant) {
+        this.assignedQuestionnaires = new ArrayList<>();
+        for (Questionnaire questionnaire : assignedQuestionnaires) {
+            this.assignedQuestionnaires.add(questionnaire.getId());
+        }
+        this.completedQuestionnaires = new ArrayList<>();
+        for (Questionnaire questionnaire : completedQuestionnaires) {
+            this.completedQuestionnaires.add(questionnaire.getId());
+        }
+        this.questionnaireAnswers = new ArrayList<>();
+        for (Answer answer : questionnaireAnswers) {
+            this.questionnaireAnswers.add(answer.getId());
+        }
         this.assignedQuestionnaireData = compileQuestionnairesMap(assignedQuestionnaires);
         this.completedQuestionnaireData = compileQuestionnairesMap(completedQuestionnaires);
-        this.completedQuestionnaireAnswerHistory = compileAnswerDataMap(completedQuestionnaires);
+        this.completedQuestionnaireAnswerHistory = compileAnswerDataMap(participant);
     }
 
 
@@ -211,10 +204,10 @@ public class FetchParticipantStudyDataResponseModel {
     /**
      * Compiles a list of questionnaire to their string representation.
      */
-    private @NotNull Map<Questionnaire, String[]> compileQuestionnairesMap(@NotNull List<Questionnaire> questionnaires) {
-        Map<Questionnaire, String[]> questionnaireData = new HashMap<>();
+    private @NotNull Map<Integer, String[]> compileQuestionnairesMap(@NotNull List<Questionnaire> questionnaires) {
+        Map<Integer, String[]> questionnaireData = new HashMap<>();
         for (Questionnaire questionnaire : questionnaires) {
-            questionnaireData.put(questionnaire, compileQuestionnaire(questionnaire));
+            questionnaireData.put(questionnaire.getId(), compileQuestionnaire(questionnaire));
         }
         return questionnaireData;
     }
@@ -225,16 +218,19 @@ public class FetchParticipantStudyDataResponseModel {
      * @param questionnaire The questionnaire to compile the history of.
      * @return             The history of all version of answers to a questionnaire.
      */
-    private @NotNull List<String[]> compileAnswerHistory(Questionnaire questionnaire) {
+    private @NotNull List<String[]> compileAnswerHistory(@NotNull Questionnaire questionnaire,
+                                                         Participant participant) {
         List<String[]> answerHistory = new ArrayList<>();
-        if (questionnaire == eligibilityQuestionnaire) {
+        if (questionnaire.getId() == eligibilityQuestionnaireId) {
+            Answer eligibilityQuestionnaireAnswer = participant.getEligibilityQuestionnaireAnswer();
             if (eligibilityQuestionnaireAnswer != null) {
                 for (VersionedAnswer version : eligibilityQuestionnaireAnswer.getAllVersions()) {
                     answerHistory.add(compileVersionedAnswerData(version));
                 }
             }
         } else {
-            for (Answer answer : questionnaireAnswers) {
+            List<Answer> allQuestionnaireAnswers = participant.getQuestionnaireAnswers();
+            for (Answer answer : allQuestionnaireAnswers) {
                 if (answer.getQuestionnaire().equals(questionnaire)) {
                     for (VersionedAnswer version : answer.getAllVersions()) {
                         answerHistory.add(compileVersionedAnswerData(version));
@@ -266,24 +262,14 @@ public class FetchParticipantStudyDataResponseModel {
      * Compiles the data for all questionnaires.
      * @return The data for all questionnaires.
      */
-    private @NotNull Map<Questionnaire, List<String[]>> compileAnswerDataMap(
-            @NotNull List<Questionnaire> questionnaires) {
-        Map<Questionnaire, List<String[]>> questionnaireData = new HashMap<>();
+    private @NotNull Map<Integer, List<String[]>> compileAnswerDataMap(@NotNull Participant participant) {
+        Map<Integer, List<String[]>> questionnaireData = new HashMap<>();
+        List<Questionnaire> questionnaires = participant.getCompletedQuestionnaires();
         for (Questionnaire questionnaire : questionnaires) {
-            questionnaireData.put(questionnaire, compileAnswerHistory(questionnaire));
+            questionnaireData.put(questionnaire.getId(), compileAnswerHistory(questionnaire, participant));
         }
         return questionnaireData;
     }
-
-
-    /**
-     * Gets the participant.
-     * @return The participant.
-     */
-    public Participant getParticipant() {
-        return participant;
-    }
-
 
 
     public int getParticipantId() {
@@ -296,10 +282,6 @@ public class FetchParticipantStudyDataResponseModel {
 
     public String getParticipantStatus() {
         return participantStatus;
-    }
-
-    public Study getStudy() {
-        return study;
     }
 
     public int getStudyId() {
@@ -322,27 +304,23 @@ public class FetchParticipantStudyDataResponseModel {
         return groupNumber;
     }
 
-    public Questionnaire getEligibilityQuestionnaire() {
-        return eligibilityQuestionnaire;
-    }
-
-    public Answer getEligibilityQuestionnaireAnswer() {
-        return eligibilityQuestionnaireAnswer;
+    public int getEligibilityQuestionnaire() {
+        return eligibilityQuestionnaireId;
     }
 
     public String getEligibilityQuestionnaireAnswerStatus() {
         return eligibilityQuestionnaireAnswerStatus;
     }
 
-    public List<Questionnaire> getAssignedQuestionnaires() {
+    public List<Integer> getAssignedQuestionnaires() {
         return assignedQuestionnaires;
     }
 
-    public List<Questionnaire> getCompletedQuestionnaires() {
+    public List<Integer> getCompletedQuestionnaires() {
         return completedQuestionnaires;
     }
 
-    public List<Answer> getQuestionnaireAnswers() {
+    public List<Integer> getQuestionnaireAnswers() {
         return questionnaireAnswers;
     }
 
@@ -350,11 +328,11 @@ public class FetchParticipantStudyDataResponseModel {
         return eligibilityQuestionnaireData;
     }
 
-    public Map<Questionnaire, String[]> getAssignedQuestionnaireData() {
+    public Map<Integer, String[]> getAssignedQuestionnaireData() {
         return assignedQuestionnaireData;
     }
 
-    public Map<Questionnaire, String[]> getCompletedQuestionnaireData() {
+    public Map<Integer, String[]> getCompletedQuestionnaireData() {
         return completedQuestionnaireData;
     }
 
@@ -362,7 +340,7 @@ public class FetchParticipantStudyDataResponseModel {
         return eligibilityQuestionnaireAnswerHistory;
     }
 
-    public Map<Questionnaire, List<String[]>> getCompletedQuestionnaireAnswerHistory() {
+    public Map<Integer, List<String[]>> getCompletedQuestionnaireAnswerHistory() {
         return completedQuestionnaireAnswerHistory;
     }
 }

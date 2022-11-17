@@ -22,6 +22,16 @@ public class FetchParticipantStudyDataController {
     /**
      * Fetches the study data for a participant
      *
+     * @param participantId   The participant to fetch the study data for.
+     * @param userId          The current user.
+     */
+    public void fetchParticipantStudyData(int participantId, int userId) {
+        fetchParticipantStudyDataInteractor.fetchParticipantStudyData(participantId, userId);
+    }
+
+    /**
+     * Fetches the study data for a participant
+     *
      * @param participant   The participant to fetch the study data for.
      * @param user          The current user.
      */
