@@ -1,16 +1,16 @@
 package use_cases.fetch_study_data;
 
+import UserInterfaceLayer.PresenterManager.DisplayResearcherStudy.DisplayResearcherStudyDataInterface;
 import entities.Participant;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
-import view.ViewModel;
 
 public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
 
     /**
      * The view model used to control the view
      */
-    private ViewModel viewModel;
+    private DisplayResearcherStudyDataInterface screenSetter;
 
     /**
      * The controller used to fetch the participant study data. The controller is used when the user is a participant
@@ -39,7 +39,7 @@ public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
      */
     @Override
     public void displayNoStudyAssociated(@NotNull Participant participant) {
-        viewModel.presentParticipantNotEnrolledScreen(participant.getUsername(), participant.getId());
+        screenSetter.presentParticipantNotEnrolledScreen(participant.getUsername(), participant.getId());
     }
 
 
@@ -52,17 +52,17 @@ public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
      */
     @Override
     public void displayAllStudyData(FetchStudyDataResponseModel response) {
-        viewModel.presentResearcherHomeScreen(response);
+        screenSetter.presentResearcherHomeScreen(response);
     }
 
 
     /**
      * This method sets the view model to the given view model.
      *
-     * @param viewModel the view model to be set
+     * @param screenSetter the view model to be set
      */
-    public void setViewModel(ViewModel viewModel) {
-        this.viewModel = viewModel;
+    public void setViewModel(DisplayResearcherStudyDataInterface screenSetter) {
+        this.screenSetter = screenSetter;
     }
 
 
