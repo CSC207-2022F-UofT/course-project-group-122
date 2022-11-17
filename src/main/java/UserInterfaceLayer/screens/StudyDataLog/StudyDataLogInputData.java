@@ -12,13 +12,13 @@ public class StudyDataLogInputData {
         private String randomizedStrategy = "";
         private final String studyName;
         private final String[] UserTableHeader = {"ID", "Username", "Name"};
-        private final Map<Integer, List<String[]>> researchersData;
-        private final Map<Integer, List<String[]>> potentialsData;
-        private final Map<Integer, List<String[]>> participantsData;
+        private final Map<Integer, String[]> researchersData;
+        private final Map<Integer, String[]> potentialsData;
+        private final Map<Integer, String[]> participantsData;
         private final String[] questionnairesTableHeader = {"Questionnaire ID", "Questionnaire Name", "Published Status", "Closed Status"};
         private final int eligibilityQuestionnaireId;
         private final String[] eligibilityQuestionnaire;
-        private Map<Integer, List<String[]>> questionnairesData;
+        private Map<Integer, String[]> questionnairesData;
         private List<String> groups;
        private final ControllerManager controllerManager;
 
@@ -27,12 +27,12 @@ public class StudyDataLogInputData {
             int studyId,
             String studyType,
             String studyName,
-            Map<Integer, List<String[]>> researchersData,
-            Map<Integer, List<String[]>> potentialsData,
-            Map<Integer, List<String[]>> participantsData,
+            Map<Integer, String[]> researchersData,
+            Map<Integer, String[]> potentialsData,
+            Map<Integer, String[]> participantsData,
             int eligibilityQuestionnaireId,
             String[] eligibilityQuestionnaire,
-            Map<Integer, List<String[]>> questionnairesData,
+            Map<Integer, String[]> questionnairesData,
             List<String> groups,
             ControllerManager controllerManager) {
 
@@ -70,15 +70,19 @@ public class StudyDataLogInputData {
         return UserTableHeader;
     }
 
-    public Map<Integer, List<String[]>> getResearchersData() {
+    public String [] getPotentialParticipantsTableHeader() {
+        return new String[] {"ID", "Username", "Name", "Eligibility"};
+    }
+
+    public Map<Integer, String[]> getResearchersData() {
         return researchersData;
     }
 
-    public Map<Integer, List<String[]>> getPotentialsData() {
+    public Map<Integer, String[]> getPotentialsData() {
         return potentialsData;
     }
 
-    public Map<Integer, List<String[]>> getParticipantsData() {
+    public Map<Integer, String[]> getParticipantsData() {
         return participantsData;
     }
 
@@ -94,7 +98,7 @@ public class StudyDataLogInputData {
         return eligibilityQuestionnaire;
     }
 
-    public Map<Integer, List<String[]>> getQuestionnairesData() {
+    public Map<Integer, String[]> getQuestionnairesData() {
         return questionnairesData;
     }
 
@@ -114,7 +118,7 @@ public class StudyDataLogInputData {
         this.randomizedStrategy = randomizedStrategy;
     }
 
-    public void setQuestionnairesData(Map<Integer, List<String[]>> questionnairesData) {
+    public void setQuestionnairesData(Map<Integer, String[]> questionnairesData) {
         this.questionnairesData = questionnairesData;
     }
 

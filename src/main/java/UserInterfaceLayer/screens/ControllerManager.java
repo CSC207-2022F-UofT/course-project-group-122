@@ -72,18 +72,38 @@ public class ControllerManager {
         studyCreationScreenDriver.requestStudyCreationScreen(screenManager, this, userId);
     }
 
+    // mine
     public void checkQuestionnaireVersionedAnswerDriver(int studyId, int participantID, int questionnaireID, List<String[]> answers) {
     }
 
-    public void answerQuestionnaireRequestData(int participantID, int eligibilityQuestionnaireId) {
+    public void answerQuestionnaireRequestData(int participantID, int questionnaireId) {
     }
 
     public void removeResearcherFromStudyRequest(int researcherId, int studyID) {
     }
-
-    public void addResearcherToStudyRequest(int studyID) {
-    }
+    
 
     public void answerEligibilityQuestionnaireRequestData(int participantID, int questionnaireId) {
+    }
+
+    public void addResearcherToStudyRequest(int researcherIdInt, int studyId) {
+    }
+
+    public void makeParticipantEligibleRequest(int participantId, int studyId) {
+    }
+
+    public void researcherRequestParticipantScreenRequest(int researchId, int participantId, int studyId) {
+    }
+
+    public void addPotentialParticipantToStudyRequest(int participantIdInt, int studyId) {
+    }
+
+    public void researcherQuestionnaireScreenRequest(int researchId, int studyId, int eligibilityQuestionnaireId) {
+    }
+
+    public void researcherAddQuestionnaireScreenRequest(int researchId, int studyId) {
+    }
+
+    public void researcherEditQuestionnaireScreenRequest(int researchId, int studyId, int questionnaireId) {
     }
 }

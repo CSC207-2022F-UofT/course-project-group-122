@@ -1,5 +1,6 @@
 package UserInterfaceLayer.screens.StudyDataLog.StudyDataLogPanels;
 
+import UserInterfaceLayer.SetScreenToCenter;
 import UserInterfaceLayer.SetTableModel;
 import UserInterfaceLayer.screens.StudyDataLog.StudyDataLogInputData;
 
@@ -17,10 +18,7 @@ public class StudyLogResearcherPanel extends JPanel {
         JTable table = setTableModel.getTable();
 
         List<Integer> keys = new ArrayList<>(data.getResearchersData().keySet());
-
         List<String[]> values = new ArrayList<>(data.getResearchersData().values());
-
-
 
         for (String[] row : values) {
             model.addRow(row);
@@ -38,7 +36,7 @@ public class StudyLogResearcherPanel extends JPanel {
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select a researcher to remove");
             } else {
-                int researcherId = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
+                int researcherId = keys.get(selectedRow);
                 data.getControllerManager().removeResearcherFromStudyRequest(researcherId, data.getStudyId());
             }
         });
@@ -47,8 +45,28 @@ public class StudyLogResearcherPanel extends JPanel {
 
         JButton addResearcherButton = new JButton("Add Researcher");
         addResearcherButton.addActionListener(e-> {
-                data.getControllerManager().addResearcherToStudyRequest(data.getStudyId());
-
+                JFrame frame = new JFrame("Add Researcher");
+                frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                JLabel label = new JLabel("Enter researcher's Identifier", SwingConstants.CENTER);
+                JTextField textField = new JTextField(10);
+                JButton button = new JButton("Add");
+                button.addActionListener(e1 -> {
+                    String researcherId = textField.getText();
+                    try {
+                        int researcherIdInt = Integer.parseInt(researcherId);
+                        data.getControllerManager().addResearcherToStudyRequest(researcherIdInt, data.getStudyId());
+                        frame.dispose();
+                    } catch (NumberFormatException exception) {
+                        JOptionPane.showMessageDialog(null, "Please enter a valid researcher identifier");
+                    }
+                });
+                frame.add(label);
+                frame.add(textField);
+                frame.add(button);
+                frame.pack();
+                SetScreenToCenter s = new SetScreenToCenter(frame);
+                frame.setVisible(true);
         });
 
         buttonPanel.add(addResearcherButton);
