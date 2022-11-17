@@ -71,5 +71,12 @@ public class StudyLogQuestionnairePanel extends JPanel {
                 }
             }
         });
-    }
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(checkEligibility);
+        buttonPanel.add(check);
+        buttonPanel.add(addQuestionnaire);
+        buttonPanel.add(editQuestionnaire);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+            }
 }

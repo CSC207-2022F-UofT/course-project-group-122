@@ -6,6 +6,7 @@ import UserInterfaceLayer.screens.ResearcherHomeScreen.ResearcherStudyScreen;
 import UserInterfaceLayer.screens.RegisterScreens.UserLogInScreen;
 import UserInterfaceLayer.screens.RegisterScreens.UserRegisterScreen;
 import UserInterfaceLayer.screens.RegisterScreens.UserSignUpScreen;
+import UserInterfaceLayer.screens.ResearcherRequestParticipantScreen.ResearcherRequestParticipantScreen;
 
 import javax.swing.*;
 
@@ -17,6 +18,7 @@ public class ScreenManager {
     ParticipantNotEnrolledScreen participantNotEnrolledScreen;
     ParticipantHomeScreen participantHomeScreen;
     ResearcherStudyScreen researcherStudiesScreen;
+    private ResearcherRequestParticipantScreen researcherRequestParticipantScreen;
 
     public ScreenManager() {
     }
@@ -74,5 +76,9 @@ public class ScreenManager {
 
     public void setParticipantHomeScreen(ParticipantHomeScreen participantHomeScreen) {
         this.participantHomeScreen = participantHomeScreen;
+    }
+
+    public void setResearcherRequestParticipantScreen(ResearcherRequestParticipantScreen screen) {
+        this.researcherRequestParticipantScreen = screen;
     }
 }

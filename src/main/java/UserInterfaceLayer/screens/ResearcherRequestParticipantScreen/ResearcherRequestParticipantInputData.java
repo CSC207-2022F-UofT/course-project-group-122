@@ -101,8 +101,7 @@ public class ResearcherRequestParticipantInputData {
 
     ControllerManager controllerManager;
 
-    public ResearcherRequestParticipantInputData(int researcherId,
-                                                 int participantID,
+    public ResearcherRequestParticipantInputData(int participantID,
                                                  String participantName,
                                                  String participantStatus,
                                                  int studyID,
@@ -121,7 +120,6 @@ public class ResearcherRequestParticipantInputData {
                                                  List<String[]> eligibilityQuestionnaireAnswerHistory,
                                                  Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory,
                                                  ControllerManager controllerManager) {
-        this.researcherId = researcherId;
         this.participantId = participantID;
         this.participantName = participantName;
         this.participantStatus = participantStatus;
@@ -141,10 +139,6 @@ public class ResearcherRequestParticipantInputData {
         this.eligibilityQuestionnaireAnswerHistory = eligibilityQuestionnaireAnswerHistory;
         this.completedQuestionnaireAnswerHistory = completedQuestionnaireAnswerHistory;
         this.controllerManager = controllerManager;
-    }
-
-    public int getResearcherId() {
-        return researcherId;
     }
 
     public int getParticipantId() {

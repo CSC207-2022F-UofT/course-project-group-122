@@ -37,6 +37,17 @@ public class CompletedQuestionnairePanelForResearcher extends JPanel {
             }
         });
 
+        JButton newAnswerButton = new JButton("Edit Answer");
+        newAnswerButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(null, "Please select a questionnaire to edit its answer.");
+            } else {
+                int questionnaireID = keys.get(selectedRow);
+                data.getControllerManager().editQuestionnaireAnswerRequest(data.getStudyId(), data.getParticipantId(), questionnaireID);
+            }
+        });
+
         add(scrollPane, BorderLayout.CENTER);
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(checkAnswerButton);

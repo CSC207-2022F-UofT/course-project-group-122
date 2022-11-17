@@ -1,10 +1,7 @@
 package UserInterfaceLayer.screens;
 
 import UserInterfaceLayer.ScreenManager;
-import UserInterfaceLayer.screens.ScreenDrivers.SetUpLogInScreenDriver;
-import UserInterfaceLayer.screens.ScreenDrivers.SetUpRegisterScreenDriver;
-import UserInterfaceLayer.screens.ScreenDrivers.SetUpSignUpScreenDriver;
-import UserInterfaceLayer.screens.ScreenDrivers.SetUpStudyCreationScreenDriver;
+import UserInterfaceLayer.screens.ScreenDrivers.*;
 import use_cases.fetch_study_log_data.RequestResearcherStudyLogDataController;
 import use_cases.user_log_in.UserLogInController;
 import use_cases.user_log_out.UserLogOutController;
@@ -20,6 +17,7 @@ public class ControllerManager {
     SetUpSignUpScreenDriver signUpScreenDriver;
     SetUpRegisterScreenDriver registerScreenDriver;
     SetUpStudyCreationScreenDriver studyCreationScreenDriver;
+    SetQuestionnaireVersionedAnswerDriver setQuestionnaireVersionedAnswerDriver;
 
     //  Controllers
     UserLogOutController userLogOutController;
@@ -63,17 +61,16 @@ public class ControllerManager {
         userSignUpController.createUser(typeOfUser, username, name);
     }
 
-    public void requestResearcherStudyLog(Integer user, int study) {
-        requestResearcherStudyLogDataController.fetchResearcherStudyLogData(user, study);
-
+    public void requestResearcherStudyLog(Integer researcherUser, int study) {
+        requestResearcherStudyLogDataController.fetchResearcherStudyLogData(researcherUser, study);
     }
-
     public void requestCreateStudyModel(int userId) {
         studyCreationScreenDriver.requestStudyCreationScreen(screenManager, this, userId);
     }
 
     // mine
     public void checkQuestionnaireVersionedAnswerDriver(int studyId, int participantID, int questionnaireID, List<String[]> answers) {
+        setQuestionnaireVersionedAnswerDriver.checkQuestionnaireVersionedAnswerDriver(studyId, participantID, questionnaireID, answers);
     }
 
     public void answerQuestionnaireRequestData(int participantID, int questionnaireId) {
@@ -105,5 +102,26 @@ public class ControllerManager {
     }
 
     public void researcherEditQuestionnaireScreenRequest(int researchId, int studyId, int questionnaireId) {
+    }
+
+    public void editStudyRequest(Integer integer, int researchID) {
+    }
+
+    public void setRandomizationStrategyRequest(int studyId, String simple) {
+    }
+
+    public void ResearcherHomeScreenDriver(int researchId) {
+    }
+
+    public void downloadDataButtonActionPerformed(String all_data, int studyId) {
+    }
+
+    public void userDropStudyRequest(int participantId, int studyId) {
+    }
+
+    public void editQuestionnaireAnswerRequest(int studyId, int participantId, int questionnaireID) {
+    }
+
+    public void checkQuestionnaireVersionedAnswerRequest(int studyId, int questionnaireID, int answerID, int version) {
     }
 }

@@ -65,6 +65,11 @@ public class ParticipantHomeScreen extends JFrame {
                                 .addComponent(QuestionnaireTabPane, GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                                 .addContainerGap())
         );
+        JButton dropOutButton = new JButton("Drop Out");
+        dropOutButton.addActionListener(e -> {
+            data.getControllerManager().userDropStudyRequest(data.getParticipantId(),data.getStudyId());
+        });
+        add(dropOutButton, BorderLayout.SOUTH);
 
         add(participantScreenMain, BorderLayout.CENTER);
         pack();

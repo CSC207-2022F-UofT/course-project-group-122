@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class StudyDataLogInputData {
         private final int researchId;
+        private final String researcherName;
         private final int studyId;
         private final String studyType;
         private String randomizedStrategy = "";
@@ -24,6 +25,7 @@ public class StudyDataLogInputData {
 
     public StudyDataLogInputData(
             int researchId,
+            String researcherName,
             int studyId,
             String studyType,
             String studyName,
@@ -37,6 +39,7 @@ public class StudyDataLogInputData {
             ControllerManager controllerManager) {
 
         this.researchId = researchId;
+        this.researcherName = researcherName;
         this.studyId = studyId;
         this.studyType = studyType;
         this.studyName = studyName;
@@ -52,6 +55,10 @@ public class StudyDataLogInputData {
 
     public int getResearchId() {
         return researchId;
+    }
+
+    public String getResearcherName() {
+        return researcherName;
     }
 
     public int getStudyId() {
@@ -127,5 +134,8 @@ public class StudyDataLogInputData {
     }
 
 
+    public boolean isStudyEmpty() {
+         return potentialsData.isEmpty() && participantsData.isEmpty();
+    }
 }
 

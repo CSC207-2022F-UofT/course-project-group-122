@@ -88,6 +88,16 @@ public class ResearcherStudyScreen extends JFrame {
         createStudyButton.addActionListener(e -> {
             data.getController().requestCreateStudyModel(data.getResearchID());
         });
+
+        JButton editStudyButton = new JButton("Edit Study");
+        editStudyButton.addActionListener(e -> {
+            int selectedRow = studiesTable.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(null, "Please select a study to continue.");
+            } else {
+                data.getController().editStudyRequest(keys.get(selectedRow), data.getResearchID());
+            }
+        });
         southPanel.add(createStudyButton);
         framePanel.add(southPanel, BorderLayout.PAGE_END);
         getContentPane().add(framePanel);
