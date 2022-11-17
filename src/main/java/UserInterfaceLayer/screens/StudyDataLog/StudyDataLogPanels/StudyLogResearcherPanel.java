@@ -6,6 +6,8 @@ import UserInterfaceLayer.screens.StudyDataLog.StudyDataLogInputData;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudyLogResearcherPanel extends JPanel {
     public StudyLogResearcherPanel(StudyDataLogInputData data) {
@@ -14,7 +16,13 @@ public class StudyLogResearcherPanel extends JPanel {
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
 
-        for (String[] row : data.getResearchers()) {
+        List<Integer> keys = new ArrayList<>(data.getResearchersData().keySet());
+
+        List<String[]> values = new ArrayList<>(data.getResearchersData().values());
+
+
+
+        for (String[] row : values) {
             model.addRow(row);
         }
         JScrollPane scrollPane = new JScrollPane();
@@ -31,7 +39,7 @@ public class StudyLogResearcherPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a researcher to remove");
             } else {
                 int researcherId = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
-                data.getControllerManager().removeResearcherFromStudyRequest(researcherId, data.getStudyID());
+                data.getControllerManager().removeResearcherFromStudyRequest(researcherId, data.getStudyId());
             }
         });
 
@@ -39,7 +47,7 @@ public class StudyLogResearcherPanel extends JPanel {
 
         JButton addResearcherButton = new JButton("Add Researcher");
         addResearcherButton.addActionListener(e-> {
-                data.getControllerManager().addResearcherToStudyRequest(data.getStudyID());
+                data.getControllerManager().addResearcherToStudyRequest(data.getStudyId());
 
         });
 

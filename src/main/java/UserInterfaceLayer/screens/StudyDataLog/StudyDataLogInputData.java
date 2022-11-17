@@ -2,122 +2,126 @@ package UserInterfaceLayer.screens.StudyDataLog;
 
 import UserInterfaceLayer.screens.ControllerManager;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class StudyDataLogInputData {
-        private final int researchID;
-        private final int studyID;
+        private final int researchId;
+        private final int studyId;
         private final String studyType;
         private String randomizedStrategy = "";
         private final String studyName;
         private final String[] UserTableHeader = {"ID", "Username", "Name"};
-        private final List<String[]> researchers;
-        private final List<String[]> potentials;
-        private final List<String[]> participants;
-        private final String[] questionnairesTableHeader = {"ID", "Name", "Description", "Published", "Status"};
+        private final Map<Integer, List<String[]>> researchersData;
+        private final Map<Integer, List<String[]>> potentialsData;
+        private final Map<Integer, List<String[]>> participantsData;
+        private final String[] questionnairesTableHeader = {"Questionnaire ID", "Questionnaire Name", "Published Status", "Closed Status"};
+        private final int eligibilityQuestionnaireId;
         private final String[] eligibilityQuestionnaire;
-        private List<String[]> questionnaires;
+        private Map<Integer, List<String[]>> questionnairesData;
         private List<String> groups;
        private final ControllerManager controllerManager;
 
     public StudyDataLogInputData(
-        int researchID,
-        int studyID,
-        String studyType,
-        String randomizedStrategy,
-        String studyName,
-        List<String[]> researchers,
-        List<String[]> potentials,
-        List<String[]> participants,
-        String[] eligibilityQuestionnaire,
-        List<String[]> questionnaires,
-        List<String> groups,
-        ControllerManager controllerManager)
+            int researchId,
+            int studyId,
+            String studyType,
+            String studyName,
+            Map<Integer, List<String[]>> researchersData,
+            Map<Integer, List<String[]>> potentialsData,
+            Map<Integer, List<String[]>> participantsData,
+            int eligibilityQuestionnaireId,
+            String[] eligibilityQuestionnaire,
+            Map<Integer, List<String[]>> questionnairesData,
+            List<String> groups,
+            ControllerManager controllerManager) {
 
-        {
-            this.researchID = researchID;
-            this.studyID = studyID;
-            this.studyType = studyType;
-            this.randomizedStrategy = randomizedStrategy;
-            this.studyName = studyName;
-            this.researchers = researchers;
-            this.potentials = potentials;
-            this.participants = participants;
-            this.eligibilityQuestionnaire = eligibilityQuestionnaire;
-            this.questionnaires = questionnaires;
-            this.groups = groups;
-            this.controllerManager = controllerManager;
-        }
-
-        public int getResearchID() {
-            return researchID;
+        this.researchId = researchId;
+        this.studyId = studyId;
+        this.studyType = studyType;
+        this.studyName = studyName;
+        this.researchersData = researchersData;
+        this.potentialsData = potentialsData;
+        this.participantsData = participantsData;
+        this.eligibilityQuestionnaireId = eligibilityQuestionnaireId;
+        this.eligibilityQuestionnaire = eligibilityQuestionnaire;
+        this.questionnairesData = questionnairesData;
+        this.groups = groups;
+        this.controllerManager = controllerManager;
         }
 
-        public int getStudyID() {
-            return studyID;
-        }
-
-        public String getStudyType() {
-            return studyType;
-        }
-
-        public String getRandomizedStrategy() {
-            return randomizedStrategy;
-        }
-
-        public void setRandomizedStrategy(String randomizedStrategy) {
-            this.randomizedStrategy = randomizedStrategy;
-        }
-
-        public String getStudyName() {
-            return studyName;
-        }
-
-        public String[] getUserTableHeader() {
-            return UserTableHeader;
-        }
-        public List<String[]> getResearchers() {
-            return researchers;
-        }
-
-        public List<String[]> getPotentials() {
-            return potentials;
-        }
-
-        public List<String[]> getParticipants() {
-            return participants;
-        }
-
-        public String[] getQuestionnairesTableHeader() {
-            return questionnairesTableHeader;
-        }
-
-        public String[] getEligibilityQuestionnaire() {
-            return eligibilityQuestionnaire;
-        }
-        public List<String[]> getQuestionnaires() {
-            return questionnaires;
-        }
-
-        public void setQuestionnaires(List<String[]> questionnaires) {
-            this.questionnaires = questionnaires;
-        }
-
-        public List<String> getGroups() {
-            return groups;
-        }
-
-        public void setGroups(List<String> groups) {
-            this.groups = groups;
-        }
-
-        public ControllerManager getControllerManager() {
-            return controllerManager;
-        }
-
-        public boolean isStudyEmpty(){
-            return (potentials == null || potentials.isEmpty()) && (participants == null || participants.isEmpty());
-        }
+    public int getResearchId() {
+        return researchId;
     }
+
+    public int getStudyId() {
+        return studyId;
+    }
+
+    public String getStudyType() {
+        return studyType;
+    }
+
+    public String getStudyName() {
+        return studyName;
+    }
+
+    public String[] getUserTableHeader() {
+        return UserTableHeader;
+    }
+
+    public Map<Integer, List<String[]>> getResearchersData() {
+        return researchersData;
+    }
+
+    public Map<Integer, List<String[]>> getPotentialsData() {
+        return potentialsData;
+    }
+
+    public Map<Integer, List<String[]>> getParticipantsData() {
+        return participantsData;
+    }
+
+    public String[] getQuestionnairesTableHeader() {
+        return questionnairesTableHeader;
+    }
+
+    public int getEligibilityQuestionnaireId() {
+        return eligibilityQuestionnaireId;
+    }
+
+    public String[] getEligibilityQuestionnaire() {
+        return eligibilityQuestionnaire;
+    }
+
+    public Map<Integer, List<String[]>> getQuestionnairesData() {
+        return questionnairesData;
+    }
+
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    public ControllerManager getControllerManager() {
+        return controllerManager;
+    }
+
+    public String getRandomizedStrategy() {
+        return randomizedStrategy;
+    }
+
+    public void setRandomizedStrategy(String randomizedStrategy) {
+        this.randomizedStrategy = randomizedStrategy;
+    }
+
+    public void setQuestionnairesData(Map<Integer, List<String[]>> questionnairesData) {
+        this.questionnairesData = questionnairesData;
+    }
+
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
+    }
+
+
+}
 
