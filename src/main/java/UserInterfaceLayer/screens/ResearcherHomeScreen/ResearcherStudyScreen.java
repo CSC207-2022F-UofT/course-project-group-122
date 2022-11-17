@@ -6,6 +6,8 @@ import UserInterfaceLayer.SetTableModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ResearcherStudyScreen extends JFrame {
 
@@ -57,8 +59,10 @@ public class ResearcherStudyScreen extends JFrame {
         DefaultTableModel studiesTableModel = setTableModel.getModel();
         this.studiesTable = setTableModel.getTable();
 
+        List<Integer> keys = new ArrayList<>(data.getListStudiesData().keySet());
+        List<String []> values = new ArrayList<>(data.getListStudiesData().values());
 
-        for (String[] i : data.getListStudiesData()) {
+        for (String[] i : values) {
             studiesTableModel.addRow(i);
         }
 
@@ -75,7 +79,7 @@ public class ResearcherStudyScreen extends JFrame {
                     if (selectedRow == -1) {
                         JOptionPane.showMessageDialog(null, "Please select a study to continue.");
                     } else {
-                        data.getController().requestResearcherStudyLog(data.getListStudiesData().get(selectedRow), data.getResearchID());
+                        data.getController().requestResearcherStudyLog(keys.get(selectedRow), data.getResearchID());
                     }
                 });
         southPanel.add(selectStudyButton);

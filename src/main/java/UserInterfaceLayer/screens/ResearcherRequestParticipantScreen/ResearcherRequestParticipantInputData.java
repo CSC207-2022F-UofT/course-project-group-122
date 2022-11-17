@@ -1,157 +1,223 @@
 package UserInterfaceLayer.screens.ResearcherRequestParticipantScreen;
 
 import UserInterfaceLayer.screens.ControllerManager;
-import entities.Answer;
-import entities.Questionnaire;
-import entities.Study;
-import entities.User;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
 public class ResearcherRequestParticipantInputData {
-    private final int participantID;
+    /**
+     * The ID of the participant.
+     */
+    private final int participantId;
+
+    /**
+     * The name of the participant.
+     */
     private final String participantName;
 
+    /**
+     * The status of the participant.
+     */
     private final String participantStatus;
-//    private final Study study;
 
-    private final int studyID;
-    private final String StudyName;
-    private final String[] questionnairesTableHeader = {"ID", "Name", "Version", "Status"};
-    //    private final Questionnaire eligibilityQuestionnaire;
+    /**
+     * The ID of the study.
+     */
+    private final int studyId;
+
+    /**
+     * The name of the study.
+     */
+    private final String studyName;
+
+    /**
+     * The description of the study.
+     */
+    private final String studyDescription;
+
+    /**
+     * The status of the study.
+     */
+    private final String studyStatus;
+
+    /**
+     * The group number attached to this participant.
+     */
+    private final int groupNumber;
+
+    /**
+     * The eligibility questionnaire attached to this participant.
+     */
+    private final int eligibilityQuestionnaireId;
+
+    /**
+     * The status of the eligibility questionnaire answer.
+     */
+    private final String eligibilityQuestionnaireAnswerStatus;
+
+    /**
+     * The questionnaires assigned to this participant.
+     */
+    private final List<Integer> assignedQuestionnaires;
+
+    /**
+     * The questionnaires completed by this participant.
+     */
+    private final List<Integer> completedQuestionnaires;
+
+    /**
+     * The answers to the questionnaires completed by this participant.
+     */
+    private final List<Integer> questionnaireAnswers;
+
+    /**
+     * The data of the eligibility questionnaire.
+     */
     private final String[] eligibilityQuestionnaireData;
-    private final Map<String,String> eligibilityQuestionnaireAnswers;
-    //    private final List<String[]> eligibilityQuestionnaireAnswerHistory;
-    private final List<String[]> assignedQuestionnaireData;
-    private final List<String[]> completedQuestionnaireData;
 
-    private final List<Map<String,String>> completedQuestionnairesAnswers;
+    /**
+     * The data of the assigned questionnaires.
+     */
+    private final Map<Integer, String[]> assignedQuestionnaireData;
 
-//    private final List<Questionnaire> assignedQuestionnaires;
-//    private final Map<Questionnaire, String[]> assignedQuestionnaireData;
+    /**
+     * The data of the completed questionnaires.
+     */
+    private final Map<Integer, String[]> completedQuestionnaireData;
 
-//    private final List<Questionnaire> completedQuestionnaires;
-//    private final List<Answer> questionnaireAnswers;
-//    private final Map<Questionnaire, String[]> completedQuestionnaireData;
+    /**
+     * This history of all versions of the eligibility questionnaire.
+     */
+    private final List<String[]> eligibilityQuestionnaireAnswerHistory;
 
-    //    HashMap<Questionnaire, String[]> questionnaireData;
+    /**
+     * This history of all versions of the completed questionnaires.
+     */
+    private final Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory;
+
+
     ControllerManager controllerManager;
 
     public ResearcherRequestParticipantInputData(int participantID,
-                                          String participantName,
-                                          String participantStatus,
-                                          int studyID, String studyName,
-                                          String[] eligibilityQuestionnaireData,
-                                          Map<String,String> eligibilityQuestionnaireAnswers,
-//                                         List<String[]> eligibilityQuestionnaireAnswerHistory,
-                                          List<String[]> assignedQuestionnaireData,
-                                          List<String[]> completedQuestionnaireData,
-                                          List<Map<String,String>> completedQuestionnairesAnswers,
-                                          ControllerManager controllerManager) {
-
-
-//        this.user = user;
-        this.participantID = participantID;
+                                                 String participantName,
+                                                 String participantStatus,
+                                                 int studyID,
+                                                 String studyName,
+                                                 String studyDescription,
+                                                 String studyStatus,
+                                                 int groupNumber,
+                                                 int eligibilityQuestionnaireID,
+                                                 String eligibilityQuestionnaireAnswerStatus,
+                                                 List<Integer> assignedQuestionnaires,
+                                                 List<Integer> completedQuestionnaires,
+                                                 List<Integer> questionnaireAnswers,
+                                                 String[] eligibilityQuestionnaireData,
+                                                 Map<Integer, String[]> assignedQuestionnaireData,
+                                                 Map<Integer, String[]> completedQuestionnaireData,
+                                                 List<String[]> eligibilityQuestionnaireAnswerHistory,
+                                                 Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory,
+                                                 ControllerManager controllerManager) {
+        this.participantId = participantID;
         this.participantName = participantName;
         this.participantStatus = participantStatus;
-//        this.study = study;
-        this.studyID = studyID;
-        StudyName = studyName;
-//        this.eligibilityQuestionnaire = eligibilityQuestionnaire;
+        this.studyId = studyID;
+        this.studyName = studyName;
+        this.studyDescription = studyDescription;
+        this.studyStatus = studyStatus;
+        this.groupNumber = groupNumber;
+        this.eligibilityQuestionnaireId = eligibilityQuestionnaireID;
+        this.eligibilityQuestionnaireAnswerStatus = eligibilityQuestionnaireAnswerStatus;
+        this.assignedQuestionnaires = assignedQuestionnaires;
+        this.completedQuestionnaires = completedQuestionnaires;
+        this.questionnaireAnswers = questionnaireAnswers;
         this.eligibilityQuestionnaireData = eligibilityQuestionnaireData;
-        this.eligibilityQuestionnaireAnswers = eligibilityQuestionnaireAnswers;
-//        this.eligibilityQuestionnaireAnswerHistory = eligibilityQuestionnaireAnswerHistory;
-//        this.assignedQuestionnaires = assignedQuestionnaires;
         this.assignedQuestionnaireData = assignedQuestionnaireData;
-//        this.completedQuestionnaires = completedQuestionnaires;
-//        this.questionnaireAnswers = questionnaireAnswers;
         this.completedQuestionnaireData = completedQuestionnaireData;
-        this.completedQuestionnairesAnswers = completedQuestionnairesAnswers;
-//        this.questionnaireData = questionnaireData;
+        this.eligibilityQuestionnaireAnswerHistory = eligibilityQuestionnaireAnswerHistory;
+        this.completedQuestionnaireAnswerHistory = completedQuestionnaireAnswerHistory;
         this.controllerManager = controllerManager;
-
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-
-    public int getParticipantID() {
-        return participantID;
+    public int getParticipantId() {
+        return participantId;
     }
 
     public String getParticipantName() {
         return participantName;
     }
 
-//    public Study getStudy() {
-//        return study;
-//    }
+    public String getParticipantStatus() {
+        return participantStatus;
+    }
 
-    public int getStudyID() {return studyID;}
+    public int getStudyId() {
+        return studyId;
+    }
 
     public String getStudyName() {
-        return StudyName;
+        return studyName;
     }
 
-    public String[] getQuestionnairesTableHeader() {
-        return questionnairesTableHeader;
+    public String getStudyDescription() {
+        return studyDescription;
     }
 
-//    public Questionnaire getEligibilityQuestionnaire() {
-//        return eligibilityQuestionnaire;
-//    }
+    public String getStudyStatus() {
+        return studyStatus;
+    }
+
+    public int getGroupNumber() {
+        return groupNumber;
+    }
+
+    public int getEligibilityQuestionnaireId() {
+        return eligibilityQuestionnaireId;
+    }
+
+    public String getEligibilityQuestionnaireAnswerStatus() {
+        return eligibilityQuestionnaireAnswerStatus;
+    }
+
+    public List<Integer> getAssignedQuestionnaires() {
+        return assignedQuestionnaires;
+    }
+
+    public List<Integer> getCompletedQuestionnaires() {
+        return completedQuestionnaires;
+    }
+
+    public List<Integer> getQuestionnaireAnswers() {
+        return questionnaireAnswers;
+    }
 
     public String[] getEligibilityQuestionnaireData() {
         return eligibilityQuestionnaireData;
     }
 
-    public Map<String,String> getEligibilityQuestionnaireAnswers() {
-        return eligibilityQuestionnaireAnswers;
-    }
-
-//    public List<String[]> getEligibilityQuestionnaireAnswerHistory() {
-//        return eligibilityQuestionnaireAnswerHistory;
-//    }
-
-//    public List<Questionnaire> getAssignedQuestionnaires() {
-//        return assignedQuestionnaires;
-//    }
-
-    public List<String[]> getAssignedQuestionnaireData() {
+    public Map<Integer, String[]> getAssignedQuestionnaireData() {
         return assignedQuestionnaireData;
     }
 
-    public List<String[]> getCompletedQuestionnaireData() {
+    public Map<Integer, String[]> getCompletedQuestionnaireData() {
         return completedQuestionnaireData;
     }
 
-    public List<Map<String,String>> getCompletedQuestionnairesAnswers() {
-        return completedQuestionnairesAnswers;
+    public List<String[]> getEligibilityQuestionnaireAnswerHistory() {
+        return eligibilityQuestionnaireAnswerHistory;
     }
 
-//    public List<Questionnaire> getCompletedQuestionnaires() {
-//        return completedQuestionnaires;
-//    }
-
-//    public List<Answer> getQuestionnaireAnswers() {
-//        return questionnaireAnswers;
-//    }
-
-//    public Map<Questionnaire, String[]> getCompletedQuestionnaireData() {
-//        return completedQuestionnaireData;
-//    }
-
-//    public HashMap<Questionnaire, String[]> getQuestionnaireData() {
-//        return questionnaireData;
-//    }
+    public Map<Integer, List<String[]>> getCompletedQuestionnaireAnswerHistory() {
+        return completedQuestionnaireAnswerHistory;
+    }
 
     public ControllerManager getControllerManager() {
         return controllerManager;
     }
 
-    public String getParticipantStatus() {
-        return participantStatus;
+
+    public String[] getQuestionnairesTableHeader() {
+        return new String[]{"Questionnaire ID", "Questionnaire Name", "Questionnaire Status"};
+
     }
 }

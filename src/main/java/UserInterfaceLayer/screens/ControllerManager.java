@@ -63,7 +63,7 @@ public class ControllerManager {
         userSignUpController.createUser(typeOfUser, username, name);
     }
 
-    public void requestResearcherStudyLog(String[] user, int study) {
+    public void requestResearcherStudyLog(Integer user, int study) {
         requestResearcherStudyLogDataController.fetchResearcherStudyLogData(user, study);
 
     }
@@ -72,7 +72,7 @@ public class ControllerManager {
         studyCreationScreenDriver.requestStudyCreationScreen(screenManager, this, userId);
     }
 
-    public void checkQuestionnaireVersionedAnswerDriver(int participantID, int questionnaireID, List<String[]> answers) {
+    public void checkQuestionnaireVersionedAnswerDriver(int studyId, int participantID, int questionnaireID, List<String[]> answers) {
     }
 
     public void answerQuestionnaireRequestData(int participantID, int eligibilityQuestionnaireId) {

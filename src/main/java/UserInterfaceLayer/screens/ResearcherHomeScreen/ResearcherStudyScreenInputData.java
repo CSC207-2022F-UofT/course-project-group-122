@@ -32,7 +32,7 @@ public class ResearcherStudyScreenInputData {
     /*
      * The header of the table that displays the studies.
      */
-    private final String[] studiesTableHeader = {"ID", "Name", "Description", "Published", "Status"};
+    private final String[] studiesTableHeader = {"ID", "Name", "Status"};
 
 //    /*
 //     * The List of studies that the researcher is part of. This attribute is only used to pass a specific study to the controller.
@@ -61,16 +61,11 @@ public class ResearcherStudyScreenInputData {
                                           String researcherName,
                                           Map<Integer, String[]> studiesData,
                                           ControllerManager controllerManager) {
-//        this.user = (Researcher) user;
         this.researchID = researchID;
         this.researcherName = researcherName;
         this.studiesData = studiesData;
         this.controllerManager = controllerManager;
     }
-
-//    public User getUser() {
-//        return user;
-//    }
 
     public int getResearchID() {
         return researchID;
@@ -83,10 +78,6 @@ public class ResearcherStudyScreenInputData {
     public String[] getStudiesTableHeader() {
         return studiesTableHeader;
     }
-
-//    public List<Study> getListStudies() {
-//        return listStudies;
-//    }
 
     public Map<Integer, String[]> getListStudiesData() {
         return studiesData;

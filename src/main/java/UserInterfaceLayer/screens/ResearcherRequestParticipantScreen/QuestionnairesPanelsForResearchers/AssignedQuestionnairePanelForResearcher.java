@@ -7,6 +7,8 @@ import UserInterfaceLayer.screens.ResearcherRequestParticipantScreen.ResearcherR
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AssignedQuestionnairePanelForResearcher extends JPanel {
 
@@ -16,8 +18,10 @@ public AssignedQuestionnairePanelForResearcher(ResearcherRequestParticipantInput
     DefaultTableModel model = setTableModel.getModel();
     JTable table = setTableModel.getTable();
 
+    List<Integer> keys = new ArrayList<>(data.getAssignedQuestionnaireData().keySet());
+    List<String[]> values = new ArrayList<>(data.getAssignedQuestionnaireData().values());
 
-    for (String[] questionnaireData : data.getAssignedQuestionnaireData()) {
+    for (String[] questionnaireData : values) {
         model.addRow(questionnaireData);
     }
 

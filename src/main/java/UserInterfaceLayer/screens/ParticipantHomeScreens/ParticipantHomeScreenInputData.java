@@ -1,12 +1,7 @@
 package UserInterfaceLayer.screens.ParticipantHomeScreens;
 
 import UserInterfaceLayer.screens.ControllerManager;
-import entities.Answer;
-import entities.Questionnaire;
-import entities.Study;
-import entities.User;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -221,4 +216,7 @@ public class ParticipantHomeScreenInputData {
     }
 
 
+    public String[] getQuestionnairesTableHeader() {
+        return new String[]{"Questionnaire ID", "Questionnaire Name", "Questionnaire Status"};
+    }
 }

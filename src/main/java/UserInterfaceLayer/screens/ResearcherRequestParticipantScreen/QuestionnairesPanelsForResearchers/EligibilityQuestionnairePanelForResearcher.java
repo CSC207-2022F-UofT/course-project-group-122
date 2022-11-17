@@ -28,12 +28,10 @@ public class EligibilityQuestionnairePanelForResearcher extends JPanel {
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check answers");
             } else {
-                String status = model.getValueAt(selectedRow, 3).toString();
-                if (status.equals("Completed")) {
-                    data.getControllerManager().checkQuestionnaireVersionedAnswerDriver(data.getParticipantID(), questionnaireID, data.getEligibilityQuestionnaireAnswers());
-                } else {
+                int questionnaireID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
+                    data.getControllerManager().checkQuestionnaireVersionedAnswerDriver(data.getStudyId(), data.getParticipantId(), questionnaireID, data.getEligibilityQuestionnaireAnswerHistory());
                     JOptionPane.showMessageDialog(null, "Please answer the questionnaire first");
-                }
+
             }
         });
 

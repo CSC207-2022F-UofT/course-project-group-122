@@ -27,7 +27,7 @@ public class ResearcherRequestParticipantScreen extends JFrame {
 
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JLabel userIDLabel = new JLabel(data.getParticipantName() + " (" + data.getParticipantID() + ")");
+        JLabel userIDLabel = new JLabel(data.getParticipantName() + " (" + data.getParticipantId() + ")");
         JButton logOutButton = new JButton("Log Out");
         logOutButton.addActionListener(e -> {
             data.getControllerManager().userLogOutController();
@@ -58,40 +58,6 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         add(QuestionnaireTabPane, BorderLayout.CENTER);
         pack();
         SetScreenToCenter s = new SetScreenToCenter(this);
-    }
-    public static void main(String[] args) {
-        Map<String, String> answers = Map.of("variable 1", "1", "variable 2", "2", "variable 3", "3");
-
-        ResearcherRequestParticipantInputData data = new ResearcherRequestParticipantInputData(
-                22,
-                "Anna",
-                "Potential",
-                54,
-                "Study 1", new String[]{"23", "Eligibility Questionnaire", "5", "Not Completed"},
-                answers,
-                new ArrayList<>(
-                        java.util.List.of(
-                                new String[]{"23", "Eligibility Questionnaire", "5", "Not Completed"},
-                                new String[]{"24", "Eligibility Questionnaire", "5", "Not Completed"},
-                                new String[]{"25", "Eligibility Questionnaire", "5", "Not Completed"}
-                        )
-                ),
-                new ArrayList<>(
-                        List.of(
-                                new String[]{"23", "Eligibility Questionnaire", "5", "Not Completed"},
-                                new String[]{"24", "Eligibility Questionnaire", "5", "Not Completed"},
-                                new String[]{"25", "Eligibility Questionnaire", "5", "Not Completed"}
-                        )),
-                new ArrayList<Map<String, String>>(){
-                    {
-                        add(Map.of("variable 1", "1", "variable 2", "2", "variable 3", "3"));
-                        add(Map.of("variable 1", "1", "variable 2", "2", "variable 3", "3"));
-                        add(Map.of("variable 1", "1", "variable 2", "2", "variable 3", "3"));
-                    }
-                }, new ControllerManager(new ScreenManager()));
-
-        ResearcherRequestParticipantScreen screen = new ResearcherRequestParticipantScreen(data);
-        screen.setVisible(true);
     }
 }
 

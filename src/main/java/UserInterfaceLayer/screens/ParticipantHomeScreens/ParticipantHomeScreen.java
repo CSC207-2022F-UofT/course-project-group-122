@@ -1,25 +1,20 @@
 package UserInterfaceLayer.screens.ParticipantHomeScreens;
 
-import UserInterfaceLayer.ScreenManager;
 import UserInterfaceLayer.SetScreenToCenter;
-import UserInterfaceLayer.screens.ControllerManager;
 import UserInterfaceLayer.screens.ParticipantHomeScreens.QuestionnairePanelsForParticipants.AssignedQuestionnairePanel;
 import UserInterfaceLayer.screens.ParticipantHomeScreens.QuestionnairePanelsForParticipants.CompletedQuestionnairePanel;
 import UserInterfaceLayer.screens.ParticipantHomeScreens.QuestionnairePanelsForParticipants.EligibilityQuestionnairePanel;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ParticipantHomeScreen extends JFrame {
     JPanel eligibilityQuestionnairePanel;
     JPanel assignedQuestionnairePanel;
     JPanel completedQuestionnairePanel;
 
-    public ParticipantHomeScreen(ParticipantHomeScreenInputData data) {
+    public ParticipantHomeScreen(@NotNull ParticipantHomeScreenInputData data) {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 

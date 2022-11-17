@@ -6,6 +6,8 @@ import UserInterfaceLayer.screens.ParticipantHomeScreens.ParticipantHomeScreenIn
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AssignedQuestionnairePanel extends JPanel {
 
@@ -15,8 +17,9 @@ public AssignedQuestionnairePanel(ParticipantHomeScreenInputData data) {
     DefaultTableModel model = setTableModel.getModel();
     JTable table = setTableModel.getTable();
 
-
-    for (String[] questionnaireData : data.getAssignedQuestionnaireData()) {
+    List<Integer> keys = new ArrayList<>(data.getAssignedQuestionnaireData().keySet());
+    List<String[]> values = new ArrayList<>(data.getAssignedQuestionnaireData().values());
+    for (String[] questionnaireData : values) {
         model.addRow(questionnaireData);
     }
 
@@ -33,12 +36,12 @@ public AssignedQuestionnairePanel(ParticipantHomeScreenInputData data) {
             if (model.getValueAt(selectedRow, 2).toString().equals("Closed")) {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
             } else {
-                int questionnaireID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
-                data.getControllerManager().answerQuestionnaireRequestData(data.getParticipantID(), questionnaireID);
+                data.getControllerManager().answerQuestionnaireRequestData(data.getParticipantId(), keys.get(selectedRow));
             }
 
         }
     });
+
 
 
 

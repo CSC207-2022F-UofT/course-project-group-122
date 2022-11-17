@@ -28,7 +28,7 @@ public class EligibilityQuestionnairePanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
             } else {
                 int questionnaireId = Integer.parseInt(model.getValueAt(0, 0).toString());
-                data.getControllerManager().answerEligibilityQuestionnaireRequestData(data.getParticipantID(),questionnaireId);
+                data.getControllerManager().answerEligibilityQuestionnaireRequestData(data.getParticipantId(),questionnaireId);
             }
 
         });
@@ -40,7 +40,7 @@ public class EligibilityQuestionnairePanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check answers");
             } else {
                 int questionnaireID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
-                data.getControllerManager().checkQuestionnaireVersionedAnswerDriver(data.getParticipantID(),
+                data.getControllerManager().checkQuestionnaireVersionedAnswerDriver(data.getStudyId(), data.getParticipantId(),
                         questionnaireID,
                         data.getEligibilityQuestionnaireAnswerHistory());
                 }

@@ -6,6 +6,8 @@ import UserInterfaceLayer.screens.ParticipantHomeScreens.ParticipantHomeScreenIn
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompletedQuestionnairePanel extends JPanel {
 
@@ -15,8 +17,10 @@ public class CompletedQuestionnairePanel extends JPanel {
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
 
+        List<Integer> keys = new ArrayList<>(data.getCompletedQuestionnaireData().keySet());
+        List<String[]> values = new ArrayList<>(data.getCompletedQuestionnaireData().values());
 
-        for (String[] questionnaireData : data.getCompletedQuestionnaireData()) {
+        for (String[] questionnaireData : values) {
             model.addRow(questionnaireData);
         }
 
@@ -29,10 +33,9 @@ public class CompletedQuestionnairePanel extends JPanel {
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check.");
             } else {
-                int questionnaireID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
-                data.getControllerManager().checkQuestionnaireVersionedAnswerDriver(data.getParticipantID(),
-                        questionnaireID,
-                        data.getCompletedQuestionnairesAnswerHistory().get(questionnaireID));
+                int questionnaireID = keys.get(selectedRow);
+                data.getControllerManager().checkQuestionnaireVersionedAnswerDriver(data.getStudyId(), data.getParticipantId(),
+                        questionnaireID, data.getCompletedQuestionnaireAnswerHistory().get(questionnaireID));
             }
         });
 
