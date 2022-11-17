@@ -29,7 +29,7 @@ public class EligibilityQuestionnairePanelForResearcher extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check answers");
             } else {
                 int questionnaireID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
-                    data.getControllerManager().checkQuestionnaireVersionedAnswerDriver(data.getStudyId(), data.getParticipantId(), questionnaireID, data.getEligibilityQuestionnaireAnswerHistory());
+                    data.getControllerManager().checkQuestionnaireVersionedAnswer(data.getStudyId(), data.getParticipantId(), questionnaireID, data.getEligibilityQuestionnaireAnswerHistory());
                     JOptionPane.showMessageDialog(null, "Please answer the questionnaire first");
 
             }

@@ -1,7 +1,9 @@
 package UserInterfaceLayer;
 
+import UserInterfaceLayer.screens.CreateStudyInputsScreen.CreateStudyInputScreen;
 import UserInterfaceLayer.screens.ParticipantHomeScreens.ParticipantHomeScreen;
 import UserInterfaceLayer.screens.ParticipantNotEnrolledScreen.ParticipantNotEnrolledScreen;
+import UserInterfaceLayer.screens.QuestionnaireVersionedAnswerScreen.QuestionnaireVersionedAnswerScreen;
 import UserInterfaceLayer.screens.ResearcherHomeScreen.ResearcherStudyScreen;
 import UserInterfaceLayer.screens.RegisterScreens.UserLogInScreen;
 import UserInterfaceLayer.screens.RegisterScreens.UserRegisterScreen;
@@ -18,6 +20,8 @@ public class ScreenManager {
     ParticipantNotEnrolledScreen participantNotEnrolledScreen;
     ParticipantHomeScreen participantHomeScreen;
     ResearcherStudyScreen researcherStudiesScreen;
+    CreateStudyInputScreen createStudyInputScreen;
+    QuestionnaireVersionedAnswerScreen questionnaireVersionedAnswerScreen;
     private ResearcherRequestParticipantScreen researcherRequestParticipantScreen;
 
     public ScreenManager() {
@@ -80,5 +84,14 @@ public class ScreenManager {
 
     public void setResearcherRequestParticipantScreen(ResearcherRequestParticipantScreen screen) {
         this.researcherRequestParticipantScreen = screen;
+    }
+
+    public void setCreateStudyInputScreen(CreateStudyInputScreen createStudyInputScreen) {
+        this.createStudyInputScreen = createStudyInputScreen;
+
+    }
+
+    public void setQuestionnaireVersionedAnswerScreen(QuestionnaireVersionedAnswerScreen screen) {
+        this.questionnaireVersionedAnswerScreen = screen;
     }
 }

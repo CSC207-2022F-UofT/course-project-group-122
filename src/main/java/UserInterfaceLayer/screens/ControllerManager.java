@@ -7,6 +7,7 @@ import use_cases.user_log_in.UserLogInController;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_sign_up.UserSignUpController;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ControllerManager {
@@ -69,8 +70,8 @@ public class ControllerManager {
     }
 
     // mine
-    public void checkQuestionnaireVersionedAnswerDriver(int studyId, int participantID, int questionnaireID, List<String[]> answers) {
-        setQuestionnaireVersionedAnswerDriver.checkQuestionnaireVersionedAnswerDriver(studyId, participantID, questionnaireID, answers);
+    public void checkQuestionnaireVersionedAnswer(int studyId, int participantID, int questionnaireID, List<String[]> answers) {
+        setQuestionnaireVersionedAnswerDriver.checkQuestionnaireVersionedAnswerDriver(studyId, participantID, questionnaireID, answers, screenManager, this);
     }
 
     public void answerQuestionnaireRequestData(int participantID, int questionnaireId) {
@@ -123,5 +124,11 @@ public class ControllerManager {
     }
 
     public void checkQuestionnaireVersionedAnswerRequest(int studyId, int questionnaireID, int answerID, int version) {
+    }
+
+    public void createStudyController(int researcherID, String text, String text1, int parseInt, String studyTypeInput, int i, List<String> groupNames) {
+    }
+
+    public void participantAnswerQuestionnaireRequest(HashMap<String, String[]> answers) {
     }
 }
