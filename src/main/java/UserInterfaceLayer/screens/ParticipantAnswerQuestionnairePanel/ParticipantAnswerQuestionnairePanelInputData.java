@@ -4,7 +4,7 @@ import UserInterfaceLayer.screens.ControllerManager;
 import UserInterfaceLayer.screens.ParticipantAnswerQuestionnairePanel.QuestionsPanel.ParticipantsQuestionPanel;
 import UserInterfaceLayer.screens.ParticipantAnswerQuestionnairePanel.QuestionsPanel.QuestionsPanelBuilder;
 
-import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,7 @@ public class ParticipantAnswerQuestionnairePanelInputData {
 
     private final String questionnaireDescription;
 
-    private List<ParticipantsQuestionPanel> questionsPanel;
+    private final List<ParticipantsQuestionPanel> questionsPanel = new ArrayList<>();
     // {"Question":"Type"}
     private final Map<String, String> questionsTypes = new HashMap<>();
     // {"Question":"Variable"}
@@ -54,6 +54,7 @@ public class ParticipantAnswerQuestionnairePanelInputData {
         }
 
         this.controllerManager = controllerManager;
+        createQuestionsPanels();
 
     }
 

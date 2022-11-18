@@ -2,7 +2,13 @@ package UserInterfaceLayer.screens;
 
 import UserInterfaceLayer.ScreenManager;
 import UserInterfaceLayer.screens.ScreenDrivers.*;
-import use_cases.fetch_study_log_data.RequestResearcherStudyLogDataController;
+import use_cases.AddPotentialParticipantStudyDataRequest.AddPotentialParticipantStudyDataRequestController;
+import use_cases.AddResearcherToStudyDataRequest.AddResearcherStudyDataRequestController;
+import use_cases.AnswerQuestionnaireDataRequest.AnswerQuestionnaireDataRequestController;
+import use_cases.MakeParticipantEligibleRequest.MakeParticipantEligibleRequestController;
+import use_cases.RemoveResearcherFromStudy.RemoveResearcherFromStudyController;
+import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
+import use_cases.fetch_study_log_data.ResearcherStudyLogDataRequestController;
 import use_cases.user_log_in.UserLogInController;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_sign_up.UserSignUpController;
@@ -25,7 +31,14 @@ public class ControllerManager {
     UserLogInController userLogInController;
     UserSignUpController userSignUpController;
 
-    RequestResearcherStudyLogDataController requestResearcherStudyLogDataController;
+    AnswerQuestionnaireDataRequestController answerQuestionnaireDataRequestController;
+
+    ResearcherStudyLogDataRequestController researcherStudyLogDataRequestController;
+    RemoveResearcherFromStudyController removeResearcherFromStudy;
+    AddResearcherStudyDataRequestController addResearcherStudyDataRequestController;
+    MakeParticipantEligibleRequestController makeParticipantEligibleRequestController;
+    FetchParticipantStudyDataController fetchParticipantStudyDataController;
+    AddPotentialParticipantStudyDataRequestController addPotentialParticipantStudyDataRequestController;
 
 
     public ControllerManager(ScreenManager screenManager) {
@@ -50,6 +63,7 @@ public class ControllerManager {
     public void requestSignUpScreen() {
         signUpScreenDriver.requestSignUpScreen(screenManager, this);
     }
+
     public void requestRegisterScreen() {
         registerScreenDriver.requestRegisterScreen(screenManager, this);
     }
@@ -58,13 +72,15 @@ public class ControllerManager {
         userLogInController.logInUser(username);
 
     }
+
     public void requestCreateUser(String typeOfUser, String username, String name) {
         userSignUpController.createUser(typeOfUser, username, name);
     }
 
     public void requestResearcherStudyLog(Integer researcherUser, int study) {
-        requestResearcherStudyLogDataController.fetchResearcherStudyLogData(researcherUser, study);
+        researcherStudyLogDataRequestController.fetchResearcherStudyLogData(researcherUser, study);
     }
+
     public void requestCreateStudyModel(int userId) {
         studyCreationScreenDriver.requestStudyCreationScreen(screenManager, this, userId);
     }
@@ -75,25 +91,33 @@ public class ControllerManager {
     }
 
     public void answerQuestionnaireRequestData(int participantID, int questionnaireId) {
+        answerQuestionnaireDataRequestController.answerQuestionnaireRequestData(participantID, questionnaireId);
+
     }
 
     public void removeResearcherFromStudyRequest(int researcherId, int studyID) {
+        removeResearcherFromStudy.removeResearcherFromStudyRequest(researcherId, studyID);
+
     }
-    
 
     public void answerEligibilityQuestionnaireRequestData(int participantID, int questionnaireId) {
+        answerQuestionnaireDataRequestController.answerQuestionnaireRequestData(participantID, questionnaireId);
     }
 
     public void addResearcherToStudyRequest(int researcherIdInt, int studyId) {
+        addResearcherStudyDataRequestController.addResearcherToStudyRequest(researcherIdInt, studyId);
     }
 
     public void makeParticipantEligibleRequest(int participantId, int studyId) {
+        makeParticipantEligibleRequestController.makeParticipantEligibleRequest(participantId, studyId);
     }
 
     public void researcherRequestParticipantScreenRequest(int researchId, int participantId, int studyId) {
+        //fetchParticipantStudyDataController.fetchParticipantStudyData(researchId, participantId, studyId);
     }
 
     public void addPotentialParticipantToStudyRequest(int participantIdInt, int studyId) {
+        addPotentialParticipantStudyDataRequestController.addPotentialParticipantToStudyRequest(participantIdInt, studyId);
     }
 
     public void researcherQuestionnaireScreenRequest(int researchId, int studyId, int eligibilityQuestionnaireId) {
@@ -129,6 +153,9 @@ public class ControllerManager {
     public void createStudyController(int researcherID, String text, String text1, int parseInt, String studyTypeInput, int i, List<String> groupNames) {
     }
 
-    public void participantAnswerQuestionnaireRequest(HashMap<String, String[]> answers) {
+    public void participantAnswerQuestionnaireRequest(int participantID, int questionnaireID, int studyID, HashMap<String, String[]> answers) {
+    }
+
+    public void researcherEditAnswerRequest(int researcherID, int questionnaireID, int studyID, HashMap<String, String[]> answers) {
     }
 }

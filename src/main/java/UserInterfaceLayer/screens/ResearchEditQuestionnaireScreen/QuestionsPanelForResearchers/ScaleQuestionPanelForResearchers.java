@@ -1,22 +1,26 @@
-package UserInterfaceLayer.screens.ParticipantAnswerQuestionnairePanel.QuestionsPanel;
+package UserInterfaceLayer.screens.ResearchEditQuestionnaireScreen.QuestionsPanelForResearchers;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Enumeration;
 
-public class ScaleQuestionPanel extends JPanel implements ParticipantsQuestionPanel {
+public class ScaleQuestionPanelForResearchers extends JPanel implements ResearchersQuestionPanel {
     private final String type;
     private final String variable;
     private final ButtonGroup buttonGroup = new ButtonGroup();
     private final String question;
 
-    public ScaleQuestionPanel(String question, String type, String variable, String bottomLabel, String topLabel, int scale) {
+    public ScaleQuestionPanelForResearchers(String question, String type, String variable, String bottomLabel, String topLabel, int scale, String answer) {
         this.variable = variable;
         this.type = type;
         this.question = question;
         setLayout(new BorderLayout());
-
+        JPanel questionAnswerPanel = new JPanel(new BorderLayout());
         JLabel questionLabel = new JLabel(question);
+        JLabel answerLabel = new JLabel("Answer: " + answer);
+        questionAnswerPanel.add(questionLabel, BorderLayout.NORTH);
+        questionAnswerPanel.add(answerLabel, BorderLayout.CENTER);
+
         JScrollPane optionsScrollPanel = new JScrollPane();
         JPanel optionsPanel = new JPanel();
 
@@ -30,9 +34,11 @@ public class ScaleQuestionPanel extends JPanel implements ParticipantsQuestionPa
         optionsPanel.add(new JLabel(" "+ topLabel, SwingConstants.CENTER));
         optionsScrollPanel.setViewportView(optionsPanel);
 
-        add(questionLabel, BorderLayout.NORTH);
+        add(questionAnswerPanel, BorderLayout.NORTH);
         add(optionsScrollPanel, BorderLayout.CENTER);
         setBorder(BorderFactory.createLineBorder(Color.black));
+
+
     }
 
     @Override
@@ -65,4 +71,12 @@ public class ScaleQuestionPanel extends JPanel implements ParticipantsQuestionPa
     public String getQuestion() {
         return question;
     }
+
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame("ScaleQuestionPanelForResearchers");
+//        frame.setContentPane(new ScaleQuestionPanelForResearchers("Question", "Scale", "Variable", "Bottom", "Top", 5, "2").getQuestionPanel());
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.pack();
+//        frame.setVisible(true);
+//    }
 }

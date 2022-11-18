@@ -23,6 +23,8 @@ public class TextQuestionPanel extends JPanel implements ParticipantsQuestionPan
 
         add(questionLabel, BorderLayout.NORTH);
         add(answerScrollPanel, BorderLayout.CENTER);
+        setBorder(BorderFactory.createLineBorder(Color.black));
+
     }
 
     @Override

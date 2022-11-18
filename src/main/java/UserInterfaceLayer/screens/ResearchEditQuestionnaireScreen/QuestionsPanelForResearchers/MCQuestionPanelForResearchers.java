@@ -1,21 +1,26 @@
-package UserInterfaceLayer.screens.ParticipantAnswerQuestionnairePanel.QuestionsPanel;
+package UserInterfaceLayer.screens.ResearchEditQuestionnaireScreen.QuestionsPanelForResearchers;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Enumeration;
 
-public class MCQuestionPanel extends JPanel implements ParticipantsQuestionPanel {
+public class MCQuestionPanelForResearchers extends JPanel implements ResearchersQuestionPanel {
     private final ButtonGroup buttonGroup;
     private final String variable;
     private final String type;
     private final String question;
-    public MCQuestionPanel(String question, String type, String variable, String[] options) {
+    public MCQuestionPanelForResearchers(String question, String type, String variable, String[] options, String answers) {
         this.variable = variable;
         this.type = type;
         this.question = question;
         setLayout(new BorderLayout());
+        JPanel questionAnswerPanel = new JPanel(new BorderLayout());
         JLabel questionLabel = new JLabel(question);
-        add(questionLabel, BorderLayout.NORTH);
+        JLabel answerLabel = new JLabel("Answer: " + answers);
+        questionAnswerPanel.add(questionLabel, BorderLayout.NORTH);
+        questionAnswerPanel.add(answerLabel, BorderLayout.CENTER);
+        add(questionAnswerPanel, BorderLayout.NORTH);
+
         JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         buttonGroup = new ButtonGroup();
@@ -26,6 +31,7 @@ public class MCQuestionPanel extends JPanel implements ParticipantsQuestionPanel
         }
         add(optionsPanel, BorderLayout.CENTER);
         setBorder(BorderFactory.createLineBorder(Color.black));
+
     }
 
     @Override
@@ -58,5 +64,13 @@ public class MCQuestionPanel extends JPanel implements ParticipantsQuestionPanel
     public String getQuestion() {
         return question;
     }
+
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame("MCQuestionPanelForResearchers");
+//        frame.setContentPane(new MCQuestionPanelForResearchers("question", "type", "variable", new String[]{"option1", "option2", "option3"}, "answer"));
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.pack();
+//        frame.setVisible(true);
+//    }
 
 }
