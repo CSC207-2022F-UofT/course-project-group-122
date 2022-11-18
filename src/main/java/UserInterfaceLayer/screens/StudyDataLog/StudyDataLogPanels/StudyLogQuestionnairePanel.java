@@ -25,7 +25,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
         List<Integer> keys = new ArrayList<>(data.getQuestionnairesData().keySet());
-        List<String[]> values = new ArrayList<>(data.getParticipantsData().values());
+        List<String[]> values = new ArrayList<>(data.getQuestionnairesData().values());
         for (String[] row : values) {
             model.addRow(row);
         }

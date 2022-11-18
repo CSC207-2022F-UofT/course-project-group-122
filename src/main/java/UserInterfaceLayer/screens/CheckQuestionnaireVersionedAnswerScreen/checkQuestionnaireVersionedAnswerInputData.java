@@ -1,25 +1,25 @@
-package UserInterfaceLayer.screens.CheckQuestionnaireAnswerHistoryScreen;
+package UserInterfaceLayer.screens.CheckQuestionnaireVersionedAnswerScreen;
 
 import UserInterfaceLayer.screens.ControllerManager;
 
 import java.util.List;
 
-public class CheckQuestionnaireAnswerHistoryInputData {
+public class checkQuestionnaireVersionedAnswerInputData {
     private final int studyID;
     private final int questionnaireID;
     private final int participantID;
-    private final List<String[]> versionedAnswers;
+    private final List<String[]> versionedAnswers; //[Question] [Answer]
     private final ControllerManager controllerManager;
 
-    public CheckQuestionnaireAnswerHistoryInputData(int studyID,
-                                                    int questionnaireID,
-                                                    int participantID,
-                                                    List<String[]> versionedAnswers,
-                                                    ControllerManager controllerManager) {
+    public checkQuestionnaireVersionedAnswerInputData(int studyID,
+                                                      int questionnaireID,
+                                                      int participantID,
+                                                      List<String[]> questionAnswers,
+                                                      ControllerManager controllerManager) {
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
         this.participantID = participantID;
-        this.versionedAnswers = versionedAnswers;
+        this.versionedAnswers = questionAnswers;
         this.controllerManager = controllerManager;
     }
 

@@ -1,8 +1,8 @@
 package UserInterfaceLayer.screens.CreateQuestionnaireInputsScreen.QuestionScreen;
 
-import screens.QuestionModel;
-import screens.SetLabelTextPanel;
-import screens.SetScreenToCenter;
+import UserInterfaceLayer.SetLabelTextPanel;
+import UserInterfaceLayer.SetScreenToCenter;
+import UserInterfaceLayer.screens.CreateQuestionnaireInputsScreen.QuestionModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

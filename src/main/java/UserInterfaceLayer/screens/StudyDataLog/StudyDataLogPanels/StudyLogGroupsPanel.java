@@ -18,7 +18,9 @@ public class StudyLogGroupsPanel extends JPanel {
         for (String group : data.getGroups()) {
             setTableModel.getModel().addRow(new String[]{group});
         }
+        add(scrollPane, BorderLayout.CENTER);
         scrollPane.setViewportView(table);
+        JPanel buttonPanel = new JPanel();
         if (data.getStudyType().equals("Randomized")) {
             JButton selectStrategy = new JButton("Select Randomized Strategy");
             selectStrategy.addActionListener(
@@ -58,10 +60,9 @@ public class StudyLogGroupsPanel extends JPanel {
                     }
 
             );
-            add(selectStrategy, BorderLayout.SOUTH);
+            buttonPanel.add(selectStrategy);
         }
-        add(scrollPane, BorderLayout.CENTER);
-
+        add(buttonPanel, BorderLayout.SOUTH);
 
     }
 

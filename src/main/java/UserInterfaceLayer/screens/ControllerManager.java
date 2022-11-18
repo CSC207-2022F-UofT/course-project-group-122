@@ -1,10 +1,12 @@
 package UserInterfaceLayer.screens;
 
 import UserInterfaceLayer.ScreenManager;
+import UserInterfaceLayer.screens.CreateQuestionnaireInputsScreen.QuestionModel;
 import UserInterfaceLayer.screens.ScreenDrivers.*;
 import use_cases.AddPotentialParticipantStudyDataRequest.AddPotentialParticipantStudyDataRequestController;
 import use_cases.AddResearcherToStudyDataRequest.AddResearcherStudyDataRequestController;
 import use_cases.AnswerQuestionnaireDataRequest.AnswerQuestionnaireDataRequestController;
+import use_cases.CreateQuestionnaire.CreateQuestionnaireController;
 import use_cases.MakeParticipantEligibleRequest.MakeParticipantEligibleRequestController;
 import use_cases.RemoveResearcherFromStudy.RemoveResearcherFromStudyController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
@@ -15,6 +17,7 @@ import use_cases.user_sign_up.UserSignUpController;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ControllerManager {
     ScreenManager screenManager;
@@ -39,6 +42,8 @@ public class ControllerManager {
     MakeParticipantEligibleRequestController makeParticipantEligibleRequestController;
     FetchParticipantStudyDataController fetchParticipantStudyDataController;
     AddPotentialParticipantStudyDataRequestController addPotentialParticipantStudyDataRequestController;
+    CreateQuestionnaireController createQuestionnaireController;
+    EditQuestionnaireController editQuestionnaireController;
 
 
     public ControllerManager(ScreenManager screenManager) {
@@ -157,5 +162,19 @@ public class ControllerManager {
     }
 
     public void researcherEditAnswerRequest(int researcherID, int questionnaireID, int studyID, HashMap<String, String[]> answers) {
+    }
+
+    public void createQuestionnaireController(int studyID, String questionnaireName, String questionnaireDescription, int numOfQuestions, List<QuestionModel> addedQuestions) {
+        Map<String, String[]> questionMap = new HashMap<>();
+        for (QuestionModel question : addedQuestions) {
+            questionMap.put(question.getQuestion(), new String[]{question.getType(), question.getVariable(), question.getAnswer()});
+        }
+        createQuestionnaireController.createQuestionnaire(studyID, questionnaireName, questionnaireDescription, numOfQuestions, questionMap);
+
+    }
+
+    public void editQuestionnaire(int studyID, int questionnaireID, String questionnaireName, String questionnaireDescription, Map<String, String[]> existingQuestions) {
+        editQuestionnaireController.editQuestionnaire(studyID, questionnaireID, questionnaireName, questionnaireDescription, existingQuestions);
+
     }
 }

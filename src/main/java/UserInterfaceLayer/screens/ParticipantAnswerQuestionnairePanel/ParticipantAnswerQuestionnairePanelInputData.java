@@ -30,7 +30,7 @@ public class ParticipantAnswerQuestionnairePanelInputData {
 
     private final ControllerManager controllerManager;
 
-// {"Question":[type][variable][answer]}
+// {"Question":[type][variable][options]}
     // if type is MC, then answer option,option,option
     // if type is SC, then answer bottomLabel, topLabel, scale
     // if type is Text, then answer "" or "what ever suggestion text"

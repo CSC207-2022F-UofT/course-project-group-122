@@ -52,7 +52,7 @@ public class QuestionModel {
             case "MC":
                 return MCoptions.toString();
             case "Scale":
-                return bottomLabel +", " + scale+ ", "+ topLabel;
+                return bottomLabel +", " + topLabel + ", "+ scale;
             case "Text":
                 return "";
         }

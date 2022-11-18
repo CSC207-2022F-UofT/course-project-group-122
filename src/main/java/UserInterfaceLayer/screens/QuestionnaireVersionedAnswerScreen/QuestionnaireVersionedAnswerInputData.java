@@ -5,11 +5,11 @@ import UserInterfaceLayer.screens.ControllerManager;
 import java.util.List;
 
 public class QuestionnaireVersionedAnswerInputData {
-    private int studyId;
-    private int participantID;
-    private int questionnaireID;
-    private List<String[]> answer;
-    private ControllerManager controllerManager;
+    private final int studyId;
+    private final int participantID;
+    private final int questionnaireID;
+    private final List<String[]> answer;
+    private final ControllerManager controllerManager;
 
     public QuestionnaireVersionedAnswerInputData(int studyId, int participantID, int questionnaireID, List<String[]> answer, ControllerManager controllerManager) {
         this.studyId = studyId;

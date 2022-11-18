@@ -1,4 +1,0 @@
-package UserInterfaceLayer.screens.CheckQuestionnaireAnswerHistoryScreen;
-
-public class CheckQuestionnaireAnswerHistoryScreen {
-}
