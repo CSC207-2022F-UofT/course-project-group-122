@@ -9,7 +9,7 @@ public class CheckQuestionnaireInputData {
     private String questionnaireName;
     private String questionnaireDescription;
     private String[] questionsTableHeader = {"Type", "Question", "Variable", "Options"};
-    private final List<String[]> formateedQuestions = new ArrayList<>();
+    private final List<String[]> formattedQuestions = new ArrayList<>();
 
 
     public CheckQuestionnaireInputData(int questionnaireId,
@@ -21,7 +21,7 @@ public class CheckQuestionnaireInputData {
         this.questionnaireDescription = questionnaireDescription;
         for (Map.Entry<String, String[]> entry : questions.entrySet()) {
             String[] question = new String[]{entry.getValue()[0], entry.getKey(), entry.getValue()[1], entry.getValue()[2]};
-            formateedQuestions.add(question);
+            formattedQuestions.add(question);
         }
     }
 
@@ -43,7 +43,7 @@ public class CheckQuestionnaireInputData {
     }
 
     public List<String[]> getFormattedQuestions() {
-        return formateedQuestions;
+        return formattedQuestions;
     }
 
 }

@@ -34,6 +34,7 @@ public class StudyLogParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a participant to check");
             } else {
                 int participantId = keys.get(selectedRow);
+                System.out.println(participantId);
                 data.getControllerManager().researcherRequestParticipantScreenRequest(data.getResearchId(),participantId,data.getStudyId());
             }
         });

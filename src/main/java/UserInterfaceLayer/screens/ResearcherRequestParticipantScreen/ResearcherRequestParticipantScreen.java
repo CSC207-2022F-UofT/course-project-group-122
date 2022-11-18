@@ -59,6 +59,10 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         pack();
         SetScreenToCenter s = new SetScreenToCenter(this);
     }
+
+    public static void main(String[] args) {
+
+    }
 }
 
 

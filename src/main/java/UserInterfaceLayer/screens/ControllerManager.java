@@ -118,7 +118,7 @@ public class ControllerManager {
     }
 
     public void researcherRequestParticipantScreenRequest(int researchId, int participantId, int studyId) {
-        //fetchParticipantStudyDataController.fetchParticipantStudyData(researchId, participantId, studyId);
+        fetchParticipantStudyDataController.fetchParticipantStudyData(participantId, researchId);
     }
 
     public void addPotentialParticipantToStudyRequest(int participantIdInt, int studyId) {
@@ -149,7 +149,7 @@ public class ControllerManager {
     public void userDropStudyRequest(int participantId, int studyId) {
     }
 
-    public void editQuestionnaireAnswerRequest(int studyId, int participantId, int questionnaireID) {
+    public void editQuestionnaireAnswerRequest(int researcherId, int studyId, int participantId, int questionnaireID) {
     }
 
     public void checkQuestionnaireVersionedAnswerRequest(int studyId, int questionnaireID, int answerID, int version) {
@@ -176,5 +176,8 @@ public class ControllerManager {
     public void editQuestionnaire(int studyID, int questionnaireID, String questionnaireName, String questionnaireDescription, Map<String, String[]> existingQuestions) {
         editQuestionnaireController.editQuestionnaire(studyID, questionnaireID, questionnaireName, questionnaireDescription, existingQuestions);
 
+    }
+
+    public void setStratificationVariableRequest(int studyId, String toString) {
     }
 }

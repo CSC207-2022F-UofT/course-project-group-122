@@ -75,4 +75,9 @@ public class ParticipantHomeScreen extends JFrame {
         pack();
         SetScreenToCenter s = new SetScreenToCenter(this);
     }
+
+    public static void main(String[] args) {
+
+
+    }
 }

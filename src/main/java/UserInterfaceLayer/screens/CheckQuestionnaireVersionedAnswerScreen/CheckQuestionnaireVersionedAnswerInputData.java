@@ -1,26 +1,24 @@
 package UserInterfaceLayer.screens.CheckQuestionnaireVersionedAnswerScreen;
 
-import UserInterfaceLayer.screens.ControllerManager;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public class checkQuestionnaireVersionedAnswerInputData {
+public class CheckQuestionnaireVersionedAnswerInputData {
     private final int studyID;
     private final int questionnaireID;
     private final int participantID;
-    private final List<String[]> versionedAnswers; //[Question] [Answer]
-    private final ControllerManager controllerManager;
+    private List<String[]> versionedAnswers = new ArrayList<>(); //[Question] [Answer]
 
-    public checkQuestionnaireVersionedAnswerInputData(int studyID,
+    public CheckQuestionnaireVersionedAnswerInputData(int studyID,
                                                       int questionnaireID,
                                                       int participantID,
-                                                      List<String[]> questionAnswers,
-                                                      ControllerManager controllerManager) {
+                                                      List<String[]> questionAnswers
+    ) {
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
         this.participantID = participantID;
         this.versionedAnswers = questionAnswers;
-        this.controllerManager = controllerManager;
+
     }
 
     public int getStudyID() {
@@ -39,7 +37,4 @@ public class checkQuestionnaireVersionedAnswerInputData {
         return versionedAnswers;
     }
 
-    public ControllerManager getControllerManager() {
-        return controllerManager;
-    }
 }

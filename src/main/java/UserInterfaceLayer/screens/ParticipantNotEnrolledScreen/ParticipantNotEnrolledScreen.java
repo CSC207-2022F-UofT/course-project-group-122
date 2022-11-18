@@ -29,4 +29,6 @@ public class ParticipantNotEnrolledScreen extends JFrame {
         SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
     }
 
+
+
 }

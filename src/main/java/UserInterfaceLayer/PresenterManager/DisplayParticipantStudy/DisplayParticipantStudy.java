@@ -42,6 +42,7 @@ public class DisplayParticipantStudy implements DisplayParticipantStudyDataInter
     @Override
     public void presentParticipantHomeScreenForResearcher(FetchParticipantStudyDataResponseModel response) {
         ResearcherRequestParticipantInputData data = new ResearcherRequestParticipantInputData(
+                response.getUserId(),
                 response.getParticipantId(),
                 response.getParticipantName(),
                 response.getParticipantStatus(),

@@ -28,11 +28,13 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
         List<Questionnaire> completedQuestionnaires = participant.getCompletedQuestionnaires();
         String eligibilityQuestionnaireAnswerStatus = getEligibilityQuestionnaireAnswerStatus(participant);
         List<Answer> questionnaireAnswers = participant.getQuestionnaireAnswers();
-        FetchParticipantStudyDataResponseModel responseModel = new FetchParticipantStudyDataResponseModel(participant);
+        FetchParticipantStudyDataResponseModel responseModel = new FetchParticipantStudyDataResponseModel(participant,
+                user);
         responseModel.setStudyData(study, studyStatus, group, participantStatus);
         responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire, eligibilityQuestionnaireAnswerStatus,
                 participant);
-        responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers, participant);
+        responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers,
+                participant);
         fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user);
     }
 

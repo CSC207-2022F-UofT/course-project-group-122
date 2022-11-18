@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ResearcherRequestParticipantInputData {
+    private final int userId;
 
     /**
      * The ID of the participant.
@@ -100,7 +101,8 @@ public class ResearcherRequestParticipantInputData {
 
     ControllerManager controllerManager;
 
-    public ResearcherRequestParticipantInputData(int participantID,
+    public ResearcherRequestParticipantInputData(int userId,
+                                                 int participantID,
                                                  String participantName,
                                                  String participantStatus,
                                                  int studyID,
@@ -119,6 +121,7 @@ public class ResearcherRequestParticipantInputData {
                                                  List<String[]> eligibilityQuestionnaireAnswerHistory,
                                                  Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory,
                                                  ControllerManager controllerManager) {
+        this.userId = userId;
         this.participantId = participantID;
         this.participantName = participantName;
         this.participantStatus = participantStatus;
@@ -140,6 +143,9 @@ public class ResearcherRequestParticipantInputData {
         this.controllerManager = controllerManager;
     }
 
+    public int getUserId() {
+        return userId;
+    }
     public int getParticipantId() {
         return participantId;
     }

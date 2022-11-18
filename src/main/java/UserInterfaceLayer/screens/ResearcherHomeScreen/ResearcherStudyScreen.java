@@ -1,13 +1,16 @@
 package UserInterfaceLayer.screens.ResearcherHomeScreen;
 
+import UserInterfaceLayer.ScreenManager;
 import UserInterfaceLayer.SetScreenToCenter;
 import UserInterfaceLayer.SetTableModel;
+import UserInterfaceLayer.screens.ControllerManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ResearcherStudyScreen extends JFrame {
 
@@ -103,7 +106,13 @@ public class ResearcherStudyScreen extends JFrame {
         getContentPane().add(framePanel);
         pack();
         SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
+    }
 
+    public static void main(String[] args) {
+        Map<Integer, String[]> test = Map.of(
+                1, new String[]{"1", "Depression from 207", "Open"}, 2, new String[]{"2", "I want to die Syndrome", "Closed"});
+        ResearcherStudyScreenInputData data = new ResearcherStudyScreenInputData(5, "My moooo", test, new ControllerManager(new ScreenManager()));
+        new ResearcherStudyScreen(data).setVisible(true);
     }
 
 }
