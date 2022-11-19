@@ -31,8 +31,7 @@ public class EligibilityQuestionnairePanelForResearcher extends JPanel {
             } else {
                 int questionnaireID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
                     controllerManager.checkQuestionnaireVersionedAnswer(data.getStudyId(), data.getParticipantId(), questionnaireID, data.getEligibilityQuestionnaireAnswerHistory());
-                    JOptionPane.showMessageDialog(null, "Please answer the questionnaire first");
-
+//                    JOptionPane.showMessageDialog(null, "Please answer the questionnaire first");
             }
         });
 

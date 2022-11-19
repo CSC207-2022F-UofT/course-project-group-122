@@ -48,10 +48,10 @@ public class CompletedQuestionnairePanelForResearcher extends JPanel {
                 controllerManager.editQuestionnaireAnswerDataRequest(data.getUserId(), data.getStudyId(), data.getParticipantId(), questionnaireID);
             }
         });
-
         add(scrollPane, BorderLayout.CENTER);
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(checkAnswerButton);
+        buttonsPanel.add(newAnswerButton);
         add(buttonsPanel, BorderLayout.SOUTH);
     }
 }

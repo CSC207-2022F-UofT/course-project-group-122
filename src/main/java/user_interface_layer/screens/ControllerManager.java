@@ -21,11 +21,11 @@ import use_cases.download_study_data.DownloadAllDataController;
 import use_cases.edit_questionnaire.EditQuestionnaireController;
 import use_cases.edit_questionnaire_screen_data.EditQuestionnaireScreenDataController;
 import use_cases.edit_study_data_request.EditStudyDataRequestController;
-import use_cases.fetch_questionnaire_versioned_answer_data.FetchQuestionnaireVersionedAnswerData;
+import use_cases.fetch_questionnaire_versioned_answer_viewing.FetchQuestionnaireVersionedAnswerData;
 import use_cases.make_participant_eligible_request.MakeParticipantEligibleRequestController;
 import use_cases.modify_study_parameters.ModifyStudyParametersController;
 import use_cases.participant_answer_questionnaire.ParticipantAnswerQuestionnaireController;
-import use_cases.questionnaire_answer_data_request.QuestionnaireAnswerDataRequestController;
+import use_cases.questionnaire_answer_data_for_editing_request.QuestionnaireAnswerDataRequestForEditingController;
 import use_cases.questionnaire_screen_data_request.QuestionnaireScreenDataRequestController;
 import use_cases.remove_researcher_from_study.RemoveResearcherFromStudyController;
 import use_cases.user_drop_study.UserDropStudyController;
@@ -75,7 +75,7 @@ public class ControllerManager {
     DownloadAllDataController downloadDataController;
     DownlaodCurrentDataController downloadCurrentDataController;
     UserDropStudyController userDropStudyController;
-    QuestionnaireAnswerDataRequestController questionnaireAnswerDataRequestController;
+    QuestionnaireAnswerDataRequestForEditingController questionnaireAnswerDataRequestForEditingController;
     FetchQuestionnaireVersionedAnswerData fetchQuestionnaireVersionedAnswerDriver;
     CreateStudyController createStudyController;
 
@@ -174,8 +174,8 @@ public class ControllerManager {
         this.userDropStudyController = userDropStudyController;
     }
 
-    public void setQuestionnaireAnswerDataRequestController(QuestionnaireAnswerDataRequestController questionnaireAnswerDataRequestController) {
-        this.questionnaireAnswerDataRequestController = questionnaireAnswerDataRequestController;
+    public void setQuestionnaireAnswerDataRequestController(QuestionnaireAnswerDataRequestForEditingController questionnaireAnswerDataRequestForEditingController) {
+        this.questionnaireAnswerDataRequestForEditingController = questionnaireAnswerDataRequestForEditingController;
     }
 
     public void setFetchQuestionnaireVersionedAnswerDriver(FetchQuestionnaireVersionedAnswerData fetchQuestionnaireVersionedAnswerDriver) {
@@ -328,7 +328,7 @@ public class ControllerManager {
 
     public void editQuestionnaireAnswerDataRequest(int researcherId, int studyId, int participantId,
                                                    int questionnaireID) {
-        questionnaireAnswerDataRequestController.fetchQuestionnaireAnswerData(researcherId, studyId, participantId,
+        questionnaireAnswerDataRequestForEditingController.fetchQuestionnaireAnswerData(researcherId, studyId, participantId,
                 questionnaireID);
 
     }

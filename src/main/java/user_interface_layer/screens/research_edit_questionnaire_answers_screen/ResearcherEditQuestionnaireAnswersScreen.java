@@ -1,5 +1,6 @@
 package user_interface_layer.screens.research_edit_questionnaire_answers_screen;
 
+import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQuestionnaireScreenAnswersInputData;
 import user_interface_layer.ScreenManager;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
