@@ -1,8 +1,6 @@
 package use_cases.participant_enroller;
 
-import entities.Participant;
-import entities.Questionnaire;
-import entities.Study;
+import entities.*;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
@@ -50,7 +48,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      */
     @Override
     public void enroll(int participantId, int studyId) {
-        Participant participant = (Participant) FetchId.getUser(participantId);
+        Participant participant = checkParticipantIdIsValid(participantId);
         Study study = (Study) FetchId.getStudy(studyId);
         if (enrollParticipant(participant, study)) {
             assignQuestionnaires(participant, study);
@@ -79,7 +77,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      */
     @Override
     public void enroll(int participantId, int studyId, int group) {
-        Participant participant = (Participant) FetchId.getUser(participantId);
+        Participant participant = checkParticipantIdIsValid(participantId);
         Study study = (Study) FetchId.getStudy(studyId);
         if (enrollParticipant(participant, study, group)) {
             assignQuestionnaires(participant, study);
@@ -87,6 +85,17 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
         } else {
             participantEnrollerPresenter.presentEnrollmentFailure(participantId);
         }
+    }
+
+    /**
+     * Fetches the participant's information from the database and returns it to the presenter.
+     *
+     * @param participantId The participant's id.
+     */
+    @Override
+    public void fetchParticipantInfomration(int participantId) {
+        Participant participant = checkParticipantIdIsValid(participantId);
+        participantEnrollerPresenter.presentParticipantInformation(participant.getId(), participant.getName());
     }
 
 
@@ -241,6 +250,21 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
                 participant.assignQuestionnaire(questionnaire);
             }
         }
+    }
+
+
+    private @NotNull Participant checkParticipantIdIsValid(int participantId) {
+        if (FetchId.checkUserExists(participantId)) {
+            User user = FetchId.getUser(participantId);
+            if (user instanceof Participant) {
+                return (Participant) user;
+            } else {
+                participantEnrollerPresenter.displayParticipantIdIsNotParticipant(participantId);
+            }
+        } else {
+            participantEnrollerPresenter.displayParticipantIdDoesNotExist(participantId);
+        }
+        throw new IllegalArgumentException("The participant ID is invalid.");
     }
 }
 
