@@ -9,8 +9,6 @@ import java.awt.*;
 
 public class UserRegisterScreen extends JFrame {
 
-    private ControllerManager controllerManager;
-
     public UserRegisterScreen(ControllerManager controllerManager) {
 
         setTitle("Register");

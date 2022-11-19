@@ -12,20 +12,14 @@ public class ParticipantNotEnrolledInputData {
     /*
      * The participant name.
      */
-    private String participantName;
-
-    /*
-     * The controller manager.
-     */
-    private ControllerManager controllerManager;
+    private final String participantName;
 
     /*
      * The constructor of the class.
      */
-    public ParticipantNotEnrolledInputData(int participantID, String participantName, ControllerManager controllerManager) {
+    public ParticipantNotEnrolledInputData(int participantID, String participantName) {
         this.participantID = participantID;
         this.participantName = participantName;
-        this.controllerManager = controllerManager;
     }
 
     /*
@@ -42,11 +36,4 @@ public class ParticipantNotEnrolledInputData {
         return participantName;
     }
 
-    /*
-     * Returns the controller manager.
-     */
-    public ControllerManager getController() {
-        return controllerManager;
-
-    }
 }

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class CreateQuestionnaireInputsScreen extends JFrame {
     private final List<QuestionModel> addedQuestions = new ArrayList<>();
-    public CreateQuestionnaireInputsScreen(CreateQuestionnaireInputsScreenInputData data) {
+    public CreateQuestionnaireInputsScreen(CreateQuestionnaireInputsScreenInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         JTextField questionnaireName = new JTextField(30);
         JTextArea questionnaireDescription = new JTextArea(5, 20);
@@ -151,7 +151,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
             } else if (addedQuestions.size() == 0) {
                 JOptionPane.showMessageDialog(null, "Please add at least one question to the questionnaire");
             } else {
-                data.getControllerManager().createQuestionnaireController(data.getStudyID(), questionnaireName.getText(), questionnaireDescription.getText(), addedQuestions.size(), addedQuestions);
+                controllerManager.createQuestionnaireController(data.getStudyID(), questionnaireName.getText(), questionnaireDescription.getText(), addedQuestions.size(), addedQuestions);
                 dispose();
             }
         });
@@ -174,8 +174,8 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
     }
 
     public static void main(String[] args) {
-        CreateQuestionnaireInputsScreenInputData data = new CreateQuestionnaireInputsScreenInputData(45, new ControllerManager(new ScreenManager()));
-        CreateQuestionnaireInputsScreen createQuestionnaireInputsScreen = new CreateQuestionnaireInputsScreen(data);
+        CreateQuestionnaireInputsScreenInputData data = new CreateQuestionnaireInputsScreenInputData(45);
+        CreateQuestionnaireInputsScreen createQuestionnaireInputsScreen = new CreateQuestionnaireInputsScreen(data, new ControllerManager(new ScreenManager()));
         createQuestionnaireInputsScreen.setVisible(true);
     }
 }

@@ -50,7 +50,7 @@ public class QuestionModel {
     public String getAnswer() {
         switch (type) {
             case "MC":
-                return MCoptions.toString();
+                return MCoptions.toString().replace(", ", ",");
             case "Scale":
                 return bottomLabel +"," + topLabel + ","+ scale;
             case "Text":

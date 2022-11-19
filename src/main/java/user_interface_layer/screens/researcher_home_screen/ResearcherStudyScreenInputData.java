@@ -38,11 +38,6 @@ public class ResearcherStudyScreenInputData {
      */
     private final Map<Integer, String[]> studiesData;
 
-    /*
-     * The ViewModel where all the controllers, screens are stored.
-     */
-    private final ControllerManager controllerManager;
-
 
     /*
      * The constructor of the class.
@@ -52,12 +47,10 @@ public class ResearcherStudyScreenInputData {
      */
     public ResearcherStudyScreenInputData(int researchID,
                                           String researcherName,
-                                          Map<Integer, String[]> studiesData,
-                                          ControllerManager controllerManager) {
+                                          Map<Integer, String[]> studiesData) {
         this.researchID = researchID;
         this.researcherName = researcherName;
         this.studiesData = studiesData;
-        this.controllerManager = controllerManager;
     }
 
     /*
@@ -89,13 +82,6 @@ public class ResearcherStudyScreenInputData {
 
     public Map<Integer, String[]> getListStudiesData() {
         return studiesData;
-    }
-
-    /*
-     * Returns the controller manager.
-     */
-    public ControllerManager getController() {
-        return controllerManager;
     }
 
 

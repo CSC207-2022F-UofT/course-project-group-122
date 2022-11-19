@@ -1,6 +1,7 @@
 package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
 import user_interface_layer.SetTableModel;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudyLogParticipantsPanel extends JPanel {
-    public StudyLogParticipantsPanel(StudyDataLogInputData data) {
+    public StudyLogParticipantsPanel(StudyDataLogInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         SetTableModel setTableModel = new SetTableModel(data.getUserTableHeader());
         DefaultTableModel model = setTableModel.getModel();
@@ -35,7 +36,7 @@ public class StudyLogParticipantsPanel extends JPanel {
             } else {
                 int participantId = keys.get(selectedRow);
                 System.out.println(participantId);
-                data.getControllerManager().researcherRequestParticipantScreenRequest(data.getResearchId(),participantId,data.getStudyId());
+                controllerManager.researcherRequestParticipantScreenRequest(data.getResearchId(),participantId,data.getStudyId());
             }
         });
 

@@ -42,20 +42,28 @@ public class EditQuestionnaireScreenInputData {
      */
     private final Map<String, String[]> questions;
 
-    private final ControllerManager controllerManager;
 
+
+
+    /*
+     * The constructor of the class.
+     * @param studyID The study ID.
+     * @param questionnaireID The questionnaire ID.
+     * @param questionnaireName The questionnaire name.
+     * @param questionnaireDescription The questionnaire description.
+     * @param questions The questions of the questionnaire. Map< "Variable" ; [type, description, options] >
+     * @param controllerManager The controller manager.
+     */
     public EditQuestionnaireScreenInputData(int studyID,
                                             int questionnaireID,
                                             String questionnaireName,
                                             String questionnaireDescription,
-                                            Map<String, String[]> questions,
-                                            ControllerManager controllerManager) {
+                                            Map<String, String[]> questions) {
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
         this.questions = questions;
-        this.controllerManager = controllerManager;
     }
 
     public int getStudyID() {
@@ -79,10 +87,6 @@ public class EditQuestionnaireScreenInputData {
 
     public String[] getQuestionsTableHeader() {
         return questionsTableHeader;
-    }
-
-    public ControllerManager getControllerManager() {
-        return controllerManager;
     }
 
 

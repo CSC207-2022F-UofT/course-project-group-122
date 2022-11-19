@@ -1,0 +1,7 @@
+package user_interface_layer.presenter_manager.display_participant_answer_questionnaire_panel;
+
+import user_interface_layer.screens.participant_answer_questionnaire_panel.ParticipantAnswerQuestionnairePanelInputData;
+
+public interface DisplayParticipantAnswerQuestionnairePanelInterface {
+    void presentParticipantAnswerQuestionnairePanel(ParticipantAnswerQuestionnairePanelInputData data);
+}

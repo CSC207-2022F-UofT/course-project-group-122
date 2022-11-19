@@ -8,8 +8,8 @@ import user_interface_layer.screens.create_study_inputs_screen.CreateStudyInputS
 
 public class SetUpStudyCreationScreenDriver {
     public void requestStudyCreationScreen(@NotNull ScreenManager screenManager, ControllerManager controllerManager, int userId) {
-        CreateStudyInputInputData data = new CreateStudyInputInputData(userId, controllerManager);
-        CreateStudyInputScreen screen = new CreateStudyInputScreen(data);
+        CreateStudyInputInputData data = new CreateStudyInputInputData(userId);
+        CreateStudyInputScreen screen = new CreateStudyInputScreen(data, controllerManager);
         screenManager.setCreateStudyInputScreen(screen);
         screenManager.updateCurrentScreen(screen);
     }

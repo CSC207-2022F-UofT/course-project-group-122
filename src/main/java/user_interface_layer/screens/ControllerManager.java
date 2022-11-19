@@ -1,6 +1,10 @@
 package user_interface_layer.screens;
 
 import use_cases.assign_questionnaire.AssignQuestionnaireController;
+import use_cases.create_questionnaire.CreateQuestionnaireControllerInputData;
+import use_cases.create_study.CreateStudyInputData;
+import use_cases.edit_questionnaire.EditQuestionnaireControllerInputData;
+import use_cases.edit_study.EditStudyController;
 import use_cases.publish_questionnaire.PublishQuestionnaireController;
 import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
 import user_interface_layer.ScreenManager;
@@ -16,7 +20,7 @@ import use_cases.download_study_data.DownlaodCurrentDataController;
 import use_cases.download_study_data.DownloadAllDataController;
 import use_cases.edit_questionnaire.EditQuestionnaireController;
 import use_cases.edit_questionnaire_screen_data.EditQuestionnaireScreenDataController;
-import use_cases.edit_study.EditStudyController;
+import use_cases.edit_study_data_request.EditStudyDataRequestController;
 import use_cases.fetch_questionnaire_versioned_answer_data.FetchQuestionnaireVersionedAnswerData;
 import use_cases.make_participant_eligible_request.MakeParticipantEligibleRequestController;
 import use_cases.modify_study_parameters.ModifyStudyParametersController;
@@ -63,6 +67,7 @@ public class ControllerManager {
     EditQuestionnaireController editQuestionnaireController;
     QuestionnaireScreenDataRequestController questionnaireScreenDataRequestController;
     EditQuestionnaireScreenDataController editQuestionnaireScreenDataController;
+    EditStudyDataRequestController editStudyDataRequestController;
     EditStudyController editStudyController;
 
     ModifyStudyParametersController modifyStudyParametersController;
@@ -149,8 +154,8 @@ public class ControllerManager {
         this.editQuestionnaireScreenDataController = editQuestionnaireScreenDataController;
     }
 
-    public void setEditStudyController(EditStudyController editStudyController) {
-        this.editStudyController = editStudyController;
+    public void setEditStudyController(EditStudyDataRequestController editStudyDataRequestController) {
+        this.editStudyDataRequestController = editStudyDataRequestController;
     }
 
     public void setModifyStudyParametersController(ModifyStudyParametersController modifyStudyParametersController) {
@@ -248,6 +253,7 @@ public class ControllerManager {
     // mine
     public void checkQuestionnaireVersionedAnswer(int studyId, int participantID, int questionnaireID, List<String[]> answers) {
         setQuestionnaireVersionedAnswerDriver.checkQuestionnaireVersionedAnswerDriver(studyId, participantID, questionnaireID, answers, screenManager, this);
+
     }
 
     public void answerQuestionnaireRequestData(int participantID, int questionnaireId) {
@@ -295,8 +301,8 @@ public class ControllerManager {
         editQuestionnaireScreenDataController.fetchQuestionnaireDataForEditing(researchId, studyId, questionnaireId);
     }
 
-    public void editStudyRequest(int studyId, int researchID) {
-        editStudyController.editStudyRequest(studyId, researchID);
+    public void editStudyDataRequest(int studyId, int researchID) {
+        editStudyDataRequestController.editStudyRequest(studyId, researchID);
     }
 
     public void setRandomizationStrategyRequest(int studyId, String simple) {
@@ -320,8 +326,10 @@ public class ControllerManager {
 
     }
 
-    public void editQuestionnaireAnswerDataRequest(int researcherId, int studyId, int participantId, int questionnaireID) {
-        questionnaireAnswerDataRequestController.fetchQuestionnaireAnswerData(researcherId, studyId, participantId, questionnaireID);
+    public void editQuestionnaireAnswerDataRequest(int researcherId, int studyId, int participantId,
+                                                   int questionnaireID) {
+        questionnaireAnswerDataRequestController.fetchQuestionnaireAnswerData(researcherId, studyId, participantId,
+                questionnaireID);
 
     }
 
@@ -329,8 +337,9 @@ public class ControllerManager {
         fetchQuestionnaireVersionedAnswerDriver.fetchQuestionnaireVersionedAnswerData(studyId, questionnaireID, answerID, version);
     }
 
-    public void createStudyController(int researcherID, String text, String text1, int parseInt, String studyTypeInput, int i, List<String> groupNames) {
-        createStudyController.createStudy(researcherID, text, text1, parseInt, studyTypeInput, i, groupNames);
+    public void createStudyController(int researcherID, String studyName, String studyDescription, int targetSize, String studyTypeInput, int groupNum, List<String> groupNames) {
+        CreateStudyInputData createStudyInputData = new CreateStudyInputData(researcherID, studyName, studyDescription, targetSize, studyTypeInput, groupNum, groupNames);
+        createStudyController.createStudy(createStudyInputData);
     }
 
     public void participantAnswerQuestionnaireRequest(int participantID, int questionnaireID, int studyID, HashMap<String, String[]> answers) {
@@ -342,17 +351,41 @@ public class ControllerManager {
 
     }
 
-    public void createQuestionnaireController(int studyID, String questionnaireName, String questionnaireDescription, int numOfQuestions, @NotNull List<QuestionModel> addedQuestions) {
+    /*
+     * This method is called from the Create questionnaire screen to the controller to create a new questionnaire.
+     */
+    public void createQuestionnaireController(int studyID,
+                                              String questionnaireName,
+                                              String questionnaireDescription,
+                                              int numOfQuestions,
+                                              @NotNull List<QuestionModel> addedQuestions) {
         Map<String, String[]> questionMap = new HashMap<>();
         for (QuestionModel question : addedQuestions) {
-            questionMap.put(question.getQuestion(), new String[]{question.getType(), question.getVariable(), question.getAnswer()});
+            questionMap.put(question.getVariable(),
+                    new String[]{question.getType(),
+                            question.getQuestion(),
+                            question.getAnswer()});
         }
-        createQuestionnaireController.createQuestionnaire(studyID, questionnaireName, questionnaireDescription, numOfQuestions, questionMap);
+
+        createQuestionnaireController.createQuestionnaire(new CreateQuestionnaireControllerInputData(studyID,
+                questionnaireName,
+                questionnaireDescription,
+                numOfQuestions,
+                questionMap));
 
     }
 
-    public void editQuestionnaire(int studyID, int questionnaireID, String questionnaireName, String questionnaireDescription, Map<String, String[]> existingQuestions) {
-        editQuestionnaireController.editQuestionnaire(studyID, questionnaireID, questionnaireName, questionnaireDescription, existingQuestions);
+    public void editQuestionnaire(int studyID,
+                                  int questionnaireID,
+                                  String questionnaireName,
+                                  String questionnaireDescription,
+                                  Map<String, String[]> existingQuestions) {
+        EditQuestionnaireControllerInputData editQuestionnaireControllerInputData = new EditQuestionnaireControllerInputData(studyID,
+                questionnaireID,
+                questionnaireName,
+                questionnaireDescription,
+                existingQuestions);
+        editQuestionnaireController.editQuestionnaire(editQuestionnaireControllerInputData);
 
     }
 
@@ -375,5 +408,10 @@ public class ControllerManager {
 
     public void assignQuestionnaireToIndividual(int researchId, int studyId, int participant) {
         assignQuestionnaireController.assignQuestionnaireToIndividual(researchId, studyId, participant);
+    }
+
+    public void editStudyRequest(int studyId, String studyName, String studyDescription, int studyTargetSize,
+                                 String studyTypeInput, int groupNum, List<String> groupNames) {
+
     }
 }

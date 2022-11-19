@@ -2,6 +2,7 @@ package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.SetTableModel;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudyLogResearcherPanel extends JPanel {
-    public StudyLogResearcherPanel(StudyDataLogInputData data) {
+    public StudyLogResearcherPanel(StudyDataLogInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         SetTableModel setTableModel = new SetTableModel(data.getUserTableHeader());
         DefaultTableModel model = setTableModel.getModel();
@@ -37,7 +38,7 @@ public class StudyLogResearcherPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a researcher to remove");
             } else {
                 int researcherId = keys.get(selectedRow);
-                data.getControllerManager().removeResearcherFromStudyRequest(researcherId, data.getStudyId());
+                controllerManager.removeResearcherFromStudyRequest(researcherId, data.getStudyId());
             }
         });
 
@@ -55,7 +56,7 @@ public class StudyLogResearcherPanel extends JPanel {
                     String researcherId = textField.getText();
                     try {
                         int researcherIdInt = Integer.parseInt(researcherId);
-                        data.getControllerManager().addResearcherToStudyRequest(researcherIdInt, data.getStudyId());
+                        controllerManager.addResearcherToStudyRequest(researcherIdInt, data.getStudyId());
                         frame.dispose();
                     } catch (NumberFormatException exception) {
                         JOptionPane.showMessageDialog(null, "Please enter a valid researcher identifier");

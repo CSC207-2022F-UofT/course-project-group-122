@@ -1,6 +1,7 @@
 package user_interface_layer.screens.researcher_request_participant_screen;
 
 import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.AssignedQuestionnairePanelForResearcher;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.CompletedQuestionnairePanelForResearcher;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.EligibilityQuestionnairePanelForResearcher;
@@ -13,7 +14,7 @@ public class ResearcherRequestParticipantScreen extends JFrame {
     JPanel eligibilityQuestionnairePanel;
     JPanel assignedQuestionnairePanel;
 
-    public ResearcherRequestParticipantScreen(ResearcherRequestParticipantInputData data) {
+    public ResearcherRequestParticipantScreen(ResearcherRequestParticipantInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
@@ -23,7 +24,7 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         JLabel userIDLabel = new JLabel(data.getParticipantName() + " (" + data.getParticipantId() + ")");
         JButton logOutButton = new JButton("Log Out");
         logOutButton.addActionListener(e -> {
-            data.getControllerManager().userLogOutController();
+            controllerManager.userLogOutController();
         });
 
         // JLabel message = new JLabel("You are enrolled in " + data.getStudyName(), SwingConstants.CENTER);
@@ -39,13 +40,13 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         JPanel AssignedQuestionnaires = new JPanel();
         JPanel completedQuestionnaire = new JPanel();
 
-        eligibilityQuestionnairePanel = new EligibilityQuestionnairePanelForResearcher(data);
+        eligibilityQuestionnairePanel = new EligibilityQuestionnairePanelForResearcher(data, controllerManager);
         QuestionnaireTabPane.addTab("Eligibility Questionnaire", eligibilityQuestionnairePanel);
 
         assignedQuestionnairePanel = new AssignedQuestionnairePanelForResearcher(data);
         QuestionnaireTabPane.addTab("Assigned Questionnaires", assignedQuestionnairePanel);
 
-        completedQuestionnairePanel = new CompletedQuestionnairePanelForResearcher(data);
+        completedQuestionnairePanel = new CompletedQuestionnairePanelForResearcher(data ,controllerManager);
         QuestionnaireTabPane.addTab("Completed Questionnaires", completedQuestionnairePanel);
 
         add(QuestionnaireTabPane, BorderLayout.CENTER);

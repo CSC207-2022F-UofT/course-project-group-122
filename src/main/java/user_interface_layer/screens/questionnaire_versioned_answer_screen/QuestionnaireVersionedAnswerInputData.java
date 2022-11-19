@@ -27,24 +27,16 @@ public class QuestionnaireVersionedAnswerInputData {
     private final List<String[]> answer;
 
     /*
-     * The controller manager.
-     */
-    private final ControllerManager controllerManager;
-
-
-    /*
      * The constructor of the class.
      */
     public QuestionnaireVersionedAnswerInputData(int studyId,
                                                  int participantID,
                                                  int questionnaireID,
-                                                 List<String[]> answer,
-                                                 ControllerManager controllerManager) {
+                                                 List<String[]> answer) {
         this.studyId = studyId;
         this.participantID = participantID;
         this.questionnaireID = questionnaireID;
         this.answer = answer;
-        this.controllerManager = controllerManager;
     }
 
     /*
@@ -73,13 +65,6 @@ public class QuestionnaireVersionedAnswerInputData {
      */
     public List<String[]> getAnswer() {
         return answer;
-    }
-
-    /*
-     * Returns the controller manager.
-     */
-    public ControllerManager getControllerManager() {
-        return controllerManager;
     }
 
     /*

@@ -1,16 +1,14 @@
-package user_interface_layer.screens.research_edit_questionnaire_screen;
+package user_interface_layer.screens.research_edit_questionnaire_answers_screen;
 
-import user_interface_layer.ScreenManager;
-import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.research_edit_questionnaire_screen.questions_panel_for_researchers.QuestionsPanelForResearchersBuilder;
-import user_interface_layer.screens.research_edit_questionnaire_screen.questions_panel_for_researchers.ResearchersQuestionPanel;
+import user_interface_layer.screens.research_edit_questionnaire_answers_screen.questions_panel_for_researchers.QuestionsPanelForResearchersBuilder;
+import user_interface_layer.screens.research_edit_questionnaire_answers_screen.questions_panel_for_researchers.ResearchersQuestionPanel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ResearcherEditQuestionnaireScreenInputData {
+public class ResearcherEditQuestionnaireScreenAnswersInputData {
 
     /*
      * The researcher ID.
@@ -69,23 +67,16 @@ public class ResearcherEditQuestionnaireScreenInputData {
 
     /*
      * The map of questions and its answers.
-     * {"Question":"Answer"}
-     */
-    private final ControllerManager controllerManager;
-
-    /*
-     * The map of questions and its answers.
      * {"Question":["Type","Variable","Options","Answer"]}
      * The constructor of the class.
      */
 
-    public ResearcherEditQuestionnaireScreenInputData(int researcherID,
-                                                      int studyID,
-                                                      int questionnaireID,
-                                                      String questionnaireName,
-                                                      String questionnaireDescription,
-                                                      Map<String, String[]> questionsInformation,
-                                                      ControllerManager controllerManager) {
+    public ResearcherEditQuestionnaireScreenAnswersInputData(int researcherID,
+                                                             int studyID,
+                                                             int questionnaireID,
+                                                             String questionnaireName,
+                                                             String questionnaireDescription,
+                                                             Map<String, String[]> questionsInformation) {
         this.researcherID = researcherID;
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
@@ -98,8 +89,6 @@ public class ResearcherEditQuestionnaireScreenInputData {
             questionsOptions.put(entry.getKey(), entry.getValue()[2]);
             questionsAnswers.put(entry.getKey(), entry.getValue()[3]);
         }
-
-        this.controllerManager = controllerManager;
         createQuestionsPanels();
     }
 
@@ -202,11 +191,5 @@ public class ResearcherEditQuestionnaireScreenInputData {
         return questionsAnswers;
     }
 
-    /*
-     * The method that returns the controller manager.
-     */
-    public ControllerManager getControllerManager() {
-        return controllerManager;
-    }
 }
 

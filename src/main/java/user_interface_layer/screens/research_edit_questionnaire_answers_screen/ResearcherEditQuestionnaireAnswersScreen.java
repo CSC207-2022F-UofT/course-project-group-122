@@ -1,9 +1,9 @@
-package user_interface_layer.screens.research_edit_questionnaire_screen;
+package user_interface_layer.screens.research_edit_questionnaire_answers_screen;
 
 import user_interface_layer.ScreenManager;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.research_edit_questionnaire_screen.questions_panel_for_researchers.ResearchersQuestionPanel;
+import user_interface_layer.screens.research_edit_questionnaire_answers_screen.questions_panel_for_researchers.ResearchersQuestionPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ResearcherEditQuestionnaireScreen extends JFrame {
+public class ResearcherEditQuestionnaireAnswersScreen extends JFrame {
 
-    public ResearcherEditQuestionnaireScreen(ResearcherEditQuestionnaireScreenInputData data) {
+    public ResearcherEditQuestionnaireAnswersScreen(ResearcherEditQuestionnaireScreenAnswersInputData data, ControllerManager controllerManager) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setTitle("Answer Questionnaire");
@@ -63,7 +63,7 @@ public class ResearcherEditQuestionnaireScreen extends JFrame {
                 }
             }
             if (answers.size() == questionPanels.size()) {
-                data.getControllerManager().researcherEditAnswerRequest(data.getResearcherID(), data.getQuestionnaireID(), data.getStudyID(),answers);
+                controllerManager.researcherEditAnswerRequest(data.getResearcherID(), data.getQuestionnaireID(), data.getStudyID(),answers);
             }else{
                 JOptionPane.showMessageDialog(null, "Please answer all questions");
             }
@@ -82,14 +82,13 @@ public class ResearcherEditQuestionnaireScreen extends JFrame {
         Map<String, String[]> questions = new HashMap<>();
         questions.put("What is your name?", new String[]{"Text", "name", "helllo","Anna"});
         questions.put("What is your ABC?", new String[]{"MC", "abc", "A,B,C,D","D"});
-        ResearcherEditQuestionnaireScreenInputData data = new ResearcherEditQuestionnaireScreenInputData(
+        ResearcherEditQuestionnaireScreenAnswersInputData data = new ResearcherEditQuestionnaireScreenAnswersInputData(
                 1,
                 44,
                 55,
                 "This is questionnaire 1",
-                "This is the description of questionnaire 1",questions
-                , new ControllerManager(new ScreenManager()));
-        ResearcherEditQuestionnaireScreen panel = new ResearcherEditQuestionnaireScreen(data);
+                "This is the description of questionnaire 1",questions);
+        ResearcherEditQuestionnaireAnswersScreen panel = new ResearcherEditQuestionnaireAnswersScreen(data, new ControllerManager(new ScreenManager()));
         panel.setVisible(true);
     }
 

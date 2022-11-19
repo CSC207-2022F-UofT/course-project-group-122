@@ -25,7 +25,7 @@ public class EditQuestionnaireScreen extends JFrame {
     Map<String, String[]> existingQuestions;
     List<QuestionModel> addedQuestions = new ArrayList<>();
 
-    public EditQuestionnaireScreen(EditQuestionnaireScreenInputData data) {
+    public EditQuestionnaireScreen(EditQuestionnaireScreenInputData data, ControllerManager controllerManager) {
         existingQuestions = data.getQuestions();
 
         JPanel headerPanel = new JPanel();
@@ -201,7 +201,7 @@ public class EditQuestionnaireScreen extends JFrame {
 
         JButton publishButton = new JButton("Publish");
         publishButton.addActionListener(e->
-                data.getControllerManager().publishQuestionnaire(data.getQuestionnaireID()));
+                controllerManager.publishQuestionnaire(data.getQuestionnaireID()));
 
 
         JButton createQuestionnaireButton = new JButton("Save Questionnaire");
@@ -218,9 +218,9 @@ public class EditQuestionnaireScreen extends JFrame {
 //            }
             else {
                 for (QuestionModel question : addedQuestions) {
-                    existingQuestions.put(question.getQuestion(), new String[]{question.getType(), question.getVariable(), question.getAnswer()});
+                    existingQuestions.put(question.getVariable(), new String[]{question.getType(), question.getQuestion(), question.getAnswer()});
                 }
-                data.getControllerManager().editQuestionnaire(data.getStudyID(), data.getQuestionnaireID(),questionnaireName.getText(), questionnaireDescription.getText(),existingQuestions);
+                controllerManager.editQuestionnaire(data.getStudyID(), data.getQuestionnaireID(),questionnaireName.getText(), questionnaireDescription.getText(),existingQuestions);
                 dispose();
             }
         });
@@ -250,8 +250,8 @@ public class EditQuestionnaireScreen extends JFrame {
         existingQuestions.put("What is your name?", new String[]{"Text", "name", "John"});
         existingQuestions.put("What is your age?", new String[]{"Scale", "age", "20"});
 
-        EditQuestionnaireScreenInputData data = new EditQuestionnaireScreenInputData(44, 1, "Questionnaire 1", "This is a description", existingQuestions, new ControllerManager(new ScreenManager()));
-EditQuestionnaireScreen editQuestionnaireScreen = new EditQuestionnaireScreen(data);
+        EditQuestionnaireScreenInputData data = new EditQuestionnaireScreenInputData(44, 1, "Questionnaire 1", "This is a description", existingQuestions);
+EditQuestionnaireScreen editQuestionnaireScreen = new EditQuestionnaireScreen(data , new ControllerManager(new ScreenManager()));
         editQuestionnaireScreen.setVisible(true);
     }
 }

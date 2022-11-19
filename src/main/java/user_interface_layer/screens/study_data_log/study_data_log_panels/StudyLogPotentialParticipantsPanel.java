@@ -2,6 +2,7 @@ package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.SetTableModel;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class StudyLogPotentialParticipantsPanel extends JPanel {
 
-    public StudyLogPotentialParticipantsPanel(StudyDataLogInputData data) {
+    public StudyLogPotentialParticipantsPanel(StudyDataLogInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         SetTableModel setTableModel = new SetTableModel(data.getPotentialParticipantsTableHeader());
         DefaultTableModel model = setTableModel.getModel();
@@ -41,7 +42,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 String participantId = textField.getText();
                 try {
                     int participantIdInt = Integer.parseInt(participantId);
-                    data.getControllerManager().addPotentialParticipantToStudyRequest(participantIdInt, data.getStudyId());
+                    controllerManager.addPotentialParticipantToStudyRequest(participantIdInt, data.getStudyId());
                     frame.dispose();
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number");
@@ -62,7 +63,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to make eligible");
             } else {
                 int participantId = keys.get(selectedRow);
-                data.getControllerManager().makeParticipantEligibleRequest(participantId, data.getStudyId());
+                controllerManager.makeParticipantEligibleRequest(participantId, data.getStudyId());
             }
         });
 
@@ -73,7 +74,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to check");
             } else {
                 int participantId = keys.get(selectedRow);
-                data.getControllerManager().researcherRequestParticipantScreenRequest(data.getResearchId(), participantId, data.getStudyId());
+                controllerManager.researcherRequestParticipantScreenRequest(data.getResearchId(), participantId, data.getStudyId());
             }
         });
 

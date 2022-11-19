@@ -21,7 +21,7 @@ public class StudyDataLogScreen extends JFrame {
     JPanel questionnairesPanel;
     JPanel questionsPanel;
 
-    public StudyDataLogScreen(StudyDataLogInputData data) {
+    public StudyDataLogScreen(StudyDataLogInputData data, ControllerManager controllerManager) {
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel backPanel = new JPanel();
         JPanel mainPanel = new JPanel();
@@ -29,7 +29,7 @@ public class StudyDataLogScreen extends JFrame {
         mainPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
-            data.getControllerManager().ResearcherHomeScreenDriver(data.getResearchId());
+            controllerManager.ResearcherHomeScreenDriver(data.getResearchId());
         });
         backPanel.add(backButton);
         header.add(backPanel);
@@ -40,10 +40,10 @@ public class StudyDataLogScreen extends JFrame {
         JMenuItem allData = new JMenuItem("All Data");
         JMenuItem currentData = new JMenuItem("Current Data");
         allData.addActionListener(e -> {
-                    data.getControllerManager().downloadDataButtonActionPerformed("All Data", data.getStudyId());
+                    controllerManager.downloadDataButtonActionPerformed("All Data", data.getStudyId());
                 });
         currentData.addActionListener(e->{
-                        data.getControllerManager().downloadDataButtonActionPerformed("Current Data", data.getStudyId());
+                        controllerManager.downloadDataButtonActionPerformed("Current Data", data.getStudyId());
                 });
         popupMenu.add(allData);
         popupMenu.add(currentData);
@@ -67,7 +67,7 @@ public class StudyDataLogScreen extends JFrame {
             JButton yesButton = new JButton("Yes");
             JButton noButton = new JButton("No");
             yesButton.addActionListener(e1 -> {
-                        data.getControllerManager().userDropStudyRequest(data.getResearchId(), data.getStudyId());
+                        controllerManager.userDropStudyRequest(data.getResearchId(), data.getStudyId());
                 });
             noButton.addActionListener(e1 -> {
                         confirm.dispose();
@@ -85,7 +85,7 @@ public class StudyDataLogScreen extends JFrame {
 
         JButton logOutButton = new JButton("Log Out");
         logOutButton.addActionListener(e -> {
-            data.getControllerManager().userLogOutController();
+            controllerManager.userLogOutController();
         });
         mainPanel.add(logOutButton);
         header.add(mainPanel);
@@ -95,19 +95,19 @@ public class StudyDataLogScreen extends JFrame {
         JTabbedPane StudyLogTabPane = new JTabbedPane();
 
 
-        researchersPanel = new StudyLogResearcherPanel(data);
+        researchersPanel = new StudyLogResearcherPanel(data, controllerManager);
         StudyLogTabPane.addTab("Researchers", researchersPanel);
 
-        potentialParticipantsPanel = new StudyLogPotentialParticipantsPanel(data);
+        potentialParticipantsPanel = new StudyLogPotentialParticipantsPanel(data, controllerManager);
         StudyLogTabPane.addTab("Potential Participants", potentialParticipantsPanel);
 
-        participantsPanel = new StudyLogParticipantsPanel(data);
+        participantsPanel = new StudyLogParticipantsPanel(data, controllerManager);
         StudyLogTabPane.addTab("Participants", participantsPanel);
 
-        questionnairesPanel = new StudyLogQuestionnairePanel(data);
+        questionnairesPanel = new StudyLogQuestionnairePanel(data, controllerManager);
         StudyLogTabPane.addTab("Questionnaires", questionnairesPanel);
 
-        questionsPanel = new StudyLogGroupsPanel(data);
+        questionsPanel = new StudyLogGroupsPanel(data, controllerManager);
         StudyLogTabPane.addTab("Groups", questionsPanel);
 
 
@@ -164,8 +164,8 @@ public class StudyDataLogScreen extends JFrame {
 
         StudyDataLogInputData data = new StudyDataLogInputData(1,
                 "Researcher 1",
-                4, "Randomized", "Study 234", researchers, potentialParticipants, participants, 6,  eligibility, questionnaires, groups, new ControllerManager(new ScreenManager()));
-        StudyDataLogScreen screen = new StudyDataLogScreen(data);
+                4, "Randomized", "Study 234", researchers, potentialParticipants, participants, 6,  eligibility, questionnaires, groups);
+        StudyDataLogScreen screen = new StudyDataLogScreen(data, new ControllerManager(new ScreenManager()));
         screen.setVisible(true);
 
     }

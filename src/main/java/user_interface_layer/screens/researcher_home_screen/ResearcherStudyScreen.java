@@ -16,7 +16,7 @@ public class ResearcherStudyScreen extends JFrame {
 
     private JTable studiesTable;
 
-    public ResearcherStudyScreen(ResearcherStudyScreenInputData data) {
+    public ResearcherStudyScreen(ResearcherStudyScreenInputData data, ControllerManager controllerManager) {
 
         // Initialize the elements of the screen.
         JPanel framePanel = new JPanel();
@@ -46,7 +46,7 @@ public class ResearcherStudyScreen extends JFrame {
         logOutButton.setText("Log Out");
         logOutButton.addActionListener(
                 e-> {
-                    data.getController().userLogOutController();
+                    controllerManager.userLogOutController();
                 });
 
         userPanel.add(logOutButton);
@@ -82,14 +82,14 @@ public class ResearcherStudyScreen extends JFrame {
                     if (selectedRow == -1) {
                         JOptionPane.showMessageDialog(null, "Please select a study to continue.");
                     } else {
-                        data.getController().requestResearcherStudyLog(keys.get(selectedRow), data.getResearchID());
+                        controllerManager.requestResearcherStudyLog(keys.get(selectedRow), data.getResearchID());
                     }
                 });
         southPanel.add(selectStudyButton);
 
         createStudyButton.setText("Create Study");
         createStudyButton.addActionListener(e -> {
-            data.getController().requestCreateStudyModel(data.getResearchID());
+            controllerManager.requestCreateStudyModel(data.getResearchID());
         });
 
         JButton editStudyButton = new JButton("Edit Study");
@@ -98,9 +98,10 @@ public class ResearcherStudyScreen extends JFrame {
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select a study to continue.");
             } else {
-                data.getController().editStudyRequest(keys.get(selectedRow), data.getResearchID());
+                controllerManager.editStudyDataRequest(keys.get(selectedRow), data.getResearchID());
             }
         });
+        southPanel.add(editStudyButton);
         southPanel.add(createStudyButton);
         framePanel.add(southPanel, BorderLayout.PAGE_END);
         getContentPane().add(framePanel);
@@ -111,8 +112,8 @@ public class ResearcherStudyScreen extends JFrame {
     public static void main(String[] args) {
         Map<Integer, String[]> test = Map.of(
                 1, new String[]{"1", "Depression from 207", "Open"}, 2, new String[]{"2", "I want to die Syndrome", "Closed"});
-        ResearcherStudyScreenInputData data = new ResearcherStudyScreenInputData(5, "My moooo", test, new ControllerManager(new ScreenManager()));
-        new ResearcherStudyScreen(data).setVisible(true);
+        ResearcherStudyScreenInputData data = new ResearcherStudyScreenInputData(5, "My moooo", test);
+        new ResearcherStudyScreen(data,new ControllerManager(new ScreenManager())).setVisible(true);
     }
 
 }

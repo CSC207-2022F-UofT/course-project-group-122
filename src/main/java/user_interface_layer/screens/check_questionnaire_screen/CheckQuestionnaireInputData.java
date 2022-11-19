@@ -1,5 +1,7 @@
 package user_interface_layer.screens.check_questionnaire_screen;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +36,7 @@ public class CheckQuestionnaireInputData {
      */
     private final List<String[]> formattedQuestions = new ArrayList<>();
 
-    /* Map <"Question" ; [type, variable, options]>
+    /* Map <"Variable" ; [type, description, options]>
      * The key is the question. The value is an array with the question's type, variable and options.
      * The options should be formatted as follows:
      *     - For MC questions: comma separated and without spaces.
@@ -44,12 +46,12 @@ public class CheckQuestionnaireInputData {
     public CheckQuestionnaireInputData(int questionnaireId,
                                        String questionnaireName,
                                        String questionnaireDescription,
-                                       Map<String, String[]> questions) {
+                                       @NotNull Map<String, String[]> questions) {
         this.questionnaireId = questionnaireId;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
         for (Map.Entry<String, String[]> entry : questions.entrySet()) {
-            String[] question = new String[]{entry.getValue()[0], entry.getKey(), entry.getValue()[1], entry.getValue()[2]};
+            String[] question = new String[]{entry.getValue()[0], entry.getValue()[1], entry.getKey(), entry.getValue()[2]};
             formattedQuestions.add(question);
         }
     }

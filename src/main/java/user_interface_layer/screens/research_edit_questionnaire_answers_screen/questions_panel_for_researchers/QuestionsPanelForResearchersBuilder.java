@@ -1,4 +1,4 @@
-package user_interface_layer.screens.research_edit_questionnaire_screen.questions_panel_for_researchers;
+package user_interface_layer.screens.research_edit_questionnaire_answers_screen.questions_panel_for_researchers;
 
 public class QuestionsPanelForResearchersBuilder {
     public QuestionsPanelForResearchersBuilder() {

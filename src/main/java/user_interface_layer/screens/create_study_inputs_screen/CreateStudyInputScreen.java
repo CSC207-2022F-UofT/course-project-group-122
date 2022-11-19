@@ -14,10 +14,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class CreateStudyInputScreen extends JFrame {
+
     String studyTypeInput = "";
     List<String> groupNames;
 
-public CreateStudyInputScreen(CreateStudyInputInputData data) {
+public CreateStudyInputScreen(CreateStudyInputInputData data, ControllerManager controllerManager) {
     super("Create Study Input Screen");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -96,7 +97,7 @@ public CreateStudyInputScreen(CreateStudyInputInputData data) {
             } catch (NumberFormatException nfe) {
                 new GeneralFailureScreen("Please enter a valid number for study target size");
             }
-            data.getControllerManager().createStudyController(data.getResearcherID(), studyName.getText(),
+            controllerManager.createStudyController(data.getResearcherID(), studyName.getText(),
                     studyDescription.getText(), Integer.parseInt(studyTargetSize.getText()), this.studyTypeInput,
                     count.get(), groupNames);
 
@@ -193,10 +194,11 @@ public CreateStudyInputScreen(CreateStudyInputInputData data) {
 
     }
 
+
     public static void main(String[] args) {
         ControllerManager cm = new ControllerManager(new ScreenManager());
-        CreateStudyInputInputData data = new CreateStudyInputInputData(1, cm);
-        CreateStudyInputScreen screen = new CreateStudyInputScreen(data);
+        CreateStudyInputInputData data = new CreateStudyInputInputData(1);
+        CreateStudyInputScreen screen = new CreateStudyInputScreen(data, cm);
         screen.setVisible(true);
     }
 }

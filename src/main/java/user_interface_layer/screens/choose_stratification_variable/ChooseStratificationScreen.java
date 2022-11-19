@@ -17,7 +17,7 @@ public class ChooseStratificationScreen extends JFrame {
      * This constructor sets the component's locale property to the value
      * returned by <code>JComponent.getDefaultLocale</code>.
      */
-    public ChooseStratificationScreen(ChooseStratificationInputData data) throws HeadlessException {
+    public ChooseStratificationScreen(ChooseStratificationInputData data, ControllerManager controllerManager) throws HeadlessException {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JLabel label = new JLabel("Choose Stratification Variable", SwingConstants.CENTER);
 
@@ -33,21 +33,21 @@ public class ChooseStratificationScreen extends JFrame {
         button.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
-                data.getControllerManager().setStratificationVariableRequest(data.getStudyId(), model.getValueAt(row, 0).toString());
+                controllerManager.setStratificationVariableRequest(data.getStudyId(), model.getValueAt(row, 0).toString());
                 dispose();
             }
         });
         add(label, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         add(button, BorderLayout.SOUTH);
-        pack();
+        setSize(400, 400);
         SetScreenToCenter s = new SetScreenToCenter(this);
     }
 
     public static void main(String[] args) {
         List<String> list = List.of("a", "b", "c");
-        ChooseStratificationInputData data = new ChooseStratificationInputData(1, list, new ControllerManager(new ScreenManager()));
-        ChooseStratificationScreen screen = new ChooseStratificationScreen(data);
+        ChooseStratificationInputData data = new ChooseStratificationInputData(1, list);
+        ChooseStratificationScreen screen = new ChooseStratificationScreen(data, new ControllerManager(new ScreenManager()));
         screen.setVisible(true);
     }
 }

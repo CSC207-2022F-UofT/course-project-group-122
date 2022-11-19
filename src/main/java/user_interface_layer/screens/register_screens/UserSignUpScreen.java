@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class UserSignUpScreen extends JFrame {
-    ControllerManager controllerManager;
     public UserSignUpScreen(ControllerManager controllerManager){
     setTitle("Sign Up");
 

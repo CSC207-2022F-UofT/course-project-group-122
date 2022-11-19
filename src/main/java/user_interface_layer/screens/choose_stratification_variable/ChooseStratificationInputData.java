@@ -20,18 +20,13 @@ public class ChooseStratificationInputData {
      */
     private List<String> stratificationVariables = new ArrayList<>();
 
-    /*
-     * The controller manager.
-     */
-    private final ControllerManager controllerManager;
 
     /*
      * The constructor of the class.
      */
-    public ChooseStratificationInputData(int studyId, List<String> stratificationVariables, ControllerManager controllerManager) {
+    public ChooseStratificationInputData(int studyId, List<String> stratificationVariables) {
         this.studyId = studyId;
         this.stratificationVariables = stratificationVariables;
-        this.controllerManager = controllerManager;
     }
 
     /*
@@ -46,12 +41,5 @@ public class ChooseStratificationInputData {
      */
     public List<String> getStratificationVariables() {
         return stratificationVariables;
-    }
-
-    /*
-     * Returns the controller manager.
-     */
-    public ControllerManager getControllerManager() {
-        return controllerManager;
     }
 }

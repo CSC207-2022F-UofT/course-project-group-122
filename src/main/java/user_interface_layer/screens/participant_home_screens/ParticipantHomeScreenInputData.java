@@ -97,11 +97,6 @@ public class ParticipantHomeScreenInputData {
     private final Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory;
 
     /**
-     * The controller manager.
-     */
-    ControllerManager controllerManager;
-
-    /**
      * The constructor of the class.
      */
     public ParticipantHomeScreenInputData(int participantID,
@@ -121,8 +116,7 @@ public class ParticipantHomeScreenInputData {
                                           Map<Integer, String[]> assignedQuestionnaireData,
                                           Map<Integer, String[]> completedQuestionnaireData,
                                           List<String[]> eligibilityQuestionnaireAnswerHistory,
-                                          Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory,
-                                          ControllerManager controllerManager) {
+                                          Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory) {
         this.participantId = participantID;
         this.participantName = participantName;
         this.participantStatus = participantStatus;
@@ -141,7 +135,6 @@ public class ParticipantHomeScreenInputData {
         this.completedQuestionnaireData = completedQuestionnaireData;
         this.eligibilityQuestionnaireAnswerHistory = eligibilityQuestionnaireAnswerHistory;
         this.completedQuestionnaireAnswerHistory = completedQuestionnaireAnswerHistory;
-        this.controllerManager = controllerManager;
     }
 
     /**
@@ -269,13 +262,6 @@ public class ParticipantHomeScreenInputData {
      */
     public Map<Integer, List<String[]>> getCompletedQuestionnaireAnswerHistory() {
         return completedQuestionnaireAnswerHistory;
-    }
-
-    /**
-     * Returns the controller manager.
-     */
-    public ControllerManager getControllerManager() {
-        return controllerManager;
     }
 
     /*

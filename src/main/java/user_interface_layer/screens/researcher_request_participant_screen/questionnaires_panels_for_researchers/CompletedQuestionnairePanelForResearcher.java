@@ -1,6 +1,7 @@
 package user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers;
 
 import user_interface_layer.SetTableModel;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantInputData;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class CompletedQuestionnairePanelForResearcher extends JPanel {
 
-    public CompletedQuestionnairePanelForResearcher(ResearcherRequestParticipantInputData data) {
+    public CompletedQuestionnairePanelForResearcher(ResearcherRequestParticipantInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         SetTableModel setTableModel = new SetTableModel(data.getQuestionnairesTableHeader());
         DefaultTableModel model = setTableModel.getModel();
@@ -33,7 +34,7 @@ public class CompletedQuestionnairePanelForResearcher extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check.");
             } else {
                 int questionnaireID = keys.get(selectedRow);
-                data.getControllerManager().checkQuestionnaireVersionedAnswer(data.getStudyId(), data.getParticipantId(), questionnaireID, data.getCompletedQuestionnaireAnswerHistory().get(questionnaireID));
+                controllerManager.checkQuestionnaireVersionedAnswer(data.getStudyId(), data.getParticipantId(), questionnaireID, data.getCompletedQuestionnaireAnswerHistory().get(questionnaireID));
             }
         });
 
@@ -44,7 +45,7 @@ public class CompletedQuestionnairePanelForResearcher extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to edit its answer.");
             } else {
                 int questionnaireID = keys.get(selectedRow);
-                data.getControllerManager().editQuestionnaireAnswerDataRequest(data.getUserId(), data.getStudyId(), data.getParticipantId(), questionnaireID);
+                controllerManager.editQuestionnaireAnswerDataRequest(data.getUserId(), data.getStudyId(), data.getParticipantId(), questionnaireID);
             }
         });
 

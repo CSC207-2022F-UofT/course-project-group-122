@@ -63,11 +63,6 @@ public class ParticipantAnswerQuestionnairePanelInputData {
      */
     private final Map<String, String> questionsOptions = new HashMap<>();
 
-    /*
-     * The controller manager.
-     */
-    private final ControllerManager controllerManager;
-
 // {"Question":[type][variable][options]}
     // if type is MC, then answer option,option,option
     // if type is SC, then answer bottomLabel,topLabel,scale
@@ -77,8 +72,7 @@ public class ParticipantAnswerQuestionnairePanelInputData {
                                                         int questionnaireID,
                                                         String questionnaireName,
                                                         String questionnaireDescription,
-                                                        Map<String, String[]> questionsInformation,
-                                                        ControllerManager controllerManager) {
+                                                        Map<String, String[]> questionsInformation) {
         this.participantID = participantID;
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
@@ -90,8 +84,6 @@ public class ParticipantAnswerQuestionnairePanelInputData {
             questionsVariable.put(entry.getKey(), entry.getValue()[1]);
             questionsOptions.put(entry.getKey(), entry.getValue()[2]);
         }
-
-        this.controllerManager = controllerManager;
         createQuestionsPanels();
     }
 
@@ -163,11 +155,5 @@ public class ParticipantAnswerQuestionnairePanelInputData {
         return questionsPanel;
     }
 
-    /*
-     * Returns the controller manager.
-     */
-    public ControllerManager getControllerManager() {
-        return controllerManager;
-    }
 
 }

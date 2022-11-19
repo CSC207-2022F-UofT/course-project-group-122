@@ -1,6 +1,7 @@
 package user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants;
 
 import user_interface_layer.SetTableModel;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreenInputData;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ import java.awt.*;
 
 public class EligibilityQuestionnairePanel extends JPanel {
 
-    public EligibilityQuestionnairePanel(ParticipantHomeScreenInputData data) {
+    public EligibilityQuestionnairePanel(ParticipantHomeScreenInputData data , ControllerManager controllerManager) {
         super();
         setLayout(new BorderLayout());
         SetTableModel setTableModel = new SetTableModel(data.getQuestionnairesTableHeader());
@@ -28,7 +29,7 @@ public class EligibilityQuestionnairePanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
             } else {
                 int questionnaireId = Integer.parseInt(model.getValueAt(0, 0).toString());
-                data.getControllerManager().answerEligibilityQuestionnaireRequestData(data.getParticipantId(),questionnaireId);
+                controllerManager.answerEligibilityQuestionnaireRequestData(data.getParticipantId(),questionnaireId);
             }
 
         });
@@ -40,7 +41,7 @@ public class EligibilityQuestionnairePanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check answers");
             } else {
                 int questionnaireID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
-                data.getControllerManager().checkQuestionnaireVersionedAnswer(data.getStudyId(), data.getParticipantId(),
+                controllerManager.checkQuestionnaireVersionedAnswer(data.getStudyId(), data.getParticipantId(),
                         questionnaireID,
                         data.getEligibilityQuestionnaireAnswerHistory());
                 }

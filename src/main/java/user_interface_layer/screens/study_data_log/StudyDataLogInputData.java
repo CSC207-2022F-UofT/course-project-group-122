@@ -21,7 +21,6 @@ public class StudyDataLogInputData {
         private final String[] eligibilityQuestionnaire;
         private Map<Integer, String[]> questionnairesData;
         private List<String> groups;
-       private final ControllerManager controllerManager;
 
     public StudyDataLogInputData(
             int researchId,
@@ -35,8 +34,7 @@ public class StudyDataLogInputData {
             int eligibilityQuestionnaireId,
             String[] eligibilityQuestionnaire,
             Map<Integer, String[]> questionnairesData,
-            List<String> groups,
-            ControllerManager controllerManager) {
+            List<String> groups){
 
         this.researchId = researchId;
         this.researcherName = researcherName;
@@ -50,7 +48,6 @@ public class StudyDataLogInputData {
         this.eligibilityQuestionnaire = eligibilityQuestionnaire;
         this.questionnairesData = questionnairesData;
         this.groups = groups;
-        this.controllerManager = controllerManager;
         }
 
     public int getResearchId() {
@@ -113,10 +110,6 @@ public class StudyDataLogInputData {
         return groups;
     }
 
-    public ControllerManager getControllerManager() {
-        return controllerManager;
-    }
-
     public String getRandomizedStrategy() {
         return randomizedStrategy;
     }
@@ -135,7 +128,7 @@ public class StudyDataLogInputData {
 
 
     public boolean isStudyEmpty() {
-         return potentialsData.isEmpty() && participantsData.isEmpty();
+         return participantsData.isEmpty();
     }
 }
 

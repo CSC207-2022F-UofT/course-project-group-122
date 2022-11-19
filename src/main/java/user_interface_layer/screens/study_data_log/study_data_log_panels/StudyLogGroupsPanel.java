@@ -2,13 +2,14 @@ package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.SetTableModel;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class StudyLogGroupsPanel extends JPanel {
-    public StudyLogGroupsPanel(StudyDataLogInputData data) {
+    public StudyLogGroupsPanel(StudyDataLogInputData data, ControllerManager controllerManager) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel label = new JLabel(data.getStudyType() + " Groups", SwingConstants.CENTER);
         add(label);
@@ -42,11 +43,11 @@ public class StudyLogGroupsPanel extends JPanel {
                             JButton button = new JButton("Select");
                             button.addActionListener(e1 -> {
                                 if (item.isSelected()) {
-                                    data.getControllerManager().setRandomizationStrategyRequest(data.getStudyId(), "Simple");
+                                    controllerManager.setRandomizationStrategyRequest(data.getStudyId(), "Simple");
                                 } else if (item2.isSelected()) {
-                                    data.getControllerManager().setRandomizationStrategyRequest(data.getStudyId(), "Block");
+                                    controllerManager.setRandomizationStrategyRequest(data.getStudyId(), "Block");
                                 } else if (item3.isSelected()) {
-                                    data.getControllerManager().setRandomizationStrategyRequest(data.getStudyId(), "Stratified");
+                                    controllerManager.setRandomizationStrategyRequest(data.getStudyId(), "Stratified");
                                 }
                                 frame.dispose();
                             });
@@ -55,7 +56,7 @@ public class StudyLogGroupsPanel extends JPanel {
                             SetScreenToCenter s = new SetScreenToCenter(frame);
                             frame.setVisible(true);
                         } else {
-                            JOptionPane.showMessageDialog(null, "You can't change the strategy after adding participants or Potential Participants");
+                            JOptionPane.showMessageDialog(null, "You can't change the strategy after adding participants");
                         }
                     }
 

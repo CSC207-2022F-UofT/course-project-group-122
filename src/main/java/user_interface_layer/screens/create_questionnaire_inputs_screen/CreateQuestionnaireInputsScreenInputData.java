@@ -11,17 +11,12 @@ public class CreateQuestionnaireInputsScreenInputData {
      */
     private final int studyID;
 
-    /*
-     * The controller manager.
-     */
-    private final ControllerManager controllerManager;
 
     /*
      * The constructor of the class.
      */
-    public CreateQuestionnaireInputsScreenInputData(int studyID, ControllerManager controllerManager) {
+    public CreateQuestionnaireInputsScreenInputData(int studyID) {
         this.studyID = studyID;
-        this.controllerManager = controllerManager;
     }
 
     /*
@@ -31,10 +26,4 @@ public class CreateQuestionnaireInputsScreenInputData {
         return studyID;
     }
 
-    /*
-     * Returns the controller manager.
-     */
-    public ControllerManager getControllerManager() {
-        return controllerManager;
-    }
 }

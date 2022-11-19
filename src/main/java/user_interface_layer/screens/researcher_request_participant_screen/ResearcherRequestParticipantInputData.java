@@ -99,11 +99,6 @@ public class ResearcherRequestParticipantInputData {
     private final Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory;
 
     /**
-     * The controller manager.
-     */
-    ControllerManager controllerManager;
-
-    /**
      * The constructor of the class.
      */
     public ResearcherRequestParticipantInputData(int userId,
@@ -124,8 +119,7 @@ public class ResearcherRequestParticipantInputData {
                                                  Map<Integer, String[]> assignedQuestionnaireData,
                                                  Map<Integer, String[]> completedQuestionnaireData,
                                                  List<String[]> eligibilityQuestionnaireAnswerHistory,
-                                                 Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory,
-                                                 ControllerManager controllerManager) {
+                                                 Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory) {
         this.userId = userId;
         this.participantId = participantID;
         this.participantName = participantName;
@@ -145,7 +139,6 @@ public class ResearcherRequestParticipantInputData {
         this.completedQuestionnaireData = completedQuestionnaireData;
         this.eligibilityQuestionnaireAnswerHistory = eligibilityQuestionnaireAnswerHistory;
         this.completedQuestionnaireAnswerHistory = completedQuestionnaireAnswerHistory;
-        this.controllerManager = controllerManager;
     }
 
     /**
@@ -279,13 +272,6 @@ public class ResearcherRequestParticipantInputData {
      */
     public Map<Integer, List<String[]>> getCompletedQuestionnaireAnswerHistory() {
         return completedQuestionnaireAnswerHistory;
-    }
-
-    /**
-     * Returns the controller manager.
-     */
-    public ControllerManager getControllerManager() {
-        return controllerManager;
     }
 
     /**

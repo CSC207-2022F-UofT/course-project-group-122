@@ -2,20 +2,21 @@ package user_interface_layer.screens.participant_not_enrolled_screen;
 
 import org.jetbrains.annotations.NotNull;
 import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ParticipantNotEnrolledScreen extends JFrame {
 
-    public ParticipantNotEnrolledScreen(@NotNull ParticipantNotEnrolledInputData data) {
+    public ParticipantNotEnrolledScreen(@NotNull ParticipantNotEnrolledInputData data, ControllerManager controllerManager) {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         JPanel header = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel userIDLabel = new JLabel(data.getParticipantName() + " (" + data.getParticipantID() + ")");
         JButton logOutButton = new JButton("Log Out");
         logOutButton.addActionListener(e -> {
-            data.getController().userLogOutController();
+            controllerManager.userLogOutController();
         });
         header.add(userIDLabel);
         header.add(logOutButton);

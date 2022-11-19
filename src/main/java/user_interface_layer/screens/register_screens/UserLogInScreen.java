@@ -7,7 +7,6 @@ import user_interface_layer.screens.ControllerManager;
 import javax.swing.*;
 
 public class UserLogInScreen extends JFrame {
-    ControllerManager controllerManager;
     public UserLogInScreen(ControllerManager controllerManager) {
         setTitle("Log In");
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));

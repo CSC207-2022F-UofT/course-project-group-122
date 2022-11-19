@@ -2,6 +2,7 @@ package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.SetTableModel;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class StudyLogQuestionnairePanel extends JPanel {
 
-    public StudyLogQuestionnairePanel(StudyDataLogInputData data) {
+    public StudyLogQuestionnairePanel(StudyDataLogInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         SetTableModel setEligibilityTableModel = new SetTableModel(data.getQuestionnairesTableHeader());
         DefaultTableModel eligibilityModel = setEligibilityTableModel.getModel();
@@ -41,7 +42,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
 
         JButton checkEligibility = new JButton("Check Eligibility Questionnaire");
         checkEligibility.addActionListener(e -> {
-            data.getControllerManager().researcherQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId(), data.getEligibilityQuestionnaireId());
+            controllerManager.researcherQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId(), data.getEligibilityQuestionnaireId());
         });
 
         JButton check = new JButton("Check Questionnaire");
@@ -51,12 +52,12 @@ public class StudyLogQuestionnairePanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check");
             } else {
                 int questionnaireId = keys.get(selectedRow);
-                data.getControllerManager().researcherQuestionnaireScreenRequest(data.getResearchId(),data.getStudyId(),questionnaireId);
+                controllerManager.researcherQuestionnaireScreenRequest(data.getResearchId(),data.getStudyId(),questionnaireId);
             }
         });
 
         JButton addQuestionnaire = new JButton("Add Questionnaire");
-        addQuestionnaire.addActionListener(e -> data.getControllerManager().researcherAddQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId()));
+        addQuestionnaire.addActionListener(e -> controllerManager.researcherAddQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId()));
 
         JButton editQuestionnaire = new JButton("Edit Questionnaire");
         editQuestionnaire.addActionListener(e -> {
@@ -70,7 +71,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
                     JOptionPane.showMessageDialog(null, "Cannot edit a published or closed questionnaire");
                 } else {
                     int questionnaireId = keys.get(selectedRow);
-                    data.getControllerManager().researcherEditQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId(), questionnaireId);
+                    controllerManager.researcherEditQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId(), questionnaireId);
                 }
             }
         });
@@ -90,7 +91,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
                         String researcherId = textField.getText();
                         try {
                             int participant = Integer.parseInt(researcherId);
-                            data.getControllerManager().assignQuestionnaireToIndividual(data.getResearchId(), data.getStudyId(), participant);
+                            controllerManager.assignQuestionnaireToIndividual(data.getResearchId(), data.getStudyId(), participant);
                             frame.dispose();
                         } catch (NumberFormatException exception) {
                             JOptionPane.showMessageDialog(null, "Please enter a valid identifier");
@@ -112,7 +113,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
             JButton button = new JButton("Assign");
             button.addActionListener(e1 -> {
                 String groupName = textField.getText();
-                data.getControllerManager().assignQuestionnaireToGroup(data.getResearchId(), data.getStudyId(), groupName);
+                controllerManager.assignQuestionnaireToGroup(data.getResearchId(), data.getStudyId(), groupName);
         });
             frame.add(label);
             frame.add(textField);
@@ -123,7 +124,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
         });
 
         all.addActionListener(e->{
-            data.getControllerManager().assignQuestionnaireToAll(data.getResearchId(), data.getStudyId());
+            controllerManager.assignQuestionnaireToAll(data.getResearchId(), data.getStudyId());
         });
         popupMenu.add(individual);
         popupMenu.add(group);

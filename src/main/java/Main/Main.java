@@ -2,6 +2,8 @@ package Main;
 
 import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
+import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen;
+import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreenInputData;
 import user_interface_layer.screens.screen_drivers.*;
 import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 import user_interface_layer.screens.study_data_log.StudyDataLogScreen;
@@ -29,11 +31,11 @@ public class Main {
 //        UserRegisterScreen userRegisterScreen = new UserRegisterScreen(controllerManager);
 //        userRegisterScreen.setVisible(true);
 
-
+//
 //        Map<Integer, String[]> test = Map.of(
 //                1, new String[]{"1", "Depression from 207", "Open"}, 2, new String[]{"2", "I want to die Syndrome", "Closed"});
-//        ResearcherStudyScreenInputData data = new ResearcherStudyScreenInputData(5, "My moooo", test, controllerManager);
-//        ResearcherStudyScreen researcherStudyScreen = new ResearcherStudyScreen(data);
+//        ResearcherStudyScreenInputData data = new ResearcherStudyScreenInputData(5, "My moooo", test);
+//        ResearcherStudyScreen researcherStudyScreen = new ResearcherStudyScreen(data, controllerManager);
 //        researcherStudyScreen.setVisible(true);
 
 
@@ -65,8 +67,8 @@ public class Main {
 
         StudyDataLogInputData data = new StudyDataLogInputData(1,
                 "Researcher 1",
-                4, "Randomized", "Study 234", researchers, potentialParticipants, participants, 6,  eligibility, questionnaires, groups, controllerManager);
-        StudyDataLogScreen screen = new StudyDataLogScreen(data);
+                4, "Randomized", "Study 234", researchers, potentialParticipants, participants, 6,  eligibility, questionnaires, groups);
+        StudyDataLogScreen screen = new StudyDataLogScreen(data, controllerManager);
         screen.setVisible(true);
 
     }

@@ -10,19 +10,14 @@ public class CreateStudyInputInputData {
     /*
      * The researcher ID.
      */
-    private int researcherID;
+    private final int researcherID;
 
-    /*
-     * The controller manager.
-     */
-    ControllerManager controllerManager;
 
     /*
      * The constructor of the class.
      */
-    public CreateStudyInputInputData(int researcherID, ControllerManager controllerManager) {
+    public CreateStudyInputInputData(int researcherID) {
         this.researcherID = researcherID;
-        this.controllerManager = controllerManager;
     }
 
     /*
@@ -32,10 +27,4 @@ public class CreateStudyInputInputData {
         return researcherID;
     }
 
-    /*
-     * Returns the controller manager.
-     */
-    public ControllerManager getControllerManager() {
-        return controllerManager;
-    }
 }

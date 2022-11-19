@@ -31,6 +31,7 @@ public class CheckQuestionnaireVersionedAnswerScreen extends JFrame{
         add(title, BorderLayout.NORTH);
         add(questionsScrollPanel, BorderLayout.CENTER);
         pack();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         SetScreenToCenter s = new SetScreenToCenter(this);
     }
 

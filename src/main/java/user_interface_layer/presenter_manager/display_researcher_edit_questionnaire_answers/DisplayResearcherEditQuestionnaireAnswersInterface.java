@@ -1,0 +1,7 @@
+package user_interface_layer.presenter_manager.display_researcher_edit_questionnaire_answers;
+
+import user_interface_layer.screens.research_edit_questionnaire_answers_screen.ResearcherEditQuestionnaireScreenAnswersInputData;
+
+public interface DisplayResearcherEditQuestionnaireAnswersInterface {
+    void presentResearcherEditQuestionnaireAnswersScreen(ResearcherEditQuestionnaireScreenAnswersInputData data);
+}

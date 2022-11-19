@@ -32,10 +32,9 @@ public class DisplayParticipantStudy implements DisplayParticipantStudyDataInter
                 response.getAssignedQuestionnaireData(),
                 response.getCompletedQuestionnaireData(),
                 response.getEligibilityQuestionnaireAnswerHistory(),
-                response.getCompletedQuestionnaireAnswerHistory(),
-                controllerManager
+                response.getCompletedQuestionnaireAnswerHistory()
         );
-        ParticipantHomeScreen screen = new ParticipantHomeScreen(data);
+        ParticipantHomeScreen screen = new ParticipantHomeScreen(data, controllerManager);
         screenManager.setParticipantHomeScreen(screen);
         screenManager.updateCurrentScreen(screen);
     }
@@ -61,10 +60,9 @@ public class DisplayParticipantStudy implements DisplayParticipantStudyDataInter
                 response.getAssignedQuestionnaireData(),
                 response.getCompletedQuestionnaireData(),
                 response.getEligibilityQuestionnaireAnswerHistory(),
-                response.getCompletedQuestionnaireAnswerHistory(),
-                controllerManager
+                response.getCompletedQuestionnaireAnswerHistory()
         );
-        ResearcherRequestParticipantScreen screen = new ResearcherRequestParticipantScreen(data);
+        ResearcherRequestParticipantScreen screen = new ResearcherRequestParticipantScreen(data, controllerManager);
         screenManager.setResearcherRequestParticipantScreen(screen);
         screenManager.updateCurrentScreen(screen);
 
