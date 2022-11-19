@@ -9,6 +9,7 @@ import java.util.List;
  * Fetches the id of the object.
  * <p>
  * Precondition: the id is associated with an object with the given type.
+ * Except when calling the checkUserExists method, the id may or may not be associated with an object.
  */
 public class FetchId {
 
@@ -118,5 +119,15 @@ public class FetchId {
      */
     public static Answer getAnswer(String id, String participantId) {
         return getAnswer(Integer.parseInt(id), Integer.parseInt(participantId));
+    }
+
+
+    /**
+     * Checks if the user with the given id exists.
+     * @param id    The id of the user to be checked.
+     * @return      True if the user exists, false otherwise.
+     */
+    public static boolean checkUserExists(int id) {
+        return userPool.getUserById(id) != null;
     }
 }

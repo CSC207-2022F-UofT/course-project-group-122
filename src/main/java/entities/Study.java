@@ -515,6 +515,17 @@ public class Study {
 
 
     /**
+     * Add a researcher to the existing list of researchers in the study.
+     *
+     * @param researcher a researcher to be added.
+     * @return whether the addition is successful.
+     */
+    public boolean addResearchers(Researcher researcher) {
+        return studyUserManager.addResearcher(researcher);
+    }
+
+
+    /**
      * Remove a researcher from the list of researchers in the study.
      *
      * @param researcher researcher to be removed.
