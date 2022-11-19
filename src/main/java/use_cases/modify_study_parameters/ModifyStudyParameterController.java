@@ -63,4 +63,14 @@ public class ModifyStudyParameterController {
     }
 
 
+    /**
+     * Modifies the grouping of the study
+     * @param studyId       The ID of the study.
+     * @param groupSize     The new group size of the study.
+     * @param groupNames    The new group names of the study.
+     */
+    public void modifyStudyGrouping(int studyId, int groupSize, String[] groupNames) {
+        modifyStudyParameterInteractor.modifyStudyGrouping(studyId, groupSize, groupNames);
+    }
+
 }

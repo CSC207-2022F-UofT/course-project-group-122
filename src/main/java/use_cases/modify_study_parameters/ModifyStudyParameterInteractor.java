@@ -110,6 +110,9 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         } else if (!study.getRandomizationMethod().equals("Stratified")) {
             modifyStudyParameterPresenter.displayFailureMessage("The study is not a stratified study. " +
                     "It does not have a stratification variable.");
+        } else if (! validStratificationVariable(study, stratificationVariable)) {
+            modifyStudyParameterPresenter.displayFailureMessage("The stratification variable is not a variable in " +
+                    "the eligibility questionnaire. Please check your selection.");
         }
         study.setStratificationMethod(stratificationVariable);
         modifyStudyParameterPresenter.displaySuccessMessage(studyId,
@@ -216,5 +219,17 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
             return false;
         }
         return true;
+    }
+
+
+    /**
+     * Checks if the selected stratification variable is valid.
+     * @param study                     The study.
+     * @param stratificationVariable    The stratification variable.
+     * @return                          True if the stratification variable is valid. False otherwise.
+     */
+    private boolean validStratificationVariable(@NotNull Study study, String stratificationVariable) {
+        List<String> potentialVariables = study.getEligibilityQuestionnaire().getVariableNames();
+        return potentialVariables.contains(stratificationVariable);
     }
 }
