@@ -130,4 +130,15 @@ public class FetchId {
     public static boolean checkUserExists(int id) {
         return userPool.getUserById(id) != null;
     }
+
+
+    /**
+     * Add the study to the study pool and return the id of the study.
+     * @param study The study to be added.
+     * @return      The id of the study.
+     */
+    public static int addStudy(Study study) {
+        studyPool.addStudy(study);
+        return study.getId();
+    }
 }
