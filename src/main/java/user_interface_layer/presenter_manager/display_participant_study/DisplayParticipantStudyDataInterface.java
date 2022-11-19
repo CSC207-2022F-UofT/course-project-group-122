@@ -1,0 +1,9 @@
+package user_interface_layer.presenter_manager.display_participant_study;
+
+import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
+
+public interface DisplayParticipantStudyDataInterface {
+    void presentParticipantHomeScreenForParticipant(FetchParticipantStudyDataResponseModel response);
+
+    void presentParticipantHomeScreenForResearcher(FetchParticipantStudyDataResponseModel response);
+}

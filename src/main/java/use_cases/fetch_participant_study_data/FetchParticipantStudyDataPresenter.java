@@ -1,6 +1,6 @@
 package use_cases.fetch_participant_study_data;
 
-import UserInterfaceLayer.PresenterManager.DisplayParticipantStudy.DisplayParticipantStudyDataInterface;
+import user_interface_layer.presenter_manager.display_participant_study.DisplayParticipantStudyDataInterface;
 import entities.Participant;
 import entities.User;
 

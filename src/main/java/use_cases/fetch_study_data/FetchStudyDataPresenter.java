@@ -1,6 +1,6 @@
 package use_cases.fetch_study_data;
 
-import UserInterfaceLayer.PresenterManager.DisplayResearcherStudy.DisplayResearcherStudyDataInterface;
+import user_interface_layer.presenter_manager.display_researcher_study.DisplayResearcherStudyDataInterface;
 import entities.Participant;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
