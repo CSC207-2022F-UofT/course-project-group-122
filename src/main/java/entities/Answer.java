@@ -73,6 +73,33 @@ public class Answer {
 
 
     /**
+     * Constructor for the Answer class.
+     * This constructor is used to create a new answer to a questionnaire for a particular participant.
+     * This constructor is used when the participant first answers the questionnaire.
+     * This constructor is called once and only once for each participant and questionnaire.
+     * @param participant The participant which this answer belongs to.
+     * @param questionnaire The questionnaire which this answer belongs to.
+     */
+    public Answer(Participant participant, @NotNull Questionnaire questionnaire) {
+        currID++;
+        this.id = currID;
+        this.participant = participant;
+        this.questionnaire = questionnaire;
+        this.numQuestions = questionnaire.getNumOfQuestions();
+    }
+
+
+    /**
+     * Add a new version of the answers to the questionnaire.
+     * @param newVersion The new version of the answers to the questionnaire.
+     */
+    public void addNewVersion(VersionedAnswer newVersion) {
+        this.currentVersion = newVersion;
+        this.allVersions.add(newVersion);
+    }
+
+
+    /**
      * Modify the answer to the questionnaire.
      * Updates the current version of the answer to the questionnaire.
      *
