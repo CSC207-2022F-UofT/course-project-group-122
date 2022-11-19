@@ -1,5 +1,6 @@
 package use_cases.participant_enroller;
 
+import entities.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -7,7 +8,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.Random;
 
 
 /**
@@ -118,7 +118,7 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
      */
     private @Nullable List<Integer> getStrata() {
         if (stratifiedQuestion instanceof MultipleChoiceQuestion) {
-            int numChoices = ((MultipleChoiceQuestion) stratifiedQuestion).getNumChoices();
+            int numChoices = ((MultipleChoiceQuestion) stratifiedQuestion).getNumOfChoices();
             return IntStream.rangeClosed(1, numChoices).boxed().collect(Collectors.toList());
         } else if (stratifiedQuestion instanceof ScaleQuestion) {
             return ((ScaleQuestion) stratifiedQuestion).getScale();

@@ -1,6 +1,11 @@
 package use_cases.participant_enroller;
 
+import entities.Participant;
+import entities.Questionnaire;
+import entities.Study;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 
 /**
@@ -16,11 +21,90 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBoundary {
 
-    private final ParticipantEnrollerOutputBoundary participantEnrollerPresenter;
+    /**
+     * The presenter to send the output to.
+     */
+    private final ParticipantEnrollerOutputBoundary participantEnrollerPresenter = new ParticipantEnrollerPresenter();
 
-    public ParticipantEnrollerInteractor(ParticipantEnrollerOutputBoundary participantEnrollerPresenter) {
-        this.participantEnrollerPresenter = participantEnrollerPresenter;
+    /**
+     * The manager of the random group generator
+     */
+    private final RandomGroupGeneratorManager randomGroupGeneratorManager = new RandomGroupGeneratorManager();
+
+    private final SimpleRandomGroupGenerator simpleRandomGroupGenerator = new SimpleRandomGroupGenerator(study);
+
+
+    /**
+     * Enrolls a participant.
+     * Automatically assigns the participant to the questionnaires that is designed for this group.
+     * Enrolls a participant without specifying the participant's group.
+     * If the type of the study is "Randomized", the participant will be assigned to a group at random.
+     * If the type of the study is "General", the participant will be assigned to the default group, which is Group 1.
+     * A participant can only be enrolled in a study if the study is open for enrollment.
+     * A participant can only be enrolled in a study if the participant is not already enrolled in the study.
+     * A participant can only be enrolled in a study if the participant is eligible for the study.
+     * <p>
+     * This method is overloaded.
+     *
+     * @param participantId The participant to enroll.
+     * @param studyId       The study to enroll the participant in.
+     */
+    @Override
+    public void enroll(int participantId, int studyId) {
+        Participant participant = (Participant) FetchId.getUser(participantId);
+        Study study = (Study) FetchId.getStudy(studyId);
+        if (enrollParticipant(participant, study)) {
+            assignQuestionnaires(participant, study);
+            participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup());
+        } else {
+            participantEnrollerPresenter.presentEnrollmentFailure(participantId);
+        }
     }
+
+
+    /**
+     * Enrolls a participant.
+     * Automatically assigns the participant to the questionnaires that is designed for this group.
+     * Enrolls a participant and specifies the participant's group. This is only called when the type of the study is
+     * "General". If the type of the study is "Randomized", then a failure is returned.
+     * A participant can only be enrolled in a study if the study is open for enrollment.
+     * A participant can only be enrolled in a study if the participant is not already enrolled in the study.
+     * A participant can only be enrolled in a study if the participant is eligible for the study.
+     * A participant can be enrolled only if the specified group is within the defined groups of the study.
+     * <p>
+     * This method is overloaded.
+     *
+     * @param participantId The participant to enroll.
+     * @param studyId       The study to enroll the participant in.
+     * @param group         The group number to enroll the participant in.
+     */
+    @Override
+    public void enroll(int participantId, int studyId, int group) {
+        Participant participant = (Participant) FetchId.getUser(participantId);
+        Study study = (Study) FetchId.getStudy(studyId);
+        if (enrollParticipant(participant, study, group)) {
+            assignQuestionnaires(participant, study);
+            participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup());
+        } else {
+            participantEnrollerPresenter.presentEnrollmentFailure(participantId);
+        }
+    }
+
+
+
+
+
+
+
+
+"Cannot enroll the participant into the study. " +
+        "Please ensure that the study is open for enrollment, the participant is eligible for the study, " +
+        "and the participant is not already enrolled in another study.", participant.getId()
+
+
+
+
+
 
 
     /**
@@ -36,13 +120,13 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      *
      * @param participant The participant to enroll.
      * @param study       The study to enroll the participant in.
-     * @return a success or failure message to be presented to the researcher. It also contains the participant's group.
+     * @return true if the participant is successfully enrolled in the study, false otherwise.
      */
-    @Override
-    public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study) {
+    private boolean enrollParticipant(Participant participant, Study study) {
         if (enrollable(participant, study)) {
-            if (study.getType().equals("Randomized")) {
-                int group = RandomGroupGenerator.generateRandomGroup(study, participant);
+            if (study.getStudyType().equals("Randomized")) {
+                RandomGroupGenerator randomGroupGenerator = fetchRandomGroupGenerator(study);
+                int group = randomGroupGenerator.generateRandomGroup(study, participant);
                 participant.setGroup(group);
             } else {
                 participant.setGroup(1);
@@ -50,14 +134,9 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             study.removePotentialParticipant(participant);
             study.addParticipant(participant);
             participant.enroll();
-            return participantEnrollerPresenter.presentSuccess("Successfully enrolled participant to " +
-                    "(" + String.valueOf(study.getId) + ") " + study.getStudyName(), 
-                    participant.getId(),
-                    participant.getGroup());
+            return true;
         } else {
-            return participantEnrollerPresenter.presentFailure("Cannot enroll the participant into the study. " +
-                    "Please ensure that the study is open for enrollment, the participant is eligible for the study, " +
-                    "and the participant is not already enrolled in another study.", participant.getId());
+            return false;
         }
     }
 
@@ -76,15 +155,11 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * @param participant The participant to enroll.
      * @param study       The study to enroll the participant in.
      * @param group       The group number to enroll the participant in.
-     * @return a success or failure message to be presented to the researcher. It also contains the participant's group.
-     * TODO: Implement this method.
+     * @return true if the participant is successfully enrolled, false otherwise.
      */
-    @Override
-    public ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant,
-                                                               @NotNull Study study,
-                                                               int group) {
-        if (study.getType().equals("Randomized")) {
-            return participantEnrollerPresenter.presentFailure();
+    private boolean enrollParticipant(Participant participant, @NotNull Study study, int group) {
+        if (study.getStudyType().equals("Randomized")) {
+            return false;
         } else {
             if (enrollable(participant, study)) {
                 if (1 <= group && group <= study.getNumGroups()) {
@@ -92,12 +167,12 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
                     study.removePotentialParticipant(participant);
                     study.addParticipant(participant);
                     participant.enroll();
-                    return participantEnrollerPresenter.presentSuccess();
+                    return true;
                 } else {
-                    return participantEnrollerPresenter.presentFailure();
+                    return false;
                 }
             } else {
-                return participantEnrollerPresenter.presentFailure();
+                return false;
             }
         }
     }
@@ -139,4 +214,52 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
     }
 
 
+    /**
+     * Fetch the random group generator of this study.
+     * Preconditions:
+     * The study is open for enrollment.
+     * The study is a randomized study.
+     * @param study     The study to fetch the random group generator of.
+     * @return the random group generator of the study.
+     */
+    private @NotNull RandomGroupGenerator fetchRandomGroupGenerator(Study study) {
+        if (randomGroupGeneratorManager.studyGeneratorExists(study)) {
+            return randomGroupGeneratorManager.getStudyGenerator(study);
+        } else {
+            String type = study.getRandomizationMethod();
+            if (type.equals("Block")) {
+                RandomGroupGenerator generator = new BlockRandomGroupGenerator(study);
+                randomGroupGeneratorManager.addStudyGenerator(study, generator);
+                return generator;
+            } else if (type.equals("Stratified")) {
+                RandomGroupGenerator generator =  new StratifiedRandomGroupGenerator(study);
+                randomGroupGeneratorManager.addStudyGenerator(study, generator);
+                return generator;
+            } else {
+                RandomGroupGenerator generator =  new SimpleRandomGroupGenerator(study);
+                randomGroupGeneratorManager.addStudyGenerator(study, generator);
+                return generator;
+            }
+        }
+    }
+
+
+    /**
+     * Automatically assigns the required questionnaires to the participant.
+     *
+     * @param participant   The participant to assign the questionnaires to.
+     * @param study         The study to assign the questionnaires to the participant for.
+     */
+    private void assignQuestionnaires(@NotNull Participant participant, @NotNull Study study) {
+        List<Questionnaire> questionnaires = study.getQuestionnaires();
+        int group = participant.getGroup();
+        for (Questionnaire questionnaire : questionnaires) {
+            if (questionnaire.getTargetGroups().contains(group)) {
+                participant.assignQuestionnaire(questionnaire);
+            }
+        }
+    }
+
 }
+
+

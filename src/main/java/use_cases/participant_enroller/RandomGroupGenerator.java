@@ -1,5 +1,8 @@
 package use_cases.participant_enroller;
 
+import entities.Participant;
+import entities.Study;
+
 public interface RandomGroupGenerator {
 
     /**

@@ -8,6 +8,7 @@ public interface ParticipantEnrollerInputBoundary {
 
     /**
      * Enrolls a participant.
+     * Automatically assigns the participant to the questionnaires that is designed for this group.
      * Enrolls a participant without specifying the participant's group.
      * If the type of the study is "Randomized", the participant will be assigned to a group at random.
      * If the type of the study is "General", the participant will be assigned to the default group, which is Group 1.
@@ -17,16 +18,15 @@ public interface ParticipantEnrollerInputBoundary {
      * <p>
      * This method is overloaded.
      *
-     * @param participant   The participant to enroll.
-     * @param study         The study to enroll the participant in.
-     *
-     * @return a success or failure message to be presented to the researcher. It also contains the participant's group.
+     * @param participantId   The participant to enroll.
+     * @param studyId         The study to enroll the participant in.
      */
-    ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study);
+    void enroll(int participantId, int studyId);
 
 
     /**
      * Enrolls a participant.
+     * Automatically assigns the participant to the questionnaires that is designed for this group.
      * Enrolls a participant and specifies the participant's group. This is only called when the type of the study is
      * "General". If the type of the study is "Randomized", then a failure is returned.
      * A participant can only be enrolled in a study if the study is open for enrollment.
@@ -36,12 +36,10 @@ public interface ParticipantEnrollerInputBoundary {
      * <p>
      * This method is overloaded.
      *
-     * @param participant   The participant to enroll.
-     * @param study         The study to enroll the participant in.
+     * @param participantId   The participant to enroll.
+     * @param studyId         The study to enroll the participant in.
      * @param group         The group number to enroll the participant in.
-     *
-     * @return a success or failure message to be presented to the researcher. It also contains the participant's group.
      */
-    ParticipantEnrollerOutputBoundary enrollParticipant(Participant participant, Study study, int group);
+    void enroll(int participantId, int studyId, int group);
 
 }

@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 public class SimpleRandomGroupGeneratorTest {
 	@Test
 	public void SimpleRandomGroupGenerator1() {
-		SimpleRandomGroupGenerator expected = new SimpleRandomGroupGenerator();
-		SimpleRandomGroupGenerator actual = new SimpleRandomGroupGenerator();
+		SimpleRandomGroupGenerator expected = new SimpleRandomGroupGenerator(study);
+		SimpleRandomGroupGenerator actual = new SimpleRandomGroupGenerator(study);
 
 		assertTrue(EqualsBuilder.reflectionEquals(expected, actual, false, null, true));
 	}

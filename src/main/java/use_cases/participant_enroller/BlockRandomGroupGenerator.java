@@ -1,5 +1,7 @@
 package use_cases.participant_enroller;
 
+import entities.Participant;
+import entities.Study;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +15,7 @@ public class BlockRandomGroupGenerator implements RandomGroupGenerator {
      * The factor used to determine the size of the block. The block size is the number of participants in each block.
      * Block size = number of groups * block factor.
      */
-    protected static final int BLOCKSIZEFACTOR = 2;
+    protected static final int BLOCKSIZEFACTOR = 3;
 
     /**
      * The number of groups in the study.
@@ -31,7 +33,6 @@ public class BlockRandomGroupGenerator implements RandomGroupGenerator {
      * @param study     The study to assign the participant to a group at random.
      */
     public BlockRandomGroupGenerator(@NotNull Study study) {
-        this.blockSize = study.getNumGroups() * BLOCKSIZEFACTOR;
         this.numGroups = study.getNumGroups();
         this.participantsInBlock = new int[numGroups];
     }

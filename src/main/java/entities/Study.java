@@ -594,4 +594,7 @@ public class Study {
         }
         return false;
     }
+
+    public String getstratificationethod() {
+    }
 }
