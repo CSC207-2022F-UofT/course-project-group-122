@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_edit_study;
 
-import user_interface_layer.screens.edit_study_screen.EditStudyInputData;
+import use_cases.edit_study_data_request.EditStudyInputData;
 
 public interface DisplayEditStudyInterface {
 

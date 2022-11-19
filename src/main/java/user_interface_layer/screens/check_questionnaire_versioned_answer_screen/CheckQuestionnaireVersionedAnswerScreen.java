@@ -1,5 +1,6 @@
 package user_interface_layer.screens.check_questionnaire_versioned_answer_screen;
 
+import use_cases.questionnaire_answer_data_request.CheckQuestionnaireVersionedAnswerInputData;
 import user_interface_layer.SetScreenToCenter;
 
 import javax.swing.*;

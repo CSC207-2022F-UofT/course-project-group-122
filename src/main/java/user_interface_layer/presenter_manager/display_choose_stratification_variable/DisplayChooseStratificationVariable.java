@@ -2,7 +2,7 @@ package user_interface_layer.presenter_manager.display_choose_stratification_var
 
 import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationInputData;
+import use_cases.modify_study_parameters.ChooseStratificationInputData;
 import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationScreen;
 
 public class DisplayChooseStratificationVariable implements DisplayChooseStratificationVariableInterface {

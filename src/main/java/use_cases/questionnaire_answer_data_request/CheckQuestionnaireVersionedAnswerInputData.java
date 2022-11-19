@@ -1,10 +1,11 @@
-package user_interface_layer.screens.check_questionnaire_versioned_answer_screen;
+package use_cases.questionnaire_answer_data_request;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /*
- * This class is used to pass data to the CheckQuestionnaireVersionedAnswerScreen
+ * This class is used to pass data to the CheckQuestionnaireVersionedAnswerScreen.
+ * Through CheckQuestionnaireVersionedAnswer.
  */
 public class CheckQuestionnaireVersionedAnswerInputData {
     /**

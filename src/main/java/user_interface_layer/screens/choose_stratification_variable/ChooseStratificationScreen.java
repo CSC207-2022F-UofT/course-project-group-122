@@ -1,5 +1,6 @@
 package user_interface_layer.screens.choose_stratification_variable;
 
+import use_cases.modify_study_parameters.ChooseStratificationInputData;
 import user_interface_layer.ScreenManager;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.SetTableModel;

@@ -1,4 +1,4 @@
-package user_interface_layer.screens.participant_answer_questionnaire_panel;
+package use_cases.answer_questionnaire_data_request;
 
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_answer_questionnaire_panel.questions_panel.ParticipantsQuestionPanel;

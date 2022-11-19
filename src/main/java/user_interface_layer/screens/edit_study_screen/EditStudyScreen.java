@@ -1,5 +1,6 @@
 package user_interface_layer.screens.edit_study_screen;
 
+import use_cases.edit_study_data_request.EditStudyInputData;
 import user_interface_layer.ScreenManager;
 import user_interface_layer.SetLabelTextPanel;
 import user_interface_layer.SetScreenToCenter;
@@ -193,11 +194,11 @@ public class EditStudyScreen extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        EditStudyInputData data = new EditStudyInputData(1, "a title", "This is a study", 2);
-        EditStudyScreen screen = new EditStudyScreen(data, new ControllerManager(new ScreenManager()));
-        screen.setVisible(true);
-
-    }
+//    public static void main(String[] args) {
+//        EditStudyInputData data = new EditStudyInputData(1, "a title", "This is a study", 2);
+//        EditStudyScreen screen = new EditStudyScreen(data, new ControllerManager(new ScreenManager()));
+//        screen.setVisible(true);
+//
+//    }
 
 }

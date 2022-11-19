@@ -1,4 +1,4 @@
-package user_interface_layer.screens.edit_questionnaire;
+package use_cases.edit_questionnaire_screen_data;
 
 import user_interface_layer.screens.ControllerManager;
 

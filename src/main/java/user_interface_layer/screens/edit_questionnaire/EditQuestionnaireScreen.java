@@ -1,5 +1,6 @@
 package user_interface_layer.screens.edit_questionnaire;
 
+import use_cases.edit_questionnaire_screen_data.EditQuestionnaireScreenInputData;
 import user_interface_layer.ScreenManager;
 import user_interface_layer.SetLabelTextPanel;
 import user_interface_layer.SetScreenToCenter;

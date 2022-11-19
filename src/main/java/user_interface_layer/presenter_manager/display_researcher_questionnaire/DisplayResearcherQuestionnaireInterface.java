@@ -1,8 +1,6 @@
 package user_interface_layer.presenter_manager.display_researcher_questionnaire;
 
-import user_interface_layer.ScreenManager;
-import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.check_questionnaire_screen.CheckQuestionnaireInputData;
+import use_cases.questionnaire_screen_data_request.CheckQuestionnaireInputData;
 
 public interface DisplayResearcherQuestionnaireInterface {
     void presentQuestionnaireScreenForResearcher(CheckQuestionnaireInputData data);

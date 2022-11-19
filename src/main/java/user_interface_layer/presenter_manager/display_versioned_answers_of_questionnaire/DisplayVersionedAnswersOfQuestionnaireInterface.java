@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_versioned_answers_of_questionnaire;
 
-import user_interface_layer.screens.check_questionnaire_versioned_answer_screen.CheckQuestionnaireVersionedAnswerInputData;
+import use_cases.questionnaire_answer_data_request.CheckQuestionnaireVersionedAnswerInputData;
 
 public interface DisplayVersionedAnswersOfQuestionnaireInterface {
     void presentVersionedAnswersOfQuestionnaireScreen(CheckQuestionnaireVersionedAnswerInputData data);

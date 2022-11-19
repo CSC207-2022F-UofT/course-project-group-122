@@ -1,4 +1,4 @@
-package user_interface_layer.screens.choose_stratification_variable;
+package use_cases.modify_study_parameters;
 
 import user_interface_layer.screens.ControllerManager;
 

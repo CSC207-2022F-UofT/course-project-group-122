@@ -25,7 +25,7 @@ public class QuestionnaireVersionedAnswerScreen extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(table);
-
+        
         JButton selectAnswerButton = new JButton("Check Answer");
         selectAnswerButton.addActionListener(e->{
             int selectedRow = table.getSelectedRow();

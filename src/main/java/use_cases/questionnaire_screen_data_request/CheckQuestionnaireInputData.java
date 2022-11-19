@@ -1,4 +1,4 @@
-package user_interface_layer.screens.check_questionnaire_screen;
+package use_cases.questionnaire_screen_data_request;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -8,6 +8,7 @@ import java.util.Map;
 
 /*
  * This class is used to pass data to the CheckQuestionnaireScreen.
+ * Through display_researcher_questionnaire.
  *
  */
 public class CheckQuestionnaireInputData {

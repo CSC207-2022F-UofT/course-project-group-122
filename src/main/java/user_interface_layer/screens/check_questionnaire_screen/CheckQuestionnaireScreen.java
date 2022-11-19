@@ -1,8 +1,8 @@
 package user_interface_layer.screens.check_questionnaire_screen;
 
+import use_cases.questionnaire_screen_data_request.CheckQuestionnaireInputData;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.SetTableModel;
-import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

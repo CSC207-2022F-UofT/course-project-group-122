@@ -1,4 +1,4 @@
-package user_interface_layer.screens.edit_study_screen;
+package use_cases.edit_study_data_request;
 
 import user_interface_layer.screens.ControllerManager;
 
