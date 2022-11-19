@@ -21,4 +21,11 @@ public interface CreateStudyInputBoundary {
      * @param studyId           The study ID.
      */
     void setStudyGrouping(int studyId, int numberOfGroups, String[] groupNames);
+
+
+    /**
+     * Checks that the study has been created successfully.
+     * @param studyId   The study ID.
+     */
+    void checkStudyCreatedSuccessfully(int studyId, int researcherId);
 }

@@ -6,6 +6,8 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
+import java.util.Objects;
+
 public class CreateStudyInteractor implements CreateStudyInputBoundary {
 
     private final CreateStudyOutputBoundary createStudyPresenter = new CreateStudyPresenter();
@@ -48,7 +50,44 @@ public class CreateStudyInteractor implements CreateStudyInputBoundary {
                 study.resetGroups(numberOfGroups, groupNames);
             }
         }
-        createStudyPresenter.presentCreateStudySuccess(studyId);
+    }
+
+    /**
+     * Checks that the study has been created successfully.
+     *
+     * @param studyId The study ID.
+     */
+    @Override
+    public void checkStudyCreatedSuccessfully(int studyId, int researcherId) {
+        Study study = FetchId.getStudy(studyId);
+        Researcher researcher = (Researcher) FetchId.getUser(researcherId);
+        if (checkStudySetupCorrect(study, researcher)) {
+            createStudyPresenter.presentStudyCreatedSuccessfully(study.getId(), study.getStudyName());
+        } else {
+            createStudyPresenter.displayFailureMessage("There is an error in creating the study.");
+        }
+    }
+
+
+    /**
+     * Check if the study setup is correct.
+     * @param study         The study.
+     * @param researcher    The researcher.
+     * @return              True if the study setup is correct.
+     */
+    private boolean checkStudySetupCorrect(@NotNull Study study, Researcher researcher) {
+        return study.getId() != 0 &&
+                study.getStudyName() != null &&
+                study.getStudyDescription() != null &&
+                study.getStudyType() != null &&
+                study.getTargetStudySize() > -1 &&
+                study.getNumGroups() != 0 &&
+                study.getNumGroups() == study.getGroupNames().length &&
+                study.getEligibilityQuestionnaire() == null &&
+                (Objects.equals(study.getStudyType(), "General") ||
+                        Objects.equals(study.getStudyType(), "Randomized")) &&
+                study.getResearchers().contains(researcher) &&
+                study.getQuestionnaires().isEmpty();
     }
 
 
