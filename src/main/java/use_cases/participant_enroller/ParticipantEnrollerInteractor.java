@@ -4,6 +4,7 @@ import entities.Participant;
 import entities.Questionnaire;
 import entities.Study;
 import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_id.FetchId;
 
 import java.util.List;
 
@@ -30,8 +31,6 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * The manager of the random group generator
      */
     private final RandomGroupGeneratorManager randomGroupGeneratorManager = new RandomGroupGeneratorManager();
-
-    private final SimpleRandomGroupGenerator simpleRandomGroupGenerator = new SimpleRandomGroupGenerator(study);
 
 
     /**
@@ -89,22 +88,6 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             participantEnrollerPresenter.presentEnrollmentFailure(participantId);
         }
     }
-
-
-
-
-
-
-
-
-"Cannot enroll the participant into the study. " +
-        "Please ensure that the study is open for enrollment, the participant is eligible for the study, " +
-        "and the participant is not already enrolled in another study.", participant.getId()
-
-
-
-
-
 
 
     /**
@@ -259,7 +242,6 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             }
         }
     }
-
 }
 
 

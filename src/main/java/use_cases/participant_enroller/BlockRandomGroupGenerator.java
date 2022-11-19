@@ -27,6 +27,16 @@ public class BlockRandomGroupGenerator implements RandomGroupGenerator {
      */
     private final int[] participantsInBlock;
 
+    /**
+     * The participants in the study.
+     */
+    private final List<Participant> participants = new ArrayList<>();
+
+    /**
+     * The random number generator.
+     */
+    private final Random rand = new Random();
+
 
     /**
      * The constructor of the BlockRandomGroupGenerator class.
@@ -54,12 +64,16 @@ public class BlockRandomGroupGenerator implements RandomGroupGenerator {
      */
     @Override
     public int generateRandomGroup(Study study, Participant participant) {
-        resetBlock();
-        List<Integer> availableGroups = availableGroups();
-        Random rand = new Random();
-        int randomGroup = availableGroups.get(rand.nextInt(availableGroups.size()));
-        participantsInBlock[randomGroup - 1]++;
-        return randomGroup;
+        if (! participants.contains(participant)) {
+            resetBlock();
+            List<Integer> availableGroups = availableGroups();
+            int randomGroup = availableGroups.get(rand.nextInt(availableGroups.size()));
+            participantsInBlock[randomGroup - 1]++;
+            participants.add(participant);
+            return randomGroup;
+        } else {
+            throw new IllegalArgumentException("Participant is already in the study.");
+        }
     }
 
 
@@ -70,7 +84,7 @@ public class BlockRandomGroupGenerator implements RandomGroupGenerator {
     private boolean isBlockFull() {
         boolean blockFull = true;
         for (int i = 0; i < numGroups; i++) {
-            if (!(participantsInBlock[i] == BLOCKSIZEFACTOR)) {
+            if (participantsInBlock[i] != BLOCKSIZEFACTOR) {
                 blockFull = false;
                 break;
             }

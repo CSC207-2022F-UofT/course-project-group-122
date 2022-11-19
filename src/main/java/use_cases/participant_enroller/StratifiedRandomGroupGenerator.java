@@ -50,7 +50,15 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
      */
     private final Map<Integer, int[]> participantsInStratum;
 
+    /**
+     * Participants in this group.
+     */
+    private List<Participant> participants = new ArrayList<>();
 
+    /**
+     * The random number generator.
+     */
+    private final Random rand = new Random();
 
 
     /**
@@ -63,7 +71,7 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
      */
     public StratifiedRandomGroupGenerator(@NotNull Study study) {
         this.numGroups = study.getNumGroups();
-        this.stratifiedVariable = study.getstratificationethod();
+        this.stratifiedVariable = study.getStratificationMethod();
         this.stratifiedQuestion = (study.getEligibilityQuestionnaire()).getQuestionByVariableName(stratifiedVariable);
         this.strata = getStrata();
         assert strata != null;
@@ -96,14 +104,19 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
      */
     @Override
     public int generateRandomGroup(Study study, Participant participant) {
-        int stratum = getStratum(participant);
-        int[] block = participantsInStratum.get(stratum);
-        resetBlock(block);
-        List<Integer> availableGroups = availableGroups(block);
-        Random rand = new Random();
-        int randomGroup = availableGroups.get(rand.nextInt(availableGroups.size()));
-        block[randomGroup - 1]++;
-        return randomGroup;
+        if (! participants.contains(participant)) {
+            int stratum = getStratum(participant);
+            int[] block = participantsInStratum.get(stratum);
+            resetBlock(block);
+            List<Integer> availableGroups = availableGroups(block);
+
+            int randomGroup = availableGroups.get(rand.nextInt(availableGroups.size()));
+            block[randomGroup - 1]++;
+            participants.add(participant);
+            return randomGroup;
+        } else {
+            throw new IllegalArgumentException("Participant is already in the study.");
+        }
     }
 
 
@@ -140,7 +153,7 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
      */
     @Contract(pure = true)
     private int getStratum(@NotNull Participant participant) {
-        int response = Integer.valueOf(participant.getCurrEligibilityAnswerContent().get(stratifiedVariable));
+        int response = Integer.parseInt(participant.getCurrEligibilityAnswerContent().get(stratifiedVariable));
         return strata.indexOf(response);
 
     }
@@ -153,7 +166,7 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
     private boolean isBlockFull(int[] block) {
         boolean blockFull = true;
         for (int i = 0; i < numGroups; i++) {
-            if (!(block[i] == BlockRandomGroupGenerator.BLOCKSIZEFACTOR)) {
+            if (block[i] != BlockRandomGroupGenerator.BLOCKSIZEFACTOR) {
                 blockFull = false;
                 break;
             }
