@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class UserPool {
+public class UserPool implements java.io.Serializable{
     /**
      * The collection of all users in the system.
      * This is outside the User class because it is a static collection of all users.

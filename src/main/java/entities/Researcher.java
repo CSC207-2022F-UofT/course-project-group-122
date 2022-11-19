@@ -3,7 +3,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Researcher extends User {
+public class Researcher extends User implements java.io.Serializable{
 
     /**
      * A list of Study objects that this researcher belongs to (works in).
@@ -62,6 +62,10 @@ public class Researcher extends User {
             return true;
         }
         return false;
+    }
+
+    public void editAnswer(Study study, String newAnswer) {
+
     }
 
 

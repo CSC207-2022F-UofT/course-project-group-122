@@ -12,7 +12,7 @@ import java.util.List;
  * Representation Invariants:
  * potentialParticipants, participants, researchers, and questionnaires do not contain duplicates.
  */
-public class Study {
+public class Study implements java.io.Serializable{
 
     /**
      * Current study ID

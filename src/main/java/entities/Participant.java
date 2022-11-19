@@ -7,7 +7,7 @@ import java.util.Map;
  * A participant class. A participant is a user who is participating in a study. Each participant object is associated
  * with only one study.
  */
-public class Participant extends User {
+public class Participant extends User implements java.io.Serializable{
 
     /**
      * The Study object this Participant belongs to.

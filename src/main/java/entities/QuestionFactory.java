@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A QuestionFactory that creates and returns Question objects.
  */
-public class QuestionFactory implements QuestionFactoryInterface {
+public class QuestionFactory implements QuestionFactoryInterface, java.io.Serializable{
 
     /**
      * The create method that gets called with a specified type of Question when creating a Question object.

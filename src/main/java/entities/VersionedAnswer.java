@@ -12,7 +12,7 @@ import java.util.Map;
  * It is being composed by the Answer class, which contains all versions of the same answers to a same
  * questionnaire for a particular participant.
  */
-public class VersionedAnswer {
+public class VersionedAnswer implements java.io.Serializable{
 
 
     /**

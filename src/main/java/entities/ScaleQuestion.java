@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * A subclass of Question that allows User to answer a Question by choosing a level within a range.
  */
-public class ScaleQuestion extends Question {
+public class ScaleQuestion extends Question implements java.io.Serializable{
 
     /**
      * The specified range of this ScaleQuestion.
