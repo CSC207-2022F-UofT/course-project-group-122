@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class StudyPool {
+public class StudyPool implements java.io.Serializable{
     /**
      * The collection of all studies in the system.
      * This is outside the Study class because it is a static collection of all studies.

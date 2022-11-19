@@ -5,7 +5,7 @@ package entities;
  * to participate in a study. It contains information about the study, the risks and benefits of the study, and the
  * participant's rights.
  */
-public class ConsentForm {
+public class ConsentForm implements java.io.Serializable{
 
     /**
      * The study that this consent form is for.
