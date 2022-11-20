@@ -7,6 +7,6 @@ public class AssignQuestionnaireController {
     public void assignQuestionnaireToAll(int researchId, int studyId) {
     }
 
-    public void assignQuestionnaireToIndividual(int researchId, int studyId, int participant) {
+    public void assignQuestionnaireToIndividual(int questionnaireId, int studyId, int participant) {
     }
 }

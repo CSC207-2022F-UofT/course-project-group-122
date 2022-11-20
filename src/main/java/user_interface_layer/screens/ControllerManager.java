@@ -35,11 +35,23 @@ import use_cases.user_log_in.UserLogInController;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_sign_up.UserSignUpController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+ * The class that manages all the calls to controllers from the user calls and inputs (buttons).
+ * It contains an instance of each controller and the a single instance of this controller is injected to each of the screen.
+ * The screen then calls on the controller through this class.
+ *
+ * This class also calls other screens that need to be displayed, but do not need a controller to be called on.
+ * Those are screen driver that are called on by some of the screens to display other screens.
+ */
 public class ControllerManager {
+    /*
+     * The instance of a screen manager that the screen driver need to call on to display other screens.
+     */
     ScreenManager screenManager;
 
     int currentUserId = -1;
@@ -86,8 +98,7 @@ public class ControllerManager {
     PublishQuestionnaireController publishQuestionnaireController;
     AssignQuestionnaireController assignQuestionnaireController;
 
-
-
+    /////////////////////////// Setting up the controllers and screen drivers ///////////////////////////
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
     }
@@ -221,15 +232,14 @@ public class ControllerManager {
         this.userSignUpController = userSignUpController;
     }
 
+    /////////////////////////// Call to the controllers ///////////////////////////
     public void userLogOutController() {
         userLogOutController.logOut();
+        // currentUserId = -1;
     }
 
     /// redo this
-    public void requestLogInScreen() {
-        logInScreenDriver.requestLogInScreen(screenManager, this);
-
-    }
+    public void requestLogInScreen() {logInScreenDriver.requestLogInScreen(screenManager, this);}
 
     public void requestSignUpScreen() {
         signUpScreenDriver.requestSignUpScreen(screenManager, this);
@@ -239,17 +249,14 @@ public class ControllerManager {
         registerScreenDriver.requestRegisterScreen(screenManager, this);
     }
 
-    public void requestLogInUser(String username) {
-        userLogInController.logInUser(username);
-
-    }
+    public void requestLogInUser(String username) {userLogInController.logInUser(username);}
 
     public void requestCreateUser(String typeOfUser, String username, String name) {
         userSignUpController.createUser(typeOfUser, username, name);
     }
 
-    public void requestResearcherStudyLog(Integer researcherUser, int study) {
-        researcherStudyLogDataRequestController.fetchResearcherStudyLogData(researcherUser, study);
+    public void requestResearcherStudyLog( int study, Integer researcherId) {
+        researcherStudyLogDataRequestController.fetchResearcherStudyLogData( study, researcherId);
     }
 
     public void requestCreateStudyModel(@NotNull int userId) {
@@ -299,8 +306,8 @@ public class ControllerManager {
     }
 
     // mine
-    public void researcherAddQuestionnaireScreenRequest(int researchId, int studyId) {
-        setUpQuestionnaireCreationScreenDriver.requestQuestionnaireCreationScreen(screenManager, this, researchId, studyId);
+    public void researcherAddQuestionnaireScreenRequest(int researchId, int studyId, List<String> groups) {
+        setUpQuestionnaireCreationScreenDriver.requestQuestionnaireCreationScreen(screenManager, this, researchId, studyId, groups);
 
     }
 
@@ -364,6 +371,7 @@ public class ControllerManager {
     public void createQuestionnaireController(int studyID,
                                               String questionnaireName,
                                               String questionnaireDescription,
+                                              List<String> groups,
                                               int numOfQuestions,
                                               @NotNull List<QuestionModel> addedQuestions) {
         Map<String, String[]> questionMap = new HashMap<>();
@@ -377,6 +385,7 @@ public class ControllerManager {
         createQuestionnaireController.createQuestionnaire(new CreateQuestionnaireControllerInputData(studyID,
                 questionnaireName,
                 questionnaireDescription,
+                groups,
                 numOfQuestions,
                 questionMap));
 
@@ -386,11 +395,12 @@ public class ControllerManager {
                                   int questionnaireID,
                                   String questionnaireName,
                                   String questionnaireDescription,
-                                  Map<String, String[]> existingQuestions) {
+                                  ArrayList<String> studyGroupNames, Map<String, String[]> existingQuestions) {
         EditQuestionnaireControllerInputData editQuestionnaireControllerInputData = new EditQuestionnaireControllerInputData(studyID,
                 questionnaireID,
                 questionnaireName,
                 questionnaireDescription,
+                studyGroupNames,
                 existingQuestions);
         editQuestionnaireController.editQuestionnaire(editQuestionnaireControllerInputData);
 
@@ -409,12 +419,12 @@ public class ControllerManager {
         assignQuestionnaireController.assignQuestionnaireToGroup(researchId, studyId, groupName);
     }
 
-    public void assignQuestionnaireToAll(int researchId, int studyId) {
-        assignQuestionnaireController.assignQuestionnaireToAll(researchId, studyId);
+    public void assignQuestionnaireToAll(int questionnaireID, int studyId) {
+        assignQuestionnaireController.assignQuestionnaireToAll(questionnaireID, studyId);
     }
 
-    public void assignQuestionnaireToIndividual(int researchId, int studyId, int participant) {
-        assignQuestionnaireController.assignQuestionnaireToIndividual(researchId, studyId, participant);
+    public void assignQuestionnaireToIndividual(int questionnaireId, int studyId, int participant) {
+        assignQuestionnaireController.assignQuestionnaireToIndividual(questionnaireId, studyId, participant);
     }
 
     public void editStudyRequest(int studyId, String studyName, String studyDescription, int studyTargetSize,
@@ -427,5 +437,14 @@ public class ControllerManager {
     }
 
     public void fetchResearcher(int researcherIdInt, int studyId) {
+    }
+
+    public void enrollParticipantRequest(int participantId, int studyId) {
+    }
+
+    public void assignQuestionnaireToGroups(int studyID, int questionnaireID, List<String> selectedGroups) {
+    }
+
+    public void fetchStudyGroups(int questionnaireId, int studyId) {
     }
 }

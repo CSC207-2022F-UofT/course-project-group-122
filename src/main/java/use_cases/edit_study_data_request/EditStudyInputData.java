@@ -7,10 +7,10 @@ public class EditStudyInputData {
     String studyName;
     String studyDescription;
     int targetSize;
-    EditStudyInputData(int studyID,
-                       String studyName,
-                       String studyDescription,
-                       int targetSize) {
+    public EditStudyInputData(int studyID,
+                              String studyName,
+                              String studyDescription,
+                              int targetSize) {
         this.studyID = studyID;
         this.studyName = studyName;
         this.studyDescription = studyDescription;

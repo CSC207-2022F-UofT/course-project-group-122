@@ -24,6 +24,7 @@ public class EligibilityQuestionnairePanel extends JPanel {
 
         JButton answerButton = new JButton("Answer Eligibility Questionnaire");
         answerButton.addActionListener(e ->{
+
             String status = model.getValueAt(0, 2).toString();
             if (status.equals("Closed")) {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");

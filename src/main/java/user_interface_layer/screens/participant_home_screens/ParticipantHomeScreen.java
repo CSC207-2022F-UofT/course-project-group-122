@@ -37,7 +37,7 @@ public class ParticipantHomeScreen extends JFrame {
         topPanel.add(userIDLabel);
         topPanel.add(logOutButton);
         header.add(topPanel, BorderLayout.NORTH);
-        JLabel message = new JLabel("You are a " + data.getParticipantStatus() + " Participant in " + data.getStudyName(), SwingConstants.CENTER);
+        JLabel message = new JLabel("You are " + data.getParticipantStatus() + " Participant in " + data.getStudyName(), SwingConstants.CENTER);
         header.add(message, BorderLayout.CENTER);
         getContentPane().add(header, BorderLayout.PAGE_START);
 

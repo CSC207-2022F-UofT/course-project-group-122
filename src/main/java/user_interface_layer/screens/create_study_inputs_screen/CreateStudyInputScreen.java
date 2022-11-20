@@ -100,9 +100,8 @@ public CreateStudyInputScreen(CreateStudyInputInputData data, ControllerManager 
             controllerManager.createStudyController(data.getResearcherID(), studyName.getText(),
                     studyDescription.getText(), Integer.parseInt(studyTargetSize.getText()), this.studyTypeInput,
                     count.get(), groupNames);
-
+            dispose();
         }
-        dispose();
     });
     createStudyButtonPanel.add(createStudyButton);
 

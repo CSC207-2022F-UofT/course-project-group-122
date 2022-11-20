@@ -194,11 +194,11 @@ public class EditStudyScreen extends JFrame {
 
     }
 
-//    public static void main(String[] args) {
-//        EditStudyInputData data = new EditStudyInputData(1, "a title", "This is a study", 2);
-//        EditStudyScreen screen = new EditStudyScreen(data, new ControllerManager(new ScreenManager()));
-//        screen.setVisible(true);
-//
-//    }
+    public static void main(String[] args) {
+        EditStudyInputData data = new EditStudyInputData(1, "a title", "This is a study", 2);
+        EditStudyScreen screen = new EditStudyScreen(data, new ControllerManager(new ScreenManager()));
+        screen.setVisible(true);
+
+    }
 
 }

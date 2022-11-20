@@ -1,4 +1,4 @@
-package user_interface_layer.presenter_manager.display_participant_answer_questionnaire_panel;
+package user_interface_layer.presenter_manager.display_screen_for_answering_questionnaire;
 
 import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;

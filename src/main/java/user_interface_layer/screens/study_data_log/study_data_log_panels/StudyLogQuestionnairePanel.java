@@ -40,6 +40,16 @@ public class StudyLogQuestionnairePanel extends JPanel {
         splitPane.setDividerLocation(2);
         add(splitPane, BorderLayout.CENTER);
 
+        JButton assignEligibilityButton = new JButton("Assign Eligibility Questionnaire");
+        assignEligibilityButton.addActionListener(e -> {
+            if (eligibilityTable.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(null, "Please select a questionnaire to assign");
+            } else {
+                int questionnaireId = data.getEligibilityQuestionnaireId();
+                controllerManager.assignQuestionnaireToAll(questionnaireId, data.getStudyId());
+            }
+        });
+
         JButton checkEligibility = new JButton("Check Eligibility Questionnaire");
         checkEligibility.addActionListener(e -> {
             controllerManager.researcherQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId(), data.getEligibilityQuestionnaireId());
@@ -57,7 +67,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
         });
 
         JButton addQuestionnaire = new JButton("Add Questionnaire");
-        addQuestionnaire.addActionListener(e -> controllerManager.researcherAddQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId()));
+        addQuestionnaire.addActionListener(e -> controllerManager.researcherAddQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId(), data.getGroups()));
 
         JButton editQuestionnaire = new JButton("Edit Questionnaire");
         editQuestionnaire.addActionListener(e -> {
@@ -88,10 +98,12 @@ public class StudyLogQuestionnairePanel extends JPanel {
                     JTextField textField = new JTextField(10);
                     JButton button = new JButton("Assign");
                     button.addActionListener(e1 -> {
-                        String researcherId = textField.getText();
+                        String participantId = textField.getText();
                         try {
-                            int participant = Integer.parseInt(researcherId);
-                            controllerManager.assignQuestionnaireToIndividual(data.getResearchId(), data.getStudyId(), participant);
+                            int participant = Integer.parseInt(participantId);
+                            int selectedRow = table.getSelectedRow();
+                            int questionnaireId = keys.get(selectedRow);
+                            controllerManager.assignQuestionnaireToIndividual(questionnaireId, data.getStudyId(), participant);
                             frame.dispose();
                         } catch (NumberFormatException exception) {
                             JOptionPane.showMessageDialog(null, "Please enter a valid identifier");
@@ -105,38 +117,33 @@ public class StudyLogQuestionnairePanel extends JPanel {
                     frame.setVisible(true);
                 });
         group.addActionListener(e->{
-            JFrame frame = new JFrame("Assign Questionnaire");
-            frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            JLabel label = new JLabel("Enter a group name", SwingConstants.CENTER);
-            JTextField textField = new JTextField(10);
-            JButton button = new JButton("Assign");
-            button.addActionListener(e1 -> {
-                String groupName = textField.getText();
-                controllerManager.assignQuestionnaireToGroup(data.getResearchId(), data.getStudyId(), groupName);
-        });
-            frame.add(label);
-            frame.add(textField);
-            frame.add(button);
-            frame.pack();
-            SetScreenToCenter s = new SetScreenToCenter(frame);
-            frame.setVisible(true);
+            int selectedRow = table.getSelectedRow();
+            int questionnaireId = keys.get(selectedRow);
+                            controllerManager.fetchStudyGroups(questionnaireId,data.getStudyId());
         });
 
         all.addActionListener(e->{
-            controllerManager.assignQuestionnaireToAll(data.getResearchId(), data.getStudyId());
+            int selectedRow = table.getSelectedRow();
+            int questionnaireId = keys.get(selectedRow);
+            controllerManager.assignQuestionnaireToAll(questionnaireId, data.getStudyId());
         });
         popupMenu.add(individual);
         popupMenu.add(group);
         popupMenu.add(all);
         assignQuestionnaire.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent evt) {
-                popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
-            }});
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (table.getSelectedRow() == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select a questionnaire to assign");
+                } else {
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+                }}
+        });
 
 
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.add(assignEligibilityButton);
         buttonPanel.add(checkEligibility);
         buttonPanel.add(check);
         buttonPanel.add(addQuestionnaire);
@@ -144,5 +151,5 @@ public class StudyLogQuestionnairePanel extends JPanel {
         buttonPanel.add(assignQuestionnaire);
         add(buttonPanel, BorderLayout.SOUTH);
 
-            }
+    }
 }

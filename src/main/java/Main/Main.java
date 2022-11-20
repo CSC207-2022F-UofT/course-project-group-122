@@ -2,6 +2,7 @@ package Main;
 
 import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
+import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreenInputData;
 import user_interface_layer.screens.screen_drivers.*;
@@ -27,7 +28,7 @@ public class Main {
         SetUpQuestionnaireCreationScreenDriver setUpQuestionnaireCreationScreenDriver = new SetUpQuestionnaireCreationScreenDriver();
         controllerManager.setSetUpQuestionnaireCreationScreenDriver(setUpQuestionnaireCreationScreenDriver);
 
-
+//
 //        UserRegisterScreen userRegisterScreen = new UserRegisterScreen(controllerManager);
 //        userRegisterScreen.setVisible(true);
 
@@ -70,6 +71,7 @@ public class Main {
                 4, "Randomized", "Study 234", researchers, potentialParticipants, participants, 6,  eligibility, questionnaires, groups);
         StudyDataLogScreen screen = new StudyDataLogScreen(data, controllerManager);
         screen.setVisible(true);
+
 
     }
 }

@@ -15,10 +15,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CreateQuestionnaireInputsScreen extends JFrame {
     private final List<QuestionModel> addedQuestions = new ArrayList<>();
+    List<JRadioButton> studyGroups = new ArrayList<>();
     public CreateQuestionnaireInputsScreen(CreateQuestionnaireInputsScreenInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         JTextField questionnaireName = new JTextField(30);
@@ -38,6 +40,16 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
 
         questionnaireDescriptionPanel.add(questionnaireDescriptionLabel);
         questionnaireDescriptionPanel.add(scrollPane);
+
+        JPanel groupsPanel = new JPanel();
+        JLabel groupsLabel = new JLabel("Select Target groups: ", SwingConstants.CENTER);
+        groupsPanel.setLayout(new BoxLayout(groupsPanel, BoxLayout.Y_AXIS));
+        groupsPanel.add(groupsLabel);
+        for (String group : data.getStudyGroups()) {
+            JRadioButton radioButton = new JRadioButton(group);
+            studyGroups.add(radioButton);
+            groupsPanel.add(radioButton);
+        }
 
         JPanel questionsPanel = new JPanel(new BorderLayout());
         JLabel questionsLabel = new JLabel("Questions: ", SwingConstants.CENTER);
@@ -144,20 +156,36 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
 
         JButton createQuestionnaireButton = new JButton("Create Questionnaire");
         createQuestionnaireButton.addActionListener(e -> {
+            boolean selected = false;
+            for (JRadioButton radioButton : studyGroups) {
+                if (radioButton.isSelected()) {
+                    selected = true;
+                }
+            }
             if (questionnaireName.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter a name for the questionnaire");
             } else if (questionnaireDescription.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter a description for the questionnaire");
             } else if (addedQuestions.size() == 0) {
                 JOptionPane.showMessageDialog(null, "Please add at least one question to the questionnaire");
+            } else if (!selected){
+                JOptionPane.showMessageDialog(null, "Please select a study group for the questionnaire");
             } else {
-                controllerManager.createQuestionnaireController(data.getStudyID(), questionnaireName.getText(), questionnaireDescription.getText(), addedQuestions.size(), addedQuestions);
-                dispose();
-            }
+                ArrayList<String> groups = new ArrayList<>();
+                for (JRadioButton radioButton : studyGroups) {
+                    if (radioButton.isSelected()) {
+                        groups.add(radioButton.getText());
+                    }
+                }
+                    controllerManager.createQuestionnaireController(data.getStudyID(), questionnaireName.getText(), questionnaireDescription.getText(),groups, addedQuestions.size(), addedQuestions);
+                    dispose();
+                }
+
         });
 
         inputsPanel.add(questionnaireNamePanel);
         inputsPanel.add(questionnaireDescriptionPanel);
+        inputsPanel.add(groupsPanel);
         inputsPanel.add(questionsPanel);
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(addQuestionButton);
@@ -174,7 +202,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
     }
 
     public static void main(String[] args) {
-        CreateQuestionnaireInputsScreenInputData data = new CreateQuestionnaireInputsScreenInputData(45);
+        CreateQuestionnaireInputsScreenInputData data = new CreateQuestionnaireInputsScreenInputData(45, new ArrayList<>(Arrays.asList("me", "you", "Question 3")));
         CreateQuestionnaireInputsScreen createQuestionnaireInputsScreen = new CreateQuestionnaireInputsScreen(data, new ControllerManager(new ScreenManager()));
         createQuestionnaireInputsScreen.setVisible(true);
     }

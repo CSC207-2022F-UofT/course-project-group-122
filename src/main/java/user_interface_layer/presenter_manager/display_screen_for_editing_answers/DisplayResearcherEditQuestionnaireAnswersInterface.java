@@ -1,4 +1,4 @@
-package user_interface_layer.presenter_manager.display_researcher_edit_questionnaire_answers;
+package user_interface_layer.presenter_manager.display_screen_for_editing_answers;
 
 import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQuestionnaireScreenAnswersInputData;
 

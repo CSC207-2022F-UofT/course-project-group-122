@@ -67,6 +67,17 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
             }
         });
 
+        JButton enrollParticipantButton = new JButton("Enroll Participant");
+        enrollParticipantButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(null, "Please select a potential participant to enroll");
+            } else {
+                int participantId = keys.get(selectedRow);
+                controllerManager.enrollParticipantRequest(participantId, data.getStudyId());
+            }
+        });
+
         JButton Check = new JButton("Check Potential Participant");
         Check.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
@@ -82,6 +93,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
         buttonPanel.add(addParticipantButton);
         buttonPanel.add(makeEligibleParticipantButton);
         buttonPanel.add(Check);
+        buttonPanel.add(enrollParticipantButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 

@@ -53,32 +53,32 @@ public class StudyDataLogScreen extends JFrame {
             }});
         mainPanel.add(downloadDataButton);
 
-        JButton dropStudyButton = new JButton("Drop Study");
-        dropStudyButton.setText("Drop Study");
-        dropStudyButton.addActionListener(e->{
-            JFrame confirm = new JFrame();
-            confirm.setSize(400, 200);
-            confirm.setLayout(new GridLayout(3, 1));
-            JLabel confirmLabel = new JLabel("Are you sure you want to drop this study?");
-            confirmLabel.setHorizontalAlignment(JLabel.CENTER);
-            confirm.add(confirmLabel);
-            JPanel buttons = new JPanel();
-            buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
-            JButton yesButton = new JButton("Yes");
-            JButton noButton = new JButton("No");
-            yesButton.addActionListener(e1 -> {
-                        controllerManager.userDropStudyRequest(data.getResearchId(), data.getStudyId());
-                });
-            noButton.addActionListener(e1 -> {
-                        confirm.dispose();
-                });
-            buttons.add(yesButton);
-            buttons.add(noButton);
-            confirm.add(buttons);
-            confirm.setVisible(true);
-        SetScreenToCenter s = new SetScreenToCenter(confirm);
-        });
-        add(dropStudyButton, BorderLayout.SOUTH);
+//        JButton dropStudyButton = new JButton("Drop Study");
+//        dropStudyButton.setText("Drop Study");
+//        dropStudyButton.addActionListener(e->{
+//            JFrame confirm = new JFrame();
+//            confirm.setSize(400, 200);
+//            confirm.setLayout(new GridLayout(3, 1));
+//            JLabel confirmLabel = new JLabel("Are you sure you want to drop this study?");
+//            confirmLabel.setHorizontalAlignment(JLabel.CENTER);
+//            confirm.add(confirmLabel);
+//            JPanel buttons = new JPanel();
+//            buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
+//            JButton yesButton = new JButton("Yes");
+//            JButton noButton = new JButton("No");
+//            yesButton.addActionListener(e1 -> {
+//                        controllerManager.userDropStudyRequest(data.getResearchId(), data.getStudyId());
+//                });
+//            noButton.addActionListener(e1 -> {
+//                        confirm.dispose();
+//                });
+//            buttons.add(yesButton);
+//            buttons.add(noButton);
+//            confirm.add(buttons);
+//            confirm.setVisible(true);
+//        SetScreenToCenter s = new SetScreenToCenter(confirm);
+//        });
+//        add(dropStudyButton, BorderLayout.SOUTH);
 
         JLabel userIDLabel = new JLabel(data.getResearcherName() + " (" + data.getResearchId() + ")", SwingConstants.CENTER);
         mainPanel.add(userIDLabel);

@@ -9,6 +9,7 @@ public class SetUpLogInScreenDriver {
     public void requestLogInScreen(@NotNull ScreenManager screenManager, ControllerManager controllerManager) {
         UserLogInScreen userLogInScreen = new UserLogInScreen(controllerManager);
         screenManager.setLogInScreen(userLogInScreen);
+        screenManager.disposeCurrentScreen();
         screenManager.updateCurrentScreen(userLogInScreen);
     }
 }
