@@ -15,4 +15,6 @@ public interface ResearcherEnrollerInputBoundary {
      * @param researcherId  The researcher's id.
      */
     void enrollResearcher(int researcherId, int studyId);
+
+
 }

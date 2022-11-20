@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class CreateStudyInteractor implements CreateStudyInputBoundary {
 
-    private final CreateStudyOutputBoundary createStudyPresenter = new CreateStudyPresenter();
+    private CreateStudyOutputBoundary createStudyPresenter;
 
     /**
      * Creates a new study.
@@ -62,7 +62,7 @@ public class CreateStudyInteractor implements CreateStudyInputBoundary {
         Study study = FetchId.getStudy(studyId);
         Researcher researcher = (Researcher) FetchId.getUser(researcherId);
         if (checkStudySetupCorrect(study, researcher)) {
-            createStudyPresenter.presentStudyCreatedSuccessfully(study.getId(), study.getStudyName());
+            createStudyPresenter.presentStudyCreatedSuccessfully(study.getId(), study.getStudyName(), researcherId);
         } else {
             createStudyPresenter.displayFailureMessage("There is an error in creating the study.");
         }
@@ -133,6 +133,14 @@ public class CreateStudyInteractor implements CreateStudyInputBoundary {
         return true;
     }
 
+
+    /**
+     * Sets the presenter for the interactor.
+     * @param createStudyPresenter  The presenter.
+     */
+    public void setCreateStudyPresenter(CreateStudyOutputBoundary createStudyPresenter) {
+        this.createStudyPresenter = createStudyPresenter;
+    }
 
 
 }

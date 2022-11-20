@@ -7,7 +7,7 @@ import use_cases.fetch_id.FetchId;
 public class EligibilityCheckerInteractor implements EligibilityCheckerInputBoundary {
 
 
-    private final EligibilityCheckerOutputBoundary eligibilityCheckerPresenter = new EligibilityCheckerPresenter();
+    private EligibilityCheckerOutputBoundary eligibilityCheckerPresenter;
 
 
     /**
@@ -17,7 +17,7 @@ public class EligibilityCheckerInteractor implements EligibilityCheckerInputBoun
      * @param studyId       The study's id.
      */
     @Override
-    public void makeEligibile(int participantId, int studyId) {
+    public void makeEligible(int participantId, int studyId) {
         Study study = FetchId.getStudy(studyId);
         Participant participant = (Participant) FetchId.getUser(participantId);
         if (participant.getEligibilityQuestionnaire() == null) {
@@ -38,6 +38,15 @@ public class EligibilityCheckerInteractor implements EligibilityCheckerInputBoun
             participant.makeEligible();
             eligibilityCheckerPresenter.presentSuccess(participantId, studyId);
         }
+    }
+
+
+    /**
+     * Sets the presenter for the eligibility checker.
+     * @param eligibilityCheckerPresenter The presenter for the eligibility checker.
+     */
+    public void setEligibilityCheckerPresenter(EligibilityCheckerOutputBoundary eligibilityCheckerPresenter) {
+        this.eligibilityCheckerPresenter = eligibilityCheckerPresenter;
     }
 
 

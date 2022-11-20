@@ -5,8 +5,7 @@ package use_cases.add_potential_participant;
  */
 public class AddPotentialParticipantController {
 
-    private AddPotentialParticipantInputBoundary addPotentialParticipantInterator =
-            new AddPotentialParticipantInteractor();
+    private AddPotentialParticipantInputBoundary addPotentialParticipantInterator;
 
 
     /**
@@ -16,6 +15,15 @@ public class AddPotentialParticipantController {
      */
     public void addPotentialParticipant(int participantId, int studyId) {
         addPotentialParticipantInterator.addPotentialParticipant(participantId, studyId);
+    }
 
+
+    /**
+     * Set the interactor for this controller.
+     * @param addPotentialParticipantInterator The interactor for this controller.
+     */
+    public void setAddPotentialParticipantInterator(AddPotentialParticipantInputBoundary
+                                                            addPotentialParticipantInterator) {
+        this.addPotentialParticipantInterator = addPotentialParticipantInterator;
     }
 }

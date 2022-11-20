@@ -8,8 +8,7 @@ import java.util.List;
 
 public class FetchParticipantStudyDataInteractor implements FetchParticipantStudyDataInputBoundary {
 
-    private FetchParticipantStudyDataOutputBoundary fetchParticipantStudyDataPresenter =
-            new FetchParticipantStudyDataPresenter();
+    private FetchParticipantStudyDataOutputBoundary fetchParticipantStudyDataPresenter;
 
     /**
      * Fetches the study data for a participant.
@@ -33,7 +32,13 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
         responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire, eligibilityQuestionnaireAnswerStatus,
                 participant);
         responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers, participant);
-        fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user);
+        if (user instanceof Participant) {
+            fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
+                    "Participant");
+        } else {
+            fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
+                    "Researcher");
+        }
     }
 
     /**
@@ -93,5 +98,14 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
         } else {
             return "Closed";
         }
+    }
+
+    /**
+     * Sets the presenter for the interactor.
+     * @param fetchParticipantStudyDataPresenter The presenter for the interactor.
+     */
+    public void setFetchParticipantStudyDataPresenter(FetchParticipantStudyDataOutputBoundary
+                                                              fetchParticipantStudyDataPresenter) {
+        this.fetchParticipantStudyDataPresenter = fetchParticipantStudyDataPresenter;
     }
 }

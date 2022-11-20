@@ -4,12 +4,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class CreateStudyController {
 
-    private CreateStudyInputBoundary createStudyInteractor = new CreateStudyInteractor();
+    private CreateStudyInputBoundary createStudyInteractor;
 
 
     /**
      * Create a study and save it into the user pool
-     * @param createStudyRequestModel
+     * @param createStudyRequestModel   The request model for creating a study
      */
     public void createStudy(@NotNull CreateStudyRequestModel createStudyRequestModel) {
         int researcherId = createStudyRequestModel.getResearcherId();
@@ -24,6 +24,14 @@ public class CreateStudyController {
                 studyDescription, studyTargetSize);
 
         createStudyInteractor.setStudyGrouping(studyId, numGroups, groupNames);
+
+        createStudyInteractor.checkStudyCreatedSuccessfully(studyId, researcherId);
     }
 
+    /**
+     * Sets the interactor for the controller
+     */
+    public void setCreateStudyInteractor(CreateStudyInputBoundary createStudyInteractor) {
+        this.createStudyInteractor = createStudyInteractor;
+    }
 }

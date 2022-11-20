@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
 public class AddPotentialParticipantInteractor implements AddPotentialParticipantInputBoundary {
-    private AddPotentialParticipantOutputBoundary presenter = new AddPotentialParticipantPresenter();
+    private AddPotentialParticipantOutputBoundary addPotentialParticipantPresenter;
 
 
     /**
@@ -23,9 +23,9 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
             participant.setStudy(study);
             study.addPotentialParticipant(participant);
             assignEligibilityQuestions(participant, study);
-            presenter.presentSuccess(participantID, studyId);
+            addPotentialParticipantPresenter.presentSuccess(participantID, studyId);
         } else {
-            presenter.presentFailure(participantID, studyId);
+            addPotentialParticipantPresenter.presentFailure(participantID, studyId);
         }
     }
 
@@ -54,5 +54,14 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
         if (study.getEligibilityQuestionnaire() != null && participant.getEligibilityQuestionnaire() == null) {
             participant.setEligibilityQuestionnaire(study.getEligibilityQuestionnaire());
         }
+    }
+
+
+    /**
+     * Set the presenter to present the output.
+     * @param addPotentialParticipantPresenter The presenter to present the output.
+     */
+    public void setPresenter(AddPotentialParticipantOutputBoundary addPotentialParticipantPresenter) {
+        this.addPotentialParticipantPresenter = addPotentialParticipantPresenter;
     }
 }

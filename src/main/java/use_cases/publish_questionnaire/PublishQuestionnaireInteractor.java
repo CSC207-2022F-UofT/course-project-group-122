@@ -7,7 +7,7 @@ import use_cases.fetch_id.FetchId;
 
 public class PublishQuestionnaireInteractor implements PublishQuestionnaireInputBoundary {
 
-    private PublishQuestionnaireOutputBoundary publishQuestionnairePresenter = new PublishQuestionnairePresenter();
+    private PublishQuestionnaireOutputBoundary publishQuestionnairePresenter;
 
     /**
      * Publishes a questionnaire.
@@ -56,5 +56,14 @@ public class PublishQuestionnaireInteractor implements PublishQuestionnaireInput
         } else {
             return true;
         }
+    }
+
+
+    /**
+     * Sets the presenter for this use case.
+     * @param publishQuestionnairePresenter  The presenter for this use case.
+     */
+    public void setPublishQuestionnairePresenter(PublishQuestionnaireOutputBoundary publishQuestionnairePresenter) {
+        this.publishQuestionnairePresenter = publishQuestionnairePresenter;
     }
 }

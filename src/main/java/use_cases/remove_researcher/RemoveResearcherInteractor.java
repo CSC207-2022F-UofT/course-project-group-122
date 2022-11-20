@@ -6,7 +6,7 @@ import use_cases.fetch_id.FetchId;
 
 public class RemoveResearcherInteractor implements RemoveResearcherInputBoundary {
 
-    private final RemoveResearcherOutputBoundary removeResearcherPresenter = new RemoveResearcherPresenter();
+    private RemoveResearcherOutputBoundary removeResearcherPresenter;
 
 
     /**
@@ -26,5 +26,14 @@ public class RemoveResearcherInteractor implements RemoveResearcherInputBoundary
         } else {
             removeResearcherPresenter.presentResearcherNotInStudy(researcher.getId(), study.getId());
         }
+    }
+
+
+    /**
+     * Set the presenter for this interactor.
+     * @param removeResearcherPresenter     The presenter for this interactor.
+     */
+    public void setRemoveResearcherPresenter(RemoveResearcherOutputBoundary removeResearcherPresenter) {
+        this.removeResearcherPresenter = removeResearcherPresenter;
     }
 }

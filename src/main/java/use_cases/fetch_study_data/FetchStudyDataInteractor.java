@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class FetchStudyDataInteractor implements FetchStudyDataInputBoundary {
 
-    private FetchStudyDataOutputBoundary fetchStudyDataPresenter = new FetchStudyDataPresenter();
+    private FetchStudyDataOutputBoundary fetchStudyDataPresenter;
 
 
     /**
@@ -74,9 +74,9 @@ public class FetchStudyDataInteractor implements FetchStudyDataInputBoundary {
      */
     private void fetchParticipantStudyData(Participant participant) {
         if (participantAssociatedWithStudy(participant)) {
-            fetchStudyDataPresenter.displayStudyData(participant);
+            fetchStudyDataPresenter.displayStudyData(participant.getId());
         } else {
-            fetchStudyDataPresenter.displayNoStudyAssociated(participant);
+            fetchStudyDataPresenter.displayNoStudyAssociated(participant.getId(), participant.getName());
         }
     }
 
@@ -106,5 +106,15 @@ public class FetchStudyDataInteractor implements FetchStudyDataInputBoundary {
         List<Study> listOfStudies = user.getListStudies();
         FetchStudyDataResponseModel response = new FetchStudyDataResponseModel(user, listOfStudies);
         fetchStudyDataPresenter.displayAllStudyData(response);
+    }
+
+
+    /**
+     * Sets the presenter for this use case.
+     *
+     * @param fetchStudyDataPresenter The presenter for this use case.
+     */
+    public void setFetchStudyDataPresenter(FetchStudyDataOutputBoundary fetchStudyDataPresenter) {
+        this.fetchStudyDataPresenter = fetchStudyDataPresenter;
     }
 }

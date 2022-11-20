@@ -5,7 +5,7 @@ import entities.Study;
 import use_cases.fetch_id.FetchId;
 
 public class ParticipantDropStudyInteractor implements ParticipantDropStudyInputBoundary {
-    private ParticipantDropStudyOutputBoundary participantDropStudyPresenter = new ParticipantDropStudyPresenter();
+    private ParticipantDropStudyOutputBoundary participantDropStudyPresenter;
 
 
     /**
@@ -33,5 +33,14 @@ public class ParticipantDropStudyInteractor implements ParticipantDropStudyInput
             participant.dropOff();
             participantDropStudyPresenter.displaySuccess(participantId, "You have successfully dropped the study.");
         }
+    }
+
+    /**
+     * Sets the presenter for this use case.
+     *
+     * @param participantDropStudyPresenter the presenter for this use case
+     */
+    public void setParticipantDropStudyPresenter(ParticipantDropStudyOutputBoundary participantDropStudyPresenter) {
+        this.participantDropStudyPresenter = participantDropStudyPresenter;
     }
 }

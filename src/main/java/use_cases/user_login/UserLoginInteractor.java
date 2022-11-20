@@ -6,7 +6,7 @@ import entities.UserPool;
 
 public class UserLoginInteractor implements UserLoginInputBoundary {
 
-    private final UserLoginOutputBoundary userLoginPresenter = new UserLoginPresenter();
+    private UserLoginOutputBoundary userLoginPresenter;
     private final UserFactory userFactory = new UserFactory();
 
     private UserPool userPool;
@@ -88,5 +88,13 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         this.userPool = userPool;
     }
 
+
+    /**
+     * Set the presenter to be used by this interactor.
+     * @param userLoginPresenter  The presenter to be used by this interactor.
+     */
+    public void setUserLoginPresenter(UserLoginOutputBoundary userLoginPresenter) {
+        this.userLoginPresenter = userLoginPresenter;
+    }
 
 }

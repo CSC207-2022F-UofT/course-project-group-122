@@ -1,16 +1,11 @@
 package use_cases.fetch_study_data;
 
-import entities.Participant;
-import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
-import view.ViewModel;
+import user_interface_layer.presenter_manager.display_participant_no_study.DisplayParticipantNoStudyInterface;
+import user_interface_layer.presenter_manager.display_researcher_study.DisplayResearcherStudyDataInterface;
 
 public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
 
-    /**
-     * The view model used to control the view
-     */
-    private ViewModel viewModel;
 
     /**
      * The controller used to fetch the participant study data. The controller is used when the user is a participant
@@ -19,27 +14,38 @@ public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
      */
     private FetchParticipantStudyDataController fetchParticipantStudyDataController;
 
+
+    /**
+     * The presenter to display the participant no study screen.
+     */
+    private DisplayParticipantNoStudyInterface displayParticipantNoStudy;
+
+    /**
+     * The presenter to display the researcher home screen.
+     */
+    private DisplayResearcherStudyDataInterface displayResearcherStudyData;
+
     /**
      * This method calls the controller of the FetchParticipantStudyData use case to fetch the
      * data of the participant associated with its study.
      * This is called when a user is a participant and is associated with a study.
      *
-     * @param participant the participant object to be passed to
+     * @param participantId the participant object to be passed to
      */
     @Override
-    public void displayStudyData(Participant participant) {
-        fetchParticipantStudyDataController.fetchParticipantStudyData(participant, participant);
+    public void displayStudyData(int participantId) {
+        fetchParticipantStudyDataController.fetchParticipantStudyData(participantId, participantId);
     }
 
     /**
      * This method tells the view model that there is no study associated with the participant.
      * This is called when a user is a participant and is not associated with any study.
      *
-     * @param participant the participant object to be passed to
+     * @param participantId the participant object to be passed to
      */
     @Override
-    public void displayNoStudyAssociated(@NotNull Participant participant) {
-        viewModel.presentParticipantNotEnrolledScreen(participant.getUsername(), participant.getId());
+    public void displayNoStudyAssociated(int participantId, String participantNames) {
+        displayParticipantNoStudy.presentParticipantNoStudyScreen(participantId, participantNames);
     }
 
 
@@ -52,17 +58,7 @@ public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
      */
     @Override
     public void displayAllStudyData(FetchStudyDataResponseModel response) {
-        viewModel.presentResearcherHomeScreen(response);
-    }
-
-
-    /**
-     * This method sets the view model to the given view model.
-     *
-     * @param viewModel the view model to be set
-     */
-    public void setViewModel(ViewModel viewModel) {
-        this.viewModel = viewModel;
+        displayResearcherStudyData.presentResearcherHomeScreen(response);
     }
 
 
@@ -72,5 +68,21 @@ public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
     public void setFetchParticipantStudyDataController(FetchParticipantStudyDataController
                                                                fetchParticipantStudyDataController) {
         this.fetchParticipantStudyDataController = fetchParticipantStudyDataController;
+    }
+
+
+    /**
+     * This method sets the displayParticipantNoStudy to the given displayParticipantNoStudy.
+     */
+    public void setDisplayParticipantNoStudy(DisplayParticipantNoStudyInterface displayParticipantNoStudy) {
+        this.displayParticipantNoStudy = displayParticipantNoStudy;
+    }
+
+
+    /**
+     * This method sets the displayResearcherStudyData to the given displayResearcherStudyData.
+     */
+    public void setDisplayResearcherStudyData(DisplayResearcherStudyDataInterface displayResearcherStudyData) {
+        this.displayResearcherStudyData = displayResearcherStudyData;
     }
 }

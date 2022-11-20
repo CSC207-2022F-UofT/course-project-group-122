@@ -1,6 +1,21 @@
 package use_cases.participant_drop_study;
 
+import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
+import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
+
 public class ParticipantDropStudyPresenter implements ParticipantDropStudyOutputBoundary {
+
+
+    /**
+     * The display failure message interface
+     */
+    private DisplayFailureMessageInterface displayFailureMessage;
+
+
+    /**
+     * The display success message interface
+     */
+    private DisplaySuccessMessageInterface displaySuccessMessage;
 
     /**
      * Display the error message to the user.
@@ -11,6 +26,7 @@ public class ParticipantDropStudyPresenter implements ParticipantDropStudyOutput
     @Override
     public void displayError(int participantId, String message) {
         String messageToDisplay = "Participant " + participantId + ": " + message;
+        displayFailureMessage.presentFailureMessage(messageToDisplay);
     }
 
     /**
@@ -23,6 +39,24 @@ public class ParticipantDropStudyPresenter implements ParticipantDropStudyOutput
     public void displaySuccess(int participantId, String message) {
         String messageToDisplay = "Participant " + participantId + ": " + message + ". \n" +
                 "Thank you for your participation!";
+        displaySuccessMessage.presentGeneralSuccessMessage(messageToDisplay);
+    }
 
+
+    /**
+     * Presents the failure to add a potential participant to a study.
+     * @param displayFailureMessage The presenter to display the failure message.
+     */
+    public void setDisplayFailureMessage(DisplayFailureMessageInterface displayFailureMessage) {
+        this.displayFailureMessage = displayFailureMessage;
+    }
+
+
+    /**
+     * Presents the success to add a potential participant to a study.
+     * @param displaySuccessMessage The presenter to display the success message.
+     */
+    public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
+        this.displaySuccessMessage = displaySuccessMessage;
     }
 }

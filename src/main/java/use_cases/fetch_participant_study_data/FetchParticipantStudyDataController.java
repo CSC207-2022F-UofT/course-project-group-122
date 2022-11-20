@@ -15,15 +15,14 @@ public class FetchParticipantStudyDataController {
     /**
      * The use case interactor for this controller
      */
-    private final FetchParticipantStudyDataInputBoundary fetchParticipantStudyDataInteractor =
-            new FetchParticipantStudyDataInteractor();
+    private FetchParticipantStudyDataInputBoundary fetchParticipantStudyDataInteractor;
 
 
     /**
      * Fetches the study data for a participant
      *
-     * @param participantId   The participant to fetch the study data for.
-     * @param userId          The current user.
+     * @param participantId The participant to fetch the study data for.
+     * @param userId        The current user.
      */
     public void fetchParticipantStudyData(int participantId, int userId) {
         fetchParticipantStudyDataInteractor.fetchParticipantStudyData(participantId, userId);
@@ -32,10 +31,21 @@ public class FetchParticipantStudyDataController {
     /**
      * Fetches the study data for a participant
      *
-     * @param participant   The participant to fetch the study data for.
-     * @param user          The current user.
+     * @param participant The participant to fetch the study data for.
+     * @param user        The current user.
      */
     public void fetchParticipantStudyData(Participant participant, User user) {
         fetchParticipantStudyDataInteractor.fetchParticipantStudyData(participant, user);
+    }
+
+
+    /**
+     * Sets the interactor for this controller.
+     *
+     * @param fetchParticipantStudyDataInteractor The interactor for this controller.
+     */
+    public void setFetchParticipantStudyDataInteractor(FetchParticipantStudyDataInputBoundary
+                                                               fetchParticipantStudyDataInteractor) {
+        this.fetchParticipantStudyDataInteractor = fetchParticipantStudyDataInteractor;
     }
 }

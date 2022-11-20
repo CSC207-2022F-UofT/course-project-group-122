@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModifyStudyParameterInteractor implements ModifyStudyParameterInputBoundary {
 
-    private final ModifyStudyParameterOutputBoundary modifyStudyParameterPresenter = new ModifyStudyParameterPresenter();
+    private ModifyStudyParameterOutputBoundary modifyStudyParameterPresenter;
 
 
     /**
@@ -231,5 +231,14 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
     private boolean validStratificationVariable(@NotNull Study study, String stratificationVariable) {
         List<String> potentialVariables = study.getEligibilityQuestionnaire().getVariableNames();
         return potentialVariables.contains(stratificationVariable);
+    }
+
+
+    /**
+     * Modifies the eligibility questionnaire of the study.
+     * @param modifyStudyParameterPresenter The presenter.
+     */
+    public void setModifyStudyParameterPresenter(@NotNull ModifyStudyParameterPresenter modifyStudyParameterPresenter) {
+        this.modifyStudyParameterPresenter = modifyStudyParameterPresenter;
     }
 }

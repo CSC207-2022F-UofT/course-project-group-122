@@ -8,7 +8,7 @@ import use_cases.fetch_id.FetchId;
 
 public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoundary {
 
-    private final ResearcherEnrollerOutputBoundary researcherEnrollerPresenter = new ResearcherEnrollerPresenter();
+    private ResearcherEnrollerOutputBoundary researcherEnrollerPresenter;
 
     /**
      * Fetches the researcher's information from the database and returns it to the presenter.
@@ -68,5 +68,14 @@ public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoun
             researcherEnrollerPresenter.invalidResearcherId(researcherId, "The user with the given id does not exist.");
         }
         throw new IllegalArgumentException("The researcher ID is invalid.");
+    }
+
+
+    /**
+     * Sets the presenter for the interactor.
+     * @param researcherEnrollerPresenter   The presenter for the interactor.
+     */
+    public void setResearcherEnrollerPresenter(ResearcherEnrollerOutputBoundary researcherEnrollerPresenter) {
+        this.researcherEnrollerPresenter = researcherEnrollerPresenter;
     }
 }

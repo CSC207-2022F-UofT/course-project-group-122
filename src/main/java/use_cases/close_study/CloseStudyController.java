@@ -5,7 +5,7 @@ public class CloseStudyController {
     /**
      * The use case to close a study
      */
-    private CloseStudyInputBoundary closeStudyInteractor = new CloseStudyInteractor();
+    private CloseStudyInputBoundary closeStudyInteractor;
 
 
     /**
@@ -23,5 +23,14 @@ public class CloseStudyController {
      */
     public void reopenStudy(int studyId) {
         closeStudyInteractor.reopenStudy(studyId);
+    }
+
+
+    /**
+     * Set the interactor for this controller
+     * @param closeStudyInteractor  The interactor to set
+     */
+    public void setCloseStudyInteractor(CloseStudyInputBoundary closeStudyInteractor) {
+        this.closeStudyInteractor = closeStudyInteractor;
     }
 }

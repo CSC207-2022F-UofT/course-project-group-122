@@ -8,7 +8,7 @@ public class CloseStudyInteractor implements CloseStudyInputBoundary {
     /**
      * The output boundary of this use case.
      */
-    private CloseStudyOutputBoundary closeStudyPresenter = new CloseStudyPresenter();
+    private CloseStudyOutputBoundary closeStudyPresenter;
 
 
     /**
@@ -43,5 +43,14 @@ public class CloseStudyInteractor implements CloseStudyInputBoundary {
         } else {
             closeStudyPresenter.displayMessage(study, "Study is currently active.");
         }
+    }
+
+
+    /**
+     * Set the presenter for this use case.
+     * @param closeStudyPresenter The presenter for this use case.
+     */
+    public void setCloseStudyPresenter(CloseStudyOutputBoundary closeStudyPresenter) {
+        this.closeStudyPresenter = closeStudyPresenter;
     }
 }

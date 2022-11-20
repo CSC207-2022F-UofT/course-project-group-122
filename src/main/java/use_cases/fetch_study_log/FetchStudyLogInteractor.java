@@ -7,7 +7,7 @@ import use_cases.fetch_id.FetchId;
 public class FetchStudyLogInteractor implements FetchStudyLogInputBoundary {
 
 
-    private FetchStudyLogOutputBoundary fetchStudyLogPresenter = new FetchStudyLogPresenter();
+    private FetchStudyLogOutputBoundary fetchStudyLogPresenter;
 
     /**
      * Fetches the study log for a given study.
@@ -22,5 +22,13 @@ public class FetchStudyLogInteractor implements FetchStudyLogInputBoundary {
         FetchStudyLogResponseModel fetchStudyLogResponseModel =
                 new FetchStudyLogResponseModel(researcher.getId(), researcher.getName(), study);
         fetchStudyLogPresenter.presentStudyLog(fetchStudyLogResponseModel);
+    }
+
+    /**
+     * Sets the presenter for this interactor.
+     * @param fetchStudyLogPresenter  The presenter for this interactor.
+     */
+    public void setFetchStudyLogPresenter(FetchStudyLogOutputBoundary fetchStudyLogPresenter) {
+        this.fetchStudyLogPresenter = fetchStudyLogPresenter;
     }
 }

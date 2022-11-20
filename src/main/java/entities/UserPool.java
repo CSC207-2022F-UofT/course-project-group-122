@@ -11,13 +11,6 @@ public class UserPool {
      * The UserPool composes the User class.
      * The UserPool class is a singleton class. This means that there is only one instance of the class.
      */
-
-
-    /*
-    The collection of all users in the system.
-    The key is the user's username.
-    The value is the user.
-     */
     private final Map<String, User> users;
 
 

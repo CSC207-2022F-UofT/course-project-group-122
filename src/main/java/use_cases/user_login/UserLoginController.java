@@ -8,7 +8,7 @@ public class UserLoginController {
     /**
      * The controller that handles the user login use case.
      */
-    private final UserLoginInputBoundary userLoginInteractor = new UserLoginInteractor();
+    private UserLoginInputBoundary userLoginInteractor;
 
     /**
      * Calls the interactor to login the user
@@ -27,5 +27,14 @@ public class UserLoginController {
      */
     private void signup(String username, String userType, String name) {
         userLoginInteractor.userSignUp(username, userType, name);
+    }
+
+
+    /**
+     * Sets the interactor for the user login use case.
+     * @param userLoginInteractor the interactor for the user login use case.
+     */
+    public void setUserLoginInteractor(UserLoginInputBoundary userLoginInteractor) {
+        this.userLoginInteractor = userLoginInteractor;
     }
 }

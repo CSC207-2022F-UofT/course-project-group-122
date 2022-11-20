@@ -11,7 +11,7 @@ public class ModifyStudyParameterController {
     /**
      * The input boundary for modifying the parameters of a study.
      */
-    private ModifyStudyParameterInputBoundary modifyStudyParameterInteractor = new ModifyStudyParameterInteractor();
+    private ModifyStudyParameterInputBoundary modifyStudyParameterInteractor;
 
 
     /**
@@ -59,5 +59,13 @@ public class ModifyStudyParameterController {
      */
     public void modifyStudyStratification(int studyId, String stratificationVariable) {
         modifyStudyParameterInteractor.modifyStudyStratification(studyId, stratificationVariable);
+    }
+
+
+    /**
+     * Set the input boundary for modifying the parameters of a study.
+     */
+    public void setModifyStudyParameterInteractor(ModifyStudyParameterInputBoundary modifyStudyParameterInteractor) {
+        this.modifyStudyParameterInteractor = modifyStudyParameterInteractor;
     }
 }

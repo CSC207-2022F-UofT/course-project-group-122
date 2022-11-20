@@ -15,5 +15,5 @@ public interface CreateStudyOutputBoundary {
      *
      * @param studyName The study name.
      */
-    void presentStudyCreatedSuccessfully(int studyId, String studyName);
+    void presentStudyCreatedSuccessfully(int studyId, String studyName, int researcherId);
 }

@@ -2,7 +2,7 @@ package use_cases.fetch_study_log;
 
 public class FetchStudyLogController {
 
-    private final FetchStudyLogInputBoundary fetchStudyLogInteractor = new FetchStudyLogInteractor();
+    private FetchStudyLogInputBoundary fetchStudyLogInteractor;
 
     /**
      * Fetches the study log for a given study.
@@ -12,5 +12,15 @@ public class FetchStudyLogController {
      */
     public void fetchStudyLog(int studyId, int researcherId) {
         fetchStudyLogInteractor.fetchStudyLog(studyId, researcherId);
+    }
+
+
+    /**
+     * Sets the interactor for this controller.
+     *
+     * @param fetchStudyLogInteractor The interactor.
+     */
+    public void setFetchStudyLogInteractor(FetchStudyLogInputBoundary fetchStudyLogInteractor) {
+        this.fetchStudyLogInteractor = fetchStudyLogInteractor;
     }
 }

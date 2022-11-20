@@ -23,12 +23,12 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
     /**
      * The presenter to send the output to.
      */
-    private final ParticipantEnrollerOutputBoundary participantEnrollerPresenter = new ParticipantEnrollerPresenter();
+    private ParticipantEnrollerOutputBoundary participantEnrollerPresenter;
 
     /**
      * The manager of the random group generator
      */
-    private final RandomGroupGeneratorManager randomGroupGeneratorManager = new RandomGroupGeneratorManager();
+    private RandomGroupGeneratorManager randomGroupGeneratorManager;
 
 
     /**
@@ -49,7 +49,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
     @Override
     public void enroll(int participantId, int studyId) {
         Participant participant = checkParticipantIdIsValid(participantId);
-        Study study = (Study) FetchId.getStudy(studyId);
+        Study study = FetchId.getStudy(studyId);
         if (enrollParticipant(participant, study)) {
             assignQuestionnaires(participant, study);
             participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup());
@@ -86,6 +86,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             participantEnrollerPresenter.presentEnrollmentFailure(participantId);
         }
     }
+
 
     /**
      * Fetches the participant's information from the database and returns it to the presenter.
@@ -253,6 +254,11 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
     }
 
 
+    /**
+     * Automatically assigns the required questionnaires to the participant.
+     * @param participantId The id of the participant to assign the questionnaires to.
+     * @return              true if the participant is successfully assigned the questionnaires, false otherwise.
+     */
     private @NotNull Participant checkParticipantIdIsValid(int participantId) {
         if (FetchId.checkUserExists(participantId)) {
             User user = FetchId.getUser(participantId);
@@ -265,6 +271,23 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             participantEnrollerPresenter.displayParticipantIdDoesNotExist(participantId);
         }
         throw new IllegalArgumentException("The participant ID is invalid.");
+    }
+
+
+    /**
+     * Sets the presenter of this class.
+     * @param participantEnrollerPresenter  The presenter of this class.
+     */
+    public void setParticipantEnrollerPresenter(ParticipantEnrollerPresenter participantEnrollerPresenter) {
+        this.participantEnrollerPresenter = participantEnrollerPresenter;
+    }
+
+    /**
+     * Sets the random group generator manager of this class.
+     * @param randomGroupGeneratorManager    The random group generator manager of this class.
+     */
+    public void setRandomGroupGeneratorManager(RandomGroupGeneratorManager randomGroupGeneratorManager) {
+        this.randomGroupGeneratorManager = randomGroupGeneratorManager;
     }
 }
 
