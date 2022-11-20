@@ -18,7 +18,7 @@ public interface ParticipantEnrollerOutputBoundary {
      * @param groupNumber The group number.
      *
      */
-    void presentEnrollmentSuccess(int participantId, int groupNumber);
+    void presentEnrollmentSuccess(int participantId, int groupNumber, int studyId, int userId);
 
     /**
      * Presents that the ID is not associated with a participant.

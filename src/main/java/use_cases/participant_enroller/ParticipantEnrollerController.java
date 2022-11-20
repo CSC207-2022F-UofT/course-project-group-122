@@ -9,8 +9,8 @@ public class ParticipantEnrollerController {
      * @param participantId the participant's id
      * @param studyId       the study's id
      */
-    public void enrollParticipant(int participantId, int studyId) {
-        participantEnrollerInteractor.enroll(participantId, studyId);
+    public void enrollParticipant(int participantId, int studyId, int userId) {
+        participantEnrollerInteractor.enroll(participantId, studyId, userId);
     }
 
     /**

@@ -1,9 +1,15 @@
 package use_cases.participant_enroller;
 
+import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
 
 public class ParticipantEnrollerPresenter implements ParticipantEnrollerOutputBoundary {
+
+    /**
+     * The controller for study log display.
+     */
+    private FetchStudyLogController fetchStudyLogController;
 
     /**
      * The display failure message interface
@@ -36,9 +42,10 @@ public class ParticipantEnrollerPresenter implements ParticipantEnrollerOutputBo
      * @param groupNumber   The group number.
      */
     @Override
-    public void presentEnrollmentSuccess(int participantId, int groupNumber) {
+    public void presentEnrollmentSuccess(int participantId, int groupNumber, int studyId, int userId) {
         String successMessage = "Participant " + participantId + " has been enrolled in group " + groupNumber + ".";
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
+        fetchStudyLogController.fetchStudyLog(studyId, userId);
     }
 
     /**
@@ -92,5 +99,15 @@ public class ParticipantEnrollerPresenter implements ParticipantEnrollerOutputBo
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * Sets the controller for study log display.
+     *
+     * @param fetchStudyLogController The controller.
+     */
+    public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
+        this.fetchStudyLogController = fetchStudyLogController;
     }
 }

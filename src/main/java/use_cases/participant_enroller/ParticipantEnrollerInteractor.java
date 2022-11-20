@@ -47,12 +47,12 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * @param studyId       The study to enroll the participant in.
      */
     @Override
-    public void enroll(int participantId, int studyId) {
+    public void enroll(int participantId, int studyId, int userId) {
         Participant participant = checkParticipantIdIsValid(participantId);
         Study study = FetchId.getStudy(studyId);
         if (enrollParticipant(participant, study)) {
             assignQuestionnaires(participant, study);
-            participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup());
+            participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup(), studyId, userId);
         } else {
             participantEnrollerPresenter.presentEnrollmentFailure(participantId);
         }
@@ -76,12 +76,12 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * @param group         The group number to enroll the participant in.
      */
     @Override
-    public void enroll(int participantId, int studyId, int group) {
+    public void enroll(int participantId, int studyId, int group, int userId) {
         Participant participant = checkParticipantIdIsValid(participantId);
         Study study = (Study) FetchId.getStudy(studyId);
         if (enrollParticipant(participant, study, group)) {
             assignQuestionnaires(participant, study);
-            participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup());
+            participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup(), studyId, userId);
         } else {
             participantEnrollerPresenter.presentEnrollmentFailure(participantId);
         }

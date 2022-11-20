@@ -21,7 +21,7 @@ public interface ParticipantEnrollerInputBoundary {
      * @param participantId   The participant to enroll.
      * @param studyId         The study to enroll the participant in.
      */
-    void enroll(int participantId, int studyId);
+    void enroll(int participantId, int studyId, int userId);
 
 
     /**
@@ -40,7 +40,7 @@ public interface ParticipantEnrollerInputBoundary {
      * @param studyId         The study to enroll the participant in.
      * @param group         The group number to enroll the participant in.
      */
-    void enroll(int participantId, int studyId, int group);
+    void enroll(int participantId, int studyId, int group, int userId);
 
 
     /**

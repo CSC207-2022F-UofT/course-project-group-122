@@ -173,6 +173,7 @@ public class Main {
         //TODO: inject general failure / success presenters
         //TODO: inject the present_user_info presenter
         //TODO: provide study id when enrolling a user (two enrollers)
+        //TODO: inject fetch study log controller
 
         //Publish questionnaire use case
         PublishQuestionnaireController publishQuestionnaireController = new PublishQuestionnaireController();
