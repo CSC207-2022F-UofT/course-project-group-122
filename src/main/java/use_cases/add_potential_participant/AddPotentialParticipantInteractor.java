@@ -16,14 +16,14 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
      * @param studyId       The ID of the study to add the participant to.
      */
     @Override
-    public void addPotentialParticipant(int participantID, int studyId) {
+    public void addPotentialParticipant(int participantID, int studyId, int userId) {
         Participant participant = (Participant) FetchId.getUser(participantID);
         Study study = FetchId.getStudy(studyId);
         if (canBeAddedToStudy(participant, study)) {
             participant.setStudy(study);
             study.addPotentialParticipant(participant);
             assignEligibilityQuestions(participant, study);
-            addPotentialParticipantPresenter.presentSuccess(participantID, studyId);
+            addPotentialParticipantPresenter.presentSuccess(participantID, studyId, userId);
         } else {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId);
         }

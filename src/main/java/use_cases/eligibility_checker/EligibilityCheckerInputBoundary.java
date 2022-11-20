@@ -7,5 +7,5 @@ public interface EligibilityCheckerInputBoundary {
      * @param participantId The participant's id.
      * @param studyId       The study's id.
      */
-    void makeEligible(int participantId, int studyId);
+    void makeEligible(int participantId, int studyId, int userId);
 }

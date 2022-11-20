@@ -25,5 +25,5 @@ public interface ResearcherEnrollerOutputBoundary {
      * @param studyId         The study's id.
      * @param studyName       The study's name.
      */
-    void presentEnrollmentSuccess(int researcherId, String researcherName, int studyId, String studyName);
+    void presentEnrollmentSuccess(int researcherId, String researcherName, int studyId, String studyName, int userId);
 }

@@ -8,5 +8,5 @@ public interface AddPotentialParticipantInputBoundary {
      * @param participantID     The ID of the participant to add.
      * @param studyId           The ID of the study to add the participant to.
      */
-    void addPotentialParticipant(int participantID, int studyId);
+    void addPotentialParticipant(int participantID, int studyId, int userId);
 }

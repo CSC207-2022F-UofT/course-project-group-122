@@ -7,7 +7,7 @@ interface AddPotentialParticipantOutputBoundary {
      * @param participantID The ID of the participant to add.
      * @param studyId       The ID of the study to add the participant to.
      */
-    void presentSuccess(int participantID, int studyId);
+    void presentSuccess(int participantID, int studyId, int userId);
 
     /**
      * Presents the failure to add a potential participant to a study.

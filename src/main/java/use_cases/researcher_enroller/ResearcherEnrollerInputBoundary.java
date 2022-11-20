@@ -14,7 +14,7 @@ public interface ResearcherEnrollerInputBoundary {
      * Precondition: the researcher id is associated with the correct researcher
      * @param researcherId  The researcher's id.
      */
-    void enrollResearcher(int researcherId, int studyId);
+    void enrollResearcher(int researcherId, int studyId, int userId);
 
 
 }

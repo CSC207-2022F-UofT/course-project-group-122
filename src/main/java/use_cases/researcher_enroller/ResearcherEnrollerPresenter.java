@@ -1,9 +1,15 @@
 package use_cases.researcher_enroller;
 
+import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
 
 public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoundary {
+
+    /**
+     * The controller for fetching the study log.
+     */
+    private FetchStudyLogController fetchStudyLogController;
 
     /**
      * The display failure message interface
@@ -49,10 +55,11 @@ public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoun
      * @param studyName      The study's name.
      */
     @Override
-    public void presentEnrollmentSuccess(int researcherId, String researcherName, int studyId, String studyName) {
+    public void presentEnrollmentSuccess(int researcherId, String researcherName, int studyId, String studyName, int userId) {
         String messageToPresenter = "Researcher " + researcherName +
                 " has been enrolled in study (" + studyId + "( " + studyName;
         displaySuccessMessage.presentGeneralSuccessMessage(messageToPresenter);
+        fetchStudyLogController.fetchStudyLog(studyId, userId);
     }
 
 
@@ -71,5 +78,14 @@ public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoun
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * Sets the controller for fetching the study log.
+     * @param fetchStudyLogController The controller for fetching the study log.
+     */
+    public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
+        this.fetchStudyLogController = fetchStudyLogController;
     }
 }

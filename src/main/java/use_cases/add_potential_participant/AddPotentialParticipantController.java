@@ -13,8 +13,8 @@ public class AddPotentialParticipantController {
      * @param participantId The id of the participant.
      * @param studyId       The id of the study.
      */
-    public void addPotentialParticipant(int participantId, int studyId) {
-        addPotentialParticipantInterator.addPotentialParticipant(participantId, studyId);
+    public void addPotentialParticipant(int participantId, int studyId, int userId) {
+        addPotentialParticipantInterator.addPotentialParticipant(participantId, studyId, userId);
     }
 
 

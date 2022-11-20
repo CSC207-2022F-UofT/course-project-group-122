@@ -9,8 +9,8 @@ public class EligibilityCheckerController {
      * @param participantId The participant's id.
      * @param studyId       The study's id.
      */
-    public void makeEligibile(int participantId, int studyId) {
-        eligibilityCheckerInteractor.makeEligible(participantId, studyId);
+    public void makeEligibile(int participantId, int studyId, int userId) {
+        eligibilityCheckerInteractor.makeEligible(participantId, studyId, userId);
     }
 
 

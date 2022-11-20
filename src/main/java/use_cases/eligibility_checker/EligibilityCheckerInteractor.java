@@ -17,7 +17,7 @@ public class EligibilityCheckerInteractor implements EligibilityCheckerInputBoun
      * @param studyId       The study's id.
      */
     @Override
-    public void makeEligible(int participantId, int studyId) {
+    public void makeEligible(int participantId, int studyId, int userId) {
         Study study = FetchId.getStudy(studyId);
         Participant participant = (Participant) FetchId.getUser(participantId);
         if (participant.getEligibilityQuestionnaire() == null) {
@@ -36,7 +36,7 @@ public class EligibilityCheckerInteractor implements EligibilityCheckerInputBoun
             eligibilityCheckerPresenter.presentFailure(participantId, "The participant has already dropped off!");
         } else {
             participant.makeEligible();
-            eligibilityCheckerPresenter.presentSuccess(participantId, studyId);
+            eligibilityCheckerPresenter.presentSuccess(participantId, studyId, userId);
         }
     }
 

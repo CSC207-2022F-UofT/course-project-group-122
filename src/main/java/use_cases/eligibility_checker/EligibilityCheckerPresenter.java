@@ -1,9 +1,15 @@
 package use_cases.eligibility_checker;
 
+import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
 
 public class EligibilityCheckerPresenter implements EligibilityCheckerOutputBoundary {
+
+    /**
+     * The fetch study log controller
+     */
+    private FetchStudyLogController fetchStudyLogController;
 
     /**
      * The display failure message interface
@@ -36,10 +42,11 @@ public class EligibilityCheckerPresenter implements EligibilityCheckerOutputBoun
      * @param studyId       The study's id.
      */
     @Override
-    public void presentSuccess(int participantId, int studyId) {
+    public void presentSuccess(int participantId, int studyId, int userId) {
         String successMessage = "Participant " + participantId + " is successfully made eligible to participate in " +
                 "the study " + studyId;
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
+        fetchStudyLogController.fetchStudyLog(studyId, userId);
     }
 
 
@@ -58,5 +65,14 @@ public class EligibilityCheckerPresenter implements EligibilityCheckerOutputBoun
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * Sets the fetch study log controller.
+     * @param fetchStudyLogController   The fetch study log controller.
+     */
+    public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
+        this.fetchStudyLogController = fetchStudyLogController;
     }
 }

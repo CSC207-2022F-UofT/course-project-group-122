@@ -16,6 +16,7 @@ import use_cases.create_study.CreateStudyPresenter;
 import use_cases.eligibility_checker.EligibilityCheckerController;
 import use_cases.eligibility_checker.EligibilityCheckerInteractor;
 import use_cases.eligibility_checker.EligibilityCheckerPresenter;
+import use_cases.fetch_id.FetchId;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataInteractor;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataPresenter;
@@ -65,6 +66,9 @@ public class Main {
         // Making the use cases by initializing them with the controllers,
         // which automatically initializes the interactors
 
+        //Helper classes
+        FetchId fetchId = new FetchId(userPool, studyPool);
+
         // Add potential participants use case
         AddPotentialParticipantController addPotentialParticipantController = new AddPotentialParticipantController();
         AddPotentialParticipantInteractor addPotentialParticipantInteractor = new AddPotentialParticipantInteractor();
@@ -72,6 +76,7 @@ public class Main {
         addPotentialParticipantController.setAddPotentialParticipantInterator(addPotentialParticipantInteractor);
         addPotentialParticipantInteractor.setPresenter(addPotentialParticipantPresenter);
         //TODO: inject general failure / success presenters
+        //TODO: inject fetch study log controller
 
         //TODO: answer_questionnaire_data_request use case
 
@@ -107,6 +112,7 @@ public class Main {
         eligibilityCheckerController.setEligibilityCheckerInteractor(eligibilityCheckerInteractor);
         eligibilityCheckerInteractor.setEligibilityCheckerPresenter(eligibilityCheckerPresenter);
         //TODO: inject general failure / success presenters
+        //TODO: inject fetch_study_log_controller
 
         //fetch_participant_data use case
         FetchParticipantStudyDataController fetchParticipantStudyDataController = new FetchParticipantStudyDataController();
@@ -201,6 +207,7 @@ public class Main {
         researcherEnrollerInteractor.setResearcherEnrollerPresenter(researcherEnrollerPresenter);
         //TODO: researcher_edit_answer use case
         //TODO: inject the present_user_info presenter
+        //TODO: inject the fetch study log controller
 
         //user_log_out
         UserLogOutController userLogOutController = new UserLogOutController();

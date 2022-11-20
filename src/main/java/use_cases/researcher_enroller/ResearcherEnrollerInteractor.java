@@ -34,7 +34,7 @@ public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoun
      * @param researcherId The researcher's id.
      */
     @Override
-    public void enrollResearcher(int researcherId, int studyId) {
+    public void enrollResearcher(int researcherId, int studyId, int userId) {
         Researcher researcher = checkValidResearcherId(researcherId);
         Study study = FetchId.getStudy(studyId);
         if (researcher.listStudiesContains(study)) {
@@ -44,7 +44,7 @@ public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoun
             study.addResearchers(researcher);
             researcher.addToListStudies(study);
             researcherEnrollerPresenter.presentEnrollmentSuccess(researcher.getId(), researcher.getName(),
-                    study.getId(), study.getStudyName());
+                    study.getId(), study.getStudyName(), userId);
         }
 
     }

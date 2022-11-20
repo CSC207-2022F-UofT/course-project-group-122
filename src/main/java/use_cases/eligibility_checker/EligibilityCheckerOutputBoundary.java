@@ -15,5 +15,5 @@ public interface EligibilityCheckerOutputBoundary {
      * @param participantId     The participant's id.
      * @param studyId           The study's id.
      */
-    void presentSuccess(int participantId, int studyId);
+    void presentSuccess(int participantId, int studyId, int userId);
 }

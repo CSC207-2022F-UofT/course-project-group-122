@@ -1,9 +1,16 @@
 package use_cases.add_potential_participant;
 
+import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
 
 public class AddPotentialParticipantPresenter implements AddPotentialParticipantOutputBoundary {
+
+
+    /**
+     * The display failure message interface.
+     */
+    private FetchStudyLogController fetchStudyLogController;
 
     /**
      * The display failure message interface
@@ -22,10 +29,11 @@ public class AddPotentialParticipantPresenter implements AddPotentialParticipant
      * @param studyId       The ID of the study to add the participant to.
      */
     @Override
-    public void presentSuccess(int participantID, int studyId) {
+    public void presentSuccess(int participantID, int studyId, int userId) {
         String successMessage = "Participant " + participantID + " has been added to study " + studyId + " as a " +
                 "potential participant.";
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
+        fetchStudyLogController.fetchStudyLog(studyId, userId);
     }
 
     /**
@@ -56,5 +64,13 @@ public class AddPotentialParticipantPresenter implements AddPotentialParticipant
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * Sets the fetch study log controller.
+     */
+    public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
+        this.fetchStudyLogController = fetchStudyLogController;
     }
 }
