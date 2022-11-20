@@ -2,7 +2,7 @@ package use_cases.edit_study;
 
 import java.util.List;
 
-public class EditStudyControllerInputData {
+public class EditStudyInputDataForController {
 
     private final int studyId;
     private final String studyName;
@@ -13,13 +13,13 @@ public class EditStudyControllerInputData {
     private final int groupNum;
     private final List<String> groupNames;
 
-    public EditStudyControllerInputData(int studyId,
-                                        String studyName,
-                                        String studyDescription,
-                                        int studyTargetSize,
-                                        String studyTypeInput,
-                                        int groupNum,
-                                        List<String> groupNames){
+    public EditStudyInputDataForController(int studyId,
+                                           String studyName,
+                                           String studyDescription,
+                                           int studyTargetSize,
+                                           String studyTypeInput,
+                                           int groupNum,
+                                           List<String> groupNames){
         this.studyId = studyId;
         this.studyName = studyName;
         this.studyDescription = studyDescription;

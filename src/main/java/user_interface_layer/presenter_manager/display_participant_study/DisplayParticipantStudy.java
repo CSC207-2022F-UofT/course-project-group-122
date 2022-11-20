@@ -37,6 +37,7 @@ public class DisplayParticipantStudy implements DisplayParticipantStudyDataInter
         ParticipantHomeScreen screen = new ParticipantHomeScreen(data, controllerManager);
         screenManager.setParticipantHomeScreen(screen);
         screenManager.updateCurrentScreen(screen);
+        controllerManager.setCurrentUserId(response.getParticipantId());
     }
 
     @Override

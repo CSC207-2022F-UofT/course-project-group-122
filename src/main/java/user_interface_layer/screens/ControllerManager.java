@@ -42,6 +42,8 @@ import java.util.Map;
 public class ControllerManager {
     ScreenManager screenManager;
 
+    int currentUserId = -1;
+
     // Screen Drivers
     SetUpLogInScreenDriver logInScreenDriver;
     SetUpSignUpScreenDriver signUpScreenDriver;
@@ -87,6 +89,10 @@ public class ControllerManager {
 
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
+    }
+
+    public void setCurrentUserId(int currentUserId) {
+        this.currentUserId = currentUserId;
     }
 
 
@@ -346,8 +352,8 @@ public class ControllerManager {
         participantAnswerQuestionnaireController.participantAnswerQuestionnaireRequest(participantID, questionnaireID, studyID, answers);
     }
 
-    public void researcherEditAnswerRequest(int researcherID, int questionnaireID, int studyID, HashMap<String, String[]> answers) {
-        researcherEditAnswerController.researcherEditAnswerRequest(researcherID, questionnaireID, studyID, answers);
+    public void researcherEditAnswerRequest(int researcherID, int questionnaireID, int studyID, HashMap<String, String> answers, String reasonForChange) {
+        researcherEditAnswerController.researcherEditAnswerRequest(researcherID, questionnaireID, studyID, answers, reasonForChange);
 
     }
 
@@ -412,6 +418,7 @@ public class ControllerManager {
 
     public void editStudyRequest(int studyId, String studyName, String studyDescription, int studyTargetSize,
                                  String studyTypeInput, int groupNum, List<String> groupNames) {
+
 
     }
 }

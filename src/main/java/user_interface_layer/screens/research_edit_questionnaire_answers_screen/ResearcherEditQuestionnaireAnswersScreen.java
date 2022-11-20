@@ -17,7 +17,7 @@ public class ResearcherEditQuestionnaireAnswersScreen extends JFrame {
     public ResearcherEditQuestionnaireAnswersScreen(ResearcherEditQuestionnaireScreenAnswersInputData data, ControllerManager controllerManager) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        setTitle("Answer Questionnaire");
+        setTitle("Edit Answer Questionnaire");
         setLayout(new BorderLayout());
 
         JPanel header = new JPanel();
@@ -51,20 +51,31 @@ public class ResearcherEditQuestionnaireAnswersScreen extends JFrame {
         JScrollPane questionsScrollPanel = new JScrollPane();
         questionsScrollPanel.setViewportView(questionsPanel);
 
+        JScrollPane scrollPane2 = new JScrollPane();
+        JTextArea reasonForModification = new JTextArea(3, 20);
+        reasonForModification.setLineWrap(true);
+        scrollPane2.setViewportView(reasonForModification);
+        JPanel reasonForModificationPanel = new JPanel(new GridLayout(2, 1));
+        JLabel reasonForModificationLabel = new JLabel("Reason for Modification: ", SwingConstants.CENTER);
+        reasonForModificationPanel.add(reasonForModificationLabel);
+        reasonForModificationPanel.add(scrollPane2);
+        questionsPanel.add(reasonForModificationPanel);
+
+
         JPanel submitPanel = new JPanel();
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> {
-            HashMap<String, String[]> answers = new HashMap<>();
+            HashMap<String, String> answers = new HashMap<>();
             for (ResearchersQuestionPanel questionPanel : questionPanels) {
                 if (questionPanel.getAnswer().equals("")) {
                     JOptionPane.showMessageDialog(null, "Please answer all questions");
                     break;
                 } else {
-                    answers.put(questionPanel.getQuestion(), new String[]{questionPanel.getType(), questionPanel.getVariable(), questionPanel.getAnswer()});
+                    answers.put(questionPanel.getVariable(), questionPanel.getAnswer());
                 }
             }
             if (answers.size() == questionPanels.size()) {
-                controllerManager.researcherEditAnswerRequest(data.getResearcherID(), data.getQuestionnaireID(), data.getStudyID(),answers);
+                controllerManager.researcherEditAnswerRequest(data.getResearcherID(), data.getQuestionnaireID(), data.getStudyID(),answers, reasonForModification.getText());
             }else{
                 JOptionPane.showMessageDialog(null, "Please answer all questions");
             }
