@@ -31,4 +31,19 @@ public AssignedQuestionnairePanelForResearcher(ResearcherRequestParticipantInput
     JPanel buttonsPanel = new JPanel();
     add(buttonsPanel, BorderLayout.SOUTH);
     }
+
+    JButton answerButton = new JButton("Answer Questionnaire");
+    answerButton.addActionListener(e -> {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a questionnaire to answer");
+        } else {
+            if (model.getValueAt(selectedRow, 2).toString().equals("Closed")) {
+                JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
+            } else {
+                controllerManager.answerQuestionnaireRequestData(data.getParticipantId(), keys.get(selectedRow));
+            }
+
+        }
+    });
 }
