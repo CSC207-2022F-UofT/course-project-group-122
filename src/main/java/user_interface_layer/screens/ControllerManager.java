@@ -84,8 +84,9 @@ public class ControllerManager {
     ParticipantAnswerQuestionnaireController participantAnswerQuestionnaireController;
     ResearcherEditAnswerController researcherEditAnswerController;
     PublishQuestionnaireController publishQuestionnaireController;
-
     AssignQuestionnaireController assignQuestionnaireController;
+
+
 
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -420,5 +421,11 @@ public class ControllerManager {
                                  String studyTypeInput, int groupNum, List<String> groupNames) {
 
 
+    }
+
+    public void fetchParticipant(int participantIdInt, int studyId) {
+    }
+
+    public void fetchResearcher(int researcherIdInt, int studyId) {
     }
 }

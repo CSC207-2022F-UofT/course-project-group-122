@@ -56,7 +56,7 @@ public class StudyLogResearcherPanel extends JPanel {
                     String researcherId = textField.getText();
                     try {
                         int researcherIdInt = Integer.parseInt(researcherId);
-                        controllerManager.addResearcherToStudyRequest(researcherIdInt, data.getStudyId());
+                        controllerManager.fetchResearcher(researcherIdInt, data.getStudyId());
                         frame.dispose();
                     } catch (NumberFormatException exception) {
                         JOptionPane.showMessageDialog(null, "Please enter a valid researcher identifier");

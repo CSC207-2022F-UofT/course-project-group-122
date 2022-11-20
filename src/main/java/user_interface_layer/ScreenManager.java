@@ -1,5 +1,6 @@
 package user_interface_layer;
 
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.check_questionnaire_screen.CheckQuestionnaireScreen;
 import user_interface_layer.screens.check_questionnaire_versioned_answer_screen.CheckQuestionnaireVersionedAnswerScreen;
 import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationScreen;
@@ -17,6 +18,9 @@ import user_interface_layer.screens.register_screens.UserLogInScreen;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.register_screens.UserSignUpScreen;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantScreen;
+import user_interface_layer.screens.showParticipantInfo.ShowParticipantInfoScreen;
+import user_interface_layer.screens.showParticipantInfo.ShowParticipantInputData;
+import user_interface_layer.screens.showResearcherInfo.ShowResearcherInfoScreen;
 import user_interface_layer.screens.study_data_log.StudyDataLogScreen;
 
 import javax.swing.*;
@@ -40,7 +44,8 @@ public class ScreenManager {
     ParticipantAnswerQuestionnairePanel participantAnswerQuestionnairePanel;
     ResearcherEditQuestionnaireAnswersScreen researcherEditQuestionnaireAnswersScreen;
     StudyDataLogScreen studyDataLogScreen;
-
+    ShowResearcherInfoScreen showResearcherInfoScreen;
+    ShowParticipantInfoScreen showParticipantInfoScreen;
     public ScreenManager() {
     }
 
@@ -141,5 +146,13 @@ public class ScreenManager {
 
     public void setStudyDataLogScreen(StudyDataLogScreen screen) {
         this.studyDataLogScreen = screen;
+    }
+
+    public void setShowResearcherInfoScreen(ShowResearcherInfoScreen screen) {
+        this.showResearcherInfoScreen = screen;
+    }
+
+    public void setShowParticipantInfoScreen(ShowParticipantInfoScreen screen) {
+        this.showParticipantInfoScreen = screen;
     }
 }

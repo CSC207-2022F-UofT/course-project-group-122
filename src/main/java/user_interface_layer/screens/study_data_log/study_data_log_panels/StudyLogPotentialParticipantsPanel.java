@@ -42,7 +42,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 String participantId = textField.getText();
                 try {
                     int participantIdInt = Integer.parseInt(participantId);
-                    controllerManager.addPotentialParticipantToStudyRequest(participantIdInt, data.getStudyId());
+                    controllerManager.fetchParticipant(participantIdInt, data.getStudyId());
                     frame.dispose();
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number");
