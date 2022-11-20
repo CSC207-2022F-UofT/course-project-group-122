@@ -189,6 +189,7 @@ public class Main {
         removeResearcherController.setRemoveResearcherInteractor(removeResearcherInteractor);
         removeResearcherInteractor.setRemoveResearcherPresenter(removeResearcherPresenter);
         //TODO: inject general failure / success presenters
+        //TODO: inject fetch study log controller
 
         //TODO: researcher_edit_answer use case
 

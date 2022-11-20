@@ -16,15 +16,18 @@ public class RemoveResearcherInteractor implements RemoveResearcherInputBoundary
      * @param studyID      The id of the study to remove the researcher from.
      */
     @Override
-    public void removeResearcherFromStudy(int researcherId, int studyID) {
-        Researcher researcher = (Researcher) FetchId.getUser(researcherId);
+    public void removeResearcherFromStudy(int userId, int researcherId, int studyID) {
+        Researcher researcherToRemove = (Researcher) FetchId.getUser(researcherId);
         Study study = FetchId.getStudy(studyID);
-        if (researcher.getListStudies().contains(study) && study.getResearchers().contains(researcher)) {
-            researcher.removeFromListStudies(study);
-            study.removeResearcher(researcher);
-            removeResearcherPresenter.presentResearcherRemoved(researcher.getId(), researcher.getName(), study.getId());
+        if (userId == researcherId) {
+            removeResearcherPresenter.presentRemoveResearcherError(researcherId, studyID);
+        } else if (researcherToRemove.getListStudies().contains(study) && study.getResearchers().contains(researcherToRemove)) {
+            researcherToRemove.removeFromListStudies(study);
+            study.removeResearcher(researcherToRemove);
+            removeResearcherPresenter.presentResearcherRemoved(researcherToRemove.getId(), researcherToRemove.getName(),
+                    study.getId(), userId);
         } else {
-            removeResearcherPresenter.presentResearcherNotInStudy(researcher.getId(), study.getId());
+            removeResearcherPresenter.presentResearcherNotInStudy(researcherToRemove.getId(), study.getId());
         }
     }
 

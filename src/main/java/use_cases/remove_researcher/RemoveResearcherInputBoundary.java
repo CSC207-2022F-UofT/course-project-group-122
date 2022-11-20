@@ -7,5 +7,5 @@ public interface RemoveResearcherInputBoundary {
      * @param researcherId  The id of the researcher to remove.
      * @param studyID       The id of the study to remove the researcher from.
      */
-    void removeResearcherFromStudy(int researcherId, int studyID);
+    void removeResearcherFromStudy(int userId, int researcherId, int studyID);
 }
