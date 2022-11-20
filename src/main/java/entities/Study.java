@@ -2,7 +2,9 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The study entity.
@@ -604,5 +606,18 @@ public class Study {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * Retrieve the map of group number to group names.
+     * @return  the map of group number to group names.
+     */
+    public Map<Integer, String> getMatchedGroupNames() {
+        Map<Integer, String> matchedGroupNames = new HashMap<>();
+        for (int i = 0; i < this.getGroupNames().length; i++) {
+            matchedGroupNames.put(i + 1, this.getGroupNames()[i]);
+        }
+        return matchedGroupNames;
     }
 }

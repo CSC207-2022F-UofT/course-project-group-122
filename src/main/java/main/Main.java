@@ -26,6 +26,9 @@ import use_cases.fetch_study_data.FetchStudyDataPresenter;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import use_cases.fetch_study_log.FetchStudyLogInteractor;
 import use_cases.fetch_study_log.FetchStudyLogPresenter;
+import use_cases.get_target_groups.GetTargetGroupsController;
+import use_cases.get_target_groups.GetTargetGroupsInteractor;
+import use_cases.get_target_groups.GetTargetGroupsPresenter;
 import use_cases.modify_study_parameters.ModifyStudyParameterController;
 import use_cases.modify_study_parameters.ModifyStudyParameterInteractor;
 import use_cases.modify_study_parameters.ModifyStudyParameterPresenter;
@@ -227,6 +230,14 @@ public class Main {
         //TODO: inject the present_user_info presenter
         //TODO: inject the FetchStudyDataController
 
+        //Get target groups use case
+        GetTargetGroupsController getTargetGroupsController = new GetTargetGroupsController();
+        GetTargetGroupsInteractor getTargetGroupsInteractor = new GetTargetGroupsInteractor();
+        GetTargetGroupsPresenter getTargetGroupsPresenter = new GetTargetGroupsPresenter();
+        getTargetGroupsController.setGetTargetGroupsInteractor(getTargetGroupsInteractor);
+        getTargetGroupsInteractor.setGetTargetGroupsPresenter(getTargetGroupsPresenter);
+        //TODO: inject the present_target_groups presenter
+        //TODO: inject general failure presenters
 
 
         // Screens
