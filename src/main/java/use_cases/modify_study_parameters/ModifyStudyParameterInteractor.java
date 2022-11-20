@@ -49,8 +49,6 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         study.modifyStudyName(studyName);
         study.setStudyDescription(studyDescription);
         study.modifyTargetStudySize(targetSize);
-        modifyStudyParameterPresenter.displaySuccessMessage(studyId,
-                "The basic parameters of the study have been modified.");
     }
 
 
@@ -69,8 +67,6 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         if (study.getNumGroups() == 1) {
             study.resetGroups(2);
         }
-        modifyStudyParameterPresenter.displaySuccessMessage(studyId,
-                "The type of the study has been modified.");
     }
 
 
@@ -81,7 +77,7 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
      * @param randomizationMethod The new randomization method of the study.
      */
     @Override
-    public void modifyStudyRandomization(int studyId, String randomizationMethod) {
+    public void modifyStudyRandomization(int studyId, String randomizationMethod, int researcherId) {
         Study study = FetchId.getStudy(studyId);
         assert canModifyStudyParameters(study);
         if (study.getStudyType().equals("General")) {
@@ -90,7 +86,7 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         }
         study.setRandomizationMethod(randomizationMethod);
         modifyStudyParameterPresenter.displaySuccessMessage(studyId,
-                "The randomization method of the study has been modified.");
+                "The randomization method of the study has been modified.", researcherId);
     }
 
 
@@ -101,7 +97,7 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
      * @param stratificationVariable The new stratification variable of the study.
      */
     @Override
-    public void modifyStudyStratification(int studyId, String stratificationVariable) {
+    public void modifyStudyStratification(int studyId, String stratificationVariable, int researcherId) {
         Study study = FetchId.getStudy(studyId);
         assert canModifyStudyParameters(study);
         if (study.getStudyType().equals("General")) {
@@ -116,7 +112,7 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         }
         study.setStratificationMethod(stratificationVariable);
         modifyStudyParameterPresenter.displaySuccessMessage(studyId,
-                "The stratification variables of the study have been modified.");
+                "The stratification variables of the study have been modified.", researcherId);
     }
 
     /**
@@ -127,20 +123,18 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
      * @param groupNames The new group names of the study.
      */
     @Override
-    public void modifyStudyGrouping(int studyId, int groupSize, String @NotNull [] groupNames) {
+    public void modifyStudyGrouping(int studyId, int groupSize, String @NotNull [] groupNames, int researcherId) {
         Study study = FetchId.getStudy(studyId);
         assert canModifyStudyParameters(study);
         if (groupingIsValid(study, groupSize, groupNames)) {
             if (namesAreEmpty(groupNames)) {
                 study.resetGroups(groupSize);
-                String names = buildNames(study.getGroupNames());
                 modifyStudyParameterPresenter.displaySuccessMessage(studyId,
-                        "The grouping of the study has been modified. The default group names are: " + names);
+                        "The parameters of the study have been modified.", researcherId);
             } else {
                 study.resetGroups(groupSize, groupNames);
-                String names = buildNames(study.getGroupNames());
                 modifyStudyParameterPresenter.displaySuccessMessage(studyId,
-                        "The grouping of the study has been modified. The new group names are: " + names);
+                        "The parameters of the study have been modified.", researcherId);
             }
         }
     }

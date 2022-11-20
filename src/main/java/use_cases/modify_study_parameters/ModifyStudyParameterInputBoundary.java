@@ -33,7 +33,7 @@ interface ModifyStudyParameterInputBoundary {
      * @param studyId               The ID of the study.
      * @param randomizationMethod   The new randomization method of the study.
      */
-    void modifyStudyRandomization(int studyId, String randomizationMethod);
+    void modifyStudyRandomization(int studyId, String randomizationMethod, int researcherId);
 
 
     /**
@@ -41,7 +41,7 @@ interface ModifyStudyParameterInputBoundary {
      * @param studyId                   The ID of the study.
      * @param stratificationVariable   The new stratification variable of the study.
      */
-    void modifyStudyStratification(int studyId, String stratificationVariable);
+    void modifyStudyStratification(int studyId, String stratificationVariable, int researcherId);
 
 
     /**
@@ -50,5 +50,5 @@ interface ModifyStudyParameterInputBoundary {
      * @param groupSize     The new group size of the study.
      * @param groupNames    The new group names of the study.
      */
-    void modifyStudyGrouping(int studyId, int groupSize, String[] groupNames);
+    void modifyStudyGrouping(int studyId, int groupSize, String[] groupNames, int researcherId);
 }

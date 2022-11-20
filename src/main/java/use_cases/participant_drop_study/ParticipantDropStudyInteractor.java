@@ -32,6 +32,7 @@ public class ParticipantDropStudyInteractor implements ParticipantDropStudyInput
         } else {
             participant.dropOff();
             participantDropStudyPresenter.displaySuccess(participantId, "You have successfully dropped the study.");
+            participantDropStudyPresenter.showParticipantDroppedOffStudy(participantId, participantId);
         }
     }
 

@@ -80,15 +80,17 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
     /**
      * Returns the status of the participant.
      * @param participant   The participant to get the status of.
-     * @return The status of the participant. Either "eligible", "enrolled" or "dropped off".
+     * @return The status of the participant. Either "potential", "eligible", "enrolled" or "dropped off".
      */
     private @NotNull String getStatus(@NotNull Participant participant) {
         if (participant.isDroppedOff()) {
             return "dropped off";
         } else if (participant.isEnrolled()) {
             return "enrolled";
-        } else {
+        } else if (participant.isEligible()) {
             return "eligible";
+        } else {
+            return "potential";
         }
     }
 

@@ -142,6 +142,7 @@ public class Main {
         modifyStudyParametersInteractor.setModifyStudyParameterPresenter(modifyStudyParametersPresenter);
         //TODO: inject general failure / success presenters
         //TODO: inject show stratification variables presenter
+        //TODO: inject fetch study log controller
 
         //TODO: participant_answer_questionnaire use case
 
@@ -152,6 +153,7 @@ public class Main {
         participantDropStudyController.setParticipantDropStudyInteractor(participantDropStudyInteractor);
         participantDropStudyInteractor.setParticipantDropStudyPresenter(participantDropStudyPresenter);
         //TODO: inject general failure / success presenters
+        //TODO: inject fetchParticipantStudyDataController
 
         //Participant Enroller use case
         ParticipantEnrollerController participantEnrollerController = new ParticipantEnrollerController();
@@ -218,7 +220,8 @@ public class Main {
 
 
 
-
+        // Screens
+        //TODO: initialize the user register screen
 
 
     }

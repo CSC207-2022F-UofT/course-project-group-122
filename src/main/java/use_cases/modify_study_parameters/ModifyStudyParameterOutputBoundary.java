@@ -16,8 +16,9 @@ public interface ModifyStudyParameterOutputBoundary {
      * Displays the success message.
      * @param studyId   The ID of the study.
      * @param message   The success message.
+     * @param researcherId The researcher ID.
      */
-    void displaySuccessMessage(int studyId, String message);
+    void displaySuccessMessage(int studyId, String message, int researcherId);
 
 
     /**

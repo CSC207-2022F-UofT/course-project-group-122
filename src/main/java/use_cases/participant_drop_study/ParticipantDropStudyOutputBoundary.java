@@ -16,4 +16,7 @@ public interface ParticipantDropStudyOutputBoundary {
      * @param message       the success message
      */
     void displaySuccess(int participantId, String message);
+
+
+    void showParticipantDroppedOffStudy(int participantId, int userId);
 }

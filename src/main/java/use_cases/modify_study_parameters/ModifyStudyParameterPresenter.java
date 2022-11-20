@@ -1,11 +1,18 @@
 package use_cases.modify_study_parameters;
 
+import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
 
 import java.util.List;
 
 public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutputBoundary {
+
+
+    /**
+     * The controller for fetching the study log.
+     */
+    private FetchStudyLogController fetchStudyLogController;
 
     /**
      * The display failure message interface
@@ -35,9 +42,10 @@ public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutput
      * @param message The success message.
      */
     @Override
-    public void displaySuccessMessage(int studyId, String message) {
+    public void displaySuccessMessage(int studyId, String message, int researcherId) {
         String successMessage = "Study: " + studyId + "\n" + message;
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
+        fetchStudyLogController.fetchStudyLog(studyId, researcherId);
     }
 
 
@@ -68,5 +76,15 @@ public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutput
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * Sets the controller for fetching the study log.
+     *
+     * @param fetchStudyLogController The controller for fetching the study log.
+     */
+    public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
+        this.fetchStudyLogController = fetchStudyLogController;
     }
 }

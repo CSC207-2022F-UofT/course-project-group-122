@@ -3,6 +3,11 @@ package use_cases.modify_study_parameters;
 public class ModifyStudyParameterRequestModel {
 
     /**
+     * The ID of the researcher.
+     */
+    private int researcherId;
+
+    /**
      * The id of the study to modify.
      */
     private int studyId;
@@ -48,7 +53,8 @@ public class ModifyStudyParameterRequestModel {
      * @param studyName         The new name of the study.
      * @param studyDescription  The new description of the study.
      */
-    public ModifyStudyParameterRequestModel(int studyId, String studyName, String studyDescription) {
+    public ModifyStudyParameterRequestModel(int researcherId, int studyId, String studyName, String studyDescription) {
+        this.researcherId = researcherId;
         this.studyId = studyId;
         this.studyName = studyName;
         this.studyDescription = studyDescription;
@@ -88,6 +94,15 @@ public class ModifyStudyParameterRequestModel {
      */
     public void setGroupNames(String[] groupNames) {
         this.groupNames = groupNames;
+    }
+
+
+    /**
+     * Returns the ID of the researcher.
+     * @return The ID of the researcher.
+     */
+    public int getResearcherId() {
+        return researcherId;
     }
 
 

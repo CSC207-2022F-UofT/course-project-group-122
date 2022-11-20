@@ -19,6 +19,7 @@ public class ModifyStudyParameterController {
      * @param requestModel      The request model containing the new parameters of the study.
      */
     public void modifystudyParameters(@NotNull ModifyStudyParameterRequestModel requestModel) {
+        int researcherId = requestModel.getResearcherId();
         int studyId = requestModel.getStudyId();
         String studyName = requestModel.getStudyName();
         String studyDescription = requestModel.getStudyDescription();
@@ -29,7 +30,7 @@ public class ModifyStudyParameterController {
 
         modifyStudyParameterInteractor.modifyStudyBasicParameters(studyId, studyName, studyDescription, targetSize);
         modifyStudyParameterInteractor.modifyStudyType(studyId, studyType);
-        modifyStudyParameterInteractor.modifyStudyGrouping(studyId, numGroups, groupNames);
+        modifyStudyParameterInteractor.modifyStudyGrouping(studyId, numGroups, groupNames, researcherId);
     }
 
 
@@ -47,8 +48,8 @@ public class ModifyStudyParameterController {
      * @param studyId               The ID of the study.
      * @param randomizationMethod   The new randomization method of the study.
      */
-    public void modifyStudyRandomization(int studyId, String randomizationMethod) {
-        modifyStudyParameterInteractor.modifyStudyRandomization(studyId, randomizationMethod);
+    public void modifyStudyRandomization(int studyId, String randomizationMethod, int researcherId) {
+        modifyStudyParameterInteractor.modifyStudyRandomization(studyId, randomizationMethod, researcherId);
     }
 
 
@@ -57,8 +58,8 @@ public class ModifyStudyParameterController {
      * @param studyId                   The ID of the study.
      * @param stratificationVariable    The new stratification variable of the study.
      */
-    public void modifyStudyStratification(int studyId, String stratificationVariable) {
-        modifyStudyParameterInteractor.modifyStudyStratification(studyId, stratificationVariable);
+    public void modifyStudyStratification(int studyId, String stratificationVariable, int researcherId) {
+        modifyStudyParameterInteractor.modifyStudyStratification(studyId, stratificationVariable, researcherId);
     }
 
 
