@@ -77,6 +77,10 @@ public class FetchId {
                 return questionnaire;
             }
         }
+        Questionnaire eligibilityQuestionnaire = study.getEligibilityQuestionnaire();
+        if (eligibilityQuestionnaire != null && eligibilityQuestionnaire.getId() == id) {
+            return eligibilityQuestionnaire;
+        }
         return null;
     }
 
