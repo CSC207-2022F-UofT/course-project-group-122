@@ -89,18 +89,6 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
 
 
     /**
-     * Fetches the participant's information from the database and returns it to the presenter.
-     *
-     * @param participantId The participant's id.
-     */
-    @Override
-    public void fetchParticipantInfomration(int participantId) {
-        Participant participant = checkParticipantIdIsValid(participantId);
-        participantEnrollerPresenter.presentParticipantInformation(participant.getId(), participant.getName());
-    }
-
-
-    /**
      * Enrolls a participant.
      * Enrolls a participant without specifying the participant's group.
      * If the type of the study is "Randomized", the participant will be assigned to a group at random.

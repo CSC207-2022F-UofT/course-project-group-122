@@ -41,12 +41,4 @@ public interface ParticipantEnrollerInputBoundary {
      * @param group         The group number to enroll the participant in.
      */
     void enroll(int participantId, int studyId, int group, int userId);
-
-
-    /**
-     * Fetches the participant's information from the database and returns it to the presenter.
-     * @param participantId The participant's id.
-     */
-    void fetchParticipantInfomration(int participantId);
-
 }
