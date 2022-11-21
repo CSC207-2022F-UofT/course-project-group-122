@@ -61,8 +61,8 @@ public class AddPotentialParticipantPresenter implements AddPotentialParticipant
      * @param name          The name of the participant.
      */
     @Override
-    public void presentParticipantInfo(int participantID, String name) {
-        displayParticipantInfo.displayParticipantInfo(participantID, name);
+    public void presentParticipantInfo(int participantID, String name, int studyId) {
+        displayParticipantInfo.displayParticipantInfo(participantID, name, studyId);
     }
 
 

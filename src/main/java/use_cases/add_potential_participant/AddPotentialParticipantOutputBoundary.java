@@ -22,5 +22,5 @@ interface AddPotentialParticipantOutputBoundary {
      * @param participantID The ID of the participant to add.
      * @param name          The name of the participant.
      */
-    void presentParticipantInfo(int participantID, String name);
+    void presentParticipantInfo(int participantID, String name, int studyId);
 }

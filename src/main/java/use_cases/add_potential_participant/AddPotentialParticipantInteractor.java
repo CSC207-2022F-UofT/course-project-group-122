@@ -42,7 +42,7 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
         if (participant.getStudy() != null) {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId);
         } else {
-            addPotentialParticipantPresenter.presentParticipantInfo(participantID, participant.getName());
+            addPotentialParticipantPresenter.presentParticipantInfo(participantID, participant.getName(), studyId);
         }
     }
 
