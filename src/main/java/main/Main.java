@@ -7,6 +7,9 @@ import entities.UserPool;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.add_potential_participant.AddPotentialParticipantInteractor;
 import use_cases.add_potential_participant.AddPotentialParticipantPresenter;
+import use_cases.answer_questionnaire.AnswerQuestionnaireController;
+import use_cases.answer_questionnaire.AnswerQuestionnaireInteractor;
+import use_cases.answer_questionnaire.AnswerQuestionnairePresenter;
 import use_cases.close_study.CloseStudyController;
 import use_cases.close_study.CloseStudyInteractor;
 import use_cases.close_study.CloseStudyPresenter;
@@ -26,6 +29,9 @@ import use_cases.fetch_study_data.FetchStudyDataPresenter;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import use_cases.fetch_study_log.FetchStudyLogInteractor;
 import use_cases.fetch_study_log.FetchStudyLogPresenter;
+import use_cases.fetch_versioned_answer.FetchVersionedAnswerController;
+import use_cases.fetch_versioned_answer.FetchVersionedAnswerInteractor;
+import use_cases.fetch_versioned_answer.FetchVersionedAnswerPresenter;
 import use_cases.get_target_groups.GetTargetGroupsController;
 import use_cases.get_target_groups.GetTargetGroupsInteractor;
 import use_cases.get_target_groups.GetTargetGroupsPresenter;
@@ -42,6 +48,9 @@ import use_cases.participant_enroller.RandomGroupGeneratorManager;
 import use_cases.publish_questionnaire.PublishQuestionnaireController;
 import use_cases.publish_questionnaire.PublishQuestionnaireInteractor;
 import use_cases.publish_questionnaire.PublishQuestionnairePresenter;
+import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenController;
+import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenInteractor;
+import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenPresenter;
 import use_cases.remove_researcher.RemoveResearcherController;
 import use_cases.remove_researcher.RemoveResearcherInteractor;
 import use_cases.remove_researcher.RemoveResearcherPresenter;
@@ -54,7 +63,6 @@ import use_cases.user_log_out.UserLogOutPresenter;
 import use_cases.user_login.UserLoginController;
 import use_cases.user_login.UserLoginInteractor;
 import use_cases.user_login.UserLoginPresenter;
-import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.presenter_manager.display_choose_groups.DisplayGroupsToAssign;
 import user_interface_layer.presenter_manager.display_edit_questionnaire.DisplayEditQuestionnaire;
 import user_interface_layer.presenter_manager.display_edit_study.DisplayEditStudy;
@@ -72,6 +80,7 @@ import user_interface_layer.presenter_manager.display_screen_for_editing_answers
 import user_interface_layer.presenter_manager.display_stratification.DisplayStratification;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessage;
 import user_interface_layer.presenter_manager.display_versioned_answer.DisplayVersionedAnswer;
+import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 
 import java.util.HashMap;
@@ -141,7 +150,13 @@ public class Main {
         fetchParticipantStudyDataInteractor.setFetchParticipantStudyDataPresenter(fetchParticipantStudyDataPresenter);
 
 
-        //TODO: fetch_questionnaire_versioned_answer use case
+        //FetchVersionedAnswer use case
+        FetchVersionedAnswerController fetchVersionedAnswerController = new FetchVersionedAnswerController();
+        FetchVersionedAnswerInteractor fetchVersionedAnswerInteractor = new FetchVersionedAnswerInteractor();
+        FetchVersionedAnswerPresenter fetchVersionedAnswerPresenter = new FetchVersionedAnswerPresenter();
+        fetchVersionedAnswerController.setFetchVersionedAnswerInputBoundary(fetchVersionedAnswerInteractor);
+        fetchVersionedAnswerInteractor.setFetchVersionedAnswerOutBoundary(fetchVersionedAnswerPresenter);
+
 
         // Fetch study data use case
         FetchStudyDataController fetchStudyDataController = new FetchStudyDataController();
@@ -158,13 +173,19 @@ public class Main {
         fetchStudyLogInteractor.setFetchStudyLogPresenter(fetchStudyLogPresenter);
 
         //Modify study parameters use case
-        ModifyStudyParameterController modifyStudyParametersController = new ModifyStudyParameterController();
-        ModifyStudyParameterInteractor modifyStudyParametersInteractor = new ModifyStudyParameterInteractor();
-        ModifyStudyParameterPresenter modifyStudyParametersPresenter = new ModifyStudyParameterPresenter();
-        modifyStudyParametersController.setModifyStudyParameterInteractor(modifyStudyParametersInteractor);
-        modifyStudyParametersInteractor.setModifyStudyParameterPresenter(modifyStudyParametersPresenter);
+        ModifyStudyParameterController modifyStudyParameterController = new ModifyStudyParameterController();
+        ModifyStudyParameterInteractor modifyStudyParameterInteractor = new ModifyStudyParameterInteractor();
+        ModifyStudyParameterPresenter modifyStudyParameterPresenter = new ModifyStudyParameterPresenter();
+        modifyStudyParameterController.setModifyStudyParameterInteractor(modifyStudyParameterInteractor);
+        modifyStudyParameterInteractor.setModifyStudyParameterPresenter(modifyStudyParameterPresenter);
 
-        //TODO: participant_answer_questionnaire use case
+        //answer_questionnaire use case
+        AnswerQuestionnaireController answerQuestionnaireController = new AnswerQuestionnaireController();
+        AnswerQuestionnaireInteractor answerQuestionnaireInteractor = new AnswerQuestionnaireInteractor();
+        AnswerQuestionnairePresenter answerQuestionnairePresenter = new AnswerQuestionnairePresenter();
+        answerQuestionnaireController.setAnswerQuestionnaireInteractor(answerQuestionnaireInteractor);
+        answerQuestionnaireInteractor.setAnswerQuestionnairePresenter(answerQuestionnairePresenter);
+
 
         //Participant drop out use case
         ParticipantDropStudyController participantDropStudyController = new ParticipantDropStudyController();
@@ -190,11 +211,22 @@ public class Main {
         publishQuestionnaireController.setPublishQuestionnaireInteractor(publishQuestionnaireInteractor);
         publishQuestionnaireInteractor.setPublishQuestionnairePresenter(publishQuestionnairePresenter);
 
-        //TODO: questionnaire_answer_data_for_editing_request use case
+        //questionnaire_answer_data_for_editing_request use case
+//        QuestionnaireAnswerDataRequestForEditingController questionnaireAnswerDataRequestForEditingController =
+//                new QuestionnaireAnswerDataRequestForEditingController();
+//        QuestionnaireAnswerDataRequestForEditingInteractor questionnaireAnswerDataRequestForEditingInteractor =
+//                new QuestionnaireAnswerDataRequestForEditingInteractor();
+
+
 
         //TODO: questionnaire_answer_data_request use case
 
-        //TODO: questionnaire_screen_data_request use case
+        //questionnaire_screen_data_request use case
+        FetchQuestionnaireScreenController fetchQuestionnaireScreenController = new FetchQuestionnaireScreenController();
+        FetchQuestionnaireScreenInteractor fetchQuestionnaireScreenInteractor = new FetchQuestionnaireScreenInteractor();
+        FetchQuestionnaireScreenPresenter fetchQuestionnaireScreenPresenter = new FetchQuestionnaireScreenPresenter();
+        fetchQuestionnaireScreenController.setFetchQuestionnaireScreenInteractor(fetchQuestionnaireScreenInteractor);
+        fetchQuestionnaireScreenInteractor.setFetchQuestionnaireScreenPresenter(fetchQuestionnaireScreenPresenter);
 
         //Remove Researcher use case
         RemoveResearcherController removeResearcherController = new RemoveResearcherController();
@@ -309,10 +341,10 @@ public class Main {
 
         fetchStudyLogPresenter.setDisplayResearcherStudyLog(presenterManagerDisplayResearcherStudyLog);
 
-        modifyStudyParametersPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
-        modifyStudyParametersPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
-        modifyStudyParametersPresenter.setFetchStudyLogController(fetchStudyLogController);
-        modifyStudyParametersPresenter.setDisplayStratificationInterface(presenterManagerDisplayStratification);
+        modifyStudyParameterPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
+        modifyStudyParameterPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+        modifyStudyParameterPresenter.setFetchStudyLogController(fetchStudyLogController);
+        modifyStudyParameterPresenter.setDisplayStratificationInterface(presenterManagerDisplayStratification);
 
         participantDropStudyPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         participantDropStudyPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
@@ -345,7 +377,33 @@ public class Main {
         getTargetGroupsPresenter.setDisplayGroupsToAssignInterface(presenterManagerDisplayGroupsToAssign);
         getTargetGroupsPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
 
+        fetchVersionedAnswerPresenter.setDisplayVersionedAnswerInterface(presenterManagerDisplayVersionedAnswer);
 
+        answerQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
+        answerQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+        answerQuestionnairePresenter.setFetchParticipantStudyDataController(fetchParticipantStudyDataController);
+
+        fetchQuestionnaireScreenPresenter.setDisplayResearcherQuestionnaireInterface(presenterManagerDisplayResearcherQuestionnaire);
+        fetchQuestionnaireScreenPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+
+        // Inject controllers to controller manager
+        controllerManager.setAddPotentialParticipantController(addPotentialParticipantController);
+        controllerManager.setCloseStudyController(closeStudyController);
+        controllerManager.setCreateStudyController(createStudyController);
+        controllerManager.setEligibilityCheckerController(eligibilityCheckerController);
+        controllerManager.setFetchParticipantStudyDataController(fetchParticipantStudyDataController);
+        controllerManager.setFetchStudyDataController(fetchStudyDataController);
+        controllerManager.setFetchStudyLogController(fetchStudyLogController);
+        controllerManager.setModifyStudyParameterController(modifyStudyParameterController);
+        controllerManager.setParticipantDropStudyController(participantDropStudyController);
+        controllerManager.setParticipantEnrollerController(participantEnrollerController);
+        controllerManager.setPublishQuestionnaireController(publishQuestionnaireController);
+        controllerManager.setRemoveResearcherController(removeResearcherController);
+        controllerManager.setResearcherEnrollerController(researcherEnrollerController);
+        controllerManager.setUserLogOutController(userLogOutController);
+        controllerManager.setUserLoginController(userLoginController);
+        controllerManager.setGetTargetGroupsController(getTargetGroupsController);
+        controllerManager.setFetchQuestionnaireScreenController(fetchQuestionnaireScreenController);
 
 
 

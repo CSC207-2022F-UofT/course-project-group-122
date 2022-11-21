@@ -33,4 +33,9 @@ public class FetchVersionedAnswerInteractor implements FetchVersionedAnswerInput
         FetchVersionedAnswerResponseModel data = new FetchVersionedAnswerResponseModel(studyId, questionnaireID, versionedAnswersList);
         fetchVersionedAnswerOutBoundary.presentVersionedAnswer(data);
     }
+
+
+    public void setFetchVersionedAnswerOutBoundary(FetchVersionedAnswerOutBoundary fetchVersionedAnswerOutBoundary) {
+        this.fetchVersionedAnswerOutBoundary = fetchVersionedAnswerOutBoundary;
+    }
 }

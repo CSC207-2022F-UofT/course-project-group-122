@@ -9,4 +9,6 @@ public class FetchVersionedAnswerController {
     public void setFetchVersionedAnswerInputBoundary(FetchVersionedAnswerInputBoundary fetchVersionedAnswerInputBoundary) {
         this.fetchVersionedAnswerInputBoundary = fetchVersionedAnswerInputBoundary;
     }
+
+
 }

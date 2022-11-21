@@ -1,9 +1,8 @@
-package use_cases.questionnaire_screen_data_request.questionnaire_screen_data_request;
+package use_cases.questionnaire_screen_data_request;
 
 import entities.Question;
 import entities.Questionnaire;
 import use_cases.fetch_id.FetchId;
-import use_cases.questionnaire_screen_data_request.CheckQuestionnaireInputData;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +32,7 @@ public class FetchQuestionnaireScreenInteractor implements FetchQuestionnaireScr
         }
     }
 
-    public void setPresenter(FetchQuestionnaireScreenPresenter presenter) {
+    public void setFetchQuestionnaireScreenPresenter(FetchQuestionnaireScreenPresenter presenter) {
         this.presenter = presenter;
     }
 }

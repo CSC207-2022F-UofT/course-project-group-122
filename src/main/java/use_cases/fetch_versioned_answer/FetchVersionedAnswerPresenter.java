@@ -9,5 +9,9 @@ public class FetchVersionedAnswerPresenter implements FetchVersionedAnswerOutBou
         displayVersionedAnswerInterface.presentVersionedAnswersOfQuestionnaireScreen(data);
 
     }
+
+    public void setDisplayVersionedAnswerInterface(DisplayVersionedAnswerInterface displayVersionedAnswerInterface) {
+        this.displayVersionedAnswerInterface = displayVersionedAnswerInterface;
+    }
 }
 
