@@ -14,7 +14,6 @@ import user_interface_layer.screens.screen_drivers.*;
 import org.jetbrains.annotations.NotNull;
 import use_cases.add_potential_participant_study_data_request.AddPotentialParticipantStudyDataRequestController;
 import use_cases.add_researcher_to_study_data_request.AddResearcherStudyDataRequestController;
-import use_cases.answer_questionnaire_data_request.AnswerQuestionnaireDataRequestController;
 import use_cases.create_questionnaire.CreateQuestionnaireController;
 import use_cases.create_study.CreateStudyController;
 import use_cases.download_study_data.DownlaodCurrentDataController;
