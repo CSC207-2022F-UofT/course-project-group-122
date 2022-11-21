@@ -8,7 +8,7 @@ public class FetchStudyDataController {
     /**
      * The interactor for this use case.
      */
-    private FetchStudyDataInputBoundary fetchStudyDataInteractor = new FetchStudyDataInteractor();
+    private FetchStudyDataInputBoundary fetchStudyDataInteractor;
 
 
     /**
@@ -18,5 +18,14 @@ public class FetchStudyDataController {
      */
     public void fetchStudyData(int userId) {
         fetchStudyDataInteractor.fetchStudyData(userId);
+    }
+
+
+    /**
+     * Sets the interactor for this use case.
+     * @param fetchStudyDataInteractor  The interactor for this use case.
+     */
+    public void setFetchStudyDataInteractor(FetchStudyDataInputBoundary fetchStudyDataInteractor) {
+        this.fetchStudyDataInteractor = fetchStudyDataInteractor;
     }
 }

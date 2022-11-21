@@ -1,15 +1,20 @@
 package use_cases.fetch_participant_study_data;
 
 import user_interface_layer.presenter_manager.display_participant_study.DisplayParticipantStudyDataInterface;
-import entities.Participant;
-import entities.User;
+
+
+import java.util.Objects;
+
 
 public class FetchParticipantStudyDataPresenter implements FetchParticipantStudyDataOutputBoundary {
 
     /**
-     * The view model used to control the view
+     * DisplayParticipantStudyDataInterface is the interface that the presenter uses to display the participant
+     * home screen for the participant or researcher.
      */
-    private DisplayParticipantStudyDataInterface screenSetter;
+
+    public DisplayParticipantStudyDataInterface displayParticipantStudyData;
+
 
 
     /**
@@ -18,20 +23,25 @@ public class FetchParticipantStudyDataPresenter implements FetchParticipantStudy
      * @param response The response model containing the study data.
      */
     @Override
-    public void displayParticipantStudyData(FetchParticipantStudyDataResponseModel response, User user) {
-        if (user instanceof Participant) {
-            screenSetter.presentParticipantHomeScreenForParticipant(response);
+    public void displayParticipantStudyData(FetchParticipantStudyDataResponseModel response, int userId,
+                                            String userType) {
+        if (Objects.equals(userType, "Participant")) {
+            displayParticipantStudyData.presentParticipantHomeScreenForParticipant(response);
+        } else if (Objects.equals(userType, "Researcher")) {
+            displayParticipantStudyData.presentParticipantHomeScreenForResearcher(response);
         } else {
-            screenSetter.presentParticipantHomeScreenForResearcher(response);
+            throw new IllegalArgumentException("Invalid user type.");
+
         }
     }
 
     /**
-     * Sets the view model used to control the view.
+     * Sets the display participant study data interface.
      *
-     * @param screenSetter The view model used to control the view.
+     * @param displayParticipantStudyData The display participant study data interface.
      */
-    public void setViewModel(DisplayParticipantStudyDataInterface screenSetter) {
-        this.screenSetter = screenSetter;
+    public void setDisplayParticipantStudyData(DisplayParticipantStudyDataInterface displayParticipantStudyData) {
+        this.displayParticipantStudyData = displayParticipantStudyData;
+
     }
 }
