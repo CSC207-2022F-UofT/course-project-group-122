@@ -1,4 +1,4 @@
-package use_cases;
+package use_cases.serializer;
 
 import org.jetbrains.annotations.NotNull;
 
