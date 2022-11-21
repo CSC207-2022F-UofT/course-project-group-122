@@ -1,6 +1,6 @@
 package user_interface_layer.screens.check_versioned_answer;
 
-import use_cases.fetch_questionnaire_versioned_answer_viewing.CheckQuestionnaireVersionedAnswerInputData;
+import use_cases.fetch_versioned_answer.FetchVersionedAnswerResponseModel;
 import user_interface_layer.SetScreenToCenter;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CheckVersionedAnswer extends JFrame{
 
-    public CheckVersionedAnswer(CheckQuestionnaireVersionedAnswerInputData data) {
+    public CheckVersionedAnswer(FetchVersionedAnswerResponseModel data) {
         JLabel title = new JLabel("Questionnaire " + data.getQuestionnaireID(), SwingConstants.CENTER);
 
         JPanel answersPanel = new JPanel();
@@ -43,7 +43,7 @@ public class CheckVersionedAnswer extends JFrame{
         test.add(new String[]{"What is your favorite color?","jrgsjgjgjkghjghsjkfdghskjfhgsjkfghsjkfghsfghskfjghsfjghsjf"});
 
 
-        CheckQuestionnaireVersionedAnswerInputData data = new CheckQuestionnaireVersionedAnswerInputData(34, 23, test);
+        FetchVersionedAnswerResponseModel data = new FetchVersionedAnswerResponseModel(34, 23, test);
         CheckVersionedAnswer screen = new CheckVersionedAnswer(data);
         screen.setVisible(true);
     }

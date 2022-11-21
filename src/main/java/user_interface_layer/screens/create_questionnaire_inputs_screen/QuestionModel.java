@@ -5,7 +5,7 @@ import java.util.List;
 
 public class QuestionModel {
     private String type;
-    private String question;
+    private String content;
     private String variable;
 
     private List<String> MCoptions = new ArrayList<>();
@@ -14,21 +14,21 @@ public class QuestionModel {
     private String topLabel = "";
     private int scale = 0;
 
-    public QuestionModel(String question, String variable){
+    public QuestionModel(String content, String variable){
         this.type = "Text";
-        this.question = question;
+        this.content = content;
         this.variable = variable;
     }
-    public QuestionModel(String question, String variable, List<String> MCoptions){
+    public QuestionModel(String content, String variable, List<String> MCoptions){
         this.type = "MC";
-        this.question = question;
+        this.content = content;
         this.variable = variable;
         this.MCoptions = MCoptions;
     }
 
-    public QuestionModel(String question, String variable, String bottomLabel, String topLabel, int scale){
+    public QuestionModel(String content, String variable, String bottomLabel, String topLabel, int scale){
         this.type = "Scale";
-        this.question = question;
+        this.content = content;
         this.variable = variable;
         this.bottomLabel = bottomLabel;
         this.topLabel = topLabel;
@@ -39,8 +39,8 @@ public class QuestionModel {
         return type;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getContent() {
+        return content;
     }
 
     public String getVariable() {

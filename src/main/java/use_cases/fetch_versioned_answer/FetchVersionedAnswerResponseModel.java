@@ -1,4 +1,4 @@
-package use_cases.fetch_questionnaire_versioned_answer_viewing;
+package use_cases.fetch_versioned_answer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
  * This class is used to pass data to the CheckQuestionnaireVersionedAnswerScreen.
  * Through CheckQuestionnaireVersionedAnswer.
  */
-public class CheckQuestionnaireVersionedAnswerInputData {
+public class FetchVersionedAnswerResponseModel {
     /**
      * The study ID.
      */
@@ -26,9 +26,9 @@ public class CheckQuestionnaireVersionedAnswerInputData {
     /**
      * The constructor of the class.
      */
-    public CheckQuestionnaireVersionedAnswerInputData(int studyID,
-                                                      int questionnaireID,
-                                                      List<String[]> questionAnswers) {
+    public FetchVersionedAnswerResponseModel(int studyID,
+                                             int questionnaireID,
+                                             List<String[]> questionAnswers) {
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
         this.versionedAnswers = questionAnswers;
