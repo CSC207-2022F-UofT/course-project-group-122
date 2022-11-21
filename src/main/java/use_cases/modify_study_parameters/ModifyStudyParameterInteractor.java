@@ -30,7 +30,7 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         }
         assert eligibilityQuestionnaire != null;
         List<String> vaiableNames = eligibilityQuestionnaire.getVariableNames();
-        modifyStudyParameterPresenter.displayPotentialStratificationVariables(vaiableNames);
+        modifyStudyParameterPresenter.displayPotentialStratificationVariables(studyID, vaiableNames);
     }
 
 

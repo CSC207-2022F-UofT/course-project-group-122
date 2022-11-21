@@ -38,7 +38,8 @@ public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutput
      * @param variableNames The list of potential stratification variables for the study.
      */
     @Override
-    public void displayPotentialStratificationVariables(List<String> variableNames) {
+    public void displayPotentialStratificationVariables(int studyId, List<String> variableNames) {
+        displayStratificationInterface.presentStratificationVarScreen(studyId, variableNames);
 
     }
 
