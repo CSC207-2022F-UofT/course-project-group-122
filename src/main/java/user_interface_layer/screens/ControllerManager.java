@@ -416,6 +416,6 @@ public class ControllerManager {
     }
 
     public void researcherHomeScreenDriver(int researcherId) {
-        registerScreenDriver.requestRegisterScreen(screenManager,this);
+        fetchStudyDataController.fetchStudyData(researcherId);
     }
 }
