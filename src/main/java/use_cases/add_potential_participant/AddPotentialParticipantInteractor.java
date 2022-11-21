@@ -25,8 +25,7 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
             assignEligibilityQuestions(participant, study);
             addPotentialParticipantPresenter.presentSuccess(participantID, studyId, userId);
         } else {
-            addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant " + participantID +
-                    " cannot be added to study " + studyId + " as a potential participant.");
+            addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant cannot be added to study.");
         }
     }
 
@@ -41,11 +40,12 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
         Participant participant = (Participant) FetchId.getUser(participantID);
         Study study = FetchId.getStudy(studyId);
         if (participant == null) {
-            addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant does not exist.");
+            addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant " +
+                    "does not exist.");
         } else if (study == null) {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Study does not exist.");
+        } else {
         }
-        assert participant != null;
         if (participant.getStudy() != null) {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant is already in a study.");
         } else {
