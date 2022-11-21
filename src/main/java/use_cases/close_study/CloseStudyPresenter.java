@@ -2,7 +2,7 @@ package use_cases.close_study;
 
 import entities.Study;
 import org.jetbrains.annotations.NotNull;
-import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class CloseStudyPresenter implements CloseStudyOutputBoundary {
 
