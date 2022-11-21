@@ -133,7 +133,7 @@ public class MultipleChoiceQuestion extends Question {
      * @return The choices of this MultipleChoiceQuestion.
      */
     public List<String> getChoices() {
-        return choices;
+        return new ArrayList<>(choices);
     }
 
 
@@ -142,7 +142,7 @@ public class MultipleChoiceQuestion extends Question {
      */
     @Override
     public String getQuestionType() {
-        return "MCQ";
+        return "MC";
     }
 
 
