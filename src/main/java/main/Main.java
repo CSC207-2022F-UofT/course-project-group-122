@@ -155,6 +155,7 @@ public class Main {
         //TODO: inject general failure / success presenters
         //TODO: inject show stratification variables presenter
         //TODO: inject fetch study log controller
+        //TODO: inject display stratification
 
         //TODO: participant_answer_questionnaire use case
 
