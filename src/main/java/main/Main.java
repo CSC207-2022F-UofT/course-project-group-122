@@ -143,6 +143,7 @@ public class Main {
         fetchStudyLogController.setFetchStudyLogInteractor(fetchStudyLogInteractor);
         fetchStudyLogInteractor.setFetchStudyLogPresenter(fetchStudyLogPresenter);
         //TODO: inject DisplayResearcherStudyLog
+        //TODO: inject userPool
 
         //Modify study parameters use case
         ModifyStudyParameterController modifyStudyParametersController = new ModifyStudyParameterController();

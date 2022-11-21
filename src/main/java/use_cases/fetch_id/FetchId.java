@@ -145,4 +145,15 @@ public class FetchId {
         studyPool.addStudy(study);
         return study.getId();
     }
+
+
+    /**
+     * Add the user to the user pool and return the id of the user.
+     * @param user  The user to be added.
+     * @return      The id of the user.
+     */
+    public static int addUser(User user) {
+        userPool.addUser(user);
+        return user.getId();
+    }
 }
