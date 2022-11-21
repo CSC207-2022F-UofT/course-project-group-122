@@ -82,6 +82,7 @@ import user_interface_layer.presenter_manager.display_success_message.DisplaySuc
 import user_interface_layer.presenter_manager.display_versioned_answer.DisplayVersionedAnswer;
 import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
+import user_interface_layer.screens.register_screens.UserRegisterScreen;
 
 import java.util.HashMap;
 
@@ -405,7 +406,8 @@ public class Main {
         controllerManager.setGetTargetGroupsController(getTargetGroupsController);
         controllerManager.setFetchQuestionnaireScreenController(fetchQuestionnaireScreenController);
 
-
+        UserRegisterScreen userRegisterScreen = new UserRegisterScreen(controllerManager);
+        userRegisterScreen.setVisible(true);
 
 
 
