@@ -2,7 +2,9 @@ package use_cases.fetch_participant_study_data;
 
 import user_interface_layer.presenter_manager.display_participant_study.DisplayParticipantStudyDataInterface;
 
+
 import java.util.Objects;
+
 
 public class FetchParticipantStudyDataPresenter implements FetchParticipantStudyDataOutputBoundary {
 
@@ -10,7 +12,9 @@ public class FetchParticipantStudyDataPresenter implements FetchParticipantStudy
      * DisplayParticipantStudyDataInterface is the interface that the presenter uses to display the participant
      * home screen for the participant or researcher.
      */
+
     public DisplayParticipantStudyDataInterface displayParticipantStudyData;
+
 
 
     /**
@@ -27,6 +31,7 @@ public class FetchParticipantStudyDataPresenter implements FetchParticipantStudy
             displayParticipantStudyData.presentParticipantHomeScreenForResearcher(response);
         } else {
             throw new IllegalArgumentException("Invalid user type.");
+
         }
     }
 
@@ -37,5 +42,6 @@ public class FetchParticipantStudyDataPresenter implements FetchParticipantStudy
      */
     public void setDisplayParticipantStudyData(DisplayParticipantStudyDataInterface displayParticipantStudyData) {
         this.displayParticipantStudyData = displayParticipantStudyData;
+
     }
 }

@@ -6,7 +6,6 @@ import user_interface_layer.presenter_manager.display_researcher_study.DisplayRe
 
 public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
 
-
     /**
      * The controller used to fetch the participant study data. The controller is used when the user is a participant
      * and this participant is associated with a study. In this case, the presenter will call the
@@ -46,6 +45,7 @@ public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
     @Override
     public void displayNoStudyAssociated(int participantId, String participantNames) {
         displayParticipantNoStudy.presentParticipantNoStudyScreen(participantId, participantNames);
+
     }
 
 
@@ -58,7 +58,9 @@ public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
      */
     @Override
     public void displayAllStudyData(FetchStudyDataResponseModel response) {
+
         displayResearcherStudyData.presentResearcherHomeScreen(response);
+
     }
 
 
@@ -68,8 +70,8 @@ public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
     public void setFetchParticipantStudyDataController(FetchParticipantStudyDataController
                                                                fetchParticipantStudyDataController) {
         this.fetchParticipantStudyDataController = fetchParticipantStudyDataController;
-    }
 
+    }
 
     /**
      * This method sets the displayParticipantNoStudy to the given displayParticipantNoStudy.

@@ -12,7 +12,6 @@ public class UserLogOutController {
         userLogOutInteractor.logOut();
     }
 
-
     /**
      * Set the interactor
      * @param userLogOutInteractor the interactor

@@ -27,10 +27,12 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
         List<Questionnaire> completedQuestionnaires = participant.getCompletedQuestionnaires();
         String eligibilityQuestionnaireAnswerStatus = getEligibilityQuestionnaireAnswerStatus(participant);
         List<Answer> questionnaireAnswers = participant.getQuestionnaireAnswers();
-        FetchParticipantStudyDataResponseModel responseModel = new FetchParticipantStudyDataResponseModel(participant);
+        FetchParticipantStudyDataResponseModel responseModel = new FetchParticipantStudyDataResponseModel(participant,
+                user);
         responseModel.setStudyData(study, studyStatus, group, participantStatus);
         responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire, eligibilityQuestionnaireAnswerStatus,
                 participant);
+
         responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers, participant);
         if (user instanceof Participant) {
             fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
@@ -39,6 +41,7 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
             fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
                     "Researcher");
         }
+
     }
 
     /**

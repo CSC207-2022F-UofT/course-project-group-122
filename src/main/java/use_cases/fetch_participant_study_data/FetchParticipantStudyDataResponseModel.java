@@ -13,6 +13,10 @@ import java.util.Map;
  */
 public class FetchParticipantStudyDataResponseModel {
 
+    /**
+     * The user's ID.
+     */
+    private int userId;
 
     /**
      * The ID of the participant.
@@ -109,9 +113,10 @@ public class FetchParticipantStudyDataResponseModel {
      * Creates a FetchParticipantStudyDataResponseModel.
      * @param participant   The participant to fetch the study data for.
      */
-    public FetchParticipantStudyDataResponseModel(@NotNull Participant participant) {
+    public FetchParticipantStudyDataResponseModel(@NotNull Participant participant, User user) {
         this.participantId = participant.getId();
         this.participantName = participant.getName();
+        this.userId = user.getId();
     }
 
 
@@ -342,5 +347,9 @@ public class FetchParticipantStudyDataResponseModel {
 
     public Map<Integer, List<String[]>> getCompletedQuestionnaireAnswerHistory() {
         return completedQuestionnaireAnswerHistory;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 }
