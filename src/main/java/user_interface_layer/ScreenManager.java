@@ -5,6 +5,7 @@ import user_interface_layer.screens.answer_questionnaire.ParticipantAnswerQuesti
 import user_interface_layer.screens.answer_questionnaire.UserAnswerQuestionnairesScreen;
 import user_interface_layer.screens.check_questionnaire_screen.CheckQuestionnaireScreen;
 import user_interface_layer.screens.check_versioned_answer.CheckVersionedAnswer;
+import user_interface_layer.screens.choose_groups_to_assign.ChooseGroupToAssignScreen;
 import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationScreen;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.CreateQuestionnaireInputsScreen;
 import user_interface_layer.screens.create_study_inputs_screen.CreateStudyInputScreen;
@@ -45,6 +46,10 @@ public class ScreenManager {
     StudyDataLogScreen studyDataLogScreen;
     ShowResearcherInfoScreen showResearcherInfoScreen;
     ShowParticipantInfoScreen showParticipantInfoScreen;
+
+
+    private ChooseGroupToAssignScreen chooseGroupToAssignScreen;
+
     public ScreenManager() {
     }
 
@@ -153,5 +158,9 @@ public class ScreenManager {
 
     public void setShowParticipantInfoScreen(ShowParticipantInfoScreen screen) {
         this.showParticipantInfoScreen = screen;
+    }
+
+    public void setChooseGroupToAssignScreen(ChooseGroupToAssignScreen screen) {
+        this.chooseGroupToAssignScreen = screen;
     }
 }

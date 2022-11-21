@@ -1,8 +1,9 @@
 package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
+import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_log.FetchStudyLogResponseModel;
 import user_interface_layer.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,14 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudyLogParticipantsPanel extends JPanel {
-    public StudyLogParticipantsPanel(StudyDataLogInputData data, ControllerManager controllerManager) {
+    public StudyLogParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        SetTableModel setTableModel = new SetTableModel(data.getUserTableHeader());
+        String[] userTableHeader = {"ID", "Username", "Name"};
+        SetTableModel setTableModel = new SetTableModel(userTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
 
-        java.util.List<Integer> keys = new ArrayList<>(data.getParticipantsData().keySet());
-        List<String[]> values = new ArrayList<>(data.getParticipantsData().values());
+        java.util.List<Integer> keys = new ArrayList<>(data.getEnrolledParticipants().keySet());
+        List<String[]> values = new ArrayList<>(data.getEnrolledParticipants().values());
 
         for (String[] row : values) {
             model.addRow(row);
@@ -36,7 +38,7 @@ public class StudyLogParticipantsPanel extends JPanel {
             } else {
                 int participantId = keys.get(selectedRow);
                 System.out.println(participantId);
-                controllerManager.researcherRequestParticipantScreenRequest(data.getResearchId(),participantId,data.getStudyId());
+                controllerManager.researcherRequestParticipantScreenRequest(data.getResearcherId(),participantId,data.getStudyId());
             }
         });
 

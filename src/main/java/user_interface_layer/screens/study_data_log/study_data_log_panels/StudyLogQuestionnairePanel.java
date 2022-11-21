@@ -1,9 +1,10 @@
 package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
+import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_log.FetchStudyLogResponseModel;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,21 +16,22 @@ import java.util.List;
 
 public class StudyLogQuestionnairePanel extends JPanel {
 
-    public StudyLogQuestionnairePanel(StudyDataLogInputData data, ControllerManager controllerManager) {
+    public StudyLogQuestionnairePanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        SetTableModel setEligibilityTableModel = new SetTableModel(data.getQuestionnairesTableHeader());
+        String[] questionnairesTableHeader = {"Questionnaire ID", "Questionnaire Name", "Published Status", "Closed Status"};
+        SetTableModel setEligibilityTableModel = new SetTableModel(questionnairesTableHeader);
         DefaultTableModel eligibilityModel = setEligibilityTableModel.getModel();
         JTable eligibilityTable = setEligibilityTableModel.getTable();
-        eligibilityModel.addRow(data.getEligibilityQuestionnaire());
+        eligibilityModel.addRow(data.getEligibilityQuestionnaireContent());
         JScrollPane eligibilityScrollPane = new JScrollPane();
         eligibilityScrollPane.setViewportView(eligibilityTable);
 
 
-        SetTableModel setTableModel = new SetTableModel(data.getQuestionnairesTableHeader());
+        SetTableModel setTableModel = new SetTableModel(questionnairesTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
-        List<Integer> keys = new ArrayList<>(data.getQuestionnairesData().keySet());
-        List<String[]> values = new ArrayList<>(data.getQuestionnairesData().values());
+        List<Integer> keys = new ArrayList<>(data.getQuestionnaires().keySet());
+        List<String[]> values = new ArrayList<>(data.getQuestionnaires().values());
         for (String[] row : values) {
             model.addRow(row);
         }
@@ -52,7 +54,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
 
         JButton checkEligibility = new JButton("Check Eligibility Questionnaire");
         checkEligibility.addActionListener(e -> {
-            controllerManager.researcherQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId(), data.getEligibilityQuestionnaireId());
+            controllerManager.researcherQuestionnaireScreenRequest(data.getResearcherId(), data.getStudyId(), data.getEligibilityQuestionnaireId());
         });
 
         JButton check = new JButton("Check Questionnaire");
@@ -62,12 +64,14 @@ public class StudyLogQuestionnairePanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check");
             } else {
                 int questionnaireId = keys.get(selectedRow);
-                controllerManager.researcherQuestionnaireScreenRequest(data.getResearchId(),data.getStudyId(),questionnaireId);
+                controllerManager.researcherQuestionnaireScreenRequest(data.getResearcherId(), data.getStudyId(), questionnaireId);
             }
         });
 
         JButton addQuestionnaire = new JButton("Add Questionnaire");
-        addQuestionnaire.addActionListener(e -> controllerManager.researcherAddQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId(), data.getGroups()));
+        List<String> groups = List.of(data.getGroupAssignments());
+        addQuestionnaire.addActionListener(e -> controllerManager.researcherAddQuestionnaireScreenRequest(
+                data.getResearcherId(), data.getStudyId(), groups));
 
         JButton editQuestionnaire = new JButton("Edit Questionnaire");
         editQuestionnaire.addActionListener(e -> {
@@ -81,7 +85,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
                     JOptionPane.showMessageDialog(null, "Cannot edit a published or closed questionnaire");
                 } else {
                     int questionnaireId = keys.get(selectedRow);
-                    controllerManager.researcherEditQuestionnaireScreenRequest(data.getResearchId(), data.getStudyId(), questionnaireId);
+                    controllerManager.researcherEditQuestionnaireScreenRequest(data.getResearcherId(), data.getStudyId(), questionnaireId);
                 }
             }
         });

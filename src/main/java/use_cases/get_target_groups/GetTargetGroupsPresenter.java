@@ -1,10 +1,17 @@
 package use_cases.get_target_groups;
 
+import user_interface_layer.presenter_manager.display_choose_groups.DisplayGroupsToAssignInterface;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 
 import java.util.Map;
 
 public class GetTargetGroupsPresenter implements GetTargetGroupsOutputBoundary {
+
+
+    /**
+     * The interface to display the groups to assign
+     */
+    DisplayGroupsToAssignInterface displayGroupsToAssignInterface;
 
     /**
      * The display failure message interface
@@ -27,8 +34,10 @@ public class GetTargetGroupsPresenter implements GetTargetGroupsOutputBoundary {
      * @param targetGroupsMap The target groups.
      */
     @Override
-    public void presentTargetGroups(Map<Integer, String> targetGroupsMap) {
-        //TODO: Implement this method to call to the presenter manager to display the target groups.
+    public void presentTargetGroups(Map<Integer, String> targetGroupsMap, Map<Integer, String> allStudyGroups,
+                                    int studyId, int questionnaireId) {
+        displayGroupsToAssignInterface.presentGroupsToAssignScreen(targetGroupsMap, allStudyGroups,
+                studyId, questionnaireId);
     }
 
 
@@ -38,5 +47,14 @@ public class GetTargetGroupsPresenter implements GetTargetGroupsOutputBoundary {
      */
     public void setDisplayFailureMessage(DisplayFailureMessageInterface displayFailureMessage) {
         this.displayFailureMessage = displayFailureMessage;
+    }
+
+
+    /**
+     * Sets the presenter to display the groups to assign.
+     * @param displayGroupsToAssignInterface    The interface to display the groups to assign.
+     */
+    public void setDisplayGroupsToAssignInterface(DisplayGroupsToAssignInterface displayGroupsToAssignInterface) {
+        this.displayGroupsToAssignInterface = displayGroupsToAssignInterface;
     }
 }

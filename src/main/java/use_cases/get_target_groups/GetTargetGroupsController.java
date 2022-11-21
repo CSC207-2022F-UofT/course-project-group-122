@@ -6,7 +6,7 @@ public class GetTargetGroupsController {
 
 
     /**
-     * Gets all target groups of a questionnaire.
+     * Gets all target groups of a questionnaire and all the groups of the study.
      * @param questionnaireId   The id of the questionnaire.
      * @param studyId           The id of the study.
      */

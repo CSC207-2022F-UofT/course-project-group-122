@@ -1,9 +1,10 @@
 package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
+import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_log.FetchStudyLogResponseModel;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,14 +14,15 @@ import java.util.List;
 
 public class StudyLogPotentialParticipantsPanel extends JPanel {
 
-    public StudyLogPotentialParticipantsPanel(StudyDataLogInputData data, ControllerManager controllerManager) {
+    public StudyLogPotentialParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        SetTableModel setTableModel = new SetTableModel(data.getPotentialParticipantsTableHeader());
+        String[] potentialParticipantsTableHeader = {"ID", "Username", "Name", "Eligibility"};
+        SetTableModel setTableModel = new SetTableModel(potentialParticipantsTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
 
-        java.util.List<Integer> keys = new ArrayList<>(data.getPotentialsData().keySet());
-        List<String[]> values = new ArrayList<>(data.getPotentialsData().values());
+        java.util.List<Integer> keys = new ArrayList<>(data.getPotentialParticipants().keySet());
+        List<String[]> values = new ArrayList<>(data.getPotentialParticipants().values());
 
         for (String[] row : values) {
             model.addRow(row);
@@ -85,7 +87,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to check");
             } else {
                 int participantId = keys.get(selectedRow);
-                controllerManager.researcherRequestParticipantScreenRequest(data.getResearchId(), participantId, data.getStudyId());
+                controllerManager.researcherRequestParticipantScreenRequest(data.getResearcherId(), participantId, data.getStudyId());
             }
         });
 
