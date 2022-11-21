@@ -1,8 +1,8 @@
 package user_interface_layer.presenter_manager.display_edit_study;
 
+import use_cases.edit_study_data_request.FetchStudyDataForEditingResponseModel;
 import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
-import use_cases.edit_study_data_reque.EditStudyInputData;
 import user_interface_layer.screens.edit_study_screen.EditStudyScreen;
 
 public class DisplayEditStudy implements DisplayEditStudyInterface {
@@ -22,7 +22,7 @@ public class DisplayEditStudy implements DisplayEditStudyInterface {
     }
 
     @Override
-    public void presentEditStudyScreen(EditStudyInputData data) {
+    public void presentEditStudyScreen(FetchStudyDataForEditingResponseModel data) {
         EditStudyScreen screen = new EditStudyScreen(data, controllerManager);
         screenManager.setEditStudyScreen(screen);
         screenManager.updateCurrentScreen(screen);

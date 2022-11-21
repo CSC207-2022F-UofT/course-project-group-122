@@ -20,6 +20,7 @@ import user_interface_layer.screens.researcher_request_participant_screen.Resear
 import user_interface_layer.screens.show_participant_info.ShowParticipantInfoScreen;
 import user_interface_layer.screens.show_researcher_info.ShowResearcherInfoScreen;
 import user_interface_layer.screens.study_data_log.StudyDataLogScreen;
+import user_interface_layer.screens.user_answer_questionnaires_screen.UserAnswerQuestionnairesScreen;
 
 import javax.swing.*;
 
@@ -39,7 +40,7 @@ public class ScreenManager {
     ChooseStratificationScreen chooseStratificationScreen;
     EditQuestionnaireScreen editQuestionnaireScreen;
     EditStudyScreen editStudyScreen;
-    UserAnswerQuestionnairesScreen participantAnswerQuestionnairePanel;
+    UserAnswerQuestionnairesScreen userAnswerQuestionnairesScreen;
     EditQuestionnaireAnswers editQuestionnaireAnswers;
     StudyDataLogScreen studyDataLogScreen;
     ShowResearcherInfoScreen showResearcherInfoScreen;
@@ -88,8 +89,14 @@ public class ScreenManager {
     }
 
     public void updateCurrentScreen(JFrame screen) {
+        if (currentScreen == null) {
             setCurrentScreen(screen);
             getCurrentScreen().setVisible(true);
+        } else {
+            disposeCurrentScreen();
+            setCurrentScreen(screen);
+            getCurrentScreen().setVisible(true);
+        }
     }
     public void disposeCurrentScreen() {
         getCurrentScreen().dispose();
@@ -139,7 +146,7 @@ public class ScreenManager {
         this.editStudyScreen = screen;
     }
     public void setParticipantAnswerQuestionnairePanel(UserAnswerQuestionnairesScreen screen) {
-        this.participantAnswerQuestionnairePanel = screen;
+        this.userAnswerQuestionnairesScreen = screen;
     }
 
     public void setResearcherEditQuestionnaireAnswersScreen(EditQuestionnaireAnswers screen) {

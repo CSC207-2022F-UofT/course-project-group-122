@@ -414,4 +414,8 @@ public class ControllerManager {
     public void setFetchQuestionnaireScreenController(FetchQuestionnaireScreenController fetchQuestionnaireScreenController) {
         this.fetchQuestionnaireScreenController = fetchQuestionnaireScreenController;
     }
+
+    public void researcherHomeScreenDriver(int researcherId) {
+        registerScreenDriver.requestRegisterScreen(screenManager,this);
+    }
 }

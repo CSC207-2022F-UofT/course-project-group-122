@@ -22,8 +22,8 @@ public class UserLogOutPresenter implements UserLogOutOutputBoundary {
     @Override
     public void logOut() {
         String message = "You have successfully logged out";
-        displaySuccessMessage.presentGeneralSuccessMessage(message);
         displayRegisterInterface.displayRegisterScreen();
+        displaySuccessMessage.presentGeneralSuccessMessage(message);
     }
 
 

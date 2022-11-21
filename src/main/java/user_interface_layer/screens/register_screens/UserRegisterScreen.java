@@ -21,7 +21,7 @@ public class UserRegisterScreen extends JFrame {
         panel.add(header);
         JButton signUp = new JButton("Sign Up");
         signUp.addActionListener(e -> {
-            controllerManager.requestLogInScreen();
+            controllerManager.requestSignUpScreen();
                 }
         );
         panel.add(signUp);
@@ -30,7 +30,7 @@ public class UserRegisterScreen extends JFrame {
 
         JButton logIn = new JButton("Log In");
         logIn.addActionListener(e -> {
-            controllerManager.requestSignUpScreen();
+            controllerManager.requestLogInScreen();
                 }
         );
         panel.add(logIn);

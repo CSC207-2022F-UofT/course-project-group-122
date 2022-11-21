@@ -30,7 +30,7 @@ public class StudyDataLogScreen extends JFrame {
         mainPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
-            controllerManager.ResearcherHomeScreenDriver(data.getResearcherId());
+            controllerManager.researcherHomeScreenDriver(data.getResearcherId());
         });
         backPanel.add(backButton);
         header.add(backPanel);
@@ -41,10 +41,10 @@ public class StudyDataLogScreen extends JFrame {
         JMenuItem allData = new JMenuItem("All Data");
         JMenuItem currentData = new JMenuItem("Current Data");
         allData.addActionListener(e -> {
-                    controllerManager.downloadDataButtonActionPerformed("All Data", data.getStudyId());
+//                    controllerManager.downloadDataButtonActionPerformed("All Data", data.getStudyId());
                 });
         currentData.addActionListener(e->{
-                        controllerManager.downloadDataButtonActionPerformed("Current Data", data.getStudyId());
+//                        controllerManager.downloadDataButtonActionPerformed("Current Data", data.getStudyId());
                 });
         popupMenu.add(allData);
         popupMenu.add(currentData);

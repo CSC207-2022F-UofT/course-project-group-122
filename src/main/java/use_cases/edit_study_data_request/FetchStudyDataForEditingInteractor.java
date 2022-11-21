@@ -1,7 +1,6 @@
 package use_cases.edit_study_data_request;
 
 import entities.Study;
-import use_cases.edit_study_data_reque.EditStudyInputData;
 import use_cases.fetch_id.FetchId;
 
 public class FetchStudyDataForEditingInteractor implements FetchStudyDataForEditingInputBoundary {

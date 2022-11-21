@@ -241,8 +241,8 @@ public class EditQuestionnaireScreen extends JFrame {
                 for (QuestionModel question : addedQuestions) {
                     existingQuestions.put(question.getVariable(), new String[]{question.getType(), question.getContent(), question.getOptions()});
                 }
-                controllerManager.editQuestionnaire(data.getStudyID(), data.getQuestionnaireID(),questionnaireName.getText(), questionnaireDescription.getText(), studyGroupNames,existingQuestions);
-                this.dispose();
+//                controllerManager.editQuestionnaire(data.getStudyID(), data.getQuestionnaireID(),questionnaireName.getText(), questionnaireDescription.getText(), studyGroupNames,existingQuestions);
+//                this.dispose();
             }
         });
 

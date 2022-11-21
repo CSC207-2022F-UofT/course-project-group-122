@@ -37,7 +37,7 @@ public class ChooseGroupToAssignScreen extends JFrame {
             if (selectedGroups.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please select at least one group");
             } else {
-                controllerManager.assignQuestionnaireToGroups(studyID, questionnaireID, selectedGroups);
+//                controllerManager.assignQuestionnaireToGroups(studyID, questionnaireID, selectedGroups);
             }});
     }
 }

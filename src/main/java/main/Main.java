@@ -83,6 +83,7 @@ import user_interface_layer.presenter_manager.display_versioned_answer.DisplayVe
 import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
+import user_interface_layer.screens.screen_drivers.*;
 
 import java.util.HashMap;
 
@@ -260,6 +261,7 @@ public class Main {
         UserLoginPresenter userLoginPresenter = new UserLoginPresenter();
         userLoginController.setUserLoginInteractor(userLoginInteractor);
         userLoginInteractor.setUserLoginPresenter(userLoginPresenter);
+        userLoginInteractor.setUserPool(userPool);
 
         //Get target groups use case
         GetTargetGroupsController getTargetGroupsController = new GetTargetGroupsController();
@@ -406,7 +408,24 @@ public class Main {
         controllerManager.setGetTargetGroupsController(getTargetGroupsController);
         controllerManager.setFetchQuestionnaireScreenController(fetchQuestionnaireScreenController);
 
+        SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
+        SetUpSignUpScreenDriver setUpSignUpScreenDriver = new SetUpSignUpScreenDriver();
+        SetUpRegisterScreenDriver setUpRegisterScreenDriver = new SetUpRegisterScreenDriver();
+        SetUpStudyCreationScreenDriver setUpStudyCreationScreenDriver = new SetUpStudyCreationScreenDriver();
+        SetUpQuestionnaireCreationScreenDriver setUpQuestionnaireCreationScreenDriver = new SetUpQuestionnaireCreationScreenDriver();
+        SetQuestionnaireVersionedAnswerDriver setQuestionnaireVersionedAnswerDriver = new SetQuestionnaireVersionedAnswerDriver();
+
+        controllerManager.setLogInScreenDriver(setUpLogInScreenDriver);
+        controllerManager.setSignUpScreenDriver(setUpSignUpScreenDriver);
+        controllerManager.setRegisterScreenDriver(setUpRegisterScreenDriver);
+        controllerManager.setStudyCreationScreenDriver(setUpStudyCreationScreenDriver);
+        controllerManager.setSetUpQuestionnaireCreationScreenDriver(setUpQuestionnaireCreationScreenDriver);
+        controllerManager.setSetQuestionnaireVersionedAnswerDriver(setQuestionnaireVersionedAnswerDriver);
+
+
+
         UserRegisterScreen userRegisterScreen = new UserRegisterScreen(controllerManager);
+        screenManager.setCurrentScreen(userRegisterScreen);
         userRegisterScreen.setVisible(true);
 
 

@@ -75,7 +75,7 @@ public class EditQuestionnaireAnswers extends JFrame {
                 }
             }
             if (answers.size() == questionPanels.size()) {
-                controllerManager.researcherEditAnswerRequest(data.getResearcherID(), data.getQuestionnaireID(), data.getStudyID(),answers, reasonForModification.getText());
+//                controllerManager.researcherEditAnswerRequest(data.getResearcherID(), data.getQuestionnaireID(), data.getStudyID(),answers, reasonForModification.getText());
             }else{
                 JOptionPane.showMessageDialog(null, "Please answer all questions");
             }

@@ -39,6 +39,13 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
     public void fetchParticipantInfo(int participantID, int studyId) {
         Participant participant = (Participant) FetchId.getUser(participantID);
         Study study = FetchId.getStudy(studyId);
+        if (participant == null) {
+            addPotentialParticipantPresenter.presentFailure(participantID, );
+        } else if (study == null) {
+            addPotentialParticipantPresenter.presentStudyNotFound(studyId);
+        } else {
+            addPotentialParticipantPresenter.presentParticipantInfo(participant, study);
+        }
         if (participant.getStudy() != null) {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId);
         } else {

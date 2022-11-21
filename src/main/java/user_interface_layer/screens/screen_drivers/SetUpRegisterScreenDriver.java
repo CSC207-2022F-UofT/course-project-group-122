@@ -9,6 +9,7 @@ public class SetUpRegisterScreenDriver {
     public void requestRegisterScreen(@NotNull ScreenManager screenManager, ControllerManager controllerManager) {
         UserRegisterScreen userRegisterScreen = new UserRegisterScreen(controllerManager);
         screenManager.setUserRegisterScreen(userRegisterScreen);
+        screenManager.disposeCurrentScreen();
         screenManager.updateCurrentScreen(userRegisterScreen);
     }
 }

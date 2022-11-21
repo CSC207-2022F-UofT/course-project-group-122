@@ -45,7 +45,7 @@ public class CompletedQuestionnairePanelForResearcher extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to edit its answer.");
             } else {
                 int questionnaireID = keys.get(selectedRow);
-                controllerManager.editQuestionnaireAnswerDataRequest(data.getUserId(), data.getStudyId(), data.getParticipantId(), questionnaireID);
+//                controllerManager.editQuestionnaireAnswerDataRequest(data.getUserId(), data.getStudyId(), data.getParticipantId(), questionnaireID);
             }
         });
         add(scrollPane, BorderLayout.CENTER);

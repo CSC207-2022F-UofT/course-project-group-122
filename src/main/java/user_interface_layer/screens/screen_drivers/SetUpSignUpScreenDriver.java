@@ -8,6 +8,7 @@ public class SetUpSignUpScreenDriver {
     public void requestSignUpScreen(ScreenManager screenManager, ControllerManager controllerManager) {
         UserSignUpScreen userSignUpScreen = new UserSignUpScreen(controllerManager);
         screenManager.setSignUpScreen(userSignUpScreen);
+        screenManager.disposeCurrentScreen();
         screenManager.updateCurrentScreen(userSignUpScreen);
 
     }
