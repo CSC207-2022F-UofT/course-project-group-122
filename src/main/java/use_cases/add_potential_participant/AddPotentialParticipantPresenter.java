@@ -48,9 +48,9 @@ public class AddPotentialParticipantPresenter implements AddPotentialParticipant
      * @param studyId       The ID of the study to add the participant to.
      */
     @Override
-    public void presentFailure(int participantID, int studyId) {
-        String failureMessage = "Participant " + participantID + " cannot be added to study " + studyId + ". Please " +
-                "check that the participant is not already enrolled in any study.";
+    public void presentFailure(int participantID, int studyId, String message) {
+        String failureMessage = "Participant " + participantID + " could not be added to study " + studyId + " as a " +
+                "potential participant. " + message;
         displayFailureMessage.presentFailureMessage(failureMessage);
     }
 
