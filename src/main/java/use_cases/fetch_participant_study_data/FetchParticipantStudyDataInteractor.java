@@ -8,8 +8,7 @@ import java.util.List;
 
 public class FetchParticipantStudyDataInteractor implements FetchParticipantStudyDataInputBoundary {
 
-    private FetchParticipantStudyDataOutputBoundary fetchParticipantStudyDataPresenter =
-            new FetchParticipantStudyDataPresenter();
+    private FetchParticipantStudyDataOutputBoundary fetchParticipantStudyDataPresenter;
 
     /**
      * Fetches the study data for a participant.
@@ -33,9 +32,16 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
         responseModel.setStudyData(study, studyStatus, group, participantStatus);
         responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire, eligibilityQuestionnaireAnswerStatus,
                 participant);
-        responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers,
-                participant);
-        fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user);
+
+        responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers, participant);
+        if (user instanceof Participant) {
+            fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
+                    "Participant");
+        } else {
+            fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
+                    "Researcher");
+        }
+
     }
 
     /**
@@ -77,15 +83,17 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
     /**
      * Returns the status of the participant.
      * @param participant   The participant to get the status of.
-     * @return The status of the participant. Either "eligible", "enrolled" or "dropped off".
+     * @return The status of the participant. Either "potential", "eligible", "enrolled" or "dropped off".
      */
     private @NotNull String getStatus(@NotNull Participant participant) {
         if (participant.isDroppedOff()) {
             return "dropped off";
         } else if (participant.isEnrolled()) {
             return "enrolled";
-        } else {
+        } else if (participant.isEligible()) {
             return "eligible";
+        } else {
+            return "potential";
         }
     }
 
@@ -95,5 +103,14 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
         } else {
             return "Closed";
         }
+    }
+
+    /**
+     * Sets the presenter for the interactor.
+     * @param fetchParticipantStudyDataPresenter The presenter for the interactor.
+     */
+    public void setFetchParticipantStudyDataPresenter(FetchParticipantStudyDataOutputBoundary
+                                                              fetchParticipantStudyDataPresenter) {
+        this.fetchParticipantStudyDataPresenter = fetchParticipantStudyDataPresenter;
     }
 }

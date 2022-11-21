@@ -300,7 +300,7 @@ public class Participant extends User {
      * - the answer is associated with the participant
      * - the answer is associated with the questionnaire
      */
-    protected boolean addAnswer(@NotNull Answer answer, @NotNull Questionnaire questionnaire) {
+    public boolean addAnswer(@NotNull Answer answer, @NotNull Questionnaire questionnaire) {
         return this.dataManager.addAnswer(answer, questionnaire);
     }
 
