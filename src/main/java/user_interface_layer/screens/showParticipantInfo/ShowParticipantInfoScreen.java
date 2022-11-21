@@ -8,13 +8,13 @@ import java.awt.*;
 
 public class ShowParticipantInfoScreen extends JFrame {
 
-    public ShowParticipantInfoScreen(ShowParticipantInputData data, ControllerManager controllerManager) {
+    public ShowParticipantInfoScreen(int participantId, String name, int studyId, ControllerManager controllerManager) {
     setTitle("Enroll Participant");
     setLayout(new BorderLayout());
-    JLabel participantTag = new JLabel(data.getUserName() + " (" + data.getParticipantId()+") ");
+    JLabel participantTag = new JLabel(name + " (" + participantId+") ");
     JButton enroll = new JButton("Add");
     enroll.addActionListener(e->{
-        controllerManager.addPotentialParticipantToStudyRequest(data.getParticipantId(), data.getStudyId());
+        controllerManager.addPotentialParticipantToStudyRequest(participantId, studyId);
     });
     add(participantTag, BorderLayout.CENTER);
     add(enroll, BorderLayout.SOUTH);

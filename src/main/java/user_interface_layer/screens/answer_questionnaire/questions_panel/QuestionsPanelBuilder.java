@@ -1,4 +1,4 @@
-package user_interface_layer.screens.participant_answer_questionnaire_panel.questions_panel;
+package user_interface_layer.screens.answer_questionnaire.questions_panel;
 
 public class QuestionsPanelBuilder {
     public QuestionsPanelBuilder() {

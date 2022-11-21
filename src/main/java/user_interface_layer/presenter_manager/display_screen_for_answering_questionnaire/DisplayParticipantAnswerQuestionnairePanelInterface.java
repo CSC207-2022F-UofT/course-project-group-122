@@ -1,7 +1,7 @@
 package user_interface_layer.presenter_manager.display_screen_for_answering_questionnaire;
 
-import use_cases.answer_questionnaire_data_request.ParticipantAnswerQuestionnairePanelInputData;
+import use_cases.answer_questionnaire_data_request.UserAnswerQuestionnairePanelInputData;
 
 public interface DisplayParticipantAnswerQuestionnairePanelInterface {
-    void presentParticipantAnswerQuestionnairePanel(ParticipantAnswerQuestionnairePanelInputData data);
+    void presentParticipantAnswerQuestionnairePanel(UserAnswerQuestionnairePanelInputData data);
 }

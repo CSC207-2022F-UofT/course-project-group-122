@@ -1,8 +1,9 @@
 package user_interface_layer.screens;
 
+import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.assign_questionnaire.AssignQuestionnaireController;
 import use_cases.create_questionnaire.CreateQuestionnaireControllerInputData;
-import use_cases.create_study.CreateStudyInputData;
+import use_cases.create_study.CreateStudyRequestModel;
 import use_cases.edit_questionnaire.EditQuestionnaireControllerInputData;
 import use_cases.edit_study.EditStudyController;
 import use_cases.publish_questionnaire.PublishQuestionnaireController;
@@ -97,6 +98,9 @@ public class ControllerManager {
     ResearcherEditAnswerController researcherEditAnswerController;
     PublishQuestionnaireController publishQuestionnaireController;
     AssignQuestionnaireController assignQuestionnaireController;
+
+
+    AddPotentialParticipantController addPotentialParticipantController;
 
     /////////////////////////// Setting up the controllers and screen drivers ///////////////////////////
     public ControllerManager(ScreenManager screenManager) {
@@ -297,7 +301,7 @@ public class ControllerManager {
     }
 
     public void addPotentialParticipantToStudyRequest(int participantIdInt, int studyId) {
-        addPotentialParticipantStudyDataRequestController.addPotentialParticipantToStudyRequest(participantIdInt, studyId);
+        addPotentialParticipantController.
     }
 
     public void researcherQuestionnaireScreenRequest(int researchId, int studyId, int questionnaireId) {
@@ -351,9 +355,18 @@ public class ControllerManager {
         fetchQuestionnaireVersionedAnswerDriver.fetchQuestionnaireVersionedAnswerData(studyId, questionnaireID, answerID, version);
     }
 
-    public void createStudyController(int researcherID, String studyName, String studyDescription, int targetSize, String studyTypeInput, int groupNum, List<String> groupNames) {
-        CreateStudyInputData createStudyInputData = new CreateStudyInputData(researcherID, studyName, studyDescription, targetSize, studyTypeInput, groupNum, groupNames);
-        createStudyController.createStudy(createStudyInputData);
+    public void createStudyController(int researcherID, String studyName,
+                                      String studyDescription,
+                                      int targetSize,
+                                      String studyTypeInput,
+                                      int groupNum,
+                                      String[] groupNames) {
+        CreateStudyRequestModel data = new CreateStudyRequestModel(researcherID, studyName, studyDescription);
+        data.setStudyTargetSize(targetSize);
+        data.setStudyType(studyTypeInput);
+        data.setNumGroups(groupNum);
+        data.setGroupNames(groupNames);
+        createStudyController.createStudy(data);
     }
 
     public void participantAnswerQuestionnaireRequest(int participantID, int questionnaireID, int studyID, HashMap<String, String[]> answers) {
@@ -410,8 +423,8 @@ public class ControllerManager {
         modifyStudyParametersController.setStratificationVariableRequest(studyId, toString);
     }
 
-    public void publishQuestionnaire(int questionnaireID) {
-        publishQuestionnaireController.publishQuestionnaire(questionnaireID);
+    public void publishQuestionnaire(int questionnaireID, int studyID) {
+        publishQuestionnaireController.publishQuestionnaire(questionnaireID, studyID);
 
     }
 
@@ -434,6 +447,7 @@ public class ControllerManager {
     }
 
     public void fetchParticipant(int participantIdInt, int studyId) {
+        addPotentialParticipantController.
     }
 
     public void fetchResearcher(int researcherIdInt, int studyId) {

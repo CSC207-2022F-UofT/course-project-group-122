@@ -1,21 +1,22 @@
 package user_interface_layer;
 
+import user_interface_layer.screens.all_versions_answer.AllVersionsScreen;
+import user_interface_layer.screens.answer_questionnaire.ParticipantAnswerQuestionnairePanel;
+import user_interface_layer.screens.answer_questionnaire.UserAnswerQuestionnairesScreen;
 import user_interface_layer.screens.check_questionnaire_screen.CheckQuestionnaireScreen;
 import user_interface_layer.screens.check_versioned_answer.CheckVersionedAnswer;
 import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationScreen;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.CreateQuestionnaireInputsScreen;
 import user_interface_layer.screens.create_study_inputs_screen.CreateStudyInputScreen;
 import user_interface_layer.screens.edit_questionnaire.EditQuestionnaireScreen;
+import user_interface_layer.screens.edit_questionnaire_answers.EditQuestionnaireAnswers;
 import user_interface_layer.screens.edit_study_screen.EditStudyScreen;
-import user_interface_layer.screens.participant_answer_questionnaire_panel.ParticipantAnswerQuestionnairePanel;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreen;
 import user_interface_layer.screens.participant_not_enrolled_screen.ParticipantNotEnrolledScreen;
-import user_interface_layer.screens.all_versions_answer.AllVersionsScreen;
-import user_interface_layer.screens.edit_questionnaire_answers.EditQuestionnaireAnswers;
-import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen;
 import user_interface_layer.screens.register_screens.UserLogInScreen;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.register_screens.UserSignUpScreen;
+import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantScreen;
 import user_interface_layer.screens.showParticipantInfo.ShowParticipantInfoScreen;
 import user_interface_layer.screens.showResearcherInfo.ShowResearcherInfoScreen;
@@ -39,7 +40,7 @@ public class ScreenManager {
     ChooseStratificationScreen chooseStratificationScreen;
     EditQuestionnaireScreen editQuestionnaireScreen;
     EditStudyScreen editStudyScreen;
-    ParticipantAnswerQuestionnairePanel participantAnswerQuestionnairePanel;
+    UserAnswerQuestionnairesScreen participantAnswerQuestionnairePanel;
     EditQuestionnaireAnswers editQuestionnaireAnswers;
     StudyDataLogScreen studyDataLogScreen;
     ShowResearcherInfoScreen showResearcherInfoScreen;
@@ -134,7 +135,7 @@ public class ScreenManager {
     public void setEditStudyScreen(EditStudyScreen screen) {
         this.editStudyScreen = screen;
     }
-    public void setParticipantAnswerQuestionnairePanel(ParticipantAnswerQuestionnairePanel screen) {
+    public void setParticipantAnswerQuestionnairePanel(UserAnswerQuestionnairesScreen screen) {
         this.participantAnswerQuestionnairePanel = screen;
     }
 

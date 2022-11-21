@@ -210,7 +210,7 @@ public class EditQuestionnaireScreen extends JFrame {
 
         JButton publishButton = new JButton("Publish");
         publishButton.addActionListener(e->
-                controllerManager.publishQuestionnaire(data.getQuestionnaireID()));
+                controllerManager.publishQuestionnaire(data.getQuestionnaireID(), data.getStudyID()));
 
 
         JButton createQuestionnaireButton = new JButton("Save Questionnaire");
