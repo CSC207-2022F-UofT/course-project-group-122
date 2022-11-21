@@ -9,6 +9,18 @@ public class DisplayResearcherQuestionnaire implements DisplayResearcherQuestion
     ScreenManager screenManager;
     ControllerManager controllerManager;
 
+
+    /**
+     * The constructor of the class.
+     *
+     * @param screenManager         The screen manager.
+     * @param controllerManager     The controller manager.
+     */
+    public DisplayResearcherQuestionnaire(ScreenManager screenManager, ControllerManager controllerManager) {
+        this.screenManager = screenManager;
+        this.controllerManager = controllerManager;
+    }
+
     @Override
     public void presentQuestionnaireScreenForResearcher(CheckQuestionnaireInputData data) {
         CheckQuestionnaireScreen screen = new CheckQuestionnaireScreen(data);

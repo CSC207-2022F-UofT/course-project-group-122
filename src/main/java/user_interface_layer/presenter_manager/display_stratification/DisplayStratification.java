@@ -12,6 +12,19 @@ public class DisplayStratification implements DisplayStratificationInterface {
 
 
     /**
+     * The constructor of the class.
+     *
+     * @param screenManager         The screen manager.
+     * @param controllerManager     The controller manager.
+     */
+    public DisplayStratification(ScreenManager screenManager, ControllerManager controllerManager) {
+        this.screenManager = screenManager;
+        this.controllerManager = controllerManager;
+    }
+
+
+
+    /**
      * Displays the list of potential stratification variables for the study.
      *
      * @param studyId                 The ID of the study.

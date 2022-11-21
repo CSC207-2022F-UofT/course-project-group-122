@@ -12,6 +12,20 @@ import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseM
 public class DisplayParticipantStudy implements DisplayParticipantStudyDataInterface{
     ScreenManager screenManager;
     ControllerManager controllerManager;
+
+
+    /**
+     * The constructor of the class.
+     *
+     * @param screenManager         The screen manager.
+     * @param controllerManager     The controller manager.
+     */
+    public DisplayParticipantStudy(ScreenManager screenManager, ControllerManager controllerManager) {
+        this.screenManager = screenManager;
+        this.controllerManager = controllerManager;
+    }
+
+
     @Override
     public void presentParticipantHomeScreenForParticipant(@NotNull FetchParticipantStudyDataResponseModel response) {
         ParticipantHomeScreenInputData data = new ParticipantHomeScreenInputData(

@@ -10,6 +10,20 @@ public class DisplayRegister implements DisplayRegisterInterface {
 
     ControllerManager controllerManager;
 
+
+    /**
+     * The constructor of the class.
+     *
+     * @param screenManager         The screen manager.
+     * @param controllerManager     The controller manager.
+     */
+    public DisplayRegister(ScreenManager screenManager, ControllerManager controllerManager) {
+        this.screenManager = screenManager;
+        this.controllerManager = controllerManager;
+    }
+
+
+
     /**
      * Presents the register screen.
      */

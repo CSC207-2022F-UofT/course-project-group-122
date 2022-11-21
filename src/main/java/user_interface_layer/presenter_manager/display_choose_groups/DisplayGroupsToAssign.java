@@ -8,8 +8,21 @@ import java.util.Map;
 
 public class DisplayGroupsToAssign implements DisplayGroupsToAssignInterface {
 
+
+
     ScreenManager screenManager;
     ControllerManager controllerManager;
+
+
+    /**
+     * The constructor of the class.
+     * @param screenManager The screen manager.
+     * @param controllerManager The controller manager.
+     */
+    public DisplayGroupsToAssign(ScreenManager screenManager, ControllerManager controllerManager) {
+        this.screenManager = screenManager;
+        this.controllerManager = controllerManager;
+    }
 
     @Override
     public void presentGroupsToAssignScreen(Map<Integer, String> targetGroups, Map<Integer, String> allStudyGroups,
@@ -20,6 +33,5 @@ public class DisplayGroupsToAssign implements DisplayGroupsToAssignInterface {
 
         screenManager.setChooseGroupToAssignScreen(screen);
         screenManager.updateCurrentScreen(screen);
-
     }
 }

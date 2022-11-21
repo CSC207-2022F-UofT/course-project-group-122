@@ -54,6 +54,8 @@ import use_cases.user_log_out.UserLogOutPresenter;
 import use_cases.user_login.UserLoginController;
 import use_cases.user_login.UserLoginInteractor;
 import use_cases.user_login.UserLoginPresenter;
+import user_interface_layer.ScreenManager;
+import user_interface_layer.screens.ControllerManager;
 
 import java.util.HashMap;
 
@@ -245,8 +247,19 @@ public class Main {
         //TODO: inject general failure presenters
 
 
+        //Controller Manager and Screen Manager
+        ScreenManager screenManager = new ScreenManager();
+        ControllerManager controllerManager = new ControllerManager(screenManager);
+
+
+
         // Screens
         //TODO: initialize the user register screen
+
+
+
+        //Presenter Managers
+
 
 
     }

@@ -8,6 +8,19 @@ import user_interface_layer.screens.study_data_log.StudyDataLogScreen;
 public class DisplayResearcherStudyLog implements DisplayResearcherStudyLogInterface {
     ScreenManager screenManager;
     ControllerManager controllerManager;
+
+
+    /**
+     * The constructor of the class.
+     *
+     * @param screenManager         The screen manager.
+     * @param controllerManager     The controller manager.
+     */
+    public DisplayResearcherStudyLog(ScreenManager screenManager, ControllerManager controllerManager) {
+        this.screenManager = screenManager;
+        this.controllerManager = controllerManager;
+    }
+
     @Override
     public void presentResearcherStudyLogScreen(FetchStudyLogResponseModel data) {
         StudyDataLogScreen screen = new StudyDataLogScreen(data, controllerManager);

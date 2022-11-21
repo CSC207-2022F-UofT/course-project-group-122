@@ -9,6 +9,20 @@ public class DisplayParticipantNoStudy implements DisplayParticipantNoStudyInter
     ScreenManager screenManager;
 
     ControllerManager controllerManager;
+
+
+    /**
+     * The constructor of the class.
+     *
+     * @param screenManager         The screen manager.
+     * @param controllerManager     The controller manager.
+     */
+    public DisplayParticipantNoStudy(ScreenManager screenManager, ControllerManager controllerManager) {
+        this.screenManager = screenManager;
+        this.controllerManager = controllerManager;
+    }
+
+
     public void presentParticipantNoStudyScreen(int participantID, String participantName) {
         ParticipantNoStudyScreen participantNoStudyScreen = new ParticipantNoStudyScreen(participantID, participantName,
                 controllerManager);

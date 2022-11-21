@@ -1,16 +1,27 @@
 package user_interface_layer.presenter_manager.display_researcher_study;
 
 import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_data.FetchStudyDataResponseModel;
 import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.participant_no_study_screen.ParticipantNoStudyScreen;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreenInputData;
-import use_cases.fetch_study_data.FetchStudyDataResponseModel;
 
 public class DisplayResearcherStudy implements DisplayResearcherStudyDataInterface{
     ScreenManager screenManager;
     ControllerManager controllerManager;
+
+    /**
+     * The constructor of the class.
+     *
+     * @param screenManager     The screen manager.
+     * @param controllerManager The controller manager.
+     */
+    public DisplayResearcherStudy(ScreenManager screenManager, ControllerManager controllerManager) {
+        this.screenManager = screenManager;
+        this.controllerManager = controllerManager;
+    }
+
 
     @Override
     public void presentResearcherHomeScreen(@NotNull FetchStudyDataResponseModel response) {

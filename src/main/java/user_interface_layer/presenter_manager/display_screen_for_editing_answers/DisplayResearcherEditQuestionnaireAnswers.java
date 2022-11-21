@@ -10,6 +10,18 @@ public class DisplayResearcherEditQuestionnaireAnswers implements DisplayResearc
 
     ControllerManager controllerManager;
 
+    /**
+     * The constructor of the class.
+     *
+     * @param screenManager         The screen manager.
+     * @param controllerManager     The controller manager.
+     */
+    public DisplayResearcherEditQuestionnaireAnswers(ScreenManager screenManager, ControllerManager controllerManager) {
+        this.screenManager = screenManager;
+        this.controllerManager = controllerManager;
+    }
+
+
     @Override
     public void presentResearcherEditQuestionnaireAnswersScreen(ResearcherEditQuestionnaireScreenAnswersInputData data) {
         EditQuestionnaireAnswers screen = new EditQuestionnaireAnswers(data, controllerManager);
