@@ -4,6 +4,9 @@ import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_no_study_screen.ParticipantNoStudyScreen;
 
+/**
+ * The displays the screen of a participant who is not in a study.
+ */
 public class DisplayParticipantNoStudy implements DisplayParticipantNoStudyInterface {
 
     ScreenManager screenManager;

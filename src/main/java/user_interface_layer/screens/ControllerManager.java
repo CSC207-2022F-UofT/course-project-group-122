@@ -148,7 +148,8 @@ public class ControllerManager {
     }
 
     public void createQuestionnaireController(int studyID, String questionnaireName, String description, ArrayList<String> groups, int numQuestions, List<QuestionModel> addedQuestions) {
-        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(studyID, questionnaireName, description, groups, numQuestions, addedQuestions);
+        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(studyID, currentUserId, questionnaireName, description, groups, numQuestions, addedQuestions);
+        System.out.println("I am here 1");
         createQuestionnaireController.createQuestionnaire(requestModel);
     }
 

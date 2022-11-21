@@ -24,6 +24,9 @@ import user_interface_layer.screens.user_answer_questionnaires_screen.UserAnswer
 
 import javax.swing.*;
 
+/**
+ * The class that manages all the screens.
+ */
 public class ScreenManager {
     JFrame currentScreen;
     UserRegisterScreen userRegisterScreen;
@@ -94,6 +97,15 @@ public class ScreenManager {
             getCurrentScreen().setVisible(true);
         } else {
             disposeCurrentScreen();
+            setCurrentScreen(screen);
+            getCurrentScreen().setVisible(true);
+        }
+    }
+    public void updateCurrentScreenNoDispose(JFrame screen) {
+        if (currentScreen == null) {
+            setCurrentScreen(screen);
+            getCurrentScreen().setVisible(true);
+        } else {
             setCurrentScreen(screen);
             getCurrentScreen().setVisible(true);
         }

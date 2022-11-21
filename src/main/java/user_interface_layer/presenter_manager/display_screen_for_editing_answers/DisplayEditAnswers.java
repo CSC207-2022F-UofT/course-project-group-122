@@ -5,6 +5,9 @@ import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.edit_questionnaire_answers.EditQuestionnaireAnswers;
 import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQuestionnaireScreenAnswersInputData;
 
+/**
+ * The class that displays the screen where the researcher can edit the answers of a questionnaire.
+ */
 public class DisplayEditAnswers implements DisplayEditAnswersInterface {
     ScreenManager screenManager;
 

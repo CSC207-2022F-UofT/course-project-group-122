@@ -13,6 +13,9 @@ import use_cases.answer_questionnaire.AnswerQuestionnairePresenter;
 import use_cases.close_study.CloseStudyController;
 import use_cases.close_study.CloseStudyInteractor;
 import use_cases.close_study.CloseStudyPresenter;
+import use_cases.create_questionnaire.CreateQuestionnaireController;
+import use_cases.create_questionnaire.CreateQuestionnaireInteractor;
+import use_cases.create_questionnaire.CreateQuestionnairePresenter;
 import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyInteractor;
 import use_cases.create_study.CreateStudyPresenter;
@@ -270,11 +273,16 @@ public class Main {
         getTargetGroupsController.setGetTargetGroupsInteractor(getTargetGroupsInteractor);
         getTargetGroupsInteractor.setGetTargetGroupsPresenter(getTargetGroupsPresenter);
 
+        //Create Questionnaire use case
+        CreateQuestionnaireController createQuestionnaireController = new CreateQuestionnaireController();
+        CreateQuestionnaireInteractor createQuestionnaireInteractor = new CreateQuestionnaireInteractor();
+        CreateQuestionnairePresenter createQuestionnairePresenter = new CreateQuestionnairePresenter();
+        createQuestionnaireController.setInputBoundary(createQuestionnaireInteractor);
+        createQuestionnaireInteractor.setOutputBoundary(createQuestionnairePresenter);
 
         //Controller Manager and Screen Manager
         ScreenManager screenManager = new ScreenManager();
         ControllerManager controllerManager = new ControllerManager(screenManager);
-
 
 
         // Screens
@@ -389,6 +397,10 @@ public class Main {
         fetchQuestionnaireScreenPresenter.setDisplayResearcherQuestionnaireInterface(presenterManagerDisplayResearcherQuestionnaire);
         fetchQuestionnaireScreenPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
 
+        createQuestionnairePresenter.setFetchStudyLogController(fetchStudyLogController);
+        createQuestionnairePresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+        createQuestionnairePresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
+
         // Inject controllers to controller manager
         controllerManager.setAddPotentialParticipantController(addPotentialParticipantController);
         controllerManager.setCloseStudyController(closeStudyController);
@@ -407,6 +419,7 @@ public class Main {
         controllerManager.setUserLoginController(userLoginController);
         controllerManager.setGetTargetGroupsController(getTargetGroupsController);
         controllerManager.setFetchQuestionnaireScreenController(fetchQuestionnaireScreenController);
+        controllerManager.setCreateQuestionnaireController(createQuestionnaireController);
 
         SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
         SetUpSignUpScreenDriver setUpSignUpScreenDriver = new SetUpSignUpScreenDriver();

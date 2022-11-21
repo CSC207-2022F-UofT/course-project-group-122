@@ -2,6 +2,9 @@ package user_interface_layer.screens.all_versions_answer;
 
 import java.util.List;
 
+/**
+ * The information needed to display the screen where the researcher can check all the versions of an answer.
+ */
 public class AllVersionsInputData {
 
     /*

@@ -9,6 +9,10 @@ import user_interface_layer.screens.researcher_request_participant_screen.Resear
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantScreen;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
 
+/**
+ * The displays the screen of a participant who is in a study either for the participant or for the researcher that is
+ * requesting information about the participant.
+ */
 public class DisplayParticipantStudyData implements DisplayParticipantStudyDataInterface{
     ScreenManager screenManager;
     ControllerManager controllerManager;

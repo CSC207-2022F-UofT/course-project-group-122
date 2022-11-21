@@ -1,10 +1,12 @@
 package use_cases.create_questionnaire;
 
 import entities.*;
+import use_cases.create_study.CreateStudyRequestModel;
 import use_cases.fetch_id.FetchId;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +49,7 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
                     assert question != null;
                     ((ScaleQuestion) question).setBottomLabel(options.get(0));
                     ((ScaleQuestion) question).setTopLabel(options.get(1));
-                    ((ScaleQuestion) question).setScaleRange(Integer.parseInt(options.get(3)));
+                    ((ScaleQuestion) question).setScaleRange(Integer.parseInt(options.get(2)));
 
                 }
                 assert question != null;
@@ -57,6 +59,32 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
         } catch (Exception e) {
             outputBoundary.presentFailureScreen(e.getMessage());
         }
+        outputBoundary.presentStudyLogScreen(data.getStudyID(), data.getResearcherID());
         outputBoundary.presentSuccessScreen();
-}}
+
+    }
+
+    public void setOutputBoundary(CreateQuestionnaireOutputBoundary outputBoundary) {
+        this.outputBoundary = outputBoundary;
+    }
+
+    public static void main(String[] args) {
+
+        StudyPool studyPool = new StudyPool(new HashMap<>());
+        FetchId fetchId = new FetchId(new UserPool(new HashMap<>()), studyPool);
+        Study study = new Study("General", "A Study", 4, 4, new String[]{"A", "B", "C", "D"});
+        studyPool.addStudy(study);
+        List<QuestionModel> questions = new ArrayList<>();
+        QuestionModel mcQuestion = new QuestionModel("What is your favourite colour?", "colour", List.of("red", "blue", "green"));
+        QuestionModel scaleQuestion = new QuestionModel("How much do you like this app?", "app", "0", "10", 10);
+        QuestionModel textQuestion = new QuestionModel("What is your name?", "name");
+        questions.add(mcQuestion);
+        questions.add(scaleQuestion);
+        questions.add(textQuestion);
+        CreateQuestionnaireRequestModel data = new CreateQuestionnaireRequestModel(1, 2, "A Questionnaire", "A Questionnaire", List.of("A", "B", "C", "D"), 3, questions);
+        CreateQuestionnaireInteractor interactor = new CreateQuestionnaireInteractor();
+        interactor.createQuestionnaire(data);
+    }
+}
+
 

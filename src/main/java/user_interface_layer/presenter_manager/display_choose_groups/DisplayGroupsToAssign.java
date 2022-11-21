@@ -6,13 +6,14 @@ import user_interface_layer.screens.choose_groups_to_assign.ChooseGroupToAssignS
 
 import java.util.Map;
 
+/**
+ * This class is responsible for displaying the list of groups when the researcher is choosing a group to assign a
+ * questionnaire to.
+ */
 public class DisplayGroupsToAssign implements DisplayGroupsToAssignInterface {
-
-
 
     ScreenManager screenManager;
     ControllerManager controllerManager;
-
 
     /**
      * The constructor of the class.

@@ -7,6 +7,9 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
+/**
+ * A helper class that sets the table model.
+ */
 public class SetTableModel {
     public DefaultTableModel model;
     public JTable table;

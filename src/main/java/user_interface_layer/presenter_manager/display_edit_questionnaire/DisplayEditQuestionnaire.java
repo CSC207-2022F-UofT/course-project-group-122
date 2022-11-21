@@ -5,11 +5,13 @@ import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.edit_questionnaire.EditQuestionnaireScreen;
 import use_cases.edit_questionnaire_screen_data.EditQuestionnaireScreenInputData;
 
+/**
+ * This class is responsible for displaying the edit questionnaire screen.
+ */
+
 public class DisplayEditQuestionnaire implements DisplayEditQuestionnaireInterface {
     ScreenManager screenManager;
     ControllerManager controllerManager;
-
-
     /**
      * The constructor of the class.
      *

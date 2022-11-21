@@ -6,6 +6,9 @@ import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.user_answer_questionnaires_screen.UserAnswerQuestionnairesScreen;
 
+/**
+ * The class that displays the screen where the user can answer a questionnaire.
+ */
 public class DisplayScreenForAnsweringQuestionnaire implements DisplayScreenForAnsweringQuestionnaireInterface {
     ScreenManager screenManager;
     ControllerManager controllerManager;

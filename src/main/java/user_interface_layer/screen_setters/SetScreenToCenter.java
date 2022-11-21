@@ -5,6 +5,9 @@ import java.awt.*;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
+/**
+ * A helper class that sets the screen to the center of the screen.
+ */
 public class SetScreenToCenter{
     public Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
     public SetScreenToCenter(JFrame screen){

@@ -10,6 +10,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * The screen that shows all the versions of an answer.
+ */
 public class AllVersionsScreen extends JFrame {
     public AllVersionsScreen(AllVersionsInputData data, ControllerManager controllerManager) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

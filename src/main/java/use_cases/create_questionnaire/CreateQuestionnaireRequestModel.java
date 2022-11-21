@@ -6,13 +6,14 @@ import java.util.List;
 
 public class CreateQuestionnaireRequestModel {
     int studyID;
+    int researcherID;
     String questionnaireName;
     String questionnaireDescription;
     List<String> groups;
     int numOfQuestions;
     List<QuestionModel> questions;
 
-    public CreateQuestionnaireRequestModel(int studyID, String questionnaireName, String questionnaireDescription, List<String> groups, int numOfQuestions, List<QuestionModel> questions) {
+    public CreateQuestionnaireRequestModel(int studyID, int researcherID, String questionnaireName, String questionnaireDescription, List<String> groups, int numOfQuestions, List<QuestionModel> questions) {
         this.studyID = studyID;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
@@ -43,6 +44,10 @@ public class CreateQuestionnaireRequestModel {
 
     public List<QuestionModel> getQuestions() {
         return questions;
+    }
+
+    public int getResearcherID() {
+        return researcherID;
     }
 }
 

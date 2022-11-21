@@ -6,6 +6,9 @@ import user_interface_layer.screens.choose_stratification_variable.ChooseStratif
 
 import java.util.List;
 
+/**
+ * The class that displays the screen where the researcher can choose a stratification variable.
+ */
 public class DisplayStratification implements DisplayStratificationInterface {
     ScreenManager screenManager;
     ControllerManager controllerManager;

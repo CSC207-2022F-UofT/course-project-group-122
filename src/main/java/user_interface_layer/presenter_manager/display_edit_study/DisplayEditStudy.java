@@ -5,11 +5,13 @@ import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.edit_study_screen.EditStudyScreen;
 
+
+/**
+ * This class is responsible for displaying the edit study screen.
+ */
 public class DisplayEditStudy implements DisplayEditStudyInterface {
     ScreenManager screenManager;
     ControllerManager controllerManager;
-
-
     /**
      * The constructor of the class.
      *

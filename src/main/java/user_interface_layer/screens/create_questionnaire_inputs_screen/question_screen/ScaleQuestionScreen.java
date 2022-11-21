@@ -47,7 +47,7 @@ public class ScaleQuestionScreen extends JFrame {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");
             } else {
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText(), bottomLabel.getText(), topLabel.getText(), scale);
-                model.addRow(new String[]{"Scale",question.getText(), variable.getText(), "bottomLabel.getText()" + scale + "topLabel.getText()"});
+                model.addRow(new String[]{"Scale",question.getText(), variable.getText(), bottomLabel.getText()+ " - " + scale + " - "+ topLabel.getText()});
                 addedQuestions.add(newQuestion);
                 this.dispose();
             }

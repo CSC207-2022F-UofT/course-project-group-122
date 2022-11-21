@@ -1,5 +1,8 @@
 package user_interface_layer.presenter_manager.display_researcher_info;
 
+/**
+ * The interface that the presenter calls to display the researcher info screen.
+ */
 public interface DisplayResearcherInfoInterface {
 
     /**

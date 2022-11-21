@@ -4,6 +4,9 @@ import user_interface_layer.screen_setters.ScreenManager;
 import use_cases.fetch_versioned_answer.FetchVersionedAnswerResponseModel;
 import user_interface_layer.screens.check_versioned_answer.CheckVersionedAnswer;
 
+/**
+ * The class that displays the screen where the researcher can check a specific versioned answer of a questionnaire.
+ */
 public class DisplayVersionedAnswer implements DisplayVersionedAnswerInterface {
     ScreenManager screenManager;
 

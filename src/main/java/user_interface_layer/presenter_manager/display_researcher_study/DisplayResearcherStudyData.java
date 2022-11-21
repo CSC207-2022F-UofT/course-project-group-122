@@ -7,6 +7,9 @@ import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreenInputData;
 
+/**
+ * The class that displays the researcher's study screen where all  the studies are displayed.
+ */
 public class DisplayResearcherStudyData implements DisplayResearcherStudyDataInterface{
     ScreenManager screenManager;
     ControllerManager controllerManager;

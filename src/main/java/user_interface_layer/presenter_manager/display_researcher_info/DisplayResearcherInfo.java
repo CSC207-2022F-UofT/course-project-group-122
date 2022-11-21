@@ -4,6 +4,10 @@ import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.show_researcher_info.ShowResearcherInfoScreen;
 
+/**
+ * This class is responsible for displaying the researcher info screen (a name and a id) when the
+ * researcher inputs an id.
+ */
 public class DisplayResearcherInfo implements DisplayResearcherInfoInterface {
     ScreenManager screenManager;
     ControllerManager controllerManager;
