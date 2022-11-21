@@ -9,8 +9,8 @@ public class PublishQuestionnaireController {
      * Publishes a questionnaire.
      * @param questionnaireID   The ID of the questionnaire to publish.
      */
-    public void publishQuestionnaire(int questionnaireID, int studyId) {
-        publishQuestionnaireInteractor.publishQuestionnaire(questionnaireID, studyId);
+    public void publishQuestionnaire(int questionnaireID, int studyId, int researcherId) {
+        publishQuestionnaireInteractor.publishQuestionnaire(questionnaireID, studyId, researcherId);
     }
 
     /**
