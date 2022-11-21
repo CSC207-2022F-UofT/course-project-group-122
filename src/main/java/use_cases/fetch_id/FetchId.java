@@ -17,8 +17,8 @@ public class FetchId {
     private static StudyPool studyPool;
 
     public FetchId(UserPool userPool, StudyPool studyPool) {
-        this.userPool = userPool;
-        this.studyPool = studyPool;
+        FetchId.userPool = userPool;
+        FetchId.studyPool = studyPool;
     }
 
 
