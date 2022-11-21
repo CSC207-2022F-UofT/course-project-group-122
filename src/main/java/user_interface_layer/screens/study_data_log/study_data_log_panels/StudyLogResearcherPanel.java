@@ -1,9 +1,10 @@
 package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
+import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_log.FetchStudyLogResponseModel;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,14 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudyLogResearcherPanel extends JPanel {
-    public StudyLogResearcherPanel(StudyDataLogInputData data, ControllerManager controllerManager) {
+    public StudyLogResearcherPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        SetTableModel setTableModel = new SetTableModel(data.getUserTableHeader());
+        String[] tableHeaders = {"ID", "Username", "Name"};
+        SetTableModel setTableModel = new SetTableModel(tableHeaders);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
 
-        List<Integer> keys = new ArrayList<>(data.getResearchersData().keySet());
-        List<String[]> values = new ArrayList<>(data.getResearchersData().values());
+        List<Integer> keys = new ArrayList<>(data.getResearchers().keySet());
+        List<String[]> values = new ArrayList<>(data.getResearchers().values());
 
         for (String[] row : values) {
             model.addRow(row);

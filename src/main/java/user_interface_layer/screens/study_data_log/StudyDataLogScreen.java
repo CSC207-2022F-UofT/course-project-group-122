@@ -1,6 +1,7 @@
 package user_interface_layer.screens.study_data_log;
 
-import user_interface_layer.ScreenManager;
+import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_log.FetchStudyLogResponseModel;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.study_data_log.study_data_log_panels.*;
@@ -21,7 +22,7 @@ public class StudyDataLogScreen extends JFrame {
     JPanel questionnairesPanel;
     JPanel questionsPanel;
 
-    public StudyDataLogScreen(StudyDataLogInputData data, ControllerManager controllerManager) {
+    public StudyDataLogScreen(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel backPanel = new JPanel();
         JPanel mainPanel = new JPanel();
@@ -29,7 +30,7 @@ public class StudyDataLogScreen extends JFrame {
         mainPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
-            controllerManager.ResearcherHomeScreenDriver(data.getResearchId());
+            controllerManager.ResearcherHomeScreenDriver(data.getResearcherId());
         });
         backPanel.add(backButton);
         header.add(backPanel);
@@ -80,7 +81,7 @@ public class StudyDataLogScreen extends JFrame {
 //        });
 //        add(dropStudyButton, BorderLayout.SOUTH);
 
-        JLabel userIDLabel = new JLabel(data.getResearcherName() + " (" + data.getResearchId() + ")", SwingConstants.CENTER);
+        JLabel userIDLabel = new JLabel(data.getResearherName() + " (" + data.getResearcherId() + ")", SwingConstants.CENTER);
         mainPanel.add(userIDLabel);
 
         JButton logOutButton = new JButton("Log Out");
@@ -162,11 +163,7 @@ public class StudyDataLogScreen extends JFrame {
         groups.add("The Smart");
         groups.add("The Stupid");
 
-        StudyDataLogInputData data = new StudyDataLogInputData(1,
-                "Researcher 1",
-                4, "Randomized", "Study 234", researchers, potentialParticipants, participants, 6,  eligibility, questionnaires, groups);
-        StudyDataLogScreen screen = new StudyDataLogScreen(data, new ControllerManager(new ScreenManager()));
-        screen.setVisible(true);
+
 
     }
 }

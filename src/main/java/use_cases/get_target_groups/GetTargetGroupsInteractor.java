@@ -32,7 +32,8 @@ public class GetTargetGroupsInteractor implements GetTargetGroupsInputBoundary {
                 int groupNumber = Integer.parseInt(targetGroup);
                 targetGroupsMap.put(groupNumber, studyGroups.get(groupNumber));
             }
-            getTargetGroupsPresenter.presentTargetGroups(targetGroupsMap);
+            getTargetGroupsPresenter.presentTargetGroups(targetGroupsMap, studyGroups,
+            studyId, questionnaireId);
         }
     }
 
