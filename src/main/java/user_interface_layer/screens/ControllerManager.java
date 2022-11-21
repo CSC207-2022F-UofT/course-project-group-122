@@ -18,7 +18,7 @@ import use_cases.edit_study.EditStudyController;
 import use_cases.edit_study_data_request.EditStudyDataRequestController;
 import use_cases.eligibility_checker.EligibilityCheckerController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
-import use_cases.fetch_versioned_answer.FetchVersionedAnswerDataController;
+import use_cases.fetch_versioned_answer.FetchVersionedAnswerController;
 import use_cases.fetch_study_data.FetchStudyDataController;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import use_cases.get_target_groups.GetTargetGroupsController;
@@ -76,7 +76,7 @@ public class ControllerManager {
     GetTargetGroupsController getTargetGroupsController;
     FetchStudyLogController fetchStudyLogController;
     FetchStudyDataController fetchStudyDataController;
-    FetchVersionedAnswerDataController fetchVersionedAnswerDataController;
+    FetchVersionedAnswerController fetchVersionedAnswerDataController;
     FetchParticipantStudyDataController fetchParticipantStudyDataController;
     FetchEditQuestionnaireDataController editQuestionnaireScreenDataController;
     EditQuestionnaireController editQuestionnaireController;
@@ -123,8 +123,8 @@ public class ControllerManager {
         userLoginController.login(username);
     }
 
-    public void fetchVersionedAnswer(int studyId, int questionnaireID, int answerID, int version) {
-        fetchVersionedAnswerDataController.fetchQuestionnaireVersionedAnswerData(studyId, questionnaireID, answerID, version);
+    public void fetchVersionedAnswer(int studyId,int participant, int questionnaireID, int answerID, int version) {
+        fetchVersionedAnswerDataController.fetchVersionedAnswer(studyId, participant, questionnaireID, answerID, version);
     }
 
     public void questionnaireRequestDataForAnswering(int modifier, int participantId1, int studyId, int questionnaireId) {

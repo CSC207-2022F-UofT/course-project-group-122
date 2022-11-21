@@ -34,7 +34,7 @@ public class AllVersionsScreen extends JFrame {
             } else {
                 int answerID = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
                 int version = Integer.parseInt((String) model.getValueAt(selectedRow, 1));
-                controllerManager.fetchVersionedAnswer(data.getStudyId(),data.getQuestionnaireID(),answerID,version);
+                controllerManager.fetchVersionedAnswer(data.getStudyId(),data.getParticipantID(),data.getQuestionnaireID(),answerID,version);
             }
         });
         add(scrollPane, BorderLayout.CENTER);
