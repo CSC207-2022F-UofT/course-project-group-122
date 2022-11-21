@@ -12,7 +12,7 @@ import user_interface_layer.screens.edit_questionnaire.EditQuestionnaireScreen;
 import user_interface_layer.screens.edit_questionnaire_answers.EditQuestionnaireAnswers;
 import user_interface_layer.screens.edit_study_screen.EditStudyScreen;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreen;
-import user_interface_layer.screens.participant_not_enrolled_screen.ParticipantNotEnrolledScreen;
+import user_interface_layer.screens.participant_no_study_screen.ParticipantNoStudyScreen;
 import user_interface_layer.screens.register_screens.UserLogInScreen;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.register_screens.UserSignUpScreen;
@@ -29,7 +29,7 @@ public class ScreenManager {
     UserRegisterScreen userRegisterScreen;
     UserLogInScreen logInScreen;
     UserSignUpScreen signUpScreen;
-    ParticipantNotEnrolledScreen participantNotEnrolledScreen;
+    ParticipantNoStudyScreen participantNoStudyScreen;
     ParticipantHomeScreen participantHomeScreen;
     ResearcherStudyScreen researcherStudiesScreen;
     CreateStudyInputScreen createStudyInputScreen;
@@ -80,8 +80,8 @@ public class ScreenManager {
         this.signUpScreen = signUpScreen;
     }
 
-    public void setParticipantNotEnrolledScreen(ParticipantNotEnrolledScreen screen) {
-        this.participantNotEnrolledScreen = screen;
+    public void setParticipantNoStudyScreen(ParticipantNoStudyScreen screen) {
+        this.participantNoStudyScreen = screen;
     }
 
     public void updateCurrentScreen(JFrame screen) {
