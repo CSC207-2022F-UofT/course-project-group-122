@@ -40,7 +40,7 @@ public class StudyLogResearcherPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a researcher to remove");
             } else {
                 int researcherId = keys.get(selectedRow);
-                controllerManager.removeResearcherFromStudyRequest(researcherId, data.getStudyId());
+                controllerManager.removeResearcherFromStudyRequest(researcherId, data.getStudyId(),data.getResearcherId());
             }
         });
 

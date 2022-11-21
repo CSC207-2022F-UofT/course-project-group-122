@@ -15,7 +15,7 @@ public class FetchQuestionnaireDataForAnswerController {
      * @param participantID The participant ID of the participant that is answering the questionnaire.
      * @param questionnaireId The questionnaire ID of the questionnaire that the participant is answering.
      */
-    public void QuestionnaireRequestData(int modifier, int participantID, int studyId, int questionnaireId) {
+    public void questionnaireRequestData(int modifier, int participantID, int studyId, int questionnaireId) {
         interactor.questionnaireRequestData(modifier, participantID, studyId, questionnaireId);
     }
 

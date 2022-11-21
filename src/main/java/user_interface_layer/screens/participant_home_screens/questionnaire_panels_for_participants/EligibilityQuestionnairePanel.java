@@ -30,7 +30,7 @@ public class EligibilityQuestionnairePanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
             } else {
                 int questionnaireId = Integer.parseInt(model.getValueAt(0, 0).toString());
-                controllerManager.answerEligibilityQuestionnaireRequestData(data.getParticipantId(),questionnaireId);
+                controllerManager.answerEligibilityQuestionnaireRequestData(data.getParticipantId(),questionnaireId, data.getStudyId());
             }
 
         });

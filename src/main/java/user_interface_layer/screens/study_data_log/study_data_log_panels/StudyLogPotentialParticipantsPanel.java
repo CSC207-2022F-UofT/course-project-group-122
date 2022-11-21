@@ -65,7 +65,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to make eligible");
             } else {
                 int participantId = keys.get(selectedRow);
-                controllerManager.makeParticipantEligibleRequest(participantId, data.getStudyId());
+                controllerManager.makeParticipantEligibleRequest(participantId, data.getStudyId(), data.getResearcherId());
             }
         });
 
@@ -76,7 +76,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to enroll");
             } else {
                 int participantId = keys.get(selectedRow);
-                controllerManager.enrollParticipantRequest(participantId, data.getStudyId());
+                controllerManager.enrollParticipantRequest(participantId, data.getStudyId(), data.getResearcherId());
             }
         });
 

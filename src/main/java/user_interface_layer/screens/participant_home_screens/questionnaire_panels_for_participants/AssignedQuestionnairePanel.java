@@ -37,7 +37,7 @@ public AssignedQuestionnairePanel(ParticipantHomeScreenInputData data, Controlle
             if (model.getValueAt(selectedRow, 2).toString().equals("Closed")) {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
             } else {
-                controllerManager.answerQuestionnaireRequestData(data.getParticipantId() ,data.getParticipantId(),data.getStudyId(), keys.get(selectedRow));
+                controllerManager.questionnaireRequestDataForAnswering(data.getParticipantId() ,data.getParticipantId(),data.getStudyId(), keys.get(selectedRow));
             }
 
         }

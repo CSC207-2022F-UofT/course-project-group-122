@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SetUpQuestionnaireCreationScreenDriver {
     public void requestQuestionnaireCreationScreen(@NotNull ScreenManager screenManager, ControllerManager controllerManager, int researchId, int studyId, List<String> groups) {
-        CreateQuestionnaireInputsScreenInputData data = new CreateQuestionnaireInputsScreenInputData(studyId, groups);
+        CreateQuestionnaireInputsScreenInputData data = new CreateQuestionnaireInputsScreenInputData(studyId, groups, researchId);
         CreateQuestionnaireInputsScreen screen = new CreateQuestionnaireInputsScreen(data, controllerManager);
         screenManager.setCreateQuestionnaireInputsScreen(screen);
         screenManager.updateCurrentScreen(screen);

@@ -1,12 +1,12 @@
 package use_cases.create_questionnaire;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateQuestionnaireController {
-    public void createQuestionnaire(int studyID, String questionnaireName, String questionnaireDescription, int numOfQuestions, Map<String, String[]> questionMap) {
-    }
 
-    public void createQuestionnaire(CreateQuestionnaireControllerInputData createQuestionnaireControllerInputData) {
+
+    public void createQuestionnaire(CreateQuestionnaireRequestModel createQuestionnaireRequestModel) {
 
     }
 }

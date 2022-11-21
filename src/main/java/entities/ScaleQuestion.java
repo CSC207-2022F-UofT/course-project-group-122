@@ -111,4 +111,16 @@ public class ScaleQuestion extends Question {
     public String getAnswerChoices() {
         return bottomLabel + " - " + scale + " - " + topLabel;
     }
+
+    public void setScaleRange(int scaleRange) {
+        this.scaleRange = scaleRange;
+    }
+
+    public void setBottomLabel(String bottomLabel) {
+        this.bottomLabel = bottomLabel;
+    }
+
+    public void setTopLabel(String topLabel) {
+        this.topLabel = topLabel;
+    }
 }

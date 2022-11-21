@@ -202,7 +202,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
     }
 
     public static void main(String[] args) {
-        CreateQuestionnaireInputsScreenInputData data = new CreateQuestionnaireInputsScreenInputData(45, new ArrayList<>(Arrays.asList("me", "you", "Question 3")));
+        CreateQuestionnaireInputsScreenInputData data = new CreateQuestionnaireInputsScreenInputData(45, new ArrayList<>(Arrays.asList("me", "you", "Question 3")), 4);
         CreateQuestionnaireInputsScreen createQuestionnaireInputsScreen = new CreateQuestionnaireInputsScreen(data, new ControllerManager(new ScreenManager()));
         createQuestionnaireInputsScreen.setVisible(true);
     }

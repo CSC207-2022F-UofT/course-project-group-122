@@ -44,11 +44,11 @@ public class StudyLogGroupsPanel extends JPanel {
                             JButton button = new JButton("Select");
                             button.addActionListener(e1 -> {
                                 if (item.isSelected()) {
-                                    controllerManager.setRandomizationStrategyRequest(data.getStudyId(), "Simple");
+                                    controllerManager.setRandomizationStrategyRequest(data.getStudyId(), "Simple", data.getResearcherId());
                                 } else if (item2.isSelected()) {
-                                    controllerManager.setRandomizationStrategyRequest(data.getStudyId(), "Block");
+                                    controllerManager.setRandomizationStrategyRequest(data.getStudyId(), "Block", data.getResearcherId());
                                 } else if (item3.isSelected()) {
-                                    controllerManager.setRandomizationStrategyRequest(data.getStudyId(), "Stratified");
+                                    controllerManager.setRandomizationStrategyRequest(data.getStudyId(), "Stratified", data.getResearcherId());
                                 }
                                 frame.dispose();
                             });
