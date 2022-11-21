@@ -29,6 +29,23 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
         }
     }
 
+    /**
+     * Fetches the participant's information.
+     *
+     * @param participantID The ID of the participant to add.
+     * @param studyId       The ID of the study to add the participant to.
+     */
+    @Override
+    public void fetchParticipantInfo(int participantID, int studyId) {
+        Participant participant = (Participant) FetchId.getUser(participantID);
+        Study study = FetchId.getStudy(studyId);
+        if (participant.getStudy() != null) {
+            addPotentialParticipantPresenter.presentFailure(participantID, studyId);
+        } else {
+            addPotentialParticipantPresenter.presentParticipantInfo(participantID, participant.getName());
+        }
+    }
+
 
     /**
      * Check if the participant can be added to the study.

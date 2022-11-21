@@ -2,9 +2,15 @@ package use_cases.add_potential_participant;
 
 import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
+import user_interface_layer.presenter_manager.display_participant_info.DisplayParticipantInfoInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class AddPotentialParticipantPresenter implements AddPotentialParticipantOutputBoundary {
+
+    /**
+     * Display participant info
+     */
+    private DisplayParticipantInfoInterface displayParticipantInfo;
 
 
     /**
@@ -48,6 +54,17 @@ public class AddPotentialParticipantPresenter implements AddPotentialParticipant
         displayFailureMessage.presentFailureMessage(failureMessage);
     }
 
+    /**
+     * Presents the participant information.
+     *
+     * @param participantID The ID of the participant to add.
+     * @param name          The name of the participant.
+     */
+    @Override
+    public void presentParticipantInfo(int participantID, String name) {
+        displayParticipantInfo.displayParticipantInfo(participantID, name);
+    }
+
 
     /**
      * Presents the failure to add a potential participant to a study.
@@ -72,5 +89,13 @@ public class AddPotentialParticipantPresenter implements AddPotentialParticipant
      */
     public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
         this.fetchStudyLogController = fetchStudyLogController;
+    }
+
+
+    /**
+     * Sets the display participant info interface.
+     */
+    public void setDisplayParticipantInfo(DisplayParticipantInfoInterface displayParticipantInfo) {
+        this.displayParticipantInfo = displayParticipantInfo;
     }
 }

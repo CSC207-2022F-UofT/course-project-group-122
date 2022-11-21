@@ -80,6 +80,7 @@ public class Main {
         addPotentialParticipantInteractor.setPresenter(addPotentialParticipantPresenter);
         //TODO: inject general failure / success presenters
         //TODO: inject fetch study log controller
+        //TODO: inject display participant info
 
         //TODO: answer_questionnaire_data_request use case
 
