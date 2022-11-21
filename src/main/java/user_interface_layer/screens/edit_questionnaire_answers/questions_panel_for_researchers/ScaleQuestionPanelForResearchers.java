@@ -1,36 +1,43 @@
-package user_interface_layer.screens.research_edit_questionnaire_answers_screen.questions_panel_for_researchers;
+package user_interface_layer.screens.edit_questionnaire_answers.questions_panel_for_researchers;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Enumeration;
 
-public class MCQuestionPanelForResearchers extends JPanel implements ResearchersQuestionPanel {
-    private final ButtonGroup buttonGroup;
-    private final String variable;
+public class ScaleQuestionPanelForResearchers extends JPanel implements ResearchersQuestionPanel {
     private final String type;
+    private final String variable;
+    private final ButtonGroup buttonGroup = new ButtonGroup();
     private final String question;
-    public MCQuestionPanelForResearchers(String question, String type, String variable, String[] options, String answers) {
+
+    public ScaleQuestionPanelForResearchers(String question, String type, String variable, String bottomLabel, String topLabel, int scale, String answer) {
         this.variable = variable;
         this.type = type;
         this.question = question;
         setLayout(new BorderLayout());
         JPanel questionAnswerPanel = new JPanel(new BorderLayout());
         JLabel questionLabel = new JLabel(question);
-        JLabel answerLabel = new JLabel("Answer: " + answers);
+        JLabel answerLabel = new JLabel("Answer: " + answer);
         questionAnswerPanel.add(questionLabel, BorderLayout.NORTH);
         questionAnswerPanel.add(answerLabel, BorderLayout.CENTER);
-        add(questionAnswerPanel, BorderLayout.NORTH);
 
+        JScrollPane optionsScrollPanel = new JScrollPane();
         JPanel optionsPanel = new JPanel();
-        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
-        buttonGroup = new ButtonGroup();
-        for (String option : options) {
-            JRadioButton radioButton = new JRadioButton(option);
-            buttonGroup.add(radioButton);
-            optionsPanel.add(radioButton);
+
+        optionsPanel.setLayout(new FlowLayout());
+        optionsPanel.add(new JLabel(bottomLabel + " ", SwingConstants.CENTER));
+        for (int i = 0; i < scale; i++) {
+            JRadioButton button = new JRadioButton(String.valueOf(i));
+            buttonGroup.add(button);
+            optionsPanel.add(button);
         }
-        add(optionsPanel, BorderLayout.CENTER);
+        optionsPanel.add(new JLabel(" "+ topLabel, SwingConstants.CENTER));
+        optionsScrollPanel.setViewportView(optionsPanel);
+
+        add(questionAnswerPanel, BorderLayout.NORTH);
+        add(optionsScrollPanel, BorderLayout.CENTER);
         setBorder(BorderFactory.createLineBorder(Color.black));
+
 
     }
 
@@ -66,11 +73,10 @@ public class MCQuestionPanelForResearchers extends JPanel implements Researchers
     }
 
 //    public static void main(String[] args) {
-//        JFrame frame = new JFrame("MCQuestionPanelForResearchers");
-//        frame.setContentPane(new MCQuestionPanelForResearchers("question", "type", "variable", new String[]{"option1", "option2", "option3"}, "answer"));
+//        JFrame frame = new JFrame("ScaleQuestionPanelForResearchers");
+//        frame.setContentPane(new ScaleQuestionPanelForResearchers("Question", "Scale", "Variable", "Bottom", "Top", 5, "2").getQuestionPanel());
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        frame.pack();
 //        frame.setVisible(true);
 //    }
-
 }

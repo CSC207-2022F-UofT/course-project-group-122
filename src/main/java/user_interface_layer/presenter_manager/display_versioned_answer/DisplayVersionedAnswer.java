@@ -1,15 +1,15 @@
-package user_interface_layer.presenter_manager.display_versioned_answers_of_questionnaire;
+package user_interface_layer.presenter_manager.display_versioned_answer;
 
 import user_interface_layer.ScreenManager;
 import use_cases.fetch_questionnaire_versioned_answer_viewing.CheckQuestionnaireVersionedAnswerInputData;
-import user_interface_layer.screens.check_questionnaire_versioned_answer_screen.CheckQuestionnaireVersionedAnswerScreen;
+import user_interface_layer.screens.check_versioned_answer.CheckVersionedAnswer;
 
-public class DisplayVersionedAnswersOfQuestionnaire implements DisplayVersionedAnswersOfQuestionnaireInterface {
+public class DisplayVersionedAnswer implements DisplayVersionedAnswerInterface {
     ScreenManager screenManager;
 
     @Override
     public void presentVersionedAnswersOfQuestionnaireScreen(CheckQuestionnaireVersionedAnswerInputData data) {
-        CheckQuestionnaireVersionedAnswerScreen screen = new CheckQuestionnaireVersionedAnswerScreen(data);
+        CheckVersionedAnswer screen = new CheckVersionedAnswer(data);
         screenManager.setCheckQuestionnaireVersionedAnswerScreen(screen);
         screenManager.updateCurrentScreen(screen);
     }

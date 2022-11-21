@@ -1,4 +1,4 @@
-package user_interface_layer.screens.check_questionnaire_versioned_answer_screen;
+package user_interface_layer.screens.check_versioned_answer;
 
 import use_cases.fetch_questionnaire_versioned_answer_viewing.CheckQuestionnaireVersionedAnswerInputData;
 import user_interface_layer.SetScreenToCenter;
@@ -8,9 +8,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckQuestionnaireVersionedAnswerScreen extends JFrame{
+public class CheckVersionedAnswer extends JFrame{
 
-    public CheckQuestionnaireVersionedAnswerScreen(CheckQuestionnaireVersionedAnswerInputData data) {
+    public CheckVersionedAnswer(CheckQuestionnaireVersionedAnswerInputData data) {
         JLabel title = new JLabel("Questionnaire " + data.getQuestionnaireID(), SwingConstants.CENTER);
 
         JPanel answersPanel = new JPanel();
@@ -44,7 +44,7 @@ public class CheckQuestionnaireVersionedAnswerScreen extends JFrame{
 
 
         CheckQuestionnaireVersionedAnswerInputData data = new CheckQuestionnaireVersionedAnswerInputData(34, 23, test);
-        CheckQuestionnaireVersionedAnswerScreen screen = new CheckQuestionnaireVersionedAnswerScreen(data);
+        CheckVersionedAnswer screen = new CheckVersionedAnswer(data);
         screen.setVisible(true);
     }
 

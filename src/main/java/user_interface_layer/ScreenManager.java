@@ -1,8 +1,7 @@
 package user_interface_layer;
 
-import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.check_questionnaire_screen.CheckQuestionnaireScreen;
-import user_interface_layer.screens.check_questionnaire_versioned_answer_screen.CheckQuestionnaireVersionedAnswerScreen;
+import user_interface_layer.screens.check_versioned_answer.CheckVersionedAnswer;
 import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationScreen;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.CreateQuestionnaireInputsScreen;
 import user_interface_layer.screens.create_study_inputs_screen.CreateStudyInputScreen;
@@ -11,15 +10,14 @@ import user_interface_layer.screens.edit_study_screen.EditStudyScreen;
 import user_interface_layer.screens.participant_answer_questionnaire_panel.ParticipantAnswerQuestionnairePanel;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreen;
 import user_interface_layer.screens.participant_not_enrolled_screen.ParticipantNotEnrolledScreen;
-import user_interface_layer.screens.questionnaire_versioned_answer_screen.QuestionnaireVersionedAnswerScreen;
-import user_interface_layer.screens.research_edit_questionnaire_answers_screen.ResearcherEditQuestionnaireAnswersScreen;
+import user_interface_layer.screens.all_versions_answer.AllVersionsScreen;
+import user_interface_layer.screens.edit_questionnaire_answers.EditQuestionnaireAnswers;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen;
 import user_interface_layer.screens.register_screens.UserLogInScreen;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.register_screens.UserSignUpScreen;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantScreen;
 import user_interface_layer.screens.showParticipantInfo.ShowParticipantInfoScreen;
-import user_interface_layer.screens.showParticipantInfo.ShowParticipantInputData;
 import user_interface_layer.screens.showResearcherInfo.ShowResearcherInfoScreen;
 import user_interface_layer.screens.study_data_log.StudyDataLogScreen;
 
@@ -34,7 +32,7 @@ public class ScreenManager {
     ParticipantHomeScreen participantHomeScreen;
     ResearcherStudyScreen researcherStudiesScreen;
     CreateStudyInputScreen createStudyInputScreen;
-    QuestionnaireVersionedAnswerScreen questionnaireVersionedAnswerScreen;
+    AllVersionsScreen allVersionsScreen;
     ResearcherRequestParticipantScreen researcherRequestParticipantScreen;
     CreateQuestionnaireInputsScreen createQuestionnaireInputsScreen;
     CheckQuestionnaireScreen checkQuestionnaireScreen;
@@ -42,7 +40,7 @@ public class ScreenManager {
     EditQuestionnaireScreen editQuestionnaireScreen;
     EditStudyScreen editStudyScreen;
     ParticipantAnswerQuestionnairePanel participantAnswerQuestionnairePanel;
-    ResearcherEditQuestionnaireAnswersScreen researcherEditQuestionnaireAnswersScreen;
+    EditQuestionnaireAnswers editQuestionnaireAnswers;
     StudyDataLogScreen studyDataLogScreen;
     ShowResearcherInfoScreen showResearcherInfoScreen;
     ShowParticipantInfoScreen showParticipantInfoScreen;
@@ -110,8 +108,8 @@ public class ScreenManager {
 
     }
 
-    public void setQuestionnaireVersionedAnswerScreen(QuestionnaireVersionedAnswerScreen screen) {
-        this.questionnaireVersionedAnswerScreen = screen;
+    public void setQuestionnaireVersionedAnswerScreen(AllVersionsScreen screen) {
+        this.allVersionsScreen = screen;
     }
 
     public void setCreateQuestionnaireInputsScreen(CreateQuestionnaireInputsScreen screen) {
@@ -122,7 +120,7 @@ public class ScreenManager {
         this.checkQuestionnaireScreen = screen;
     }
 
-    public void setCheckQuestionnaireVersionedAnswerScreen(CheckQuestionnaireVersionedAnswerScreen screen) {
+    public void setCheckQuestionnaireVersionedAnswerScreen(CheckVersionedAnswer screen) {
     }
 
     public void setChooseStratificationScreen(ChooseStratificationScreen screen) {
@@ -140,8 +138,8 @@ public class ScreenManager {
         this.participantAnswerQuestionnairePanel = screen;
     }
 
-    public void setResearcherEditQuestionnaireAnswersScreen(ResearcherEditQuestionnaireAnswersScreen screen) {
-        this.researcherEditQuestionnaireAnswersScreen = screen;
+    public void setResearcherEditQuestionnaireAnswersScreen(EditQuestionnaireAnswers screen) {
+        this.editQuestionnaireAnswers = screen;
     }
 
     public void setStudyDataLogScreen(StudyDataLogScreen screen) {

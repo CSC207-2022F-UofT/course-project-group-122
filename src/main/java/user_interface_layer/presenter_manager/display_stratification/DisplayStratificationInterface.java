@@ -1,7 +1,7 @@
-package user_interface_layer.presenter_manager.display_choose_stratification_variable;
+package user_interface_layer.presenter_manager.display_stratification;
 
 import use_cases.modify_study_parameters.ChooseStratificationInputData;
 
-public interface DisplayChooseStratificationVariableInterface {
+public interface DisplayStratificationInterface {
     void presentChooseStratificationVariableScreen(ChooseStratificationInputData data);
 }

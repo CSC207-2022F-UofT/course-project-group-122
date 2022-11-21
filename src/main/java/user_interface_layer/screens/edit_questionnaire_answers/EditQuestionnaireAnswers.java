@@ -1,10 +1,10 @@
-package user_interface_layer.screens.research_edit_questionnaire_answers_screen;
+package user_interface_layer.screens.edit_questionnaire_answers;
 
 import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQuestionnaireScreenAnswersInputData;
 import user_interface_layer.ScreenManager;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.research_edit_questionnaire_answers_screen.questions_panel_for_researchers.ResearchersQuestionPanel;
+import user_interface_layer.screens.edit_questionnaire_answers.questions_panel_for_researchers.ResearchersQuestionPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ResearcherEditQuestionnaireAnswersScreen extends JFrame {
+public class EditQuestionnaireAnswers extends JFrame {
 
-    public ResearcherEditQuestionnaireAnswersScreen(ResearcherEditQuestionnaireScreenAnswersInputData data, ControllerManager controllerManager) {
+    public EditQuestionnaireAnswers(ResearcherEditQuestionnaireScreenAnswersInputData data, ControllerManager controllerManager) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setTitle("Edit Answer Questionnaire");
@@ -100,7 +100,7 @@ public class ResearcherEditQuestionnaireAnswersScreen extends JFrame {
                 55,
                 "This is questionnaire 1",
                 "This is the description of questionnaire 1",questions);
-        ResearcherEditQuestionnaireAnswersScreen panel = new ResearcherEditQuestionnaireAnswersScreen(data, new ControllerManager(new ScreenManager()));
+        EditQuestionnaireAnswers panel = new EditQuestionnaireAnswers(data, new ControllerManager(new ScreenManager()));
         panel.setVisible(true);
     }
 

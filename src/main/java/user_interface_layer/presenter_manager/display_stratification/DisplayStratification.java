@@ -1,11 +1,11 @@
-package user_interface_layer.presenter_manager.display_choose_stratification_variable;
+package user_interface_layer.presenter_manager.display_stratification;
 
 import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import use_cases.modify_study_parameters.ChooseStratificationInputData;
 import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationScreen;
 
-public class DisplayChooseStratificationVariable implements DisplayChooseStratificationVariableInterface {
+public class DisplayStratification implements DisplayStratificationInterface {
     ScreenManager screenManager;
     ControllerManager controllerManager;
     @Override

@@ -1,4 +1,4 @@
-package user_interface_layer.screens.research_edit_questionnaire_answers_screen.questions_panel_for_researchers;
+package user_interface_layer.screens.edit_questionnaire_answers.questions_panel_for_researchers;
 
 import javax.swing.*;
 import java.awt.*;

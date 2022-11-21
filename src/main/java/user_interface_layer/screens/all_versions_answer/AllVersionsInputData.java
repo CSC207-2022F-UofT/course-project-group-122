@@ -1,10 +1,8 @@
-package user_interface_layer.screens.questionnaire_versioned_answer_screen;
-
-import user_interface_layer.screens.ControllerManager;
+package user_interface_layer.screens.all_versions_answer;
 
 import java.util.List;
 
-public class QuestionnaireVersionedAnswerInputData {
+public class AllVersionsInputData {
 
     /*
      * The study ID.
@@ -29,10 +27,10 @@ public class QuestionnaireVersionedAnswerInputData {
     /*
      * The constructor of the class.
      */
-    public QuestionnaireVersionedAnswerInputData(int studyId,
-                                                 int participantID,
-                                                 int questionnaireID,
-                                                 List<String[]> answer) {
+    public AllVersionsInputData(int studyId,
+                                int participantID,
+                                int questionnaireID,
+                                List<String[]> answer) {
         this.studyId = studyId;
         this.participantID = participantID;
         this.questionnaireID = questionnaireID;

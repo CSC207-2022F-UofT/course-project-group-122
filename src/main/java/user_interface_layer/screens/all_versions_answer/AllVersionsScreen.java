@@ -1,4 +1,4 @@
-package user_interface_layer.screens.questionnaire_versioned_answer_screen;
+package user_interface_layer.screens.all_versions_answer;
 
 import user_interface_layer.ScreenManager;
 import user_interface_layer.SetScreenToCenter;
@@ -10,8 +10,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class QuestionnaireVersionedAnswerScreen extends JFrame {
-    public QuestionnaireVersionedAnswerScreen(QuestionnaireVersionedAnswerInputData data, ControllerManager controllerManager) {
+public class AllVersionsScreen extends JFrame {
+    public AllVersionsScreen(AllVersionsInputData data, ControllerManager controllerManager) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Questionnaire Versioned Answers");
 
@@ -51,8 +51,8 @@ public class QuestionnaireVersionedAnswerScreen extends JFrame {
         answer.add(new String[]{"34", "6", "Jannet", "2020-12-12", "Some Answer"});
 
 
-        QuestionnaireVersionedAnswerInputData data = new QuestionnaireVersionedAnswerInputData(44, 65, 76, answer);
-        QuestionnaireVersionedAnswerScreen screen = new QuestionnaireVersionedAnswerScreen(data, new ControllerManager(new ScreenManager()));
+        AllVersionsInputData data = new AllVersionsInputData(44, 65, 76, answer);
+        AllVersionsScreen screen = new AllVersionsScreen(data, new ControllerManager(new ScreenManager()));
         screen.setVisible(true);
 
     }
