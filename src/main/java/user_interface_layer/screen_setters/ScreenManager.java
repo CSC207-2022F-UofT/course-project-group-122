@@ -1,4 +1,4 @@
-package user_interface_layer;
+package user_interface_layer.screen_setters;
 
 import user_interface_layer.screens.all_versions_answer.AllVersionsScreen;
 import user_interface_layer.screens.user_answer_questionnaires_screen.ParticipantAnswerQuestionnairePanel;

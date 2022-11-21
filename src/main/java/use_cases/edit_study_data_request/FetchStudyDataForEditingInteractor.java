@@ -1,7 +1,7 @@
-package use_cases.edit_study_data_request.edit_study_data_request;
+package use_cases.edit_study_data_request;
 
 import entities.Study;
-import use_cases.edit_study_data_request.EditStudyInputData;
+import use_cases.edit_study_data_reque.EditStudyInputData;
 import use_cases.fetch_id.FetchId;
 
 public class FetchStudyDataForEditingInteractor implements FetchStudyDataForEditingInputBoundary {
@@ -14,7 +14,7 @@ public class FetchStudyDataForEditingInteractor implements FetchStudyDataForEdit
         String studyDescription = study.getStudyDescription();
         int targetSize = study.getTargetStudySize();
 
-        EditStudyInputData inputData = new EditStudyInputData(studyId, studyName, studyDescription, targetSize);
+        FetchStudyDataForEditingResponseModel inputData = new FetchStudyDataForEditingResponseModel(studyId, studyName, studyDescription, targetSize);
         presenter.presentStudyDataForEditing(inputData);
 
     }

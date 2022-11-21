@@ -1,4 +1,4 @@
-package user_interface_layer;
+package user_interface_layer.screen_setters;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

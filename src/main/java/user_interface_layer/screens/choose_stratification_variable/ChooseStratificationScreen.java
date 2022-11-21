@@ -1,8 +1,7 @@
 package user_interface_layer.screens.choose_stratification_variable;
 
-import user_interface_layer.ScreenManager;
-import user_interface_layer.SetScreenToCenter;
-import user_interface_layer.SetTableModel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;

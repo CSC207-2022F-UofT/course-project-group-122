@@ -1,4 +1,4 @@
-package use_cases.edit_study_data_request.edit_study_data_request;
+package use_cases.edit_study_data_request;
 
 public interface FetchStudyDataForEditingInputBoundary {
     void fetchStudyDataForEditing(int studyId, int researcherId);

@@ -1,10 +1,10 @@
 package user_interface_layer.screens.edit_questionnaire;
 
 import use_cases.edit_questionnaire_screen_data.EditQuestionnaireScreenInputData;
-import user_interface_layer.ScreenManager;
-import user_interface_layer.SetLabelTextPanel;
-import user_interface_layer.SetScreenToCenter;
-import user_interface_layer.SetTableModel;
+import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.screen_setters.SetLabelTextPanel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen.MCQuestionScreen;

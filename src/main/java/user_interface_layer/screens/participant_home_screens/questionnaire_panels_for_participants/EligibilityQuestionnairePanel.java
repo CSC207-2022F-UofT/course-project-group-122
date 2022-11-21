@@ -1,6 +1,6 @@
 package user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants;
 
-import user_interface_layer.SetTableModel;
+import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreenInputData;
 

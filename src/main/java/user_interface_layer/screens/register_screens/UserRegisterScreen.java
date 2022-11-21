@@ -1,7 +1,7 @@
 package user_interface_layer.screens.register_screens;
 
-import user_interface_layer.ScreenManager;
-import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;

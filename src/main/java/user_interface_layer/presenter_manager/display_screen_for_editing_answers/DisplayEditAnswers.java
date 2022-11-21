@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_screen_for_editing_answers;
 
-import user_interface_layer.ScreenManager;
+import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.edit_questionnaire_answers.EditQuestionnaireAnswers;
 import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQuestionnaireScreenAnswersInputData;

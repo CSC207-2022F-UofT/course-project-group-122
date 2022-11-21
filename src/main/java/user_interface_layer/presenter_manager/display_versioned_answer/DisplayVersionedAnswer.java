@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_versioned_answer;
 
-import user_interface_layer.ScreenManager;
+import user_interface_layer.screen_setters.ScreenManager;
 import use_cases.fetch_versioned_answer.FetchVersionedAnswerResponseModel;
 import user_interface_layer.screens.check_versioned_answer.CheckVersionedAnswer;
 

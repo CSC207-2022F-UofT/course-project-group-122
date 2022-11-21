@@ -1,6 +1,6 @@
 package user_interface_layer.screens.show_participant_info;
 
-import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;

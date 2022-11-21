@@ -10,17 +10,14 @@ import use_cases.create_questionnaire.CreateQuestionnaireController;
 import use_cases.create_questionnaire.CreateQuestionnaireRequestModel;
 import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyRequestModel;
-import use_cases.download_study_data.DownlaodCurrentDataController;
-import use_cases.download_study_data.DownloadAllDataController;
 import use_cases.edit_questionnaire.EditQuestionnaireController;
 import use_cases.edit_questionnaire_screen_data.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
-import use_cases.edit_study.EditStudyController;
-import use_cases.edit_study_data_request.EditStudyDataRequestController;
+import use_cases.edit_study_data_request.FetchStudyDataForEditingController;
 import use_cases.eligibility_checker.EligibilityCheckerController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
-import use_cases.fetch_versioned_answer.FetchVersionedAnswerController;
 import use_cases.fetch_study_data.FetchStudyDataController;
 import use_cases.fetch_study_log.FetchStudyLogController;
+import use_cases.fetch_versioned_answer.FetchVersionedAnswerController;
 import use_cases.get_target_groups.GetTargetGroupsController;
 import use_cases.modify_study_parameters.ModifyStudyParameterController;
 import use_cases.participant_drop_study.ParticipantDropStudyController;
@@ -35,7 +32,7 @@ import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_login.UserLoginController;
-import user_interface_layer.ScreenManager;
+import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 import user_interface_layer.screens.screen_drivers.*;
 
@@ -62,6 +59,8 @@ public class ControllerManager {
     SetUpStudyCreationScreenDriver studyCreationScreenDriver;
     SetQuestionnaireVersionedAnswerDriver setQuestionnaireVersionedAnswerDriver;
     SetUpQuestionnaireCreationScreenDriver setUpQuestionnaireCreationScreenDriver;
+
+
     //////////////////////////// Controllers ////////////////////////////
     UserLoginController userLoginController;
     UserLogOutController userLogOutController;
@@ -81,9 +80,12 @@ public class ControllerManager {
     FetchEditQuestionnaireDataController editQuestionnaireScreenDataController;
     EditQuestionnaireController editQuestionnaireController;
     QuestionnaireScreenDataRequestController questionnaireScreenDataRequestController;
-    EditStudyController editStudyController;
-    DownloadAllDataController downloadDataController;
-    DownlaodCurrentDataController downloadCurrentDataController;
+
+    FetchStudyDataForEditingController fetchStudyDataForEditingController;
+//
+//    DownloadAllDataController downloadDataController;
+//
+//    DownlaodCurrentDataController downloadCurrentDataController;
     FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController;
     CreateStudyController createStudyController;
     CreateQuestionnaireController createQuestionnaireController;
@@ -94,7 +96,7 @@ public class ControllerManager {
     ResearcherEditAnswerController  researcherEditAnswerController;
     EligibilityCheckerController eligibilityCheckerController;
     FetchQuestionnaireScreenController fetchQuestionnaireScreenController;
-    EditStudyDataRequestController editStudyDataRequestController;
+
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
     }
@@ -123,8 +125,8 @@ public class ControllerManager {
         userLoginController.login(username);
     }
 
-    public void fetchVersionedAnswer(int studyId,int participant, int questionnaireID, int answerID, int version) {
-        fetchVersionedAnswerDataController.fetchVersionedAnswer(studyId, participant, questionnaireID, answerID, version);
+    public void fetchVersionedAnswer(int studyId, int participantId, int questionnaireID, int answerID, int version) {
+        fetchVersionedAnswerDataController.fetchVersionedAnswer(studyId, participantId, questionnaireID, answerID, version);
     }
 
     public void questionnaireRequestDataForAnswering(int modifier, int participantId1, int studyId, int questionnaireId) {
@@ -281,6 +283,6 @@ public class ControllerManager {
         studyCreationScreenDriver.requestStudyCreationScreen(screenManager, this, researchID);
     }
     public void editStudyDataRequest(Integer studyId, int researchID) {
-        editStudyDataRequestController.editStudyRequest(studyId, researchID);
+        fetchStudyDataForEditingController.editStudyRequest(studyId, researchID);
     }
 }

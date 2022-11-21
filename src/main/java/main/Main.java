@@ -54,7 +54,7 @@ import use_cases.user_log_out.UserLogOutPresenter;
 import use_cases.user_login.UserLoginController;
 import use_cases.user_login.UserLoginInteractor;
 import use_cases.user_login.UserLoginPresenter;
-import user_interface_layer.ScreenManager;
+import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.presenter_manager.display_choose_groups.DisplayGroupsToAssign;
 import user_interface_layer.presenter_manager.display_edit_questionnaire.DisplayEditQuestionnaire;
 import user_interface_layer.presenter_manager.display_edit_study.DisplayEditStudy;

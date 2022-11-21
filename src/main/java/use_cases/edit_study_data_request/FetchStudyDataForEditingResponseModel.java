@@ -1,14 +1,14 @@
-package use_cases.edit_study_data_request.edit_study_data_request;
+package use_cases.edit_study_data_request;
 
-public class EditStudyInputData {
+public class FetchStudyDataForEditingResponseModel {
     int studyID;
     String studyName;
     String studyDescription;
     int targetSize;
-    public EditStudyInputData(int studyID,
-                              String studyName,
-                              String studyDescription,
-                              int targetSize) {
+    public FetchStudyDataForEditingResponseModel(int studyID,
+                                                 String studyName,
+                                                 String studyDescription,
+                                                 int targetSize) {
         this.studyID = studyID;
         this.studyName = studyName;
         this.studyDescription = studyDescription;

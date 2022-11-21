@@ -2,7 +2,7 @@ package user_interface_layer.screens.study_data_log;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_study_log.FetchStudyLogResponseModel;
-import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.study_data_log.study_data_log_panels.*;
 

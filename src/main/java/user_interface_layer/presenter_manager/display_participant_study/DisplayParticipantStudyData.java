@@ -1,7 +1,7 @@
 package user_interface_layer.presenter_manager.display_participant_study;
 
 import org.jetbrains.annotations.NotNull;
-import user_interface_layer.ScreenManager;
+import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreen;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreenInputData;

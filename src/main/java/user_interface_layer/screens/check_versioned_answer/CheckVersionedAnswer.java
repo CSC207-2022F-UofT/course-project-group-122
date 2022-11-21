@@ -1,7 +1,7 @@
 package user_interface_layer.screens.check_versioned_answer;
 
 import use_cases.fetch_versioned_answer.FetchVersionedAnswerResponseModel;
-import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 
 import javax.swing.*;
 import java.awt.*;
