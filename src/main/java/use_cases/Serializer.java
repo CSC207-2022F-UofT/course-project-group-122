@@ -1,5 +1,7 @@
 package use_cases;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -9,8 +11,9 @@ public class Serializer {
 
     public Serializer(){}
 
-    public void saveObject(String fileName, Object obj){
-        try(FileOutputStream fileout = new FileOutputStream(this.basePath.concat("/"+fileName));
+    public void saveObject(@NotNull Object obj){
+        String filename = "/" + obj.hashCode() + ".ser";
+        try(FileOutputStream fileout = new FileOutputStream(this.basePath.concat(filename));
             ObjectOutputStream output = new ObjectOutputStream(fileout)){
             output.writeObject(obj);
         }
@@ -39,6 +42,18 @@ public class Serializer {
         return folder.list();
     }
 
+    public String[] getFileNameListOfObjects(){
+        return getFileNameList(basePath);
+    }
+
+    private void purge(String @NotNull [] listOfFileNames){
+
+        for(String name : listOfFileNames){
+            File folder = new File(basePath + "/" + name);
+            folder.delete();
+        }
+    }
+
     public ArrayList<Object> getAll(){
         String[] names = getFileNameList(this.basePath);
         ArrayList<Object> objs = new ArrayList<>();
@@ -46,6 +61,8 @@ public class Serializer {
         for(String name : names){
             objs.add(getObject(name));
         }
+
+        purge(names);
         return objs;
     }
 }
