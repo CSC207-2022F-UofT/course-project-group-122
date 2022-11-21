@@ -1,5 +1,6 @@
 package user_interface_layer.screens.show_researcher_info;
 
+import org.jetbrains.annotations.NotNull;
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 
@@ -8,13 +9,14 @@ import java.awt.*;
 
 public class ShowResearcherInfoScreen extends JFrame {
 
-    public ShowResearcherInfoScreen(ShowResearcherInputData data, ControllerManager controllerManager) {
+    public ShowResearcherInfoScreen(int researcherId, String researcherName, int studyId,
+                                    ControllerManager controllerManager) {
     setTitle("Enroll Participant");
     setLayout(new BorderLayout());
-    JLabel participantTag = new JLabel(data.getUserName() + " (" + data.getResearcherId()+") ");
+    JLabel participantTag = new JLabel(researcherName+ " (" + researcherId +") ");
     JButton enroll = new JButton("Add");
     enroll.addActionListener(e->{
-        controllerManager.addResearcherToStudyRequest(data.getResearcherId(), data.getStudyId());
+        controllerManager.addResearcherToStudyRequest(researcherId, studyId);
     });
     add(participantTag, BorderLayout.CENTER);
     add(enroll, BorderLayout.SOUTH);

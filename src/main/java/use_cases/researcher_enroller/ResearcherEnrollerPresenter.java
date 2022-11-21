@@ -2,9 +2,15 @@ package use_cases.researcher_enroller;
 
 import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
+import user_interface_layer.presenter_manager.display_researcher_info.DisplayResearcherInfoInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoundary {
+
+    /**
+     * The display researcher info interface.
+     */
+    DisplayResearcherInfoInterface displayResearcherInfoInterface;
 
     /**
      * The controller for fetching the study log.
@@ -42,8 +48,8 @@ public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoun
      * @param name The researcher's name.
      */
     @Override
-    public void presentResearcherInformation(int id, String name) {
-        //TODO: call the method to display the researcher's information.
+    public void presentResearcherInformation(int id, String name, int studyId) {
+        displayResearcherInfoInterface.displayResearcherInfo(id, name, studyId);
     }
 
     /**
@@ -87,5 +93,14 @@ public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoun
      */
     public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
         this.fetchStudyLogController = fetchStudyLogController;
+    }
+
+
+    /**
+     * Sets the display researcher info interface.
+     * @param displayResearcherInfoInterface
+     */
+    public void setDisplayResearcherInfoInterface(DisplayResearcherInfoInterface displayResearcherInfoInterface) {
+        this.displayResearcherInfoInterface = displayResearcherInfoInterface;
     }
 }
