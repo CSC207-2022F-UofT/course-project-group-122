@@ -1,9 +1,15 @@
 package use_cases.publish_questionnaire;
 
+import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class PublishQuestionnairePresenter implements PublishQuestionnaireOutputBoundary {
+
+    /**
+     * The fetch study log controller.
+     */
+    FetchStudyLogController fetchStudyLogController;
 
 
     /**
@@ -37,10 +43,11 @@ public class PublishQuestionnairePresenter implements PublishQuestionnaireOutput
      * @param studyId         The ID of the study that the questionnaire has been published to.
      */
     @Override
-    public void publishQuestionnaire(int questionnaireID, int studyId) {
+    public void publishQuestionnaire(int questionnaireID, int studyId, int researcherId) {
         String successMessage = "The questionnaire with the id " + questionnaireID + " has been published to the " +
                 "study with the id " + studyId + ".";
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
+        fetchStudyLogController.fetchStudyLog(studyId, researcherId);
     }
 
 
@@ -59,5 +66,14 @@ public class PublishQuestionnairePresenter implements PublishQuestionnaireOutput
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * Sets the fetch study log controller.
+     * @param fetchStudyLogController       The fetch study log controller.
+     */
+    public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
+        this.fetchStudyLogController = fetchStudyLogController;
     }
 }

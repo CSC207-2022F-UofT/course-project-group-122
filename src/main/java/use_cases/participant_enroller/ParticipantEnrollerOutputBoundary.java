@@ -34,11 +34,4 @@ public interface ParticipantEnrollerOutputBoundary {
     void displayParticipantIdDoesNotExist(int participantId);
 
 
-    /**
-     * Presents the information of a participant
-     *
-     * @param id        The participant's id.
-     * @param name      The participant's name.
-     */
-    void presentParticipantInformation(int id, String name);
 }
