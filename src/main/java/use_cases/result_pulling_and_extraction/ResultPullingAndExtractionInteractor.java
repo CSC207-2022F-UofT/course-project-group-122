@@ -7,12 +7,12 @@ import entities.Study;
 import entities.Questionnaire;
 import entities.VersionedAnswer;
 
+import java.util.*;
+
 import java.io.FileWriter;
-import java.util.ArrayList;
+import java.lang.reflect.Array;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 
 
 /**
@@ -38,52 +38,75 @@ import java.util.List;
 public class ResultPullingAndExtractionInteractor implements ResultPullingAndExtractionInputBoundary {
     @Override
     public void resultPullingAndExtraction(Study study, String filepath) {
-        String studyName = study.getStudyName();
-        String studyPath = filepath + "\\" + studyName;
-        File studyFolder = new File(studyPath);
+        String folderName = study.getId() + "_" + study.getStudyName();
+        String folderPath = filepath + "\\" + folderName;
+        File studyFolder = new File(folderPath);
         boolean examineFolder = studyFolder.mkdir();
         if (examineFolder){
-            System.out.println("folder " + studyPath + "create successfully");
+            System.out.println("folder " + folderName + "create successfully");
+        } else{
+            System.out.println("folder " + folderName + "create unsuccessfully");
         }
 
 
         for (Questionnaire questionnaire: study.getQuestionnaires()){
-            String questionnaireName = questionnaire.getTitle() + ".csv";
-            String questionnairePath = studyFolder + "\\" + questionnaireName;
-            File questionnaireResult = new File(questionnairePath);
+            String csvFileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
+            String csvFilePath = folderPath + "\\" + csvFileName;
+            File questionnaireResult = new File(csvFilePath);
             try {
                 FileWriter exportFile = new FileWriter(questionnaireResult);
                 CSVWriter writer = new CSVWriter(exportFile);
-                List<String[]> result = new ArrayList<String[]>();
+                List<String[]> result = new ArrayList<>();
                 result.add(firstLine(questionnaire));
-
-
+                for (Participant par: study.getParticipants()){
+                    if (par.getCompletedQuestionnaires().contains(questionnaire)){
+                        result.add(restLine(par, questionnaire));
+                    }
+                }
                 writer.writeAll(result);
                 writer.close();
             }
             catch (IOException err) {
                 err.printStackTrace();
             }
+        if (questionnaireResult.mkdir()){
+            System.out.println("folder " + csvFileName + "create successfully");
+        }else{
+            System.out.println("folder " + csvFileName + "create unsuccessfully");
         }
-
-
-
-
-
+        }
 
     }
 
     private String[] firstLine(Questionnaire questionnaire) {
         ArrayList<String> headLine = new ArrayList<>();
-        for (int i = 6; i > 0; i--) {
-            headLine.add(" ");
-        }
+        headLine.add("ParticipantName");
+        headLine.add("ParticipantID");
+        headLine.add("GroupNumber");
+        headLine.add("ModifierName");
+        headLine.add("ModifyTime");
+        headLine.add("ModifyReason");
         headLine.addAll(questionnaire.getVariableNames());
         return headLine.toArray(new String[0]);
     }
 
-    private String[] restLine(){
-        return null;
+    private String[] restLine(Participant par1, Questionnaire questionnaire1){
+        ArrayList<String> oneLine = new ArrayList<>();
+        oneLine.add(par1.getName());
+        oneLine.add(Integer.toString(par1.getId()));
+        oneLine.add(Integer.toString(par1.getGroup()));
+        VersionedAnswer par1Answer = par1.getCurrVersionQuestionnaireAnswer(questionnaire1);
+        String modifierName = par1Answer.getModifier().getName();
+        Map<String, String> currAnswer = par1Answer.getAnswer();
+        oneLine.add(modifierName);
+        oneLine.add(par1Answer.getReasonForModification());
+        oneLine.add(par1Answer.getTimeOfModification());
+        for (String variable: questionnaire1.getVariableNames()){
+            if (currAnswer.containsKey(variable)) {
+                oneLine.add(currAnswer.get(variable));
+            }
+        }
+        return oneLine.toArray(new String[0]);
     }
 
 
