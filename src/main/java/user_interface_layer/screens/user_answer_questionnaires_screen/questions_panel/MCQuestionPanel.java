@@ -1,37 +1,30 @@
-package user_interface_layer.screens.answer_questionnaire.questions_panel;
+package user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Enumeration;
 
-public class ScaleQuestionPanel extends JPanel implements ParticipantsQuestionPanel {
-    private final String type;
+public class MCQuestionPanel extends JPanel implements ParticipantsQuestionPanel {
+    private final ButtonGroup buttonGroup;
     private final String variable;
-    private final ButtonGroup buttonGroup = new ButtonGroup();
+    private final String type;
     private final String question;
-
-    public ScaleQuestionPanel(String question, String type, String variable, String bottomLabel, String topLabel, int scale) {
+    public MCQuestionPanel(String question, String type, String variable, String[] options) {
         this.variable = variable;
         this.type = type;
         this.question = question;
         setLayout(new BorderLayout());
-
         JLabel questionLabel = new JLabel(question);
-        JScrollPane optionsScrollPanel = new JScrollPane();
-        JPanel optionsPanel = new JPanel();
-
-        optionsPanel.setLayout(new FlowLayout());
-        optionsPanel.add(new JLabel(bottomLabel + " ", SwingConstants.CENTER));
-        for (int i = 0; i < scale; i++) {
-            JRadioButton button = new JRadioButton(String.valueOf(i));
-            buttonGroup.add(button);
-            optionsPanel.add(button);
-        }
-        optionsPanel.add(new JLabel(" "+ topLabel, SwingConstants.CENTER));
-        optionsScrollPanel.setViewportView(optionsPanel);
-
         add(questionLabel, BorderLayout.NORTH);
-        add(optionsScrollPanel, BorderLayout.CENTER);
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
+        buttonGroup = new ButtonGroup();
+        for (String option : options) {
+            JRadioButton radioButton = new JRadioButton(option);
+            buttonGroup.add(radioButton);
+            optionsPanel.add(radioButton);
+        }
+        add(optionsPanel, BorderLayout.CENTER);
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
@@ -65,4 +58,5 @@ public class ScaleQuestionPanel extends JPanel implements ParticipantsQuestionPa
     public String getQuestion() {
         return question;
     }
+
 }

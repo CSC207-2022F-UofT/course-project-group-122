@@ -73,7 +73,7 @@ public class ParticipantHomeScreen extends JFrame {
         );
         JButton dropOutButton = new JButton("Drop Out");
         dropOutButton.addActionListener(e -> {
-            controllerManager.userDropStudyRequest(data.getParticipantId(),data.getStudyId());
+            controllerManager.participantDropStudy(data.getParticipantId(),data.getStudyId());
         });
         add(dropOutButton, BorderLayout.SOUTH);
 

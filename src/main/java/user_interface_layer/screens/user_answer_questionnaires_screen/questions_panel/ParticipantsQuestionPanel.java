@@ -1,4 +1,4 @@
-package user_interface_layer.screens.answer_questionnaire.questions_panel;
+package user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel;
 
 import javax.swing.*;
 

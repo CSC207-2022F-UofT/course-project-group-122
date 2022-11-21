@@ -47,7 +47,7 @@ public class QuestionModel {
         return variable;
     }
 
-    public String getAnswer() {
+    public String getOptions() {
         switch (type) {
             case "MC":
                 return MCoptions.toString().replace(", ", ",");

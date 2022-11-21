@@ -1,4 +1,4 @@
-package user_interface_layer.screens.showResearcherInfo;
+package user_interface_layer.screens.show_researcher_info;
 
 public class ShowResearcherInputData {
     int researcherId;

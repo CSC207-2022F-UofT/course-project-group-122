@@ -1,11 +1,9 @@
 package use_cases.answer_questionnaire_data_request;
 
-import use_cases.answer_questionnaire_data_request.answer_questionnaire_data_request.FetchQuestionnaireDataForAnsweringInputBoundary;
-
 /*
  * This the controller that calls on the use case that fetches the data for the participant to answer the questionnaire.
  */
-public class QuestionnaireDataRequestController {
+public class FetchQuestionnaireDataForAnswerController {
     /*
      * The interface that the use case implements and is called on by the controller.
      */
@@ -17,10 +15,9 @@ public class QuestionnaireDataRequestController {
      * @param participantID The participant ID of the participant that is answering the questionnaire.
      * @param questionnaireId The questionnaire ID of the questionnaire that the participant is answering.
      */
-    public void answerQuestionnaireRequestData(int modifier,int participantID, int studyId, int questionnaireId) {
-
+    public void QuestionnaireRequestData(int modifier, int participantID, int studyId, int questionnaireId) {
+        interactor.questionnaireRequestData(modifier, participantID, studyId, questionnaireId);
     }
-    public void 
 
     /**
      * This method sets the Input Boundary of the controller.

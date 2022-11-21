@@ -1,4 +1,4 @@
-package use_cases.answer_questionnaire_data_request.answer_questionnaire_data_request;
+package use_cases.answer_questionnaire_data_request;
 
 import entities.Question;
 import entities.Questionnaire;
@@ -17,8 +17,9 @@ public class FetchQuestionnaireDataForAnsweringInteractor implements FetchQuesti
      */
     private FetchQuestionnaireDataForAnswerOutputBoundary presenter;
 
-    public void fetchQuestionnaireDataForAnswering(int studyId,int participantID, int questionnaireId) {
-        Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
+    public void questionnaireRequestData(int modifier, int participantID, int studyId, int questionnaireId){
+
+    Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
         if (questionnaire == null) {
             presenter.presentFailureScreen("Questionnaire not found");
         } else {
@@ -34,8 +35,10 @@ public class FetchQuestionnaireDataForAnsweringInteractor implements FetchQuesti
                 String[] questionInformation = {questionType, questionContent, questionOptions};
                 questionsInformation.put(questionVariable, questionInformation);
             }
-            ParticipantAnswerQuestionnairePanelInputData data = new ParticipantAnswerQuestionnairePanelInputData(participantID, studyId, questionnaireId, questionnaireName, questionnaireDescription, questionsInformation);
-            presenter.presentQuestionnaireDataForAnswering(data);
+            FetchQuestionnaireDataForAnswerResponseModel responseModel =
+                    new FetchQuestionnaireDataForAnswerResponseModel(participantID,modifier, studyId, questionnaireId,
+                            questionnaireName, questionnaireDescription, questionsInformation);
+            presenter.presentQuestionnaireDataForAnswering(responseModel);
         }
 
     }

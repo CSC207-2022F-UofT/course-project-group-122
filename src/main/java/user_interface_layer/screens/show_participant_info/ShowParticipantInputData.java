@@ -1,4 +1,4 @@
-package user_interface_layer.screens.showParticipantInfo;
+package user_interface_layer.screens.show_participant_info;
 
 public class ShowParticipantInputData {
     int participantId;

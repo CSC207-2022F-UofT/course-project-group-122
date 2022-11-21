@@ -1,4 +1,4 @@
-package user_interface_layer.screens.showResearcherInfo;
+package user_interface_layer.screens.show_participant_info;
 
 import user_interface_layer.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
@@ -6,15 +6,15 @@ import user_interface_layer.screens.ControllerManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class ShowResearcherInfoScreen extends JFrame {
+public class ShowParticipantInfoScreen extends JFrame {
 
-    public ShowResearcherInfoScreen(ShowResearcherInputData data, ControllerManager controllerManager) {
+    public ShowParticipantInfoScreen(int participantId, String name, int studyId, ControllerManager controllerManager) {
     setTitle("Enroll Participant");
     setLayout(new BorderLayout());
-    JLabel participantTag = new JLabel(data.getUserName() + " (" + data.getResearcherId()+") ");
+    JLabel participantTag = new JLabel(name + " (" + participantId+") ");
     JButton enroll = new JButton("Add");
     enroll.addActionListener(e->{
-        controllerManager.addResearcherToStudyRequest(data.getResearcherId(), data.getStudyId());
+        controllerManager.addPotentialParticipantToStudyRequest(participantId, studyId);
     });
     add(participantTag, BorderLayout.CENTER);
     add(enroll, BorderLayout.SOUTH);

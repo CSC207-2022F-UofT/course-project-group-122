@@ -1,7 +1,7 @@
 package use_cases.answer_questionnaire_data_request;
 
-import user_interface_layer.screens.answer_questionnaire.questions_panel.ParticipantsQuestionPanel;
-import user_interface_layer.screens.answer_questionnaire.questions_panel.QuestionsPanelBuilder;
+import user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel.ParticipantsQuestionPanel;
+import user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel.QuestionsPanelBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 /*
  * This class is used to pass data to the ParticipantAnswerQuestionnairePanel
  */
-public class UserAnswerQuestionnairePanelInputData {
+public class FetchQuestionnaireDataForAnswerResponseModel {
 
     /*
      * The participant ID.
@@ -64,17 +64,17 @@ public class UserAnswerQuestionnairePanelInputData {
      */
     private final Map<String, String> questionsOptions = new HashMap<>();
 
-// {"Question":[type][variable][options]}
+    // {"Question":[type][variable][options]}
     // if type is MC, then answer option,option,option
     // if type is SC, then answer bottomLabel,topLabel,scale
     // if type is Text, then answer "" or "what ever suggestion text"
-    public UserAnswerQuestionnairePanelInputData(int participantID,
-                                                 int modifierId,
-                                                 int studyID,
-                                                 int questionnaireID,
-                                                 String questionnaireName,
-                                                 String questionnaireDescription,
-                                                 Map<String, String[]> questionsInformation) {
+    public FetchQuestionnaireDataForAnswerResponseModel(int participantID,
+                                                        int modifierId,
+                                                        int studyID,
+                                                        int questionnaireID,
+                                                        String questionnaireName,
+                                                        String questionnaireDescription,
+                                                        Map<String, String[]> questionsInformation) {
         this.participantID = participantID;
         this.modifierId = modifierId;
         this.studyID = studyID;

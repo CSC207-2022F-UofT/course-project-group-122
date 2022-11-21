@@ -9,7 +9,6 @@ public class DisplayParticipantNoStudy implements DisplayParticipantNoStudyInter
     ScreenManager screenManager;
 
     ControllerManager controllerManager;
-
     public void presentParticipantNoStudyScreen(int participantID, String participantName) {
         ParticipantNoStudyScreen participantNoStudyScreen = new ParticipantNoStudyScreen(participantID, participantName,
                 controllerManager);
