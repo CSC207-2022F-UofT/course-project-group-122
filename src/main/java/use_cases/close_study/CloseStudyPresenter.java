@@ -2,9 +2,13 @@ package use_cases.close_study;
 
 import entities.Study;
 import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class CloseStudyPresenter implements CloseStudyOutputBoundary {
+
+
+    private FetchStudyLogController fetchStudyLogController;
 
     /**
      * The display success message interface
@@ -16,10 +20,12 @@ public class CloseStudyPresenter implements CloseStudyOutputBoundary {
      *
      * @param study   The study that was closed or reopened
      * @param message The message to display to the user
+     * @param researcherId The researcher who closed or reopened the study
      */
     @Override
-    public void displayMessage(@NotNull Study study, String message) {
+    public void displayMessage(@NotNull Study study, String message, int researcherId) {
         String displayMessage = "Study " + "(" + study.getId() + ") " + study.getStudyName() + ":\n" + message;
+        fetchStudyLogController.fetchStudyLog(study.getId(), researcherId);
     }
 
     /**
@@ -28,5 +34,14 @@ public class CloseStudyPresenter implements CloseStudyOutputBoundary {
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * Sets the fetch study log controller
+     * @param fetchStudyLogController   The fetch study log controller
+     */
+    public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
+        this.fetchStudyLogController = fetchStudyLogController;
     }
 }

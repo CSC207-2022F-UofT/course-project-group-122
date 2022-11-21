@@ -93,6 +93,7 @@ public class Main {
         closeStudyController.setCloseStudyInteractor(closeStudyInteractor);
         closeStudyInteractor.setCloseStudyPresenter(closeStudyPresenter);
         //TODO: inject general failure / success presenters
+        //TODO: inject study log controller
 
         //TODO: create_questionnaire use case
 
