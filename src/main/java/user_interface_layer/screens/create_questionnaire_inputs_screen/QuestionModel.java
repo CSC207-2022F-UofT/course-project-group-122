@@ -50,7 +50,14 @@ public class QuestionModel {
     public String getOptions() {
         switch (type) {
             case "MC":
-                return MCoptions.toString().replace(", ", ",");
+                StringBuilder options = new StringBuilder();
+                for (int i = 0; i < MCoptions.size(); i++) {
+                    options.append(MCoptions.get(i));
+                    if (i != MCoptions.size() - 1) {
+                        options.append(",");
+                    }
+                }
+                return options.toString();
             case "Scale":
                 return bottomLabel +"," + topLabel + ","+ scale;
             case "Text":
