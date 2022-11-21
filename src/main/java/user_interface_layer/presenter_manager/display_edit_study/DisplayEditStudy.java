@@ -14,6 +14,5 @@ public class DisplayEditStudy implements DisplayEditStudyInterface {
         EditStudyScreen screen = new EditStudyScreen(data, controllerManager);
         screenManager.setEditStudyScreen(screen);
         screenManager.updateCurrentScreen(screen);
-
     }
 }

@@ -224,6 +224,7 @@ public class Main {
         userLogOutController.setUserLogOutInteractor(userLogOutInteractor);
         userLogOutInteractor.setUserLogOutPresenter(userLogOutPresenter);
         //TODO: researcher_edit_answer use case
+        //TODO: inject DisplayRegister
 
         //User login use case
         UserLoginController userLoginController = new UserLoginController();
