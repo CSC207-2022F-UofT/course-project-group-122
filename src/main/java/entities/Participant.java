@@ -1,5 +1,7 @@
 package entities;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +36,7 @@ public class Participant extends User {
     /**
      * The group this Participant belongs to.
      */
-    private int group;
+    private int group = 1;
 
     /**
      * Whether the participant is eligible to participate in the study.
@@ -282,6 +284,24 @@ public class Participant extends User {
      */
     public Answer getQuestionnaireAnswer(Questionnaire questionnaire) {
         return this.dataManager.getQuestionnaireAnswer(questionnaire);
+    }
+
+
+    /**
+     * Add an answer to the list of answers. This method is used when a new answer for a new questionnaire is created.
+     * <p>
+     * This should execute immediately following the creation of a new answer and marking the questionnaire as
+     * completed using the completeQuestionnaire method.
+     * <p>
+     * Conditions:
+     * - the questionnaire has been completed by the participant
+     * - the questionnaire is not the eligibility questionnaire of the participant
+     * - the questionnaire is not already in the list of answers
+     * - the answer is associated with the participant
+     * - the answer is associated with the questionnaire
+     */
+    public boolean addAnswer(@NotNull Answer answer, @NotNull Questionnaire questionnaire) {
+        return this.dataManager.addAnswer(answer, questionnaire);
     }
 
 
