@@ -5,7 +5,7 @@ import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.edit_questionnaire_answers.EditQuestionnaireAnswers;
 import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQuestionnaireScreenAnswersInputData;
 
-public class DisplayResearcherEditQuestionnaireAnswers implements DisplayResearcherEditQuestionnaireAnswersInterface {
+public class DisplayEditAnswers implements DisplayEditAnswersInterface {
     ScreenManager screenManager;
 
     ControllerManager controllerManager;
@@ -16,7 +16,7 @@ public class DisplayResearcherEditQuestionnaireAnswers implements DisplayResearc
      * @param screenManager         The screen manager.
      * @param controllerManager     The controller manager.
      */
-    public DisplayResearcherEditQuestionnaireAnswers(ScreenManager screenManager, ControllerManager controllerManager) {
+    public DisplayEditAnswers(ScreenManager screenManager, ControllerManager controllerManager) {
         this.screenManager = screenManager;
         this.controllerManager = controllerManager;
     }

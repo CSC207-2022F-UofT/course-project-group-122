@@ -55,6 +55,23 @@ import use_cases.user_login.UserLoginController;
 import use_cases.user_login.UserLoginInteractor;
 import use_cases.user_login.UserLoginPresenter;
 import user_interface_layer.ScreenManager;
+import user_interface_layer.presenter_manager.display_choose_groups.DisplayGroupsToAssign;
+import user_interface_layer.presenter_manager.display_edit_questionnaire.DisplayEditQuestionnaire;
+import user_interface_layer.presenter_manager.display_edit_study.DisplayEditStudy;
+import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessage;
+import user_interface_layer.presenter_manager.display_participant_info.DisplayParticipantInfo;
+import user_interface_layer.presenter_manager.display_participant_no_study.DisplayParticipantNoStudy;
+import user_interface_layer.presenter_manager.display_participant_study.DisplayParticipantStudyData;
+import user_interface_layer.presenter_manager.display_register.DisplayRegister;
+import user_interface_layer.presenter_manager.display_researcher_info.DisplayResearcherInfo;
+import user_interface_layer.presenter_manager.display_researcher_questionnaire.DisplayResearcherQuestionnaire;
+import user_interface_layer.presenter_manager.display_researcher_study.DisplayResearcherStudyData;
+import user_interface_layer.presenter_manager.display_researcher_study_log.DisplayResearcherStudyLog;
+import user_interface_layer.presenter_manager.display_screen_for_answering_questionnaire.DisplayScreenForAnsweringQuestionnaire;
+import user_interface_layer.presenter_manager.display_screen_for_editing_answers.DisplayEditAnswers;
+import user_interface_layer.presenter_manager.display_stratification.DisplayStratification;
+import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessage;
+import user_interface_layer.presenter_manager.display_versioned_answer.DisplayVersionedAnswer;
 import user_interface_layer.screens.ControllerManager;
 
 import java.util.HashMap;
@@ -259,6 +276,43 @@ public class Main {
 
 
         //Presenter Managers
+        DisplayGroupsToAssign presenterManagerDisplayGroupsToAssign =
+                new DisplayGroupsToAssign(screenManager, controllerManager);
+        DisplayEditQuestionnaire presenterManagerDisplayEditQuestionnaire =
+                new DisplayEditQuestionnaire(screenManager, controllerManager);
+        DisplayEditStudy presenterManagerDisplayEditStudy =
+                new DisplayEditStudy(screenManager, controllerManager);
+        DisplayFailureMessage presenterManagerDisplayFailureMessage =
+                new DisplayFailureMessage();
+        DisplayParticipantInfo presenterManagerDisplayParticipantInfo =
+                new DisplayParticipantInfo(screenManager, controllerManager);
+        DisplayParticipantNoStudy presenterManagerDisplayParticipantNoStudy =
+                new DisplayParticipantNoStudy(screenManager, controllerManager);
+        DisplayParticipantStudyData presenterManagerDisplayParticipantStudyData =
+                new DisplayParticipantStudyData(screenManager, controllerManager);
+        DisplayRegister presenterManagerDisplayRegister =
+                new DisplayRegister(screenManager, controllerManager);
+        DisplayResearcherInfo presenterManagerDisplayResearcherInfo =
+                new DisplayResearcherInfo(screenManager, controllerManager);
+        DisplayResearcherQuestionnaire presenterManagerDisplayResearcherQuestionnaire =
+                new DisplayResearcherQuestionnaire(screenManager, controllerManager);
+        DisplayResearcherStudyData presenterManagerDisplayResearcherStudyData =
+                new DisplayResearcherStudyData(screenManager, controllerManager);
+        DisplayResearcherStudyLog presenterManagerDisplayResearcherStudyLog =
+                new DisplayResearcherStudyLog(screenManager, controllerManager);
+        DisplayScreenForAnsweringQuestionnaire presenterManagerDisplayScreenForAnsweringQuestionnaire =
+                new DisplayScreenForAnsweringQuestionnaire(screenManager, controllerManager);
+        DisplayEditAnswers presenterManagerDisplayEditAnswers =
+                new DisplayEditAnswers(screenManager, controllerManager);
+        DisplayStratification presenterManagerDisplayStratification =
+                new DisplayStratification(screenManager, controllerManager);
+        DisplaySuccessMessage presenterManagerDisplaySuccessMessage =
+                new DisplaySuccessMessage();
+        DisplayVersionedAnswer presenterManagerDisplayVersionedAnswer =
+                new DisplayVersionedAnswer(screenManager);
+
+
+        //Inject Presenter Managers to Presenters
 
 
 

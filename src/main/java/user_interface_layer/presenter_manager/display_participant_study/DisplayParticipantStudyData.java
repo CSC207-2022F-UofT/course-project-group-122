@@ -9,7 +9,7 @@ import user_interface_layer.screens.researcher_request_participant_screen.Resear
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantScreen;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
 
-public class DisplayParticipantStudy implements DisplayParticipantStudyDataInterface{
+public class DisplayParticipantStudyData implements DisplayParticipantStudyDataInterface{
     ScreenManager screenManager;
     ControllerManager controllerManager;
 
@@ -20,7 +20,7 @@ public class DisplayParticipantStudy implements DisplayParticipantStudyDataInter
      * @param screenManager         The screen manager.
      * @param controllerManager     The controller manager.
      */
-    public DisplayParticipantStudy(ScreenManager screenManager, ControllerManager controllerManager) {
+    public DisplayParticipantStudyData(ScreenManager screenManager, ControllerManager controllerManager) {
         this.screenManager = screenManager;
         this.controllerManager = controllerManager;
     }

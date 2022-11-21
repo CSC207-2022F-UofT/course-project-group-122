@@ -2,6 +2,6 @@ package user_interface_layer.presenter_manager.display_screen_for_editing_answer
 
 import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQuestionnaireScreenAnswersInputData;
 
-public interface DisplayResearcherEditQuestionnaireAnswersInterface {
+public interface DisplayEditAnswersInterface {
     void presentResearcherEditQuestionnaireAnswersScreen(ResearcherEditQuestionnaireScreenAnswersInputData data);
 }
