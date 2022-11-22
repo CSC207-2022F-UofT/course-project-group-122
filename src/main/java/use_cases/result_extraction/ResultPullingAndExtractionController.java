@@ -1,6 +1,5 @@
 package use_cases.result_extraction;
 
-import entities.Study;
 
 /**
  * Controller for the Result Pulling and Extraction.
@@ -19,9 +18,10 @@ public class ResultPullingAndExtractionController {
      * @param study The given study from which the result pull
      * @param filepath The file path to save the result csv file
      */
-    public void resultPullingAndExtraction(Study study, String filepath){
-        resultPullingAndExtractionInteractor.resultPullingAndExtraction(study, filepath);
+    public void resultPullingAndExtraction(int studyID, String filepath){
+        resultPullingAndExtractionInteractor.resultPullingAndExtraction(studyID, filepath);
     }
+
 
     public void setResultPullingAndExtractionInteractor(ResultPullingAndExtractionInputBoundary
                                                                 resultPullingAndExtractionInteractor){

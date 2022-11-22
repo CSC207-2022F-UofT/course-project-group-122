@@ -26,7 +26,7 @@ public interface ResultPullingAndExtractionInputBoundary {
      * @param
      */
 
-    void resultPullingAndExtraction(Study study, String filepath);
+    void resultPullingAndExtraction(int studyID, String filepath);
 
 
 
