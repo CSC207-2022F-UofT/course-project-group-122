@@ -233,6 +233,16 @@ public class StudyUserManager {
     }
 
     /**
+     * Add a researcher to the existing list of researchers in the study.
+     *
+     * @param researcher a researchers to be added.
+     * @return whether the addition is successful.
+     */
+    public boolean addResearcher(Researcher researcher) {
+        return this.researchers.add(researcher);
+    }
+
+    /**
      * Remove a researcher from the list of researchers in the study.
      *
      * @param researcher researcher to be removed.
@@ -244,4 +254,6 @@ public class StudyUserManager {
         }
         return false;
     }
+
+
 }

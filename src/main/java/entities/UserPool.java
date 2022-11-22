@@ -11,13 +11,6 @@ public class UserPool {
      * The UserPool composes the User class.
      * The UserPool class is a singleton class. This means that there is only one instance of the class.
      */
-
-
-    /*
-    The collection of all users in the system.
-    The key is the user's username.
-    The value is the user.
-     */
     private final Map<String, User> users;
 
 
@@ -39,6 +32,21 @@ public class UserPool {
      */
     public User getUser(String username) {
         return users.get(username);
+    }
+
+
+    /**
+     * Returns the user with the given id.
+     * @param id    The id of the user to be returned.
+     * @return The user with the given id.
+     */
+    public User getUserById(int id) {
+        for (User user : users.values()) {
+            if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null;
     }
 
 
