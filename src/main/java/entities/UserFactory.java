@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A UserFactory that creates and returns User object.
  */
-public class UserFactory implements UserFactoryInterface{
+public class UserFactory implements UserFactoryInterface, java.io.Serializable{
 
     /**
      * The create method that gets called with a specified type  when creating a User object.
