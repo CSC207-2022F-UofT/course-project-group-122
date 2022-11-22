@@ -1,6 +1,6 @@
 package entities;
 
-public interface QuestionFactoryInterface {
+public interface QuestionFactoryInterface{
 
 
     /**

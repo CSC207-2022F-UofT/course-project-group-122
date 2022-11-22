@@ -60,6 +60,7 @@ import use_cases.remove_researcher.RemoveResearcherPresenter;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.researcher_enroller.ResearcherEnrollerInteractor;
 import use_cases.researcher_enroller.ResearcherEnrollerPresenter;
+import use_cases.serializer.Serializer;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_log_out.UserLogOutInteractor;
 import use_cases.user_log_out.UserLogOutPresenter;
@@ -88,11 +89,14 @@ import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.screen_drivers.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class Main {
     public static void main(String[] args) {
+
+
 
         // Making the entity collections
         // TODO: to be serialized
@@ -205,9 +209,9 @@ public class Main {
         ParticipantEnrollerPresenter participantEnrollerPresenter = new ParticipantEnrollerPresenter();
         participantEnrollerController.setParticipantEnrollerInteractor(participantEnrollerInteractor);
         participantEnrollerInteractor.setParticipantEnrollerPresenter(participantEnrollerPresenter);
-        //TODO: serialize this
         RandomGroupGeneratorManager randomGroupGeneratorManager = new RandomGroupGeneratorManager();
         participantEnrollerInteractor.setRandomGroupGeneratorManager(randomGroupGeneratorManager);
+
 
         //Publish questionnaire use case
         PublishQuestionnaireController publishQuestionnaireController = new PublishQuestionnaireController();
@@ -440,6 +444,26 @@ public class Main {
         UserRegisterScreen userRegisterScreen = new UserRegisterScreen(controllerManager);
         screenManager.setCurrentScreen(userRegisterScreen);
         userRegisterScreen.setVisible(true);
+
+
+        // The serializer object
+
+        Serializer s = new Serializer();
+        ArrayList<Object> objs = s.getAll();
+
+        for(Object obj : objs){
+            switch (obj.getClass().getSimpleName()){
+                case "UserPool":
+                    userPool = (UserPool) obj;
+                    break;
+                case "StudyPool":
+                    studyPool = (StudyPool) obj;
+                    break;
+                case "RandomGroupGeneratorManager":
+                    randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
+                    break;
+            }
+        }
 
 
 
