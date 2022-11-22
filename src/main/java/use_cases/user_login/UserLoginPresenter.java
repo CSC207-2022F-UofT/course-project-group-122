@@ -1,7 +1,5 @@
 package use_cases.user_login;
 
-import entities.User;
-import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_study_data.FetchStudyDataController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
@@ -34,27 +32,30 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
 
     /**
      * Display a message to the user when the user sign up succeeds.
-     * @param newUser   The newly created user.
+     * @param userId    The id of the user that signed up.
+     * @param name     The name of the user that signed up.
+     * @param userName The username of the user that signed up.
      */
     @Override
-    public void onUserSignUpSuccess(@NotNull User newUser, String userType) {
-        String message = "User " + newUser.getUsername() + " has been created. \n" +
-                "User type: " + userType + "\n" +
-                "Name: " + newUser.getName() + "\n" +
-                "ID: " + newUser.getId();
+    public void onUserSignUpSuccess(int userId, String name, String userName, String userType) {
+        String message = "<html>User " + userName + " has been created." +
+                "<BR>User type: " + userType +
+                "<BR>Name: " + name +
+                "<BR>ID: " + userId + "</html>";
         displaySuccessMessage.presentGeneralSuccessMessage(message);
     }
 
     /**
      * Display a message to the user when the user login succeeds.
      *
-     * @param user The user that has logged in.
-     * @return   The ID of the user that has logged in.
+     * @param userId The user id of the user that has logged in.
+     * @param name  The name of the user that has logged in.
+     * @param userName The username of the user that has logged in.
      */
     @Override
-    public void onUserLoginSuccess(@NotNull User user) {
-        String message = "Welcome back, " + user.getUsername() + "!";
-        fetchStudyDataController.fetchStudyData(user.getId());
+    public void onUserLoginSuccess(int userId, String name, String userName) {
+        String message = "Welcome back, " + name + " (" + userName + ") " + "!";
+        fetchStudyDataController.fetchStudyData(userId);
         displaySuccessMessage.presentGeneralSuccessMessage(message);
     }
 
