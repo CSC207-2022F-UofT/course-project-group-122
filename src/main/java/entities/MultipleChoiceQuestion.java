@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * A subclass of Question that allows User to answer a Question by choosing one of the specified choices.
  */
-public class MultipleChoiceQuestion extends Question {
+public class MultipleChoiceQuestion extends Question implements java.io.Serializable{
 
     /**
      * The number of choices for this MultipleChoiceQuestion. The default value is 0.

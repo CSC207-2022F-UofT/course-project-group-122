@@ -3,7 +3,7 @@ package entities;
 /**
  * A subclass of Question that allows Users to answer a Question by inputting a text/short answer.
  */
-public class TextQuestion extends Question {
+public class TextQuestion extends Question implements java.io.Serializable{
 
 
     /**

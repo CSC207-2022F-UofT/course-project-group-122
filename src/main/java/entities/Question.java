@@ -3,7 +3,7 @@ package entities;
 /**
  * An abstract Question class. Each instance of a Question is part of a particular Questionnaire.
  */
-public abstract class Question {
+public abstract class Question implements java.io.Serializable{
 
     /**
      * The current maximum ID of all the Questions in the system. This is used to generate the next ID.

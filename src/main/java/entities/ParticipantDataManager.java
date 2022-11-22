@@ -11,7 +11,7 @@ import java.util.Map;
  * The ParticipantDataManager object is responsible for managing the data of the Participant object, including the
  * questionnaires and the answers to the questionnaires.
  */
-public class ParticipantDataManager {
+public class ParticipantDataManager implements java.io.Serializable{
 
     /**
      * The Participant object this ParticipantDataManager object is associated with.
