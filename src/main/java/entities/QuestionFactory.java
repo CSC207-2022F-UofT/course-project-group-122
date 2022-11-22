@@ -17,9 +17,9 @@ public class QuestionFactory implements QuestionFactoryInterface {
      * @param content           The content of the Question.
      * @return                  The Question object that was created.
      */
-    public Question create(@NotNull String type, Questionnaire questionnaire, String variableName, String content) {
+    public static Question create(@NotNull String type, Questionnaire questionnaire, String variableName, String content) {
         switch (type) {
-            case "MCQ":
+            case "MC":
                 return new MultipleChoiceQuestion(questionnaire, variableName, content);
             case "Scale":
                 return new ScaleQuestion(questionnaire, variableName, content);

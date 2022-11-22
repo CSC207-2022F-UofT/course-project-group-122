@@ -19,11 +19,13 @@ public class VersionedAnswer {
      * The current maximum ID of all the VersionedAnswers in the system. This is used to generate the next ID.
      */
     private static int currID;
+
     /**
      * The id of the versioned answer. This is unique across the entire system, regardless of the study, questionnaire,
      * or participant.
      */
     private final int id;
+
     /**
      * The current version of the answers. This is used to determine which version of the answers is the most recent.
      */

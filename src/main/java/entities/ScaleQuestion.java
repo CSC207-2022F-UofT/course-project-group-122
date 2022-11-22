@@ -32,6 +32,8 @@ public class ScaleQuestion extends Question {
     /**
      * The constructor for the ScaleQuestion class.
      * This Constructor is overloaded. User specify the scaleRange when creating an instance of ScaleQuestion.
+     * <p>
+     * The scale of the question is defined from 0 to scaleRange - 1, where there are a total of scaleRange values.
      *
      * @param questionnaire     The questionnaire this question is part of.
      * @param variableName      Keyword that describes the content of this Question
@@ -70,7 +72,7 @@ public class ScaleQuestion extends Question {
     public boolean modifyScaleRange(int newRange) {
         if (newRange >= 0) {
             this.scaleRange = newRange;
-            for (int i = 1; i <= newRange; i++) {
+            for (int i = 0; i < newRange; i++) {
                 this.scale.add(i);
             }
             return true;
@@ -108,5 +110,17 @@ public class ScaleQuestion extends Question {
     @Override
     public String getAnswerChoices() {
         return bottomLabel + " - " + scale + " - " + topLabel;
+    }
+
+    public void setScaleRange(int scaleRange) {
+        this.scaleRange = scaleRange;
+    }
+
+    public void setBottomLabel(String bottomLabel) {
+        this.bottomLabel = bottomLabel;
+    }
+
+    public void setTopLabel(String topLabel) {
+        this.topLabel = topLabel;
     }
 }
