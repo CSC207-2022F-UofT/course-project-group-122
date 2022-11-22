@@ -414,6 +414,7 @@ public class Main {
         createQuestionnairePresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
 
         resultExtractionPresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
+        resultExtractionPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
 
 
         // Inject controllers to controller manager

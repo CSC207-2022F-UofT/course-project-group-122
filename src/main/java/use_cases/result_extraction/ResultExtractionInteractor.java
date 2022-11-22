@@ -8,6 +8,7 @@ import entities.VersionedAnswer;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.io.FileWriter;
 import java.io.File;
@@ -39,72 +40,105 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
 
     @Override
     public void resultPullingAndExtraction(int studyID, String filepath) {
-        Study study = FetchId.getStudy(studyID);
         ArrayList<String> presentInfo = new ArrayList<>();
+        ArrayList<Integer> presentIndicator = new ArrayList<>();
+        Integer notSuccess = 0;
+        Integer isSuccess = 1;
+
+
+        Study study = FetchId.getStudy(studyID);
         String folderName = study.getId() + "_" + study.getStudyName();
         String folderPath = filepath + "\\" + folderName;
         File studyFolder = new File(folderPath);
-        boolean examineFolder = studyFolder.mkdir();
-        if (examineFolder){
+        if (studyFolder.mkdir()) {
             presentInfo.add("folder " + folderName + "create successfully");
-        } else{
+            presentIndicator.add(isSuccess);
+        }else {
             presentInfo.add("folder " + folderName + "create unsuccessfully");
+            presentIndicator.add(notSuccess);
         }
 
 
-        for (Questionnaire questionnaire: study.getQuestionnaires()){
-            String csvFileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
-            String csvFilePath = folderPath + "\\" + csvFileName;
-            File questionnaireResult = new File(csvFilePath);
+        if (study.getEligibilityQuestionnaire() != null) {
+            Questionnaire eliQuestionnaire = study.getEligibilityQuestionnaire();
+            String eliFileName = eliQuestionnaire.getId() + "_" + eliQuestionnaire.getTitle() + ".csv";
+            String eliFilePath = folderPath + "\\" + eliFileName;
+            File eliQuestionnaireResult = new File(eliFilePath);
             try {
-                FileWriter exportFile = new FileWriter(questionnaireResult);
+                FileWriter exportFile = new FileWriter(eliQuestionnaireResult);
                 CSVWriter writer = new CSVWriter(exportFile);
-                List<String[]> result = new ArrayList<>();
-                result.add(firstLine(questionnaire));
-                for (Participant par: study.getParticipants()){
-                    if (par.getCompletedQuestionnaires().contains(questionnaire)){
-                        result.add(restLine(par, questionnaire));
+                List<String[]> result1 = new ArrayList<>();
+                result1.add(firstLine(eliQuestionnaire));
+                for (Participant par2 : study.getParticipants()) {
+                    if (par2.hasCompletedEligibilityQuestionnaire()) {
+                        result1.add(restLine(par2, eliQuestionnaire));
                     }
                 }
-                writer.writeAll(result);
+                writer.writeAll(result1);
                 writer.close();
-            }
-            catch (IOException err) {
+            } catch (IOException err) {
                 err.printStackTrace();
             }
-        if (questionnaireResult.mkdir()){
-            presentInfo.add("file " + csvFileName + "create successfully");
-        }else{
-            presentInfo.add("file " + csvFileName + "create unsuccessfully");
-        }
-        }
+            if (eliQuestionnaireResult.mkdir()) {
+                presentInfo.add("file " + eliFileName + "create successfully");
+                presentIndicator.add(isSuccess);
+            } else {
+                presentInfo.add("file " + eliFileName + "create unsuccessfully");
+                presentIndicator.add(notSuccess);
+            }
 
-        Questionnaire eliQuestionnaire = study.getEligibilityQuestionnaire();
-        String eliFileName = eliQuestionnaire.getId() + "_" + eliQuestionnaire.getTitle() + ".csv";
-        String eliFilePath = folderPath + "\\" + eliFileName;
-        File eliQuestionnaireResult = new File(eliFilePath);
-        try {
-            FileWriter exportFile = new FileWriter(eliQuestionnaireResult);
-            CSVWriter writer = new CSVWriter(exportFile);
-            List<String[]> result1 = new ArrayList<>();
-            result1.add(firstLine(eliQuestionnaire));
-            for (Participant par2: study.getParticipants()){
-                if (par2.hasCompletedEligibilityQuestionnaire()){
-                    result1.add(restLine(par2, eliQuestionnaire));
+
+            List<Questionnaire> listOfQuestionnaire = study.getQuestionnaires();
+            if (listOfQuestionnaire.get(0) != null) {
+                for (Questionnaire questionnaire : study.getQuestionnaires()) {
+                    String csvFileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
+                    String csvFilePath = folderPath + "\\" + csvFileName;
+                    File questionnaireResult = new File(csvFilePath);
+                    try {
+                        FileWriter exportFile = new FileWriter(questionnaireResult);
+                        CSVWriter writer = new CSVWriter(exportFile);
+                        List<String[]> result = new ArrayList<>();
+                        result.add(firstLine(questionnaire));
+                        for (Participant par : study.getParticipants()) {
+                            if (par.getCompletedQuestionnaires().contains(questionnaire)) {
+                                result.add(restLine(par, questionnaire));
+                            }
+                        }
+                        writer.writeAll(result);
+                        writer.close();
+                    } catch (IOException err) {
+                        err.printStackTrace();
+                    }
+                    if (questionnaireResult.mkdir()) {
+                        presentInfo.add("file " + csvFileName + "create successfully");
+                        presentIndicator.add(isSuccess);
+                    } else {
+                        presentInfo.add("file " + csvFileName + "create unsuccessfully");
+                        presentIndicator.add(notSuccess);
+                    }
                 }
             }
-            writer.writeAll(result1);
-            writer.close();
+            else{
+                presentInfo.add("Questionnaire files create unsuccessfully");
+                presentIndicator.add(notSuccess);
+            }
         }
-        catch (IOException err) {
-            err.printStackTrace();
+        else{
+            presentInfo.add("Eligibility Questionnaire file create unsuccessfully");
+            presentIndicator.add(notSuccess);
         }
-        if (eliQuestionnaireResult.mkdir()){
-            presentInfo.add("file " + eliFileName + "create successfully");
+        if (presentIndicator.contains(notSuccess)){
+            ArrayList<String> errormessage = new ArrayList<>();
+            for (Integer integer: presentIndicator){
+                if(integer.equals(notSuccess)){
+                    Integer integerIndex = presentIndicator.indexOf(integer);
+                    errormessage.add(presentInfo.get(integerIndex));
+                }
+            }
+            resultPullingAndExtractionPresenter.presentFailSave(studyID, filepath, errormessage);
         }else{
-            presentInfo.add("file " + eliFileName + "create unsuccessfully");
+            resultPullingAndExtractionPresenter.presentSuccessSave(studyID, filepath);
         }
-        resultPullingAndExtractionPresenter.presentSavingInfo(studyID, filepath);
     }
 
     private String @NotNull [] firstLine(@NotNull Questionnaire questionnaire) {
