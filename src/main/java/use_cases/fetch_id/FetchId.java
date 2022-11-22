@@ -17,8 +17,8 @@ public class FetchId {
     private static StudyPool studyPool;
 
     public FetchId(UserPool userPool, StudyPool studyPool) {
-        this.userPool = userPool;
-        this.studyPool = studyPool;
+        FetchId.userPool = userPool;
+        FetchId.studyPool = studyPool;
     }
 
 
@@ -76,6 +76,10 @@ public class FetchId {
             if (questionnaire.getId() == id) {
                 return questionnaire;
             }
+        }
+        Questionnaire eligibilityQuestionnaire = study.getEligibilityQuestionnaire();
+        if (eligibilityQuestionnaire != null && eligibilityQuestionnaire.getId() == id) {
+            return eligibilityQuestionnaire;
         }
         return null;
     }
@@ -140,5 +144,16 @@ public class FetchId {
     public static int addStudy(Study study) {
         studyPool.addStudy(study);
         return study.getId();
+    }
+
+
+    /**
+     * Add the user to the user pool and return the id of the user.
+     * @param user  The user to be added.
+     * @return      The id of the user.
+     */
+    public static int addUser(User user) {
+        userPool.addUser(user);
+        return user.getId();
     }
 }

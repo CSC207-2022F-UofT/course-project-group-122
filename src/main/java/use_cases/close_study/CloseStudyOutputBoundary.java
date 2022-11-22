@@ -9,5 +9,5 @@ public interface CloseStudyOutputBoundary {
      * @param study     The study that was closed or reopened
      * @param message   The message to display to the user
      */
-    void displayMessage(Study study, String message);
+    void displayMessage(Study study, String message, int researcherId);
 }

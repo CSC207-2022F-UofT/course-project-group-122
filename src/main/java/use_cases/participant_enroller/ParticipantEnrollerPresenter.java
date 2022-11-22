@@ -2,9 +2,11 @@ package use_cases.participant_enroller;
 
 import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
-import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class ParticipantEnrollerPresenter implements ParticipantEnrollerOutputBoundary {
+
+
 
     /**
      * The controller for study log display.
@@ -70,17 +72,6 @@ public class ParticipantEnrollerPresenter implements ParticipantEnrollerOutputBo
         String failureMessage = "Participant " + participantId + " does not exist. Please check that the " +
                 "ID is correct.";
         displayFailureMessage.presentFailureMessage(failureMessage);
-    }
-
-    /**
-     * Presents the information of a participant
-     *
-     * @param id   The participant's id.
-     * @param name The participant's name.
-     */
-    @Override
-    public void presentParticipantInformation(int id, String name) {
-        //TODO: implement the screen to display the participant information.
     }
 
 

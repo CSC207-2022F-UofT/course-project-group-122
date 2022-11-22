@@ -1,8 +1,15 @@
 package use_cases.user_log_out;
 
-import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.presenter_manager.display_register.DisplayRegisterInterface;
+import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class UserLogOutPresenter implements UserLogOutOutputBoundary {
+
+
+    /**
+     * The display register interface.
+     */
+    DisplayRegisterInterface displayRegisterInterface;
 
     /**
      * The display success message interface
@@ -15,6 +22,7 @@ public class UserLogOutPresenter implements UserLogOutOutputBoundary {
     @Override
     public void logOut() {
         String message = "You have successfully logged out";
+        displayRegisterInterface.displayRegisterScreen();
         displaySuccessMessage.presentGeneralSuccessMessage(message);
     }
 
@@ -25,6 +33,15 @@ public class UserLogOutPresenter implements UserLogOutOutputBoundary {
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * Presents the register screen.
+     * @param displayRegisterInterface  The presenter to display the register screen.
+     */
+    public void setDisplayRegisterInterface(DisplayRegisterInterface displayRegisterInterface) {
+        this.displayRegisterInterface = displayRegisterInterface;
     }
 
 }

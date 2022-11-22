@@ -15,5 +15,6 @@ public interface GetTargetGroupsOutputBoundary {
      * Presents the target groups.
      * @param targetGroupsMap   The target groups.
      */
-    void presentTargetGroups(Map<Integer, String> targetGroupsMap);
+    void presentTargetGroups(Map<Integer, String> targetGroupsMap, Map<Integer, String> allStudyGroups,
+                             int studyId, int questionnaireId);
 }

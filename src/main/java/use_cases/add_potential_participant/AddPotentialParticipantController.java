@@ -19,6 +19,16 @@ public class AddPotentialParticipantController {
 
 
     /**
+     * This method is used to fetch the participant's information.
+     * @param participantId The id of the participant.
+     * @param studyId       The id of the study.
+     */
+    public void fetchParticipantInfo(int participantId, int studyId) {
+        addPotentialParticipantInterator.fetchParticipantInfo(participantId, studyId);
+    }
+
+
+    /**
      * Set the interactor for this controller.
      * @param addPotentialParticipantInterator The interactor for this controller.
      */

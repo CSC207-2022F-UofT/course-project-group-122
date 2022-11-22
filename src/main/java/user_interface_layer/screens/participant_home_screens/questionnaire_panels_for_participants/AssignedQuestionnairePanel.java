@@ -1,6 +1,6 @@
 package user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants;
 
-import user_interface_layer.SetTableModel;
+import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreenInputData;
 
@@ -37,7 +37,7 @@ public AssignedQuestionnairePanel(ParticipantHomeScreenInputData data, Controlle
             if (model.getValueAt(selectedRow, 2).toString().equals("Closed")) {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
             } else {
-                controllerManager.answerQuestionnaireRequestData(data.getParticipantId(), keys.get(selectedRow));
+                controllerManager.questionnaireRequestDataForAnswering(data.getParticipantId() ,data.getParticipantId(),data.getStudyId(), keys.get(selectedRow));
             }
 
         }

@@ -9,7 +9,7 @@ public interface ModifyStudyParameterOutputBoundary {
      *
      * @param variableNames The list of potential stratification variables for the study.
      */
-    void displayPotentialStratificationVariables(List<String> variableNames);
+    void displayPotentialStratificationVariables(int studyId, List<String> variableNames);
 
 
     /**

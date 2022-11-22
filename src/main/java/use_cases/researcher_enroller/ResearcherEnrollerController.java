@@ -20,7 +20,7 @@ public class ResearcherEnrollerController {
      * @param researcherId  the id of the researcher
      * @param studyId       the id of the study
      */
-    private void enrollResearcher(int researcherId, int studyId, int userId) {
+    public void enrollResearcher(int researcherId, int studyId, int userId) {
         researcherEnrollerInterator.enrollResearcher(researcherId, studyId, userId);
     }
 

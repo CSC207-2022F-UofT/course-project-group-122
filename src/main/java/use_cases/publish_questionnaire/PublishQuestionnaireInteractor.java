@@ -16,7 +16,7 @@ public class PublishQuestionnaireInteractor implements PublishQuestionnaireInput
      * @param studyId         The ID of the study to publish the questionnaire to.
      */
     @Override
-    public void publishQuestionnaire(int questionnaireID, int studyId) {
+    public void publishQuestionnaire(int questionnaireID, int studyId, int researcherId) {
     Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireID, studyId);
     Study study = FetchId.getStudy(studyId);
         if (questionnaire == null) {
@@ -24,7 +24,7 @@ public class PublishQuestionnaireInteractor implements PublishQuestionnaireInput
                     "id does not exist.");
         } else if (canBePublished(questionnaire, study)) {
         questionnaire.publish();
-        publishQuestionnairePresenter.publishQuestionnaire(questionnaireID, studyId);
+        publishQuestionnairePresenter.publishQuestionnaire(questionnaireID, studyId, researcherId);
         }
     }
 

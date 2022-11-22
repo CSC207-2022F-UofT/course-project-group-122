@@ -1,6 +1,7 @@
 package user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers;
 
-import user_interface_layer.SetTableModel;
+import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantInputData;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class AssignedQuestionnairePanelForResearcher extends JPanel {
 
-public AssignedQuestionnairePanelForResearcher(ResearcherRequestParticipantInputData data) {
+public AssignedQuestionnairePanelForResearcher(ResearcherRequestParticipantInputData data, ControllerManager controllerManager) {
     setLayout(new BorderLayout());
     SetTableModel setTableModel = new SetTableModel(data.getQuestionnairesTableHeader());
     DefaultTableModel model = setTableModel.getModel();
@@ -30,5 +31,20 @@ public AssignedQuestionnairePanelForResearcher(ResearcherRequestParticipantInput
 
     JPanel buttonsPanel = new JPanel();
     add(buttonsPanel, BorderLayout.SOUTH);
+    JButton answerButton = new JButton("Answer Questionnaire");
+    answerButton.addActionListener(e -> {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a questionnaire to answer");
+        } else {
+            if (model.getValueAt(selectedRow, 2).toString().equals("Closed")) {
+                JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
+            } else {
+                controllerManager.questionnaireRequestDataForAnswering(data.getUserId(), data.getParticipantId(), data.getStudyId(), keys.get(selectedRow));
+            }
+
+        }
+    });
     }
+
 }

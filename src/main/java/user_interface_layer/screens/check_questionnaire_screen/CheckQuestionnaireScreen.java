@@ -1,8 +1,9 @@
 package user_interface_layer.screens.check_questionnaire_screen;
 
+import org.jetbrains.annotations.NotNull;
 import use_cases.questionnaire_screen_data_request.CheckQuestionnaireInputData;
-import user_interface_layer.SetScreenToCenter;
-import user_interface_layer.SetTableModel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetTableModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 
 public class CheckQuestionnaireScreen extends JFrame {
 
-    public CheckQuestionnaireScreen(CheckQuestionnaireInputData data) {
+    public CheckQuestionnaireScreen(@NotNull CheckQuestionnaireInputData data) {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

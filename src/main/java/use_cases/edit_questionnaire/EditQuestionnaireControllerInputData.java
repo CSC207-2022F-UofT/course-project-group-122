@@ -1,5 +1,6 @@
 package use_cases.edit_questionnaire;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class EditQuestionnaireControllerInputData {
@@ -10,7 +11,7 @@ public class EditQuestionnaireControllerInputData {
     Map<String, String[]> newQuestions;
 
 
-    public EditQuestionnaireControllerInputData(int studyID, int questionnaireID, String questionnaireName, String questionnaireDescription, Map<String, String[]> newQuestions) {
+    public EditQuestionnaireControllerInputData(int studyID, int questionnaireID, String questionnaireName, String questionnaireDescription, ArrayList<String> studyGroupNames, Map<String, String[]> newQuestions) {
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
         this.questionnaireName = questionnaireName;

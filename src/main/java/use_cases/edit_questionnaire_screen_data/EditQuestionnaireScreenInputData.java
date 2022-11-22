@@ -2,6 +2,7 @@ package use_cases.edit_questionnaire_screen_data;
 
 import user_interface_layer.screens.ControllerManager;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -32,6 +33,8 @@ public class EditQuestionnaireScreenInputData {
      */
     private final String[] questionsTableHeader = {"Type", "Question", "Variable", "Options"};
 
+
+    private List<String> studyGroups;
     /*
      * The questions of the questionnaire.
      * The key is the question. The value is an array with the question's type, variable and options.
@@ -58,11 +61,13 @@ public class EditQuestionnaireScreenInputData {
                                             int questionnaireID,
                                             String questionnaireName,
                                             String questionnaireDescription,
+                                            List<String> studyGroups,
                                             Map<String, String[]> questions) {
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
+        this.studyGroups = studyGroups;
         this.questions = questions;
     }
 
@@ -90,5 +95,8 @@ public class EditQuestionnaireScreenInputData {
     }
 
 
+    public List<String> getStudyGroups() {
+        return studyGroups;
+    }
 }
 

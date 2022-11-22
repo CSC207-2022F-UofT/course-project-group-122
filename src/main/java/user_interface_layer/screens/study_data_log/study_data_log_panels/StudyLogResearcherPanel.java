@@ -1,9 +1,10 @@
 package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
-import user_interface_layer.SetScreenToCenter;
-import user_interface_layer.SetTableModel;
+import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_log.FetchStudyLogResponseModel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,14 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudyLogResearcherPanel extends JPanel {
-    public StudyLogResearcherPanel(StudyDataLogInputData data, ControllerManager controllerManager) {
+    public StudyLogResearcherPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        SetTableModel setTableModel = new SetTableModel(data.getUserTableHeader());
+        String[] tableHeaders = {"ID", "Name"};
+        SetTableModel setTableModel = new SetTableModel(tableHeaders);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
 
-        List<Integer> keys = new ArrayList<>(data.getResearchersData().keySet());
-        List<String[]> values = new ArrayList<>(data.getResearchersData().values());
+        List<Integer> keys = new ArrayList<>(data.getResearchers().keySet());
+        List<String[]> values = new ArrayList<>(data.getResearchers().values());
 
         for (String[] row : values) {
             model.addRow(row);
@@ -38,7 +40,7 @@ public class StudyLogResearcherPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a researcher to remove");
             } else {
                 int researcherId = keys.get(selectedRow);
-                controllerManager.removeResearcherFromStudyRequest(researcherId, data.getStudyId());
+                controllerManager.removeResearcherFromStudyRequest(researcherId, data.getStudyId(),data.getResearcherId());
             }
         });
 
@@ -56,7 +58,7 @@ public class StudyLogResearcherPanel extends JPanel {
                     String researcherId = textField.getText();
                     try {
                         int researcherIdInt = Integer.parseInt(researcherId);
-                        controllerManager.addResearcherToStudyRequest(researcherIdInt, data.getStudyId());
+                        controllerManager.fetchResearcher(researcherIdInt, data.getStudyId());
                         frame.dispose();
                     } catch (NumberFormatException exception) {
                         JOptionPane.showMessageDialog(null, "Please enter a valid researcher identifier");

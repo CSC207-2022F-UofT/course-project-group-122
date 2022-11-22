@@ -1,7 +1,10 @@
 package user_interface_layer.presenter_manager.display_researcher_study_log;
 
-import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
+import use_cases.fetch_study_log.FetchStudyLogResponseModel;
 
+/**
+ * The interface that the presenter calls to display the researcher study log screen.
+ */
 public interface DisplayResearcherStudyLogInterface {
-    void presentResearcherStudyLogScreen(StudyDataLogInputData data);
+    void presentResearcherStudyLogScreen(FetchStudyLogResponseModel data);
 }

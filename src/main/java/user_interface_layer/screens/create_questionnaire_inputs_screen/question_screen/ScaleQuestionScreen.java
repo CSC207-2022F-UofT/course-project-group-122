@@ -1,7 +1,7 @@
 package user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen;
 
-import user_interface_layer.SetLabelTextPanel;
-import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetLabelTextPanel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
 import javax.swing.*;
@@ -47,7 +47,7 @@ public class ScaleQuestionScreen extends JFrame {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");
             } else {
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText(), bottomLabel.getText(), topLabel.getText(), scale);
-                model.addRow(new String[]{"Scale",question.getText(), variable.getText(), "bottomLabel.getText()" + scale + "topLabel.getText()"});
+                model.addRow(new String[]{"Scale",question.getText(), variable.getText(), bottomLabel.getText()+ " - " + scale + " - "+ topLabel.getText()});
                 addedQuestions.add(newQuestion);
                 this.dispose();
             }
