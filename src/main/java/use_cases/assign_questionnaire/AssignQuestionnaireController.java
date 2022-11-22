@@ -2,9 +2,9 @@ package use_cases.assign_questionnaire;
 
 public class AssignQuestionnaireController {
 
-    private assignquestionnaireinputboundary assignquestionnaireinteractor;
+    private AssignQuestionnaireInputBoundary assignquestionnaireinteractor;
 
-    public void setassignquestionnaireinteractor(assignquestionnaireinputboundary assignquestionnaireinteractor) {
+    public void setassignquestionnaireinteractor(AssignQuestionnaireInputBoundary assignquestionnaireinteractor) {
         this.assignquestionnaireinteractor = assignquestionnaireinteractor;
     }
     public void assignQuestionnaireToGroup(int questionnaireId, int studyId, String group) {
