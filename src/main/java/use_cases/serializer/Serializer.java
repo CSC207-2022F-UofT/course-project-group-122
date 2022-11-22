@@ -1,5 +1,6 @@
 package use_cases.serializer;
 
+import entities.User;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -11,8 +12,12 @@ public class Serializer {
 
     public Serializer(){}
 
+    public String getClassName(@NotNull Object obj){
+        return obj.getClass().getSimpleName();
+    }
+
     public void saveObject(@NotNull Object obj){
-        String filename = "/" + obj.hashCode() + ".ser";
+        String filename = "/" + getClassName(obj) + obj.hashCode() + ".ser";
         try(FileOutputStream fileout = new FileOutputStream(this.basePath.concat(filename));
             ObjectOutputStream output = new ObjectOutputStream(fileout)){
             output.writeObject(obj);
@@ -65,4 +70,5 @@ public class Serializer {
         purge(names);
         return objs;
     }
+
 }
