@@ -1,16 +1,13 @@
-package use_cases.result_pulling_and_extraction;
+package use_cases.result_extraction;
 
 import com.opencsv.CSVWriter;
-import entities.Answer;
 import entities.Participant;
 import entities.Study;
 import entities.Questionnaire;
 import entities.VersionedAnswer;
 
 import java.util.*;
-
 import java.io.FileWriter;
-import java.lang.reflect.Array;
 import java.io.File;
 import java.io.IOException;
 
@@ -36,16 +33,19 @@ import java.io.IOException;
  * message to the participant.
  */
 public class ResultPullingAndExtractionInteractor implements ResultPullingAndExtractionInputBoundary {
+    private ResultPullingAndExtractionOutputBoundary resultPullingAndExtractionPresenter;
+
     @Override
     public void resultPullingAndExtraction(Study study, String filepath) {
+        ArrayList<String> presentInfo = new ArrayList<>();
         String folderName = study.getId() + "_" + study.getStudyName();
         String folderPath = filepath + "\\" + folderName;
         File studyFolder = new File(folderPath);
         boolean examineFolder = studyFolder.mkdir();
         if (examineFolder){
-            System.out.println("folder " + folderName + "create successfully");
+            presentInfo.add("folder " + folderName + "create successfully");
         } else{
-            System.out.println("folder " + folderName + "create unsuccessfully");
+            presentInfo.add("folder " + folderName + "create unsuccessfully");
         }
 
 
@@ -70,11 +70,13 @@ public class ResultPullingAndExtractionInteractor implements ResultPullingAndExt
                 err.printStackTrace();
             }
         if (questionnaireResult.mkdir()){
-            System.out.println("folder " + csvFileName + "create successfully");
+            presentInfo.add("folder " + csvFileName + "create successfully");
         }else{
-            System.out.println("folder " + csvFileName + "create unsuccessfully");
+            presentInfo.add("folder " + csvFileName + "create unsuccessfully");
         }
         }
+    resultPullingAndExtractionPresenter.presentSavingInfo(presentInfo);
+
 
     }
 
@@ -107,6 +109,10 @@ public class ResultPullingAndExtractionInteractor implements ResultPullingAndExt
             }
         }
         return oneLine.toArray(new String[0]);
+    }
+
+    public void setSavingInfoPresenter(ResultPullingAndExtractionOutputBoundary resultPullingAndExtractionPresenter){
+        this.resultPullingAndExtractionPresenter = resultPullingAndExtractionPresenter;
     }
 
 

@@ -1,4 +1,4 @@
-package use_cases.result_pulling_and_extraction;
+package use_cases.result_extraction;
 
 import entities.Study;
 
