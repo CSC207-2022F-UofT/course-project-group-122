@@ -7,23 +7,18 @@ import user_interface_layer.presenter_manager.display_researcher_study_log.Displ
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class CreateQuestionnairePresenter implements CreateQuestionnaireOutputBoundary{
-    DisplayFailureMessageInterface displayFailureMessageInterface;
-    DisplaySuccessMessageInterface displaySuccessMessageInterface;
-    FetchStudyLogController fetchStudyLogController;
+    private DisplayFailureMessageInterface displayFailureMessageInterface;
+    private DisplaySuccessMessageInterface displaySuccessMessageInterface;
+    private FetchStudyLogController fetchStudyLogController;
     @Override
     public void presentFailureScreen(String message) {
         displayFailureMessageInterface.presentFailureMessage(message);
     }
 
     @Override
-    public void presentSuccessScreen() {
-
+    public void presentSuccessScreen(int researcherId, int studyId) {
+        fetchStudyLogController.fetchStudyLog(studyId, researcherId);
         displaySuccessMessageInterface.presentGeneralSuccessMessage("Questionnaire created successfully");
-    }
-
-    public void  presentStudyLogScreen(int study, int researcher){
-        fetchStudyLogController.fetchStudyLog(study, researcher);
-
     }
 
     public void setDisplayFailureMessageInterface(DisplayFailureMessageInterface displayFailureMessageInterface) {

@@ -5,6 +5,6 @@ import user_interface_layer.presenter_manager.display_researcher_study_log.Displ
 public interface CreateQuestionnaireOutputBoundary {
     void presentFailureScreen(String message);
 
-    void presentSuccessScreen();
-    void presentStudyLogScreen(int study, int researcher);
+    void presentSuccessScreen(int researcherId, int studyId);
+
 }

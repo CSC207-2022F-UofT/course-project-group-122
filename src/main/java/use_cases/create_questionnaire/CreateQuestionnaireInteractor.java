@@ -59,8 +59,7 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
         } catch (Exception e) {
             outputBoundary.presentFailureScreen(e.getMessage());
         }
-        outputBoundary.presentStudyLogScreen(data.getStudyID(), data.getResearcherID());
-        outputBoundary.presentSuccessScreen();
+        outputBoundary.presentSuccessScreen(data.getResearcherID(), data.getStudyID());
 
     }
 
