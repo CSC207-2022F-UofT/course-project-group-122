@@ -5,12 +5,12 @@ package use_cases.result_extraction;
  * Controller for the Result Pulling and Extraction.
  */
 
-public class ResultPullingAndExtractionController {
+public class ResultExtractionController {
     /*
       The interactor for this use case.
      */
 
-    private ResultPullingAndExtractionInputBoundary resultPullingAndExtractionInteractor;
+    private ResultExtractionInputBoundary resultPullingAndExtractionInteractor;
 
 
     /*
@@ -19,11 +19,13 @@ public class ResultPullingAndExtractionController {
      * @param filepath The file path to save the result csv file
      */
     public void resultPullingAndExtraction(int studyID, String filepath){
+        System.out.println(filepath);
         resultPullingAndExtractionInteractor.resultPullingAndExtraction(studyID, filepath);
+
     }
 
 
-    public void setResultPullingAndExtractionInteractor(ResultPullingAndExtractionInputBoundary
+    public void setResultExtractionInteractor(ResultExtractionInputBoundary
                                                                 resultPullingAndExtractionInteractor){
         this.resultPullingAndExtractionInteractor = resultPullingAndExtractionInteractor;
     }

@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StudyUserManager {
+public class StudyUserManager implements java.io.Serializable{
 
     /**
      * The study that this manager is managing.

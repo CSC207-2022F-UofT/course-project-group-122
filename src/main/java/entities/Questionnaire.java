@@ -31,7 +31,7 @@ import java.util.List;
  *     Representation Invariant:
  *     <ul> <li> The variable names of all questions in a questionnaire must be unique </li>
  */
-public class Questionnaire {
+public class Questionnaire implements java.io.Serializable{
 
     /**
      * The current maximum ID of all the Questionnaires in the system. This is used to generate the next ID.

@@ -1,12 +1,10 @@
 package use_cases.result_extraction;
 
-import entities.Study;
-
 /**
  * This interface defines the input boundary for the ResultPullingAndExtraction use case.
  */
 
-public interface ResultPullingAndExtractionInputBoundary {
+public interface ResultExtractionInputBoundary {
     /*
      * This method pull and extract result of certain study to certain file directory
      * <p>

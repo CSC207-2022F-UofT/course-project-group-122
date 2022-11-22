@@ -5,6 +5,7 @@ import entities.Participant;
 import entities.Study;
 import entities.Questionnaire;
 import entities.VersionedAnswer;
+import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
 import java.util.*;
@@ -33,8 +34,8 @@ import java.io.IOException;
  * If the participant is not associated with any study, it will return call the output boundary to display a specific
  * message to the participant.
  */
-public class ResultPullingAndExtractionInteractor implements ResultPullingAndExtractionInputBoundary {
-    private ResultPullingAndExtractionOutputBoundary resultPullingAndExtractionPresenter;
+public class ResultExtractionInteractor implements ResultExtractionInputBoundary {
+    private ResultExtractionOutputBoundary resultPullingAndExtractionPresenter;
 
     @Override
     public void resultPullingAndExtraction(int studyID, String filepath) {
@@ -103,10 +104,10 @@ public class ResultPullingAndExtractionInteractor implements ResultPullingAndExt
         }else{
             presentInfo.add("file " + eliFileName + "create unsuccessfully");
         }
-        resultPullingAndExtractionPresenter.presentSavingInfo(presentInfo);
+        resultPullingAndExtractionPresenter.presentSavingInfo(studyID, filepath);
     }
 
-    private String[] firstLine(Questionnaire questionnaire) {
+    private String @NotNull [] firstLine(@NotNull Questionnaire questionnaire) {
         ArrayList<String> headLine = new ArrayList<>();
         headLine.add("ParticipantName");
         headLine.add("ParticipantID");
@@ -118,7 +119,7 @@ public class ResultPullingAndExtractionInteractor implements ResultPullingAndExt
         return headLine.toArray(new String[0]);
     }
 
-    private String[] restLine(Participant par1, Questionnaire questionnaire1){
+    private String @NotNull [] restLine(@NotNull Participant par1, Questionnaire questionnaire1){
         ArrayList<String> oneLine = new ArrayList<>();
         oneLine.add(par1.getName());
         oneLine.add(Integer.toString(par1.getId()));
@@ -137,7 +138,7 @@ public class ResultPullingAndExtractionInteractor implements ResultPullingAndExt
         return oneLine.toArray(new String[0]);
     }
 
-    public void setSavingInfoPresenter(ResultPullingAndExtractionOutputBoundary resultPullingAndExtractionPresenter){
+    public void setResultExtractionPresenter(ResultExtractionOutputBoundary resultPullingAndExtractionPresenter){
         this.resultPullingAndExtractionPresenter = resultPullingAndExtractionPresenter;
     }
 

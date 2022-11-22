@@ -3,7 +3,7 @@ package entities;
 /**
  * A user class.
  */
-public class User {
+public class User implements java.io.Serializable{
     protected static int currId = 0;
     /**
      * The identifier of this user.
