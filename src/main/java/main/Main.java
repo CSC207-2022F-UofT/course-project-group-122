@@ -392,10 +392,12 @@ public class Main {
 
         userLogOutPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         userLogOutPresenter.setDisplayRegisterInterface(presenterManagerDisplayRegister);
+        userLogOutPresenter.setControllerManager(controllerManager);
 
         userLoginPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         userLoginPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
         userLoginPresenter.setFetchStudyDataController(fetchStudyDataController);
+        userLoginPresenter.setControllerManager(controllerManager);
 
         getTargetGroupsPresenter.setDisplayGroupsToAssignInterface(presenterManagerDisplayGroupsToAssign);
         getTargetGroupsPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);

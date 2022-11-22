@@ -19,6 +19,8 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
     public void addPotentialParticipant(int participantID, int studyId, int userId) {
         Participant participant = (Participant) FetchId.getUser(participantID);
         Study study = FetchId.getStudy(studyId);
+        assert participant != null;
+        assert study != null;
         if (canBeAddedToStudy(participant, study)) {
             participant.setStudy(study);
             study.addPotentialParticipant(participant);
@@ -44,9 +46,7 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
                     "does not exist.");
         } else if (study == null) {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Study does not exist.");
-        } else {
-        }
-        if (participant.getStudy() != null) {
+        } else if (participant.getStudy() != null) {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant is already in a study.");
         } else {
             addPotentialParticipantPresenter.presentParticipantInfo(participantID, participant.getName(), studyId);

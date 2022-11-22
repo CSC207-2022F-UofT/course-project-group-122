@@ -41,7 +41,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
             JTextField textField = new JTextField(10);
             JButton button = new JButton("Add");
             button.addActionListener(e1 -> {
-                String participantId = textField.getText();
+                String participantId = textField.getText().trim();
                 try {
                     int participantIdInt = Integer.parseInt(participantId);
                     controllerManager.fetchParticipant(participantIdInt, data.getStudyId());

@@ -3,6 +3,7 @@ package use_cases.user_login;
 import use_cases.fetch_study_data.FetchStudyDataController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.screens.ControllerManager;
 
 public class UserLoginPresenter implements UserLoginOutputBoundary {
 
@@ -18,7 +19,16 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
     private DisplaySuccessMessageInterface displaySuccessMessage;
 
 
+    /**
+     * The fetch study data controller
+     */
     private FetchStudyDataController fetchStudyDataController;
+
+
+    /**
+     * Controller manager
+     */
+    private ControllerManager controllerManager;
 
 
     /**
@@ -55,6 +65,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
     @Override
     public void onUserLoginSuccess(int userId, String name, String userName) {
         String message = "Welcome back, " + name + " (" + userName + ") " + "!";
+        controllerManager.setCurrentUserId(userId);
         fetchStudyDataController.fetchStudyData(userId);
         displaySuccessMessage.presentGeneralSuccessMessage(message);
     }
@@ -93,5 +104,15 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * Set the controller manager
+     *
+     * @param controllerManager the controller manager
+     */
+    public void setControllerManager(ControllerManager controllerManager) {
+        this.controllerManager = controllerManager;
     }
 }
