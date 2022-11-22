@@ -60,7 +60,9 @@ import use_cases.remove_researcher.RemoveResearcherPresenter;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.researcher_enroller.ResearcherEnrollerInteractor;
 import use_cases.researcher_enroller.ResearcherEnrollerPresenter;
-import use_cases.serializer.Serializer;
+import use_cases.result_extraction.ResultExtractionController;
+import use_cases.result_extraction.ResultExtractionInteractor;
+import use_cases.result_extraction.ResultExtractionPresenter;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_log_out.UserLogOutInteractor;
 import use_cases.user_log_out.UserLogOutPresenter;
@@ -89,7 +91,6 @@ import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.screen_drivers.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -284,6 +285,13 @@ public class Main {
         createQuestionnaireController.setInputBoundary(createQuestionnaireInteractor);
         createQuestionnaireInteractor.setOutputBoundary(createQuestionnairePresenter);
 
+        //ResultExtraction use case
+        ResultExtractionController resultExtractionController = new ResultExtractionController();
+        ResultExtractionInteractor resultExtractionInteractor = new ResultExtractionInteractor();
+        ResultExtractionPresenter resultExtractionPresenter = new ResultExtractionPresenter();
+        resultExtractionController.setResultExtractionInteractor(resultExtractionInteractor);
+        resultExtractionInteractor.setResultExtractionPresenter(resultExtractionPresenter);
+
         //Controller Manager and Screen Manager
         ScreenManager screenManager = new ScreenManager();
         ControllerManager controllerManager = new ControllerManager(screenManager);
@@ -405,6 +413,9 @@ public class Main {
         createQuestionnairePresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
         createQuestionnairePresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
 
+        resultExtractionPresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
+
+
         // Inject controllers to controller manager
         controllerManager.setAddPotentialParticipantController(addPotentialParticipantController);
         controllerManager.setCloseStudyController(closeStudyController);
@@ -424,6 +435,7 @@ public class Main {
         controllerManager.setGetTargetGroupsController(getTargetGroupsController);
         controllerManager.setFetchQuestionnaireScreenController(fetchQuestionnaireScreenController);
         controllerManager.setCreateQuestionnaireController(createQuestionnaireController);
+        controllerManager.setResultExtractionController(resultExtractionController);
 
         SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
         SetUpSignUpScreenDriver setUpSignUpScreenDriver = new SetUpSignUpScreenDriver();
@@ -448,22 +460,22 @@ public class Main {
 
         // The serializer object
 
-        Serializer s = new Serializer();
-        ArrayList<Object> objs = s.getAll();
-
-        for(Object obj : objs){
-            switch (obj.getClass().getSimpleName()){
-                case "UserPool":
-                    userPool = (UserPool) obj;
-                    break;
-                case "StudyPool":
-                    studyPool = (StudyPool) obj;
-                    break;
-                case "RandomGroupGeneratorManager":
-                    randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
-                    break;
-            }
-        }
+//        Serializer s = new Serializer();
+//        ArrayList<Object> objs = s.getAll();
+//
+//        for(Object obj : objs){
+//            switch (obj.getClass().getSimpleName()){
+//                case "UserPool":
+//                    userPool = (UserPool) obj;
+//                    break;
+//                case "StudyPool":
+//                    studyPool = (StudyPool) obj;
+//                    break;
+//                case "RandomGroupGeneratorManager":
+//                    randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
+//                    break;
+//            }
+//        }
 
 
 

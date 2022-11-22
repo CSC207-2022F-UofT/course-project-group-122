@@ -25,6 +25,7 @@ import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenContr
 import use_cases.remove_researcher.RemoveResearcherController;
 import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
+import use_cases.result_extraction.ResultExtractionController;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_login.UserLoginController;
 import user_interface_layer.screen_setters.ScreenManager;
@@ -74,10 +75,7 @@ public class ControllerManager {
 //    EditQuestionnaireController editQuestionnaireController;
 
     FetchStudyDataForEditingController fetchStudyDataForEditingController;
-//
-//    DownloadAllDataController downloadDataController;
-//
-//    DownlaodCurrentDataController downloadCurrentDataController;
+    ResultExtractionController resultExtractionController;
     FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController;
     CreateStudyController createStudyController;
     CreateQuestionnaireController createQuestionnaireController;
@@ -275,6 +273,10 @@ public class ControllerManager {
         fetchStudyDataForEditingController.editStudyRequest(studyId, researchID);
     }
 
+    public void downloadData(int studyId, String filePath) {
+        resultExtractionController.resultPullingAndExtraction(studyId, filePath);
+    }
+
 
     public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -418,5 +420,9 @@ public class ControllerManager {
 
     public void researcherHomeScreenDriver(int researcherId) {
         fetchStudyDataController.fetchStudyData(researcherId);
+    }
+
+    public void setResultExtractionController(ResultExtractionController resultExtractionController) {
+        this.resultExtractionController = resultExtractionController;
     }
 }
