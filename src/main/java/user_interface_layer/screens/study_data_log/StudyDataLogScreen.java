@@ -1,7 +1,8 @@
 package user_interface_layer.screens.study_data_log;
 
-import user_interface_layer.ScreenManager;
-import user_interface_layer.SetScreenToCenter;
+import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_log.FetchStudyLogResponseModel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.study_data_log.study_data_log_panels.*;
 
@@ -21,7 +22,7 @@ public class StudyDataLogScreen extends JFrame {
     JPanel questionnairesPanel;
     JPanel questionsPanel;
 
-    public StudyDataLogScreen(StudyDataLogInputData data, ControllerManager controllerManager) {
+    public StudyDataLogScreen(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel backPanel = new JPanel();
         JPanel mainPanel = new JPanel();
@@ -29,7 +30,7 @@ public class StudyDataLogScreen extends JFrame {
         mainPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
-            controllerManager.ResearcherHomeScreenDriver(data.getResearchId());
+            controllerManager.researcherHomeScreenDriver(data.getResearcherId());
         });
         backPanel.add(backButton);
         header.add(backPanel);
@@ -40,10 +41,10 @@ public class StudyDataLogScreen extends JFrame {
         JMenuItem allData = new JMenuItem("All Data");
         JMenuItem currentData = new JMenuItem("Current Data");
         allData.addActionListener(e -> {
-                    controllerManager.downloadDataButtonActionPerformed("All Data", data.getStudyId());
+//                    controllerManager.downloadDataButtonActionPerformed("All Data", data.getStudyId());
                 });
         currentData.addActionListener(e->{
-                        controllerManager.downloadDataButtonActionPerformed("Current Data", data.getStudyId());
+//                        controllerManager.downloadDataButtonActionPerformed("Current Data", data.getStudyId());
                 });
         popupMenu.add(allData);
         popupMenu.add(currentData);
@@ -53,34 +54,34 @@ public class StudyDataLogScreen extends JFrame {
             }});
         mainPanel.add(downloadDataButton);
 
-        JButton dropStudyButton = new JButton("Drop Study");
-        dropStudyButton.setText("Drop Study");
-        dropStudyButton.addActionListener(e->{
-            JFrame confirm = new JFrame();
-            confirm.setSize(400, 200);
-            confirm.setLayout(new GridLayout(3, 1));
-            JLabel confirmLabel = new JLabel("Are you sure you want to drop this study?");
-            confirmLabel.setHorizontalAlignment(JLabel.CENTER);
-            confirm.add(confirmLabel);
-            JPanel buttons = new JPanel();
-            buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
-            JButton yesButton = new JButton("Yes");
-            JButton noButton = new JButton("No");
-            yesButton.addActionListener(e1 -> {
-                        controllerManager.userDropStudyRequest(data.getResearchId(), data.getStudyId());
-                });
-            noButton.addActionListener(e1 -> {
-                        confirm.dispose();
-                });
-            buttons.add(yesButton);
-            buttons.add(noButton);
-            confirm.add(buttons);
-            confirm.setVisible(true);
-        SetScreenToCenter s = new SetScreenToCenter(confirm);
-        });
-        add(dropStudyButton, BorderLayout.SOUTH);
+//        JButton dropStudyButton = new JButton("Drop Study");
+//        dropStudyButton.setText("Drop Study");
+//        dropStudyButton.addActionListener(e->{
+//            JFrame confirm = new JFrame();
+//            confirm.setSize(400, 200);
+//            confirm.setLayout(new GridLayout(3, 1));
+//            JLabel confirmLabel = new JLabel("Are you sure you want to drop this study?");
+//            confirmLabel.setHorizontalAlignment(JLabel.CENTER);
+//            confirm.add(confirmLabel);
+//            JPanel buttons = new JPanel();
+//            buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
+//            JButton yesButton = new JButton("Yes");
+//            JButton noButton = new JButton("No");
+//            yesButton.addActionListener(e1 -> {
+//                        controllerManager.userDropStudyRequest(data.getResearchId(), data.getStudyId());
+//                });
+//            noButton.addActionListener(e1 -> {
+//                        confirm.dispose();
+//                });
+//            buttons.add(yesButton);
+//            buttons.add(noButton);
+//            confirm.add(buttons);
+//            confirm.setVisible(true);
+//        SetScreenToCenter s = new SetScreenToCenter(confirm);
+//        });
+//        add(dropStudyButton, BorderLayout.SOUTH);
 
-        JLabel userIDLabel = new JLabel(data.getResearcherName() + " (" + data.getResearchId() + ")", SwingConstants.CENTER);
+        JLabel userIDLabel = new JLabel(data.getResearherName() + " (" + data.getResearcherId() + ")", SwingConstants.CENTER);
         mainPanel.add(userIDLabel);
 
         JButton logOutButton = new JButton("Log Out");
@@ -162,11 +163,7 @@ public class StudyDataLogScreen extends JFrame {
         groups.add("The Smart");
         groups.add("The Stupid");
 
-        StudyDataLogInputData data = new StudyDataLogInputData(1,
-                "Researcher 1",
-                4, "Randomized", "Study 234", researchers, potentialParticipants, participants, 6,  eligibility, questionnaires, groups);
-        StudyDataLogScreen screen = new StudyDataLogScreen(data, new ControllerManager(new ScreenManager()));
-        screen.setVisible(true);
+
 
     }
 }

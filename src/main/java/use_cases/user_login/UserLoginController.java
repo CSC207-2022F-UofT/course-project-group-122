@@ -25,7 +25,7 @@ public class UserLoginController {
      * @param userType  the type of the user
      * @param name      the name of the user
      */
-    private void signup(String username, String userType, String name) {
+    public void signup(String username, String userType, String name) {
         userLoginInteractor.userSignUp(username, userType, name);
     }
 

@@ -167,7 +167,7 @@ public class FetchStudyLogResponseModel {
     private String @NotNull [] fetchGroupAssignments(@NotNull Study study) {
         String[] groupAssignments = new String[study.getGroupNames().length];
         for (int i = 0; i < study.getGroupNames().length; i++) {
-            groupAssignments[i] = i + ": " + study.getGroupNames()[i];
+            groupAssignments[i] = (i+1) + ": " + study.getGroupNames()[i];
 
         }
         return groupAssignments;

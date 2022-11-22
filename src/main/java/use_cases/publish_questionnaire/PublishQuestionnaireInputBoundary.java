@@ -7,5 +7,5 @@ public interface PublishQuestionnaireInputBoundary {
      * @param questionnaireID   The ID of the questionnaire to publish.
      * @param studyId           The ID of the study to publish the questionnaire to.
      */
-    void publishQuestionnaire(int questionnaireID, int studyId);
+    void publishQuestionnaire(int questionnaireID, int studyId, int researcherId);
 }

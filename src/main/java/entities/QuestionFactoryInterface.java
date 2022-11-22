@@ -13,7 +13,17 @@ public interface QuestionFactoryInterface {
      * @param content           The content of the Question.
      * @return                  The Question object that was created.
      */
-    Question create(String type, Questionnaire questionnaire, String variableName, String content);
+    static Question create(String type, Questionnaire questionnaire, String variableName, String content){
+        switch (type) {
+            case "MC":
+                return new MultipleChoiceQuestion(questionnaire, variableName, content);
+            case "Scale":
+                return new ScaleQuestion(questionnaire, variableName, content);
+            case "Text":
+                return new TextQuestion(questionnaire, variableName, content);
+        }
+        return null;
+    }
 
 
 }

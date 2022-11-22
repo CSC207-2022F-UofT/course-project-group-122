@@ -1,8 +1,8 @@
 package user_interface_layer.screens.create_study_inputs_screen;
 
-import user_interface_layer.ScreenManager;
-import user_interface_layer.SetLabelTextPanel;
-import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.screen_setters.SetLabelTextPanel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.GeneralFailureScreen;
 
@@ -89,7 +89,10 @@ public CreateStudyInputScreen(CreateStudyInputInputData data, ControllerManager 
     JPanel createStudyButtonPanel = new JPanel();
     JButton createStudyButton = new JButton("Create Study");
     createStudyButton.addActionListener(e -> {
-        if (studyName.getText().equals("") || studyDescription.getText().equals("") || studyTargetSize.getText().equals("") || studyTypeInput.equals("") || groupNames == null) {
+        if (studyName.getText().equals("")
+                || studyDescription.getText().equals("")
+                || studyTargetSize.getText().equals("")
+                || studyTypeInput.equals("") || groupNames == null) {
             new GeneralFailureScreen("Please fill out all fields");
         } else {
             try {
@@ -97,12 +100,13 @@ public CreateStudyInputScreen(CreateStudyInputInputData data, ControllerManager 
             } catch (NumberFormatException nfe) {
                 new GeneralFailureScreen("Please enter a valid number for study target size");
             }
+            String [] groupNamesArray = new String[groupNames.size()];
+            groupNamesArray = groupNames.toArray(groupNamesArray);
             controllerManager.createStudyController(data.getResearcherID(), studyName.getText(),
                     studyDescription.getText(), Integer.parseInt(studyTargetSize.getText()), this.studyTypeInput,
-                    count.get(), groupNames);
-
+                    count.get(), groupNamesArray);
+            dispose();
         }
-        dispose();
     });
     createStudyButtonPanel.add(createStudyButton);
 
@@ -122,7 +126,6 @@ public CreateStudyInputScreen(CreateStudyInputInputData data, ControllerManager 
     SetScreenToCenter s = new SetScreenToCenter(this);
 
 }
-
     private void askGroupNamesScreen(int i) {
         java.util.List<JTextField> groupNames = new ArrayList<>();
         JFrame askGroupNamesScreen = new JFrame();

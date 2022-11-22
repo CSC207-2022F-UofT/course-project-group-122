@@ -1,6 +1,6 @@
 package user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers;
 
-import user_interface_layer.SetTableModel;
+import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantInputData;
 
@@ -45,7 +45,7 @@ public class CompletedQuestionnairePanelForResearcher extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to edit its answer.");
             } else {
                 int questionnaireID = keys.get(selectedRow);
-                controllerManager.editQuestionnaireAnswerDataRequest(data.getUserId(), data.getStudyId(), data.getParticipantId(), questionnaireID);
+//                controllerManager.editQuestionnaireAnswerDataRequest(data.getUserId(), data.getStudyId(), data.getParticipantId(), questionnaireID);
             }
         });
         add(scrollPane, BorderLayout.CENTER);

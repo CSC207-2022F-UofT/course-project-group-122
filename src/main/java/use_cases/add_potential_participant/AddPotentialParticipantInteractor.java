@@ -25,7 +25,31 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
             assignEligibilityQuestions(participant, study);
             addPotentialParticipantPresenter.presentSuccess(participantID, studyId, userId);
         } else {
-            addPotentialParticipantPresenter.presentFailure(participantID, studyId);
+            addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant cannot be added to study.");
+        }
+    }
+
+    /**
+     * Fetches the participant's information.
+     *
+     * @param participantID The ID of the participant to add.
+     * @param studyId       The ID of the study to add the participant to.
+     */
+    @Override
+    public void fetchParticipantInfo(int participantID, int studyId) {
+        Participant participant = (Participant) FetchId.getUser(participantID);
+        Study study = FetchId.getStudy(studyId);
+        if (participant == null) {
+            addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant " +
+                    "does not exist.");
+        } else if (study == null) {
+            addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Study does not exist.");
+        } else {
+        }
+        if (participant.getStudy() != null) {
+            addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant is already in a study.");
+        } else {
+            addPotentialParticipantPresenter.presentParticipantInfo(participantID, participant.getName(), studyId);
         }
     }
 

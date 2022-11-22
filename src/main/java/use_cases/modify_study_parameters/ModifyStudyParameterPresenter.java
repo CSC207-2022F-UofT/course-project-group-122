@@ -2,11 +2,18 @@ package use_cases.modify_study_parameters;
 
 import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
-import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.presenter_manager.display_stratification.DisplayStratificationInterface;
+import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 import java.util.List;
 
 public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutputBoundary {
+
+
+    /**
+     * The display stratification interface.
+     */
+    private DisplayStratificationInterface displayStratificationInterface;
 
 
     /**
@@ -31,8 +38,9 @@ public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutput
      * @param variableNames The list of potential stratification variables for the study.
      */
     @Override
-    public void displayPotentialStratificationVariables(List<String> variableNames) {
-        //TODO: displayPotentialStratificationVariables
+    public void displayPotentialStratificationVariables(int studyId, List<String> variableNames) {
+        displayStratificationInterface.presentStratificationVarScreen(studyId, variableNames);
+
     }
 
     /**
@@ -86,5 +94,14 @@ public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutput
      */
     public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
         this.fetchStudyLogController = fetchStudyLogController;
+    }
+
+
+    /**
+     * Sets the display stratification interface.
+     * @param displayStratificationInterface    The display stratification interface.
+     */
+    public void setDisplayStratificationInterface(DisplayStratificationInterface displayStratificationInterface) {
+        this.displayStratificationInterface = displayStratificationInterface;
     }
 }

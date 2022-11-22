@@ -1,7 +1,7 @@
 package user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen;
 
-import user_interface_layer.SetLabelTextPanel;
-import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetLabelTextPanel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
 import javax.swing.*;

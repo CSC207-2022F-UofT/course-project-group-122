@@ -1,7 +1,7 @@
 package user_interface_layer.screens.register_screens;
 
-import user_interface_layer.ScreenManager;
-import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
@@ -21,7 +21,7 @@ public class UserRegisterScreen extends JFrame {
         panel.add(header);
         JButton signUp = new JButton("Sign Up");
         signUp.addActionListener(e -> {
-            controllerManager.requestLogInScreen();
+            controllerManager.requestSignUpScreen();
                 }
         );
         panel.add(signUp);
@@ -30,7 +30,7 @@ public class UserRegisterScreen extends JFrame {
 
         JButton logIn = new JButton("Log In");
         logIn.addActionListener(e -> {
-            controllerManager.requestSignUpScreen();
+            controllerManager.requestLogInScreen();
                 }
         );
         panel.add(logIn);

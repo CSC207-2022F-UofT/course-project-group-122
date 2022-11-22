@@ -1,9 +1,10 @@
 package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
-import user_interface_layer.SetScreenToCenter;
-import user_interface_layer.SetTableModel;
+import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_study_log.FetchStudyLogResponseModel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.study_data_log.StudyDataLogInputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,14 +14,15 @@ import java.util.List;
 
 public class StudyLogPotentialParticipantsPanel extends JPanel {
 
-    public StudyLogPotentialParticipantsPanel(StudyDataLogInputData data, ControllerManager controllerManager) {
+    public StudyLogPotentialParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        SetTableModel setTableModel = new SetTableModel(data.getPotentialParticipantsTableHeader());
+        String[] potentialParticipantsTableHeader = {"ID", "Username", "Name", "Eligibility"};
+        SetTableModel setTableModel = new SetTableModel(potentialParticipantsTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
 
-        java.util.List<Integer> keys = new ArrayList<>(data.getPotentialsData().keySet());
-        List<String[]> values = new ArrayList<>(data.getPotentialsData().values());
+        java.util.List<Integer> keys = new ArrayList<>(data.getPotentialParticipants().keySet());
+        List<String[]> values = new ArrayList<>(data.getPotentialParticipants().values());
 
         for (String[] row : values) {
             model.addRow(row);
@@ -42,7 +44,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 String participantId = textField.getText();
                 try {
                     int participantIdInt = Integer.parseInt(participantId);
-                    controllerManager.addPotentialParticipantToStudyRequest(participantIdInt, data.getStudyId());
+                    controllerManager.fetchParticipant(participantIdInt, data.getStudyId());
                     frame.dispose();
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number");
@@ -63,7 +65,18 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to make eligible");
             } else {
                 int participantId = keys.get(selectedRow);
-                controllerManager.makeParticipantEligibleRequest(participantId, data.getStudyId());
+                controllerManager.makeParticipantEligibleRequest(participantId, data.getStudyId(), data.getResearcherId());
+            }
+        });
+
+        JButton enrollParticipantButton = new JButton("Enroll Participant");
+        enrollParticipantButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(null, "Please select a potential participant to enroll");
+            } else {
+                int participantId = keys.get(selectedRow);
+                controllerManager.enrollParticipantRequest(participantId, data.getStudyId(), data.getResearcherId());
             }
         });
 
@@ -74,7 +87,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to check");
             } else {
                 int participantId = keys.get(selectedRow);
-                controllerManager.researcherRequestParticipantScreenRequest(data.getResearchId(), participantId, data.getStudyId());
+                controllerManager.researcherRequestParticipantScreenRequest(data.getResearcherId(), participantId, data.getStudyId());
             }
         });
 
@@ -82,6 +95,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
         buttonPanel.add(addParticipantButton);
         buttonPanel.add(makeEligibleParticipantButton);
         buttonPanel.add(Check);
+        buttonPanel.add(enrollParticipantButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 

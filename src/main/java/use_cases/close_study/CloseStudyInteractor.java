@@ -17,14 +17,14 @@ public class CloseStudyInteractor implements CloseStudyInputBoundary {
      * @param studyId The id of the study to close
      */
     @Override
-    public void closeStudy(int studyId) {
+    public void closeStudy(int studyId, int researcherId) {
         Study study = FetchId.getStudy(studyId);
         if (study.isActive()) {
             study.closeStudy();
             closeStudyPresenter.displayMessage(study, "Study closed successfully. " +
-                    "Thank you for your continuous dedication!");
+                    "Thank you for your continuous dedication!", researcherId);
         } else {
-            closeStudyPresenter.displayMessage(study, "Study is already closed.");
+            closeStudyPresenter.displayMessage(study, "Study is already closed.", researcherId);
         }
     }
 
@@ -34,14 +34,14 @@ public class CloseStudyInteractor implements CloseStudyInputBoundary {
      * @param studyId The id of the study to reopen
      */
     @Override
-    public void reopenStudy(int studyId) {
+    public void reopenStudy(int studyId, int researcherId) {
         Study study = FetchId.getStudy(studyId);
         if (!study.isActive()) {
             study.reopenStudy();
             closeStudyPresenter.displayMessage(study, "Study reopened successfully. " +
-                    "Thank you for your continuous dedication!");
+                    "Thank you for your continuous dedication!", researcherId);
         } else {
-            closeStudyPresenter.displayMessage(study, "Study is currently active.");
+            closeStudyPresenter.displayMessage(study, "Study is currently active.", researcherId);
         }
     }
 

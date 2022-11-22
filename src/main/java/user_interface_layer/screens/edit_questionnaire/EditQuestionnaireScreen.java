@@ -1,10 +1,10 @@
 package user_interface_layer.screens.edit_questionnaire;
 
 import use_cases.edit_questionnaire_screen_data.EditQuestionnaireScreenInputData;
-import user_interface_layer.ScreenManager;
-import user_interface_layer.SetLabelTextPanel;
-import user_interface_layer.SetScreenToCenter;
-import user_interface_layer.SetTableModel;
+import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.screen_setters.SetLabelTextPanel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen.MCQuestionScreen;
@@ -16,15 +16,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class EditQuestionnaireScreen extends JFrame {
     public EditQuestionnaireScreenInputData data;
     Map<String, String[]> existingQuestions;
     List<QuestionModel> addedQuestions = new ArrayList<>();
+    List<JRadioButton> studyGroups = new ArrayList<>();
 
     public EditQuestionnaireScreen(EditQuestionnaireScreenInputData data, ControllerManager controllerManager) {
         existingQuestions = data.getQuestions();
@@ -59,6 +58,15 @@ public class EditQuestionnaireScreen extends JFrame {
         questionnaireDescriptionPanel.add(scrollPane);
 //        questionnaireDescriptionPanel.add(reasonForModificationPanel);
 
+        JPanel groupsPanel = new JPanel();
+        JLabel groupsLabel = new JLabel("Select Target groups: ", SwingConstants.CENTER);
+        groupsPanel.setLayout(new BoxLayout(groupsPanel, BoxLayout.Y_AXIS));
+        groupsPanel.add(groupsLabel);
+        for (String group : data.getStudyGroups()) {
+            JRadioButton radioButton = new JRadioButton(group);
+            studyGroups.add(radioButton);
+            groupsPanel.add(radioButton);
+        }
 
 
         JPanel questionsPanel = new JPanel();
@@ -202,11 +210,18 @@ public class EditQuestionnaireScreen extends JFrame {
 
         JButton publishButton = new JButton("Publish");
         publishButton.addActionListener(e->
-                controllerManager.publishQuestionnaire(data.getQuestionnaireID()));
+                controllerManager.publishQuestionnaire(data.getQuestionnaireID(), data.getStudyID()));
 
 
         JButton createQuestionnaireButton = new JButton("Save Questionnaire");
         createQuestionnaireButton.addActionListener(e -> {
+            boolean selected = false;
+            for (JRadioButton radioButton : studyGroups) {
+                if (radioButton.isSelected()) {
+                    selected = true;
+                    break;
+                }
+            }
             if (questionnaireName.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter a name for the questionnaire");
             } else if (questionnaireDescription.getText().equals("")) {
@@ -214,20 +229,26 @@ public class EditQuestionnaireScreen extends JFrame {
             } else if (addedQuestions.size() + existingQuestions.size() == 0) {
                 JOptionPane.showMessageDialog(null, "Please add at least one question to the questionnaire");
             }
-//            else if (reasonForModification.getText().equals("")) {
-//                JOptionPane.showMessageDialog(null, "Please enter a reason for modification");
-//            }
-            else {
-                for (QuestionModel question : addedQuestions) {
-                    existingQuestions.put(question.getVariable(), new String[]{question.getType(), question.getQuestion(), question.getAnswer()});
+            else if (!selected) {
+                JOptionPane.showMessageDialog(null, "Please select at least one study group");
+            } else {
+                ArrayList<String> studyGroupNames = new ArrayList<>();
+                for (JRadioButton radioButton : studyGroups) {
+                    if (radioButton.isSelected()) {
+                        studyGroupNames.add(radioButton.getName());
+                    }
                 }
-                controllerManager.editQuestionnaire(data.getStudyID(), data.getQuestionnaireID(),questionnaireName.getText(), questionnaireDescription.getText(),existingQuestions);
-                dispose();
+                for (QuestionModel question : addedQuestions) {
+                    existingQuestions.put(question.getVariable(), new String[]{question.getType(), question.getContent(), question.getOptions()});
+                }
+//                controllerManager.editQuestionnaire(data.getStudyID(), data.getQuestionnaireID(),questionnaireName.getText(), questionnaireDescription.getText(), studyGroupNames,existingQuestions);
+//                this.dispose();
             }
         });
 
         inputsPanel.add(questionnaireNamePanel);
         inputsPanel.add(questionnaireDescriptionPanel);
+        inputsPanel.add(groupsPanel);
         inputsPanel.add(questionsPanel);
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(addQuestionButton);
@@ -251,7 +272,7 @@ public class EditQuestionnaireScreen extends JFrame {
         existingQuestions.put("What is your name?", new String[]{"Text", "name", "John"});
         existingQuestions.put("What is your age?", new String[]{"Scale", "age", "20"});
 
-        EditQuestionnaireScreenInputData data = new EditQuestionnaireScreenInputData(44, 1, "Questionnaire 1", "This is a description", existingQuestions);
+        EditQuestionnaireScreenInputData data = new EditQuestionnaireScreenInputData(44, 1, "Questionnaire 1", "This is a description",new ArrayList<>(Arrays.asList("me", "you", "Question 3")),existingQuestions);
 EditQuestionnaireScreen editQuestionnaireScreen = new EditQuestionnaireScreen(data , new ControllerManager(new ScreenManager()));
         editQuestionnaireScreen.setVisible(true);
     }

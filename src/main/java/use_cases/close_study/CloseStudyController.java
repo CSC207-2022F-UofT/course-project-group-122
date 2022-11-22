@@ -12,8 +12,8 @@ public class CloseStudyController {
      * Close a study
      * @param studyId   The id of the study to close
      */
-    public void closeStudy(int studyId) {
-        closeStudyInteractor.closeStudy(studyId);
+    public void closeStudy(int studyId, int researcherId) {
+        closeStudyInteractor.closeStudy(studyId, researcherId);
     }
 
 
@@ -21,8 +21,8 @@ public class CloseStudyController {
      * Reopen a study
      * @param studyId   The id of the study to reopen
      */
-    public void reopenStudy(int studyId) {
-        closeStudyInteractor.reopenStudy(studyId);
+    public void reopenStudy(int studyId, int researcherId) {
+        closeStudyInteractor.reopenStudy(studyId, researcherId);
     }
 
 

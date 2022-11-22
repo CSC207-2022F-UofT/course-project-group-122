@@ -1,7 +1,7 @@
 package user_interface_layer.screens.participant_home_screens;
 
-import user_interface_layer.ScreenManager;
-import user_interface_layer.SetScreenToCenter;
+import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants.AssignedQuestionnairePanel;
 import user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants.CompletedQuestionnairePanel;
@@ -37,7 +37,7 @@ public class ParticipantHomeScreen extends JFrame {
         topPanel.add(userIDLabel);
         topPanel.add(logOutButton);
         header.add(topPanel, BorderLayout.NORTH);
-        JLabel message = new JLabel("You are a " + data.getParticipantStatus() + " Participant in " + data.getStudyName(), SwingConstants.CENTER);
+        JLabel message = new JLabel("You are " + data.getParticipantStatus() + " Participant in " + data.getStudyName(), SwingConstants.CENTER);
         header.add(message, BorderLayout.CENTER);
         getContentPane().add(header, BorderLayout.PAGE_START);
 
@@ -73,7 +73,7 @@ public class ParticipantHomeScreen extends JFrame {
         );
         JButton dropOutButton = new JButton("Drop Out");
         dropOutButton.addActionListener(e -> {
-            controllerManager.userDropStudyRequest(data.getParticipantId(),data.getStudyId());
+            controllerManager.participantDropStudy(data.getParticipantId(),data.getStudyId());
         });
         add(dropOutButton, BorderLayout.SOUTH);
 

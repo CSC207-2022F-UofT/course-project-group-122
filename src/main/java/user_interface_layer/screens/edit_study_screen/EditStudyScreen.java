@@ -1,9 +1,10 @@
 package user_interface_layer.screens.edit_study_screen;
 
-import use_cases.edit_study_data_request.EditStudyInputData;
-import user_interface_layer.ScreenManager;
-import user_interface_layer.SetLabelTextPanel;
-import user_interface_layer.SetScreenToCenter;
+import org.jetbrains.annotations.NotNull;
+import use_cases.edit_study_data_request.FetchStudyDataForEditingResponseModel;
+import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.screen_setters.SetLabelTextPanel;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.GeneralFailureScreen;
 
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 public class EditStudyScreen extends JFrame {
     String studyTypeInput = "";
     List<String> groupNames;
-    public EditStudyScreen(EditStudyInputData data, ControllerManager controllerManager) {
+    public EditStudyScreen(@NotNull FetchStudyDataForEditingResponseModel data, ControllerManager controllerManager) {
         super("Edit Study Input Screen");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -97,9 +98,9 @@ public class EditStudyScreen extends JFrame {
                 } catch (NumberFormatException nfe) {
                     new GeneralFailureScreen("Please enter a valid number for study target size");
                 }
-                controllerManager.editStudyRequest(data.getStudyID(), studyName.getText(),
-                        studyDescription.getText(), Integer.parseInt(studyTargetSize.getText()), this.studyTypeInput,
-                        count.get(), groupNames);
+//                controllerManager.editStudyRequest(data.getStudyID(), studyName.getText(),
+//                        studyDescription.getText(), Integer.parseInt(studyTargetSize.getText()), this.studyTypeInput,
+//                        count.get(), groupNames);
 
             }
             dispose();

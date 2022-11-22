@@ -2,7 +2,7 @@ package use_cases.answer_questionnaire;
 
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
-import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class AnswerQuestionnairePresenter implements AnswerQuestionnaireOutputBoundary {
 

@@ -1,6 +1,6 @@
 package user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants;
 
-import user_interface_layer.SetTableModel;
+import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreenInputData;
 
@@ -24,12 +24,13 @@ public class EligibilityQuestionnairePanel extends JPanel {
 
         JButton answerButton = new JButton("Answer Eligibility Questionnaire");
         answerButton.addActionListener(e ->{
+
             String status = model.getValueAt(0, 2).toString();
             if (status.equals("Closed")) {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
             } else {
                 int questionnaireId = Integer.parseInt(model.getValueAt(0, 0).toString());
-                controllerManager.answerEligibilityQuestionnaireRequestData(data.getParticipantId(),questionnaireId);
+                controllerManager.answerEligibilityQuestionnaireRequestData(data.getParticipantId(),questionnaireId, data.getStudyId());
             }
 
         });
