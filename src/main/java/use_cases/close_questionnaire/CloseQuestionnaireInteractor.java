@@ -29,4 +29,12 @@ public class CloseQuestionnaireInteractor implements CloseQuestionnaireInputBoun
     }
 
 
+    /**
+     * Set the output boundary
+     * @param closeQuestionnaireOutputBoundary  the output boundary
+     */
+    public void setCloseQuestionnaireOutputBoundary(CloseQuestionnaireOutputBoundary closeQuestionnaireOutputBoundary) {
+        this.closeQuestionnaireOutputBoundary = closeQuestionnaireOutputBoundary;
+    }
+
 }

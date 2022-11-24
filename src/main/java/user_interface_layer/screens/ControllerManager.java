@@ -4,6 +4,8 @@ import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireRequestModel;
 import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerController;
+import use_cases.assign_questionnaire.AssignQuestionnaireController;
+import use_cases.close_questionnaire.CloseQuestionnaireController;
 import use_cases.close_study.CloseStudyController;
 import use_cases.create_questionnaire.CreateQuestionnaireController;
 import use_cases.create_questionnaire.CreateQuestionnaireRequestModel;
@@ -80,12 +82,15 @@ public class ControllerManager {
     CreateStudyController createStudyController;
     CreateQuestionnaireController createQuestionnaireController;
     CloseStudyController closeStudyController;
-//    AssignQuestionnaireController assignQuestionnaireController;
+    AssignQuestionnaireController assignQuestionnaireController;
     AnswerQuestionnaireController answerQuestionnaireController;
     AddPotentialParticipantController addPotentialParticipantController;
     ResearcherEditAnswerController  researcherEditAnswerController;
     EligibilityCheckerController eligibilityCheckerController;
     FetchQuestionnaireScreenController fetchQuestionnaireScreenController;
+    CloseQuestionnaireController closeQuestionnaireController;
+
+
 
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -277,6 +282,10 @@ public class ControllerManager {
         resultExtractionController.resultPullingAndExtraction(studyId, filePath);
     }
 
+    public void closeQuestionnaire(int questionnaireId, int studyId, int researcherId) {
+        closeQuestionnaireController.closeQuestionnaire(questionnaireId, studyId, researcherId);
+    }
+
 
     public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -394,9 +403,9 @@ public class ControllerManager {
         this.closeStudyController = closeStudyController;
     }
 
-//    public void setAssignQuestionnaireController(AssignQuestionnaireController assignQuestionnaireController) {
-//        this.assignQuestionnaireController = assignQuestionnaireController;
-//    }
+    public void setAssignQuestionnaireController(AssignQuestionnaireController assignQuestionnaireController) {
+        this.assignQuestionnaireController = assignQuestionnaireController;
+    }
 
     public void setAnswerQuestionnaireController(AnswerQuestionnaireController answerQuestionnaireController) {
         this.answerQuestionnaireController = answerQuestionnaireController;
@@ -424,5 +433,9 @@ public class ControllerManager {
 
     public void setResultExtractionController(ResultExtractionController resultExtractionController) {
         this.resultExtractionController = resultExtractionController;
+    }
+
+    public void setCloseQuestionnaireController(CloseQuestionnaireController closeQuestionnaireController) {
+        this.closeQuestionnaireController = closeQuestionnaireController;
     }
 }

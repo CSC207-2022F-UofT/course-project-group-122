@@ -10,6 +10,12 @@ import use_cases.add_potential_participant.AddPotentialParticipantPresenter;
 import use_cases.answer_questionnaire.AnswerQuestionnaireController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireInteractor;
 import use_cases.answer_questionnaire.AnswerQuestionnairePresenter;
+import use_cases.assign_questionnaire.AssignQuestionnaireController;
+import use_cases.assign_questionnaire.AssignQuestionnaireInteractor;
+import use_cases.assign_questionnaire.AssignQuestionnairePresenter;
+import use_cases.close_questionnaire.CloseQuestionnaireController;
+import use_cases.close_questionnaire.CloseQuestionnaireInteractor;
+import use_cases.close_questionnaire.CloseQuestionnairePresenter;
 import use_cases.close_study.CloseStudyController;
 import use_cases.close_study.CloseStudyInteractor;
 import use_cases.close_study.CloseStudyPresenter;
@@ -120,7 +126,22 @@ public class Main {
 
         //TODO: answer_questionnaire_data_request use case
 
-        //TODO: assign_questionnaire use case
+        //assign_questionnaire use case
+        AssignQuestionnaireController assignQuestionnaireController = new AssignQuestionnaireController();
+        AssignQuestionnaireInteractor assignQuestionnaireInteractor = new AssignQuestionnaireInteractor();
+        AssignQuestionnairePresenter assignQuestionnairePresenter = new AssignQuestionnairePresenter();
+        assignQuestionnaireController.setAssignQuestionnaireInteractor(assignQuestionnaireInteractor);
+        assignQuestionnaireInteractor.setAssignQuestionnaireOutputBoundary(assignQuestionnairePresenter);
+
+
+        // Close questionnaire use case
+        CloseQuestionnaireController closeQuestionnaireController = new CloseQuestionnaireController();
+        CloseQuestionnaireInteractor closeQuestionnaireInteractor = new CloseQuestionnaireInteractor();
+        CloseQuestionnairePresenter closeQuestionnairePresenter = new CloseQuestionnairePresenter();
+        closeQuestionnaireController.setCloseQuestionnaireInputBoundary(closeQuestionnaireInteractor);
+        closeQuestionnaireInteractor.setCloseQuestionnaireOutputBoundary(closeQuestionnairePresenter);
+
+
 
         // Close study use case
         CloseStudyController closeStudyController = new CloseStudyController();
@@ -417,6 +438,13 @@ public class Main {
 
         resultExtractionPresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
 
+        assignQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
+        assignQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+
+        closeQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
+        closeQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+        closeQuestionnairePresenter.setFetchStudyLogController(fetchStudyLogController);
+
 
         // Inject controllers to controller manager
         controllerManager.setAddPotentialParticipantController(addPotentialParticipantController);
@@ -438,6 +466,8 @@ public class Main {
         controllerManager.setFetchQuestionnaireScreenController(fetchQuestionnaireScreenController);
         controllerManager.setCreateQuestionnaireController(createQuestionnaireController);
         controllerManager.setResultExtractionController(resultExtractionController);
+        controllerManager.setAssignQuestionnaireController(assignQuestionnaireController);
+        controllerManager.setCloseQuestionnaireController(closeQuestionnaireController);
 
         SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
         SetUpSignUpScreenDriver setUpSignUpScreenDriver = new SetUpSignUpScreenDriver();
