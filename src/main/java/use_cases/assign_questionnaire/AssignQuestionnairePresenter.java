@@ -1,7 +1,7 @@
 package use_cases.assign_questionnaire;
 
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
-import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBoundary {
 
@@ -25,8 +25,8 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param message         The message to present.
      */
     @Override
-    public void assigntoallfail(int QuestionnaireId, int studyID, String message) {
-        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign " + message;
+    public void assignToAllFail(int QuestionnaireId, int studyID, String message) {
+        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot be assigned " + message;
         displayFailureMessage.presentFailureMessage(errorMessages);
     }
 
@@ -37,8 +37,9 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param studyID         The ID of the study that the questionnaire has been published to.
      */
     @Override
-    public void assigntoallpresent(int questionnaireID, int studyID) {
-        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to all participants in the study" + studyID;
+    public void assignToAllPresent(int questionnaireID, int studyID) {
+        String successMessage = "The questionnaire" + questionnaireID +
+                " has been assigned to all participants in the study" + studyID;
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
@@ -51,8 +52,9 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param message         The message to present.
      */
     @Override
-    public void assigntogroupfail(int QuestionnaireId, int studyID, String group, String message) {
-        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign to group " + group + message;
+    public void assignToGroupFail(int QuestionnaireId, int studyID, String group, String message) {
+        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign to group "
+                + group + message;
         displayFailureMessage.presentFailureMessage(errorMessages);
     }
 
@@ -64,8 +66,9 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      *  @param group          The ID of the group that the questionnaire should assign to.
      */
     @Override
-    public void assigntogrouppresent(int questionnaireID, int studyID, String group) {
-        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to group" + group + " in the study" + studyID;
+    public void assignToGroupPresent(int questionnaireID, int studyID, String group) {
+        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to group" + group +
+                " in the study" + studyID;
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
@@ -78,8 +81,9 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param message         The message to present.
      */
     @Override
-    public void assigntoparticipantfail(int QuestionnaireId, int studyID, int participantID, String message) {
-        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign to participant" + participantID + message;
+    public void assignToParticipantFail(int QuestionnaireId, int studyID, int participantID, String message) {
+        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign to participant" +
+                participantID + message;
         displayFailureMessage.presentFailureMessage(errorMessages);
     }
 
@@ -91,8 +95,9 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param participantID   The ID of the participant that the questionnaire should assign to.
      */
     @Override
-    public void assigntoparticipantpresent(int questionnaireID, int studyID, int participantID) {
-        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to participant" + participantID + " in the study" + studyID;
+    public void assignToParticipantPresent(int questionnaireID, int studyID, int participantID) {
+        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to participant" +
+                participantID + " in the study" + studyID;
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
