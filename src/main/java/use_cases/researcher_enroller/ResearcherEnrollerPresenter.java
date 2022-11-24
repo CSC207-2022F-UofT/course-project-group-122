@@ -63,7 +63,7 @@ public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoun
     @Override
     public void presentEnrollmentSuccess(int researcherId, String researcherName, int studyId, String studyName, int userId) {
         String messageToPresenter = "Researcher " + researcherName +
-                " has been enrolled in study (" + studyId + "( " + studyName;
+                " has been enrolled in study (" + studyId + "): " + studyName;
         displaySuccessMessage.presentGeneralSuccessMessage(messageToPresenter);
         fetchStudyLogController.fetchStudyLog(studyId, userId);
     }

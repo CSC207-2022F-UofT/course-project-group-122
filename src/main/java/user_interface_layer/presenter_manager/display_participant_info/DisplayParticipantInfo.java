@@ -25,6 +25,8 @@ public class DisplayParticipantInfo implements DisplayParticipantInfoInterface {
     }
 
 
+
+    @Override
     public void displayParticipantInfo(int participantId, String name, int studyId) {
         ShowParticipantInfoScreen screen = new ShowParticipantInfoScreen(participantId, name, studyId, controllerManager);
         screenManager.setShowParticipantInfoScreen(screen);

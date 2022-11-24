@@ -114,7 +114,8 @@ public class Main {
         // which automatically initializes the interactors
 
         //Helper classes
-        FetchId fetchId = new FetchId(userPool, studyPool);
+        FetchId.setStudyPool(studyPool);
+        FetchId.setUserPool(userPool);
 
         // Add potential participants use case
         AddPotentialParticipantController addPotentialParticipantController = new AddPotentialParticipantController();
