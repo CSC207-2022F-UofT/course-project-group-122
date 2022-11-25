@@ -64,8 +64,8 @@ public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoun
     public void presentEnrollmentSuccess(int researcherId, String researcherName, int studyId, String studyName, int userId) {
         String messageToPresenter = "Researcher " + researcherName +
                 " has been enrolled in study (" + studyId + "): " + studyName;
-        displaySuccessMessage.presentGeneralSuccessMessage(messageToPresenter);
         fetchStudyLogController.fetchStudyLog(studyId, userId);
+        displaySuccessMessage.presentGeneralSuccessMessage(messageToPresenter);
     }
 
 

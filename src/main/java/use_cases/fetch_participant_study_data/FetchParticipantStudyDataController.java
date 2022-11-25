@@ -1,8 +1,5 @@
 package use_cases.fetch_participant_study_data;
 
-import entities.Participant;
-import entities.User;
-
 /**
  * Fetches the study data for a participant.
  * Precondition: the participant is associated with a study.
@@ -26,16 +23,6 @@ public class FetchParticipantStudyDataController {
      */
     public void fetchParticipantStudyData(int participantId, int userId) {
         fetchParticipantStudyDataInteractor.fetchParticipantStudyData(participantId, userId);
-    }
-
-    /**
-     * Fetches the study data for a participant
-     *
-     * @param participant The participant to fetch the study data for.
-     * @param user        The current user.
-     */
-    public void fetchParticipantStudyData(Participant participant, User user) {
-        fetchParticipantStudyDataInteractor.fetchParticipantStudyData(participant, user);
     }
 
 
