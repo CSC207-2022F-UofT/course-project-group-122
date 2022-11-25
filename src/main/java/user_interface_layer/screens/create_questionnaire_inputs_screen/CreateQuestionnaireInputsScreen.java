@@ -21,6 +21,7 @@ import java.util.List;
 public class CreateQuestionnaireInputsScreen extends JFrame {
     private final List<QuestionModel> addedQuestions = new ArrayList<>();
     List<JRadioButton> studyGroups = new ArrayList<>();
+
     public CreateQuestionnaireInputsScreen(CreateQuestionnaireInputsScreenInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         JTextField questionnaireName = new JTextField(30);
@@ -156,31 +157,12 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
 
         JButton createQuestionnaireButton = new JButton("Create Questionnaire");
         createQuestionnaireButton.addActionListener(e -> {
-            boolean selected = false;
-            for (JRadioButton radioButton : studyGroups) {
-                if (radioButton.isSelected()) {
-                    selected = true;
-                }
-            }
-            if (questionnaireName.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter a name for the questionnaire");
-            } else if (questionnaireDescription.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter a description for the questionnaire");
-            } else if (addedQuestions.size() == 0) {
-                JOptionPane.showMessageDialog(null, "Please add at least one question to the questionnaire");
-            } else if (!selected){
-                JOptionPane.showMessageDialog(null, "Please select a study group for the questionnaire");
-            } else {
-                ArrayList<String> groups = new ArrayList<>();
-                for (JRadioButton radioButton : studyGroups) {
-                    if (radioButton.isSelected()) {
-                        groups.add(radioButton.getText());
-                    }
-                }
-                    controllerManager.createQuestionnaireController(data.getStudyID(),data.getResearchID(), questionnaireName.getText(), questionnaireDescription.getText(),groups, addedQuestions.size(), addedQuestions);
-                    dispose();
-                }
+            createQuestionnaire("General", data, controllerManager, questionnaireName, questionnaireDescription);
+        });
 
+        JButton createEligibilityQuestionnaireButton = new JButton("Create Eligibility Questionnaire");
+        createEligibilityQuestionnaireButton.addActionListener(e -> {
+            createQuestionnaire("Eligibility", data, controllerManager, questionnaireName, questionnaireDescription);
         });
 
         inputsPanel.add(questionnaireNamePanel);
@@ -193,12 +175,45 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
         inputsPanel.add(buttonsPanel);
 
         add(inputsPanel, BorderLayout.CENTER);
-        add(createQuestionnaireButton, BorderLayout.SOUTH);
+        JPanel buttons = new JPanel(new GridLayout(2,1));
+        buttons.add(createQuestionnaireButton);
+        buttons.add(createEligibilityQuestionnaireButton);
+        add(buttons, BorderLayout.SOUTH);
         setTitle("Create Questionnaire");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
 
         SetScreenToCenter s = new SetScreenToCenter(this);
+    }
+
+    private void createQuestionnaire(String questionnaireType, CreateQuestionnaireInputsScreenInputData data,
+                                     ControllerManager controllerManager,
+                                     JTextField questionnaireName,
+                                     JTextArea questionnaireDescription) {
+        boolean selected = false;
+        for (JRadioButton radioButton : studyGroups) {
+            if (radioButton.isSelected()) {
+                selected = true;
+            }
+        }
+        if (questionnaireName.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter a name for the questionnaire");
+        } else if (questionnaireDescription.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter a description for the questionnaire");
+        } else if (addedQuestions.size() == 0) {
+            JOptionPane.showMessageDialog(null, "Please add at least one question to the questionnaire");
+        } else if (!selected) {
+            JOptionPane.showMessageDialog(null, "Please select a study group for the questionnaire");
+        } else {
+            ArrayList<String> groups = new ArrayList<>();
+            for (JRadioButton radioButton : studyGroups) {
+                if (radioButton.isSelected()) {
+                    groups.add(radioButton.getText());
+                }
+            }
+            controllerManager.createQuestionnaireController(questionnaireType, data.getStudyID(), data.getResearchID(), questionnaireName.getText(), questionnaireDescription.getText(), groups, addedQuestions.size(), addedQuestions);
+            dispose();
+        }
     }
 
     public static void main(String[] args) {

@@ -26,7 +26,7 @@ public class DisplayEditQuestionnaire implements DisplayEditQuestionnaireInterfa
     public void presentEditQuestionnaireScreen(EditQuestionnaireScreenInputData data){
         EditQuestionnaireScreen screen = new EditQuestionnaireScreen(data, controllerManager);
         screenManager.setEditQuestionnaireScreen(screen);
-        screenManager.updateCurrentScreen(screen);
+        screenManager.updateCurrentScreenNoDispose(screen);
 
 }
 }

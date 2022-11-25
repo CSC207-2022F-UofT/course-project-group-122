@@ -52,7 +52,13 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
                 }
                 assert question != null;
                 questionnaire.addQuestion(question);
-                study.addQuestionnaire(questionnaire);
+                if (data.getType().equals("General")) {
+                    study.addQuestionnaire(questionnaire);
+                } else if (data.getType().equals("Eligibility")){
+                    study.setEligibilityQuestionnaire(questionnaire);
+                } else { outputBoundary.presentFailureScreen("Fail to create questionnaire");
+
+                }
             }
         } catch (Exception e) {
             outputBoundary.presentFailureScreen(e.getMessage());
@@ -65,23 +71,6 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
         this.outputBoundary = outputBoundary;
     }
 
-//    public static void main(String[] args) {
-//
-//        StudyPool studyPool = new StudyPool(new HashMap<>());
-//        FetchId fetchId = new FetchId(new UserPool(new HashMap<>()), studyPool);
-//        Study study = new Study("General", "A Study", 4, 4, new String[]{"A", "B", "C", "D"});
-//        studyPool.addStudy(study);
-//        List<QuestionModel> questions = new ArrayList<>();
-//        QuestionModel mcQuestion = new QuestionModel("What is your favourite colour?", "colour", List.of("red", "blue", "green"));
-//        QuestionModel scaleQuestion = new QuestionModel("How much do you like this app?", "app", "0", "10", 10);
-//        QuestionModel textQuestion = new QuestionModel("What is your name?", "name");
-//        questions.add(mcQuestion);
-//        questions.add(scaleQuestion);
-//        questions.add(textQuestion);
-//        CreateQuestionnaireRequestModel data = new CreateQuestionnaireRequestModel(1, 2, "A Questionnaire", "A Questionnaire", List.of("A", "B", "C", "D"), 3, questions);
-//        CreateQuestionnaireInteractor interactor = new CreateQuestionnaireInteractor();
-//        interactor.createQuestionnaire(data);
-//    }
 }
 
 

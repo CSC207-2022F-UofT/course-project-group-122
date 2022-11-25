@@ -152,8 +152,8 @@ public class ControllerManager {
         modifyStudyParameterController.modifyStudyStratification(studyId, stratificationVariable, currentUserId);
     }
 
-    public void createQuestionnaireController(int studyID, int researcherID, String questionnaireName, String description, ArrayList<String> groups, int numQuestions, List<QuestionModel> addedQuestions) {
-        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(studyID, researcherID, questionnaireName, description, groups, numQuestions, addedQuestions);
+    public void createQuestionnaireController(String type, int studyID, int researcherID, String questionnaireName, String description, ArrayList<String> groups, int numQuestions, List<QuestionModel> addedQuestions) {
+        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(type, studyID, researcherID, questionnaireName, description, groups, numQuestions, addedQuestions);
         createQuestionnaireController.createQuestionnaire(requestModel);
     }
 

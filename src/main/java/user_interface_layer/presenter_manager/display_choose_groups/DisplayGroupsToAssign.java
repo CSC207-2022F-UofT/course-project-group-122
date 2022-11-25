@@ -33,6 +33,6 @@ public class DisplayGroupsToAssign implements DisplayGroupsToAssignInterface {
                 controllerManager, studyId, questionnaireId);
 
         screenManager.setChooseGroupToAssignScreen(screen);
-        screenManager.updateCurrentScreen(screen);
+        screenManager.updateCurrentScreenNoDispose(screen);
     }
 }

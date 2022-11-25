@@ -102,13 +102,8 @@ public class ScreenManager {
         }
     }
     public void updateCurrentScreenNoDispose(JFrame screen) {
-        if (currentScreen == null) {
-            setCurrentScreen(screen);
-            getCurrentScreen().setVisible(true);
-        } else {
-            setCurrentScreen(screen);
-            getCurrentScreen().setVisible(true);
-        }
+        setCurrentScreen(screen);
+        getCurrentScreen().setVisible(true);
     }
     public void disposeCurrentScreen() {
         getCurrentScreen().dispose();
@@ -166,6 +161,9 @@ public class ScreenManager {
     }
 
     public void setStudyDataLogScreen(StudyDataLogScreen screen) {
+        if (this.studyDataLogScreen != null) {
+            this.studyDataLogScreen.dispose();
+        }
         this.studyDataLogScreen = screen;
     }
 
