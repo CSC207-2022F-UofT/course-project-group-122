@@ -25,6 +25,7 @@ import use_cases.create_questionnaire.CreateQuestionnairePresenter;
 import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyInteractor;
 import use_cases.create_study.CreateStudyPresenter;
+import use_cases.create_study.CreateStudyRequestModel;
 import use_cases.eligibility_checker.EligibilityCheckerController;
 import use_cases.eligibility_checker.EligibilityCheckerInteractor;
 import use_cases.eligibility_checker.EligibilityCheckerPresenter;
@@ -509,6 +510,37 @@ public class Main {
 //                    break;
 //            }
 //        }
+
+
+
+
+        // TODO: must be removed if debugging is finished
+        // Setups for debugging purposes
+        userLoginController.signup("pone", "Participant", "ParticipantOne");
+        userLoginController.signup("ptwo", "Participant", "ParticipantTwo");
+        userLoginController.signup("pthree", "Participant", "ParticipantThree");
+        userLoginController.signup("pfour", "Participant", "ParticipantFour");
+        userLoginController.signup("pfive", "Participant", "ParticipantFive");
+        userLoginController.signup("rone", "Researcher", "ResearcherOne");
+        userLoginController.signup("rtwo", "Researcher", "ResearcherTwo");
+        userLoginController.signup("rthree", "Researcher", "ResearcherThree");
+        userLoginController.signup("rfour", "Researcher", "ResearcherFour");
+        userLoginController.signup("rfive", "Researcher", "ResearcherFive");
+
+        CreateStudyRequestModel study1 = new CreateStudyRequestModel(6, "Study1", "Description1");
+        study1.setStudyTargetSize(66);
+        study1.setStudyType("General");
+        study1.setNumGroups(1);
+        study1.setGroupNames(new String[]{"Group1"});
+
+        CreateStudyRequestModel study2 = new CreateStudyRequestModel(6, "Study2", "Description2");
+        study2.setStudyTargetSize(66);
+        study2.setStudyType("Randomized");
+        study2.setNumGroups(2);
+        study2.setGroupNames(new String[]{"Group1", "Group2"});
+
+        createStudyController.createStudy(study1);
+        createStudyController.createStudy(study2);
 
 
 
