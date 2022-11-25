@@ -177,7 +177,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
                         groups.add(radioButton.getText());
                     }
                 }
-                    controllerManager.createQuestionnaireController(data.getStudyID(), questionnaireName.getText(), questionnaireDescription.getText(),groups, addedQuestions.size(), addedQuestions);
+                    controllerManager.createQuestionnaireController(data.getStudyID(),data.getResearchID(), questionnaireName.getText(), questionnaireDescription.getText(),groups, addedQuestions.size(), addedQuestions);
                     dispose();
                 }
 

@@ -19,6 +19,13 @@ public class FetchStudyLogInteractor implements FetchStudyLogInputBoundary {
     public void fetchStudyLog(int studyId, int researcherId) {
         Study study = FetchId.getStudy(studyId);
         Researcher researcher = (Researcher) FetchId.getUser(researcherId);
+        if (study == null) {
+            System.out.println("Study does not exist");
+        } else if (researcher == null) {
+            System.out.println("Researcher does not exist");
+        } else if (!study.getResearchers().contains(researcher)) {
+            System.out.println("Researcher is not part of the study");
+        }
         FetchStudyLogResponseModel fetchStudyLogResponseModel =
                 new FetchStudyLogResponseModel(researcher.getId(), researcher.getName(), study);
         fetchStudyLogPresenter.presentStudyLog(fetchStudyLogResponseModel);

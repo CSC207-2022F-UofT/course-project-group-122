@@ -1,9 +1,6 @@
 package main;
 
-import entities.Study;
-import entities.StudyPool;
-import entities.User;
-import entities.UserPool;
+import entities.*;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.add_potential_participant.AddPotentialParticipantInteractor;
 import use_cases.add_potential_participant.AddPotentialParticipantPresenter;
@@ -544,7 +541,18 @@ public class Main {
         createStudyController.createStudy(study1);
         createStudyController.createStudy(study2);
 
-
+        Researcher testr = (Researcher) FetchId.getUser(6);
+        if (testr != null) {
+            System.out.println("testr is not null");
+        } else {
+            System.out.println("testr is null");
+        }
+        Study testStudy = FetchId.getStudy(1);
+        if (testStudy != null) {
+            System.out.println("testStudy is not null");
+        } else {
+            System.out.println("testStudy is null");
+        }
 
     }
 }

@@ -15,6 +15,7 @@ public class CreateQuestionnaireRequestModel {
 
     public CreateQuestionnaireRequestModel(int studyID, int researcherID, String questionnaireName, String questionnaireDescription, List<String> groups, int numOfQuestions, List<QuestionModel> questions) {
         this.studyID = studyID;
+        this.researcherID = researcherID;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
         this.numOfQuestions = numOfQuestions;

@@ -10,9 +10,9 @@ public class CreateQuestionnaireInputsScreenInputData {
      * The study ID.
      */
     private final int studyID;
-    private int researchID;
+    private final int researchID;
 
-    private List<String> studyGroups;
+    private final List<String> studyGroups;
 
 
     /*
@@ -33,5 +33,9 @@ public class CreateQuestionnaireInputsScreenInputData {
 
     public List<String> getStudyGroups() {
         return studyGroups;
+    }
+
+    public int getResearchID() {
+        return researchID;
     }
 }

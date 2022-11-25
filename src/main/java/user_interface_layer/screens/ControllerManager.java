@@ -1,5 +1,6 @@
 package user_interface_layer.screens;
 
+import entities.Researcher;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireRequestModel;
@@ -14,6 +15,7 @@ import use_cases.create_study.CreateStudyRequestModel;
 import use_cases.edit_questionnaire_screen_data.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
 import use_cases.edit_study_data_request.FetchStudyDataForEditingController;
 import use_cases.eligibility_checker.EligibilityCheckerController;
+import use_cases.fetch_id.FetchId;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
 import use_cases.fetch_study_data.FetchStudyDataController;
 import use_cases.fetch_study_log.FetchStudyLogController;
@@ -150,9 +152,8 @@ public class ControllerManager {
         modifyStudyParameterController.modifyStudyStratification(studyId, stratificationVariable, currentUserId);
     }
 
-    public void createQuestionnaireController(int studyID, String questionnaireName, String description, ArrayList<String> groups, int numQuestions, List<QuestionModel> addedQuestions) {
-        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(studyID, currentUserId, questionnaireName, description, groups, numQuestions, addedQuestions);
-        System.out.println("I am here 1");
+    public void createQuestionnaireController(int studyID, int researcherID, String questionnaireName, String description, ArrayList<String> groups, int numQuestions, List<QuestionModel> addedQuestions) {
+        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(studyID, researcherID, questionnaireName, description, groups, numQuestions, addedQuestions);
         createQuestionnaireController.createQuestionnaire(requestModel);
     }
 
