@@ -527,6 +527,8 @@ public class Main {
         userLoginController.signup("rfour", "Researcher", "ResearcherFour");
         userLoginController.signup("rfive", "Researcher", "ResearcherFive");
 
+        userLoginController.login("rone");
+
         CreateStudyRequestModel study1 = new CreateStudyRequestModel(6, "Study1", "Description1");
         study1.setStudyTargetSize(66);
         study1.setStudyType("General");
