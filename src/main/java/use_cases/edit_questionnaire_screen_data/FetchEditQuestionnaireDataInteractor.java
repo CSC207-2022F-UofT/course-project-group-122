@@ -1,8 +1,7 @@
-package use_cases.edit_questionnaire_screen_data.edit_questionnaire_screen_data;
+package use_cases.edit_questionnaire_screen_data;
 
 import entities.Question;
 import entities.Questionnaire;
-import use_cases.edit_questionnaire_screen_data.EditQuestionnaireScreenInputData;
 import use_cases.fetch_id.FetchId;
 
 import java.util.*;

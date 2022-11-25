@@ -1,4 +1,4 @@
-package use_cases.edit_questionnaire_screen_data.edit_questionnaire_screen_data;
+package use_cases.edit_questionnaire_screen_data;
 
 public class FetchEditQuestionnaireDataController {
     FetchEditQuestionnaireDataInputBoundary fetchEditQuestionnaireDataInputBoundary = new FetchEditQuestionnaireDataInteractor();

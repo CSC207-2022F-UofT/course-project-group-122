@@ -239,6 +239,7 @@ public class FetchStudyLogResponseModel {
             else {
                 content[3] = "Active";
             }
+            return content;
 
         }
         return null;
