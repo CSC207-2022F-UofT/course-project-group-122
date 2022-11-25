@@ -1,13 +1,13 @@
 package user_interface_layer.presenter_manager.display_participant_study;
 
 import org.jetbrains.annotations.NotNull;
+import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
 import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreen;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreenInputData;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantInputData;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantScreen;
-import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
 
 /**
  * The displays the screen of a participant who is in a study either for the participant or for the researcher that is

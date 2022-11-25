@@ -41,9 +41,10 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
         FetchParticipantStudyDataResponseModel responseModel = new FetchParticipantStudyDataResponseModel(participant,
                 user);
         responseModel.setStudyData(study, studyStatus, group, participantStatus);
-        responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire, eligibilityQuestionnaireAnswerStatus,
-                participant);
-
+        if (eligibilityQuestionnaire != null) {
+            responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire,
+                    eligibilityQuestionnaireAnswerStatus, participant);
+        }
         responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers, participant);
         if (user instanceof Participant) {
             fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
