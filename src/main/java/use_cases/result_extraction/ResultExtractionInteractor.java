@@ -8,7 +8,7 @@ import entities.VersionedAnswer;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
-import java.lang.reflect.Array;
+
 import java.util.*;
 import java.io.FileWriter;
 import java.io.File;
@@ -16,27 +16,36 @@ import java.io.IOException;
 
 
 /**
- * A class pull and extract result of a study
- * Uses a reference of the user, which can be either a researcher or a participant.
- *
- * It checks if the user is a researcher or a participant, and then calls the appropriate method.
- * If the user is a researcher, it will fetch all the study data, including:
- * - the study name
- * - the study ID
- * - the status of the study
- * and package the information to send it to the output boundary.
- * This information will be displayed in the researcher's dashboard where all studies are listed.
+ * Use case layer
  * <p>
- * If the user is a participant, it will fetch the study data that this participant is associated with and package
- * the information to send it to the output boundary. This information will be used to fetch further information
- * on the study, such as the study name, the study ID, and the status of the study, as well as how the participant
- * is involved in the study (i.e., their status in the study, the questionnaires assigned to the participant,
- * the answers of these participants that they have provided, etc.).
- * If the participant is not associated with any study, it will return call the output boundary to display a specific
- * message to the participant.
+ * This is the ResultExtraction use case interactor. The interator pulls and exports result of a study
+ * The exportation is based on existence of the eligibility questionnaire, the publication status of questionnaire,
+ * and the questionnaire completion of the participants in this study.
+ * <p>
+ * The interactor does not manipulate the result, it only records the information needed for the researcher
  */
 public class ResultExtractionInteractor implements ResultExtractionInputBoundary {
+
+    /**
+     * The presenter to send the output to.
+     */
     private ResultExtractionOutputBoundary resultPullingAndExtractionPresenter;
+
+
+    /**
+     * Export the result of a study.
+     * Automatically collect information about the study and the questionnaire within it
+     * At the same time, collect the status of the file creation.
+     * If one file is not created, its name will be recorded and present to the user.
+     * If all the file is created, the file will present as success message.
+     * An Eligibility questionnaire csv file can be created iff the questionnaire is created in the study.
+     * A Questionnaire csv file can be created iff the questionnaire is created and save in the questionnaire list.
+     * A participant's information can be recorded iff they complete the correlated questionnaire
+     * <p>
+     *
+     * @param studyID The ID of the study that the researcher want to export
+     * @param filepath The file path to save the result folder
+     */
 
     @Override
     public void resultPullingAndExtraction(int studyID, String filepath) {
@@ -89,32 +98,34 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
 
 
             List<Questionnaire> listOfQuestionnaire = study.getQuestionnaires();
-            if (listOfQuestionnaire.get(0) != null) {
+            if (!listOfQuestionnaire.isEmpty()) {
                 for (Questionnaire questionnaire : study.getQuestionnaires()) {
-                    String csvFileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
-                    String csvFilePath = folderPath + "\\" + csvFileName;
-                    File questionnaireResult = new File(csvFilePath);
-                    try {
-                        FileWriter exportFile = new FileWriter(questionnaireResult);
-                        CSVWriter writer = new CSVWriter(exportFile);
-                        List<String[]> result = new ArrayList<>();
-                        result.add(firstLine(questionnaire));
-                        for (Participant par : study.getParticipants()) {
-                            if (par.getCompletedQuestionnaires().contains(questionnaire)) {
-                                result.add(restLine(par, questionnaire));
+                    if (questionnaire.isPublished()) {
+                        String csvFileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
+                        String csvFilePath = folderPath + "\\" + csvFileName;
+                        File questionnaireResult = new File(csvFilePath);
+                        try {
+                            FileWriter exportFile = new FileWriter(questionnaireResult);
+                            CSVWriter writer = new CSVWriter(exportFile);
+                            List<String[]> result = new ArrayList<>();
+                            result.add(firstLine(questionnaire));
+                            for (Participant par : study.getParticipants()) {
+                                if (par.getCompletedQuestionnaires().contains(questionnaire)) {
+                                    result.add(restLine(par, questionnaire));
+                                }
                             }
+                            writer.writeAll(result);
+                            writer.close();
+                        } catch (IOException err) {
+                            err.printStackTrace();
                         }
-                        writer.writeAll(result);
-                        writer.close();
-                    } catch (IOException err) {
-                        err.printStackTrace();
-                    }
-                    if (questionnaireResult.mkdir()) {
-                        presentInfo.add("file " + csvFileName + "create successfully");
-                        presentIndicator.add(isSuccess);
-                    } else {
-                        presentInfo.add("file " + csvFileName + "create unsuccessfully");
-                        presentIndicator.add(notSuccess);
+                        if (questionnaireResult.mkdir()) {
+                            presentInfo.add("file " + csvFileName + "create successfully");
+                            presentIndicator.add(isSuccess);
+                        } else {
+                            presentInfo.add("file " + csvFileName + "create unsuccessfully");
+                            presentIndicator.add(notSuccess);
+                        }
                     }
                 }
             }
@@ -131,7 +142,7 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
             ArrayList<String> errormessage = new ArrayList<>();
             for (Integer integer: presentIndicator){
                 if(integer.equals(notSuccess)){
-                    Integer integerIndex = presentIndicator.indexOf(integer);
+                    int integerIndex = presentIndicator.indexOf(integer);
                     errormessage.add(presentInfo.get(integerIndex));
                 }
             }
@@ -140,6 +151,16 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
             resultPullingAndExtractionPresenter.presentSuccessSave(studyID, filepath);
         }
     }
+
+    /**
+     * Pack the names of information type and question variable into a String array
+     * Return thIS string array for the correlated questionnaire csv file to write.
+     * Preconditions:
+     * The questionnaire is in the study.
+     * The questionnaire have been published
+     * @param questionnaire The questionnaire in the study.
+     * @return String array that contain all type name and question variable.
+     */
 
     private String @NotNull [] firstLine(@NotNull Questionnaire questionnaire) {
         ArrayList<String> headLine = new ArrayList<>();
@@ -153,6 +174,16 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
         return headLine.toArray(new String[0]);
     }
 
+
+    /**
+     * Pack the identity information of the participants, the modification information and the modified versioned answer.
+     * After packing information above, the String array of this information will be sent to questionnaire csv file.
+     * Precondition:
+     * the participant have finished
+     * @param par1 the participant to extract information from
+     * @param questionnaire1 the questionnaire used to find exact versioned answer
+     * @return the string array contained result information of the participant.
+     */
     private String @NotNull [] restLine(@NotNull Participant par1, Questionnaire questionnaire1){
         ArrayList<String> oneLine = new ArrayList<>();
         oneLine.add(par1.getName());
@@ -172,6 +203,11 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
         return oneLine.toArray(new String[0]);
     }
 
+
+    /**
+     * Sets the presenter of this class.
+     * @param resultPullingAndExtractionPresenter the presenter of this class.
+     */
     public void setResultExtractionPresenter(ResultExtractionOutputBoundary resultPullingAndExtractionPresenter){
         this.resultPullingAndExtractionPresenter = resultPullingAndExtractionPresenter;
     }
