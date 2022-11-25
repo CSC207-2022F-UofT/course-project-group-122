@@ -353,34 +353,4 @@ public class FetchParticipantStudyDataResponseModel {
         return userId;
     }
 
-
-    public static void main(String[] args) {
-        Participant participant = new Participant("username", "name");
-        Study study = new Study("studyName", 20);
-        study.setStudyDescription("studyDescription");
-        study.setStudyType("Randomized");
-        study.setEligibilityQuestionnaire(new Questionnaire(study, "eligibilityQuestionnaire", "description"));
-        study.addPotentialParticipant(participant);
-        study.addQuestionnaire(new Questionnaire(study, "questionnaire1", "description"));
-        study.addQuestionnaire(new Questionnaire(study, "questionnaire2", "description"));
-        study.addQuestionnaire(new Questionnaire(study, "questionnaire3", "description"));
-
-        participant.setStudy(study);
-        participant.setEligibilityQuestionnaire(study.getEligibilityQuestionnaire());
-        participant.setEligibilityQuestionnaireAnswer(new Answer(participant, study.getEligibilityQuestionnaire()));
-        participant.assignQuestionnaire(study.getQuestionnaires().get(0));
-        participant.assignQuestionnaire(study.getQuestionnaires().get(1));
-        participant.assignQuestionnaire(study.getQuestionnaires().get(2));
-        participant.completeQuestionnaire(study.getQuestionnaires().get(0));
-        participant.addAnswer(new Answer(participant, study.getQuestionnaires().get(0)), study.getQuestionnaires().get(0));
-
-        Researcher researcher = new Researcher("username", "resercher name");
-        researcher.addToListStudies(study);
-
-        FetchParticipantStudyDataResponseModel model = new FetchParticipantStudyDataResponseModel(participant, researcher);
-        model.setStudyData(study, "Active", 1, "potential");
-        model.setEligibilityQuestionnaireData(study.getEligibilityQuestionnaire(), "Not answered", participant);
-        model.setQuestionnaireData(participant.getAssignedQuestionnaires(), participant.getCompletedQuestionnaires(), participant.getQuestionnaireAnswers(), participant);
-
-    }
 }
