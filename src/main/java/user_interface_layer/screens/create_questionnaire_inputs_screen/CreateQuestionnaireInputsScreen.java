@@ -101,7 +101,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
             });
             mcNumOfChoices.add(numOfChoices, BorderLayout.CENTER);
             mcNumOfChoices.add(continueButton, BorderLayout.SOUTH);
-            mcNumOfChoices.pack();
+            numOfChoices.setSize(300, 50);
             SetScreenToCenter s = new SetScreenToCenter(mcNumOfChoices);
             mcNumOfChoices.setVisible(true);
         });
@@ -109,7 +109,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
         addScaleQuestion.addActionListener(e -> {
             JFrame numOfScale = new JFrame();
             numOfScale.setLayout(new BorderLayout());
-            numOfScale.setTitle("Number of Choices");
+            numOfScale.setTitle("Number of Scale");
             numOfScale.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             JTextField numOfChoices = new JTextField(10);
             JButton continueButton = new JButton("Continue");
@@ -129,7 +129,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
             });
             numOfScale.add(numOfChoices, BorderLayout.CENTER);
             numOfScale.add(continueButton, BorderLayout.SOUTH);
-            numOfScale.pack();
+            numOfScale.setSize(300, 50);
             SetScreenToCenter s = new SetScreenToCenter(numOfScale);
             numOfScale.setVisible(true);
 
@@ -167,7 +167,10 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
 
         inputsPanel.add(questionnaireNamePanel);
         inputsPanel.add(questionnaireDescriptionPanel);
-        inputsPanel.add(groupsPanel);
+        JPanel leftalign = new JPanel();
+        leftalign.setLayout(new FlowLayout(FlowLayout.LEFT));
+        leftalign.add(groupsPanel);
+        inputsPanel.add(leftalign);
         inputsPanel.add(questionsPanel);
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(addQuestionButton);
