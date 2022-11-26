@@ -13,99 +13,99 @@ public class FetchStudyLogResponseModel {
     /**
      * The researcher ID.
      */
-    private int researcherId;
+    private final int researcherId;
 
     /**
      * The name of the researcher.
      */
-    private String researherName;
+    private final String researherName;
 
     /**
      * The study ID.
      */
-    private int studyId;
+    private final int studyId;
 
     /**
      * The name of the study.
      */
-    private String studyName;
+    private final String studyName;
 
     /**
      * The description of the study.
      */
-    private String studyDescription;
+    private final String studyDescription;
 
     /**
      * The type of the study.
      */
-    private String studyType;
+    private final String studyType;
 
     /**
      * The randomization method of the study.
      */
-    private String RandomizationMethod;
+    private final String RandomizationMethod;
 
     /**
      * The stratification method of the study.
      */
-    private String stratetificationMethod;
+    private final String stratificationMethod;
 
     /**
      * The status of the study.
      */
-    private String studyStatus;
+    private final String studyStatus;
 
     /**
      * The id of the eligibility questionnaires.
      */
-    private int eligibilityQuestionnaireId;
+    private final int eligibilityQuestionnaireId;
 
     /**
      * The content of the eligibility questionnaire.
      */
-    private String[] eligibilityQuestionnaireContent;
+    private final String[] eligibilityQuestionnaireContent;
 
     /**
      * The content of all questionnaires.
      */
-    private Map<Integer, String[]> questionnaires;
+    private final Map<Integer, String[]> questionnaires;
 
     /**
      * The group names of the study.
      */
-    private String[] groupAssignments;
+    private final String[] groupAssignments;
 
     /**
      * The researchers in the study.
      */
-    private Map<Integer, String[]> researchers;
+    private final Map<Integer, String[]> researchers;
 
     /**
      * The potential participants in the study.
      */
-    private Map<Integer, String[]> potentialParticipants;
+    private final Map<Integer, String[]> potentialParticipants;
 
     /**
      * The participants in the study.
      */
-    private Map<Integer, String[]> enrolledParticipants;
+    private final Map<Integer, String[]> enrolledParticipants;
 
 
     /**
      * The constructor for the FetchStudyLogResponseModel.
      * @param researcherId      The researcher ID.
-     * @param researherName     The name of the researcher.
+     * @param researcherName     The name of the researcher.
      * @param study             The study.
      */
-    public FetchStudyLogResponseModel(int researcherId, String researherName, @NotNull Study study) {
+    public FetchStudyLogResponseModel(int researcherId, String researcherName, @NotNull Study study) {
         this.researcherId = researcherId;
-        this.researherName = researherName;
+        this.researherName = researcherName;
         this.studyId = study.getId();
         this.studyName = study.getStudyName();
         this.studyDescription = study.getStudyDescription();
         this.studyType = study.getStudyType();
         this.RandomizationMethod = study.getRandomizationMethod();
-        this.stratetificationMethod = study.getStratificationMethod();
+        this.stratificationMethod = study.getStratificationMethod();
         this.studyStatus = fetchStatus(study);
         this.eligibilityQuestionnaireId = fetchEligibilityQuestionnaireId(study);
         this.eligibilityQuestionnaireContent = fetchEligibilityQuestionnaireContent(study);
@@ -126,7 +126,7 @@ public class FetchStudyLogResponseModel {
     private @NotNull Map<Integer, String[]> fetchParticipants(@NotNull List<Participant> users) {
         Map<Integer, String[]> userInfo = new HashMap<>();
         for (Participant user : users) {
-            userInfo.put(user.getId(), compileUserInformation(user));
+            userInfo.put(user.getId(), compileParticipantInformation(user));
         }
         return userInfo;
     }
@@ -140,7 +140,7 @@ public class FetchStudyLogResponseModel {
     private @NotNull Map<Integer, String[]> fetchResearcher(@NotNull List<Researcher> users) {
         Map<Integer, String[]> userInfo = new HashMap<>();
         for (Researcher user : users) {
-            userInfo.put(user.getId(), compileUserInformation(user));
+            userInfo.put(user.getId(), compileResearcherInformation(user));
         }
         return userInfo;
     }
@@ -151,10 +151,24 @@ public class FetchStudyLogResponseModel {
      * @param user        The researcher.
      * @return            The researcher information.
      */
-    private String @NotNull [] compileUserInformation(@NotNull User user) {
+    private String @NotNull [] compileResearcherInformation(@NotNull Researcher user) {
         String[] information = new String[2];
         information[0] = String.valueOf(user.getId());
         information[1] = user.getName();
+        return information;
+    }
+
+
+    /**
+     * Compiles the participant information.
+     * @param user      The participant.
+     * @return          The participant information.
+     */
+    private String @NotNull [] compileParticipantInformation(@NotNull Participant user) {
+        String[] information = new String[3];
+        information[0] = String.valueOf(user.getId());
+        information[1] = user.getName();
+        information[2] = getStatus(user);
         return information;
     }
 
@@ -271,6 +285,24 @@ public class FetchStudyLogResponseModel {
     }
 
 
+    /**
+     * Returns the status of the participant.
+     * @param participant   The participant to get the status of.
+     * @return The status of the participant. Either "potential", "eligible", "enrolled" or "dropped off".
+     */
+    private @NotNull String getStatus(@NotNull Participant participant) {
+        if (participant.isDroppedOff()) {
+            return "dropped off";
+        } else if (participant.isEnrolled()) {
+            return "enrolled";
+        } else if (participant.isEligible()) {
+            return "eligible";
+        } else {
+            return "potential";
+        }
+    }
+
+
     public int getResearcherId() {
         return researcherId;
     }
@@ -299,8 +331,8 @@ public class FetchStudyLogResponseModel {
         return RandomizationMethod;
     }
 
-    public String getStratetificationMethod() {
-        return stratetificationMethod;
+    public String getStratificationMethod() {
+        return stratificationMethod;
     }
 
     public String getStudyStatus() {

@@ -12,7 +12,6 @@ public class StudyDataLogInputData {
         private final String studyType;
         private String randomizedStrategy = "";
         private final String studyName;
-        private final String[] UserTableHeader = {"ID", "Username", "Name"};
         private final Map<Integer, String[]> researchersData;
         private final Map<Integer, String[]> potentialsData;
         private final Map<Integer, String[]> participantsData;
@@ -68,10 +67,6 @@ public class StudyDataLogInputData {
 
     public String getStudyName() {
         return studyName;
-    }
-
-    public String[] getUserTableHeader() {
-        return UserTableHeader;
     }
 
     public String [] getPotentialParticipantsTableHeader() {

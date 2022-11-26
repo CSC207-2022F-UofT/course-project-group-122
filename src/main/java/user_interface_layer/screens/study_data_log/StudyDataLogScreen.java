@@ -23,6 +23,7 @@ public class StudyDataLogScreen extends JFrame {
     JPanel questionsPanel;
 
     public StudyDataLogScreen(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
+        setTitle(data.getStudyName() + " (" + data.getStudyStatus() + ")");
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel backPanel = new JPanel();
         JPanel mainPanel = new JPanel();
@@ -84,6 +85,7 @@ public class StudyDataLogScreen extends JFrame {
             public void mousePressed(MouseEvent evt) {
                 popupMenu2.show(evt.getComponent(), evt.getX(), evt.getY());
             }});
+        backPanel.add(closeStudyButton);
 
 
         JTabbedPane StudyLogTabPane = new JTabbedPane();

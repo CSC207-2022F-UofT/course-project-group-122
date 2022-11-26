@@ -23,7 +23,6 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
 
         java.util.List<Integer> keys = new ArrayList<>(data.getPotentialParticipants().keySet());
         List<String[]> values = new ArrayList<>(data.getPotentialParticipants().values());
-
         for (String[] row : values) {
             model.addRow(row);
         }
