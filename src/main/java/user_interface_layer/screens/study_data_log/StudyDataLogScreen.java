@@ -87,6 +87,22 @@ public class StudyDataLogScreen extends JFrame {
             }});
         backPanel.add(closeStudyButton);
 
+        JButton consentFormButton = new JButton("Consent Form");
+        JPopupMenu popupMenu3 = new JPopupMenu();
+        JMenuItem createConsentForm = new JMenuItem("Create Consent Form");
+        JMenuItem reviewConsentFrom = new JMenuItem("Review Consent Form");
+        createConsentForm.addActionListener(e -> {
+            controllerManager.requestConsentFormCreation(data.getStudyId());});
+        reviewConsentFrom.addActionListener(e -> {
+            controllerManager.reviewConsentForm(data.getStudyId());});
+        popupMenu3.add(createConsentForm);
+        popupMenu3.add(reviewConsentFrom);
+        consentFormButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                popupMenu3.show(evt.getComponent(), evt.getX(), evt.getY());
+            }});
+        backPanel.add(consentFormButton);
+
 
         JTabbedPane StudyLogTabPane = new JTabbedPane();
 

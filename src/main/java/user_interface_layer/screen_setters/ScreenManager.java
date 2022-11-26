@@ -5,6 +5,9 @@ import user_interface_layer.screens.check_questionnaire_screen.CheckQuestionnair
 import user_interface_layer.screens.check_versioned_answer.CheckVersionedAnswer;
 import user_interface_layer.screens.choose_groups_to_assign.ChooseGroupToAssignScreen;
 import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationScreen;
+import user_interface_layer.screens.consent_form.ConsentFormScreen;
+import user_interface_layer.screens.consent_form.ConsentFormScreenForReview;
+import user_interface_layer.screens.consent_form.CreateConsentFormScreen;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.CreateQuestionnaireInputsScreen;
 import user_interface_layer.screens.create_study_inputs_screen.CreateStudyInputScreen;
 import user_interface_layer.screens.edit_questionnaire.EditQuestionnaireScreen;
@@ -28,29 +31,36 @@ import javax.swing.*;
  * The class that manages all the screens.
  */
 public class ScreenManager {
-    JFrame currentScreen;
-    UserRegisterScreen userRegisterScreen;
-    UserLogInScreen logInScreen;
-    UserSignUpScreen signUpScreen;
-    ParticipantNoStudyScreen participantNoStudyScreen;
-    ParticipantHomeScreen participantHomeScreen;
-    ResearcherStudyScreen researcherStudiesScreen;
-    CreateStudyInputScreen createStudyInputScreen;
-    AllVersionsScreen allVersionsScreen;
-    ResearcherRequestParticipantScreen researcherRequestParticipantScreen;
-    CreateQuestionnaireInputsScreen createQuestionnaireInputsScreen;
-    CheckQuestionnaireScreen checkQuestionnaireScreen;
-    ChooseStratificationScreen chooseStratificationScreen;
-    EditQuestionnaireScreen editQuestionnaireScreen;
-    EditStudyScreen editStudyScreen;
-    UserAnswerQuestionnairesScreen userAnswerQuestionnairesScreen;
-    EditQuestionnaireAnswers editQuestionnaireAnswers;
-    StudyDataLogScreen studyDataLogScreen;
-    ShowResearcherInfoScreen showResearcherInfoScreen;
-    ShowParticipantInfoScreen showParticipantInfoScreen;
+    private JFrame currentScreen;
+    private UserRegisterScreen userRegisterScreen;
+    private UserLogInScreen logInScreen;
+    private UserSignUpScreen signUpScreen;
+    private ParticipantNoStudyScreen participantNoStudyScreen;
+    private ParticipantHomeScreen participantHomeScreen;
+    private ResearcherStudyScreen researcherStudiesScreen;
+    private CreateStudyInputScreen createStudyInputScreen;
+    private AllVersionsScreen allVersionsScreen;
+    private ResearcherRequestParticipantScreen researcherRequestParticipantScreen;
+    private CreateQuestionnaireInputsScreen createQuestionnaireInputsScreen;
+    private CheckQuestionnaireScreen checkQuestionnaireScreen;
+    private ChooseStratificationScreen chooseStratificationScreen;
+    private EditQuestionnaireScreen editQuestionnaireScreen;
+    private EditStudyScreen editStudyScreen;
+    private UserAnswerQuestionnairesScreen userAnswerQuestionnairesScreen;
+    private EditQuestionnaireAnswers editQuestionnaireAnswers;
+    private StudyDataLogScreen studyDataLogScreen;
+    private  ShowResearcherInfoScreen showResearcherInfoScreen;
+    private ShowParticipantInfoScreen showParticipantInfoScreen;
 
 
     private ChooseGroupToAssignScreen chooseGroupToAssignScreen;
+
+    /**
+     * The consent form screen.
+     */
+    private ConsentFormScreen consentFormScreen;
+    private CreateConsentFormScreen createConsentFormScreen;
+    private ConsentFormScreenForReview consentFormScreenForReview;
 
     public ScreenManager() {
     }
@@ -177,5 +187,17 @@ public class ScreenManager {
 
     public void setChooseGroupToAssignScreen(ChooseGroupToAssignScreen screen) {
         this.chooseGroupToAssignScreen = screen;
+    }
+
+    public void setConsentFormScreen(ConsentFormScreen screen) {
+        this.consentFormScreen = screen;
+    }
+
+    public void setCreateConsentFormScreen(CreateConsentFormScreen screen) {
+        this.createConsentFormScreen = screen;
+    }
+
+    public void setConsentFormScreenForReview(ConsentFormScreenForReview screen) {
+        this.consentFormScreenForReview = screen;
     }
 }

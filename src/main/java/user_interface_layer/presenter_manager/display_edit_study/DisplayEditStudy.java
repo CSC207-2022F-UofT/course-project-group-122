@@ -12,6 +12,8 @@ import user_interface_layer.screens.edit_study_screen.EditStudyScreen;
 public class DisplayEditStudy implements DisplayEditStudyInterface {
     ScreenManager screenManager;
     ControllerManager controllerManager;
+
+
     /**
      * The constructor of the class.
      *

@@ -7,6 +7,8 @@ import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnsw
 import use_cases.assign_questionnaire.AssignQuestionnaireController;
 import use_cases.close_questionnaire.CloseQuestionnaireController;
 import use_cases.close_study.CloseStudyController;
+import use_cases.create_consent_form.CreateConsentFormController;
+import use_cases.create_consent_form.CreateConsentFormRequestModel;
 import use_cases.create_questionnaire.CreateQuestionnaireController;
 import use_cases.create_questionnaire.CreateQuestionnaireRequestModel;
 import use_cases.create_study.CreateStudyController;
@@ -14,6 +16,7 @@ import use_cases.create_study.CreateStudyRequestModel;
 import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
 import use_cases.edit_study_data_request.FetchStudyDataForEditingController;
 import use_cases.eligibility_checker.EligibilityCheckerController;
+import use_cases.fetch_consent_form.FetchConsentFormController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
 import use_cases.fetch_study_data.FetchStudyDataController;
 import use_cases.fetch_study_log.FetchStudyLogController;
@@ -76,19 +79,22 @@ public class ControllerManager {
     FetchEditQuestionnaireDataController editQuestionnaireScreenDataController;
 //    EditQuestionnaireController editQuestionnaireController;
 
-    FetchStudyDataForEditingController fetchStudyDataForEditingController;
-    ResultExtractionController resultExtractionController;
-    FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController;
-    CreateStudyController createStudyController;
-    CreateQuestionnaireController createQuestionnaireController;
-    CloseStudyController closeStudyController;
-    AssignQuestionnaireController assignQuestionnaireController;
-    AnswerQuestionnaireController answerQuestionnaireController;
-    AddPotentialParticipantController addPotentialParticipantController;
-    ResearcherEditAnswerController  researcherEditAnswerController;
-    EligibilityCheckerController eligibilityCheckerController;
-    FetchQuestionnaireScreenController fetchQuestionnaireScreenController;
-    CloseQuestionnaireController closeQuestionnaireController;
+    private FetchStudyDataForEditingController fetchStudyDataForEditingController;
+    private ResultExtractionController resultExtractionController;
+    private FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController;
+    private CreateStudyController createStudyController;
+    private CreateQuestionnaireController createQuestionnaireController;
+    private CloseStudyController closeStudyController;
+    private AssignQuestionnaireController assignQuestionnaireController;
+    private AnswerQuestionnaireController answerQuestionnaireController;
+    private AddPotentialParticipantController addPotentialParticipantController;
+    private ResearcherEditAnswerController  researcherEditAnswerController;
+    private EligibilityCheckerController eligibilityCheckerController;
+    private FetchQuestionnaireScreenController fetchQuestionnaireScreenController;
+    private CloseQuestionnaireController closeQuestionnaireController;
+    private FetchConsentFormController fetchConsentFormController;
+    private CreateConsentFormController createConsentFormController;
+    private SetUpConsentFormCreationScreenDriver consentFormCreationScreenDriver;
 
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -192,8 +198,8 @@ public class ControllerManager {
     }
 
 
-    public void answerEligibilityQuestionnaireRequestData(int participantId, int questionnaireId, int studyId) {
-        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(participantId, participantId, studyId, questionnaireId);
+    public void answerEligibilityQuestionnaireRequestData(int userId, int participantId, int questionnaireId, int studyId) {
+        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(userId, participantId, studyId, questionnaireId);
     }
 
 
@@ -271,6 +277,7 @@ public class ControllerManager {
     public void requestCreateStudyModel(int researchID) {
         studyCreationScreenDriver.requestStudyCreationScreen(screenManager, this, researchID);
     }
+
     public void editStudyDataRequest(Integer studyId, int researchID) {
         fetchStudyDataForEditingController.editStudyRequest(studyId, researchID);
     }
@@ -289,6 +296,23 @@ public class ControllerManager {
 
     public void reopenStudy(int studyId, int researcherId) {
         closeStudyController.reopenStudy(studyId, researcherId);
+    }
+
+    public void fetchConsentForm(int studyId, int eligibilityQuestionnaireId, int participantId) {
+        fetchConsentFormController.fetchConsentForm(this.currentUserId, studyId, eligibilityQuestionnaireId, participantId);
+    }
+
+    public void requestConsentFormCreation(int studyId) {
+        consentFormCreationScreenDriver.requestConsentFormCreationScreen(screenManager, this,
+                currentUserId, studyId);
+    }
+
+    public void createConsentForm(CreateConsentFormRequestModel requestModel) {
+        createConsentFormController.createConsentForm(requestModel);
+    }
+
+    public void reviewConsentForm(int studyId) {
+        fetchConsentFormController.showConsentForm(currentUserId, studyId);
     }
 
     public void setScreenManager(ScreenManager screenManager) {
@@ -442,4 +466,18 @@ public class ControllerManager {
     public void setCloseQuestionnaireController(CloseQuestionnaireController closeQuestionnaireController) {
         this.closeQuestionnaireController = closeQuestionnaireController;
     }
+
+    public void setFetchConsentFormController(FetchConsentFormController fetchConsentFormController) {
+        this.fetchConsentFormController = fetchConsentFormController;
+    }
+
+    public void setCreateConsentFormController(CreateConsentFormController createConsentFormController) {
+        this.createConsentFormController = createConsentFormController;
+    }
+
+    public void setConsentFormCreationScreenDriver(SetUpConsentFormCreationScreenDriver consentFormCreationScreenDriver) {
+        this.consentFormCreationScreenDriver = consentFormCreationScreenDriver;
+    }
+
+
 }

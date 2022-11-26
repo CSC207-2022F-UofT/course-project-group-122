@@ -16,6 +16,9 @@ import use_cases.close_questionnaire.CloseQuestionnairePresenter;
 import use_cases.close_study.CloseStudyController;
 import use_cases.close_study.CloseStudyInteractor;
 import use_cases.close_study.CloseStudyPresenter;
+import use_cases.create_consent_form.CreateConsentFormController;
+import use_cases.create_consent_form.CreateConsentFormInteractor;
+import use_cases.create_consent_form.CreateConsentFormPresenter;
 import use_cases.create_questionnaire.CreateQuestionnaireController;
 import use_cases.create_questionnaire.CreateQuestionnaireInteractor;
 import use_cases.create_questionnaire.CreateQuestionnairePresenter;
@@ -26,6 +29,9 @@ import use_cases.create_study.CreateStudyRequestModel;
 import use_cases.eligibility_checker.EligibilityCheckerController;
 import use_cases.eligibility_checker.EligibilityCheckerInteractor;
 import use_cases.eligibility_checker.EligibilityCheckerPresenter;
+import use_cases.fetch_consent_form.FetchConsentFormController;
+import use_cases.fetch_consent_form.FetchConsentFormInteractor;
+import use_cases.fetch_consent_form.FetchConsentFormPresenter;
 import use_cases.fetch_id.FetchId;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataInteractor;
@@ -74,6 +80,7 @@ import use_cases.user_login.UserLoginController;
 import use_cases.user_login.UserLoginInteractor;
 import use_cases.user_login.UserLoginPresenter;
 import user_interface_layer.presenter_manager.display_choose_groups.DisplayGroupsToAssign;
+import user_interface_layer.presenter_manager.display_consent_form.DisplayConsentForm;
 import user_interface_layer.presenter_manager.display_edit_questionnaire.DisplayEditQuestionnaire;
 import user_interface_layer.presenter_manager.display_edit_study.DisplayEditStudy;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessage;
@@ -315,6 +322,22 @@ public class Main {
         resultExtractionController.setResultExtractionInteractor(resultExtractionInteractor);
         resultExtractionInteractor.setResultExtractionPresenter(resultExtractionPresenter);
 
+        // Create consent form use case
+        CreateConsentFormController createConsentFormController = new CreateConsentFormController();
+        CreateConsentFormInteractor createConsentFormInteractor = new CreateConsentFormInteractor();
+        CreateConsentFormPresenter createConsentFormPresenter = new CreateConsentFormPresenter();
+        createConsentFormController.setCreateConsentFormInteractor(createConsentFormInteractor);
+        createConsentFormInteractor.setCreateConsentFormPresenter(createConsentFormPresenter);
+
+        // Fetch consent form use case
+        FetchConsentFormController fetchConsentFormController = new FetchConsentFormController();
+        FetchConsentFormInteractor fetchConsentFormInteractor = new FetchConsentFormInteractor();
+        FetchConsentFormPresenter fetchConsentFormPresenter = new FetchConsentFormPresenter();
+        fetchConsentFormController.setFetchConsentFormInteractor(fetchConsentFormInteractor);
+        fetchConsentFormInteractor.setFetchConsentFormPresenter(fetchConsentFormPresenter);
+
+
+
         //Controller Manager and Screen Manager
         ScreenManager screenManager = new ScreenManager();
         ControllerManager controllerManager = new ControllerManager(screenManager);
@@ -360,6 +383,8 @@ public class Main {
                 new DisplaySuccessMessage();
         DisplayVersionedAnswer presenterManagerDisplayVersionedAnswer =
                 new DisplayVersionedAnswer(screenManager);
+        DisplayConsentForm presenterManagerDisplayConsentForm =
+                new DisplayConsentForm(screenManager, controllerManager);
 
 
         //Inject Presenter Managers and/or Controllers to Presenters
@@ -446,6 +471,8 @@ public class Main {
         closeQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         closeQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
         closeQuestionnairePresenter.setFetchStudyLogController(fetchStudyLogController);
+
+
 
 
         // Inject controllers to controller manager

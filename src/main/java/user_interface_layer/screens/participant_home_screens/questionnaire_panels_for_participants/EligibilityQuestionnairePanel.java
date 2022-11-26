@@ -1,5 +1,6 @@
 package user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants;
 
+import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreenInputData;
@@ -10,7 +11,7 @@ import java.awt.*;
 
 public class EligibilityQuestionnairePanel extends JPanel {
 
-    public EligibilityQuestionnairePanel(ParticipantHomeScreenInputData data , ControllerManager controllerManager) {
+    public EligibilityQuestionnairePanel(@NotNull ParticipantHomeScreenInputData data , ControllerManager controllerManager) {
         super();
         setLayout(new BorderLayout());
         SetTableModel setTableModel = new SetTableModel(data.getQuestionnairesTableHeader());
@@ -30,7 +31,7 @@ public class EligibilityQuestionnairePanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
             } else {
                 int questionnaireId = Integer.parseInt(model.getValueAt(0, 0).toString());
-                controllerManager.answerEligibilityQuestionnaireRequestData(data.getParticipantId(),questionnaireId, data.getStudyId());
+                controllerManager.fetchConsentForm(data.getStudyId(), questionnaireId, data.getParticipantId());
             }
 
         });

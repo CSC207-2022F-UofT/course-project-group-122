@@ -31,7 +31,7 @@ public class PublishQuestionnairePresenter implements PublishQuestionnaireOutput
      * @param message         The message to present.
      */
     @Override
-    public void invalidQuestionnaireId(int QuestionnaireId, String message) {
+    public void invalidQuestionnaire(int QuestionnaireId, String message) {
         String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot be published. " + message;
         displayFailureMessage.presentFailureMessage(errorMessages);
     }

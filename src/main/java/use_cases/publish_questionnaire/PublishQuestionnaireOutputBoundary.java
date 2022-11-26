@@ -8,7 +8,7 @@ public interface PublishQuestionnaireOutputBoundary {
      * @param QuestionnaireId   The ID of the questionnaire that cannot be published.
      * @param message           The message to present.
      */
-    void invalidQuestionnaireId(int QuestionnaireId, String message);
+    void invalidQuestionnaire(int QuestionnaireId, String message);
 
 
     /**
