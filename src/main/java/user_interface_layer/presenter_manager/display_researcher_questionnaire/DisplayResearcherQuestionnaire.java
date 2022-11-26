@@ -28,7 +28,7 @@ public class DisplayResearcherQuestionnaire implements DisplayResearcherQuestion
     public void presentQuestionnaireScreenForResearcher(CheckQuestionnaireInputData data) {
         CheckQuestionnaireScreen screen = new CheckQuestionnaireScreen(data);
         screenManager.setCheckQuestionnaireScreen(screen);
-        screenManager.updateCurrentScreen(screen);
+        screenManager.updateCurrentScreenNoDispose(screen);
     }
 
     public void setScreenManager(ScreenManager screenManager){

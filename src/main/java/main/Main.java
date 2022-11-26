@@ -95,7 +95,10 @@ import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.screen_drivers.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Main {
@@ -554,6 +557,52 @@ public class Main {
             System.out.println("testStudy is null");
         }
 
+        Questionnaire eligibilityq = new Questionnaire(FetchId.getStudy(2), "eligibility questionnaire", "eligibility questionnaire description");
+        List<String> group1 = new ArrayList<>();
+        group1.add("1");
+        List<String> group2 = new ArrayList<>();
+        group2.add("1");
+        group2.add("2");
+        Questionnaire questionnaire1 = new Questionnaire(FetchId.getStudy(2), "questionnaire1", "questionnaire1 description", group1);
+        Questionnaire questionnaire2 = new Questionnaire(FetchId.getStudy(2), "questionnaire2", "questionnaire2 description", group2);
+        Questionnaire questionnaire3 = new Questionnaire(FetchId.getStudy(2), "questionnaire3", "questionnaire3 description", group2);
+
+        Study study = FetchId.getStudy(2);
+        study.setEligibilityQuestionnaire(eligibilityq);
+        study.addQuestionnaire(questionnaire1);
+        study.addQuestionnaire(questionnaire2);
+        study.addQuestionnaire(questionnaire3);
+
+        eligibilityq.addQuestion(new TextQuestion(eligibilityq, "What is your name?", "name"));
+        eligibilityq.publish();
+
+        questionnaire1.addQuestion(new TextQuestion(questionnaire1, "What is your name?", "name"));
+        questionnaire1.addQuestion(new TextQuestion(questionnaire1, "What is your age?", "age"));
+        questionnaire1.publish();
+        questionnaire2.addQuestion(new TextQuestion(questionnaire2, "What is your name?", "name"));
+        questionnaire2.publish();
+        questionnaire3.addQuestion(new TextQuestion(questionnaire3, "What is your name?", "name"));
+
+        study.addPotentialParticipant((Participant) FetchId.getUser(1));
+        study.addPotentialParticipant((Participant) FetchId.getUser(2));
+
+        ((Participant) FetchId.getUser(1)).setStudy(study);
+        ((Participant) FetchId.getUser(2)).setStudy(study);
+
+
+        ((Participant) FetchId.getUser(1)).setEligibilityQuestionnaire(eligibilityq);
+        ((Participant) FetchId.getUser(1)).assignQuestionnaire(questionnaire1);
+        ((Participant) FetchId.getUser(1)).assignQuestionnaire(questionnaire2);
+
+        Participant p1 = (Participant) FetchId.getUser(1);
+        Answer answer = new Answer(p1, eligibilityq);
+        Map<String, String> eAnswer = new HashMap<>();
+        eAnswer.put("What is your name?", "participantOne");
+        VersionedAnswer versionedAnswer = new VersionedAnswer(1, p1, eAnswer, answer);
+        answer.addNewVersion(versionedAnswer);
+        p1.setEligibilityQuestionnaireAnswer(answer);
+
+        fetchStudyLogController.fetchStudyLog(2, 6);
     }
 }
 

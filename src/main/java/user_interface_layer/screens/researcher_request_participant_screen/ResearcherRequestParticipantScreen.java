@@ -1,41 +1,29 @@
 package user_interface_layer.screens.researcher_request_participant_screen;
 
-import user_interface_layer.screen_setters.ScreenManager;
+import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.AssignedQuestionnairePanelForResearcher;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.CompletedQuestionnairePanelForResearcher;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.EligibilityQuestionnairePanelForResearcher;
-import user_interface_layer.screens.screen_drivers.SetQuestionnaireVersionedAnswerDriver;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ResearcherRequestParticipantScreen extends JFrame {
     JPanel completedQuestionnairePanel;
     JPanel eligibilityQuestionnairePanel;
     JPanel assignedQuestionnairePanel;
 
-    public ResearcherRequestParticipantScreen(ResearcherRequestParticipantInputData data, ControllerManager controllerManager) {
+    public ResearcherRequestParticipantScreen(@NotNull ResearcherRequestParticipantInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel userIDLabel = new JLabel(data.getParticipantName() + " (" + data.getParticipantId() + ")");
-        JButton logOutButton = new JButton("Log Out");
-        logOutButton.addActionListener(e -> {
-            controllerManager.userLogOutController();
-        });
-
-        // JLabel message = new JLabel("You are enrolled in " + data.getStudyName(), SwingConstants.CENTER);
         topPanel.add(userIDLabel);
-        topPanel.add(logOutButton);
         header.add(topPanel, BorderLayout.NORTH);
         JLabel message = new JLabel("You are a " + data.getParticipantStatus() + " Participant in " + data.getStudyName(), SwingConstants.CENTER);
         header.add(message, BorderLayout.CENTER);
