@@ -31,9 +31,9 @@ public class CloseQuestionnairePresenter implements CloseQuestionnaireOutputBoun
 
     @Override
     public void closePresent(int questionnaireID, int studyID, int researcherID) {
+        fetchStudyLogController.fetchStudyLog(studyID, researcherID);
         displaySuccessMessage.presentGeneralSuccessMessage("Questionnaire " + questionnaireID +
                 " has been closed for study " + studyID);
-        fetchStudyLogController.fetchStudyLog(studyID, researcherID);
     }
 
     /**
