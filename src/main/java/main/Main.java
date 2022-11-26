@@ -472,6 +472,12 @@ public class Main {
         closeQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
         closeQuestionnairePresenter.setFetchStudyLogController(fetchStudyLogController);
 
+        createConsentFormPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
+        createConsentFormPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+        createConsentFormPresenter.setFetchStudyLogController(fetchStudyLogController);
+
+        fetchConsentFormPresenter.setDisplayConsentForm(presenterManagerDisplayConsentForm);
+
 
 
 
@@ -504,6 +510,7 @@ public class Main {
         SetUpStudyCreationScreenDriver setUpStudyCreationScreenDriver = new SetUpStudyCreationScreenDriver();
         SetUpQuestionnaireCreationScreenDriver setUpQuestionnaireCreationScreenDriver = new SetUpQuestionnaireCreationScreenDriver();
         SetQuestionnaireVersionedAnswerDriver setQuestionnaireVersionedAnswerDriver = new SetQuestionnaireVersionedAnswerDriver();
+        SetUpConsentFormCreationScreenDriver setUpConsentFormCreationScreenDriver = new SetUpConsentFormCreationScreenDriver();
 
         controllerManager.setLogInScreenDriver(setUpLogInScreenDriver);
         controllerManager.setSignUpScreenDriver(setUpSignUpScreenDriver);
@@ -511,6 +518,7 @@ public class Main {
         controllerManager.setStudyCreationScreenDriver(setUpStudyCreationScreenDriver);
         controllerManager.setSetUpQuestionnaireCreationScreenDriver(setUpQuestionnaireCreationScreenDriver);
         controllerManager.setSetQuestionnaireVersionedAnswerDriver(setQuestionnaireVersionedAnswerDriver);
+        controllerManager.setConsentFormCreationScreenDriver(setUpConsentFormCreationScreenDriver);
 
 
 
