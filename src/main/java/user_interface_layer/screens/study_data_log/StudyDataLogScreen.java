@@ -70,6 +70,22 @@ public class StudyDataLogScreen extends JFrame {
         add(header, BorderLayout.NORTH);
 
 
+        JButton closeStudyButton = new JButton("Close Study");
+        JPopupMenu popupMenu2 = new JPopupMenu();
+        JMenuItem closeStudy = new JMenuItem("Close Study");
+        JMenuItem openStudy = new JMenuItem("Reopen Study");
+        closeStudy.addActionListener(e -> {
+            controllerManager.closeStudy(data.getStudyId(), data.getResearcherId());});
+        openStudy.addActionListener(e -> {
+            controllerManager.reopenStudy(data.getStudyId(), data.getResearcherId());});
+        popupMenu2.add(closeStudy);
+        popupMenu2.add(openStudy);
+        closeStudyButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                popupMenu2.show(evt.getComponent(), evt.getX(), evt.getY());
+            }});
+
+
         JTabbedPane StudyLogTabPane = new JTabbedPane();
 
 

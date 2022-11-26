@@ -25,6 +25,8 @@ public class EditQuestionnaireScreen extends JFrame {
     List<QuestionModel> addedQuestions = new ArrayList<>();
     List<JRadioButton> studyGroups = new ArrayList<>();
 
+    ArrayList<String> variables = new ArrayList<>();
+
     public EditQuestionnaireScreen(EditQuestionnaireScreenInputData data, ControllerManager controllerManager) {
         existingQuestions = data.getQuestions();
 
@@ -132,7 +134,7 @@ public class EditQuestionnaireScreen extends JFrame {
                     if (num < 2) {
                         JOptionPane.showMessageDialog(null, "Please enter a number greater than 1");
                     } else {
-                        MCQuestionScreen mcQuestionScreen = new MCQuestionScreen(addedQuestions, questionsTableModel, num);
+                        MCQuestionScreen mcQuestionScreen = new MCQuestionScreen(variables, addedQuestions, questionsTableModel, num);
                         mcQuestionScreen.setVisible(true);
                         mcNumOfChoices.dispose();
                     }
@@ -160,7 +162,7 @@ public class EditQuestionnaireScreen extends JFrame {
                     if (num < 2) {
                         JOptionPane.showMessageDialog(null, "Please enter a number greater than 1");
                     } else {
-                        ScaleQuestionScreen scaleQuestionScreen = new ScaleQuestionScreen(addedQuestions, questionsTableModel, num);
+                        ScaleQuestionScreen scaleQuestionScreen = new ScaleQuestionScreen(variables, addedQuestions, questionsTableModel, num);
                         scaleQuestionScreen.setVisible(true);
                         numOfScale.dispose();
                     }
@@ -177,7 +179,7 @@ public class EditQuestionnaireScreen extends JFrame {
         });
 
         addTextQuestion.addActionListener(e -> {
-            TextQuestionScreen textQuestionScreen = new TextQuestionScreen(addedQuestions, questionsTableModel);
+            TextQuestionScreen textQuestionScreen = new TextQuestionScreen(variables, addedQuestions, questionsTableModel);
             textQuestionScreen.setVisible(true);
         });
 

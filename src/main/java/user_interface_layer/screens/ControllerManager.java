@@ -90,8 +90,6 @@ public class ControllerManager {
     FetchQuestionnaireScreenController fetchQuestionnaireScreenController;
     CloseQuestionnaireController closeQuestionnaireController;
 
-
-
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
     }
@@ -285,6 +283,13 @@ public class ControllerManager {
         closeQuestionnaireController.closeQuestionnaire(questionnaireId, studyId, researcherId);
     }
 
+    public void closeStudy(int studyId, int researcherId) {
+        closeStudyController.closeStudy(studyId, researcherId);
+    }
+
+    public void reopenStudy(int studyId, int researcherId) {
+        closeStudyController.reopenStudy(studyId, researcherId);
+    }
 
     public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;

@@ -21,6 +21,7 @@ import java.util.List;
 public class CreateQuestionnaireInputsScreen extends JFrame {
     private final List<QuestionModel> addedQuestions = new ArrayList<>();
     List<JRadioButton> studyGroups = new ArrayList<>();
+    private ArrayList<String> variables = new ArrayList<>();
 
     public CreateQuestionnaireInputsScreen(CreateQuestionnaireInputsScreenInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
@@ -91,7 +92,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
                     if (num < 2) {
                         JOptionPane.showMessageDialog(null, "Please enter a number greater than 1");
                     } else {
-                        MCQuestionScreen mcQuestionScreen = new MCQuestionScreen(addedQuestions, questionsTableModel, num);
+                        MCQuestionScreen mcQuestionScreen = new MCQuestionScreen(variables, addedQuestions, questionsTableModel, num);
                         mcQuestionScreen.setVisible(true);
                         mcNumOfChoices.dispose();
                     }
@@ -101,7 +102,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
             });
             mcNumOfChoices.add(numOfChoices, BorderLayout.CENTER);
             mcNumOfChoices.add(continueButton, BorderLayout.SOUTH);
-            numOfChoices.setSize(300, 50);
+            numOfChoices.setSize(300, 100);
             SetScreenToCenter s = new SetScreenToCenter(mcNumOfChoices);
             mcNumOfChoices.setVisible(true);
         });
@@ -119,7 +120,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
                     if (num < 2) {
                         JOptionPane.showMessageDialog(null, "Please enter a number greater than 1");
                     } else {
-                        ScaleQuestionScreen scaleQuestionScreen = new ScaleQuestionScreen(addedQuestions, questionsTableModel, num);
+                        ScaleQuestionScreen scaleQuestionScreen = new ScaleQuestionScreen(variables, addedQuestions, questionsTableModel, num);
                         scaleQuestionScreen.setVisible(true);
                         numOfScale.dispose();
                     }
@@ -129,14 +130,14 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
             });
             numOfScale.add(numOfChoices, BorderLayout.CENTER);
             numOfScale.add(continueButton, BorderLayout.SOUTH);
-            numOfScale.setSize(300, 50);
+            numOfScale.setSize(300, 100);
             SetScreenToCenter s = new SetScreenToCenter(numOfScale);
             numOfScale.setVisible(true);
 
         });
 
         addTextQuestion.addActionListener(e -> {
-            TextQuestionScreen textQuestionScreen = new TextQuestionScreen(addedQuestions, questionsTableModel);
+            TextQuestionScreen textQuestionScreen = new TextQuestionScreen(variables, addedQuestions, questionsTableModel);
             textQuestionScreen.setVisible(true);
         });
 

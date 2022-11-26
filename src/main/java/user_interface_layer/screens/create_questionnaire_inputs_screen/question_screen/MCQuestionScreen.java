@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MCQuestionScreen extends JFrame {
-    private JTextArea question = new JTextArea(5, 20);
-    private JTextField variable;
+    private final JTextArea question = new JTextArea(5, 20);
+    private final JTextField variable;
     private List<String> options;
 
 
-    public MCQuestionScreen(List<QuestionModel> addedQuestions, DefaultTableModel model, int numOfOptions) {
+    public MCQuestionScreen(ArrayList<String> variables, List<QuestionModel> addedQuestions, DefaultTableModel model, int numOfOptions) {
         setTitle("Create MCQuestion");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -51,7 +51,10 @@ public class MCQuestionScreen extends JFrame {
 
             if (question.getText().equals("") || variable.getText().equals("") || stringOptions.contains("")) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");
+            } else if (variables.contains(variable.getText())) {
+                JOptionPane.showMessageDialog(null, "Variable already exists");
             } else {
+                variables.add(variable.getText());
                 this.options = stringOptions;
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText(), this.options);
                 model.addRow(new String[]{"MC", question.getText(), variable.getText(), String.join(",", this.options)});
