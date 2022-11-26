@@ -198,7 +198,7 @@ public class StudyUserManager implements java.io.Serializable{
      * @return whether the addition is successful.
      */
     protected boolean addParticipant(Participant p) {
-        if (this.participants.contains(p)) {
+        if (!this.participants.contains(p)) {
             if (this.potentialParticipants.contains(p)) {
                 this.potentialParticipants.remove(p);
                 return this.participants.add(p);
