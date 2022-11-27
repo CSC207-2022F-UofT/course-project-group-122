@@ -18,24 +18,24 @@ public class ConsentFormScreen extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JLabel headerLabel = new JLabel("Consent Form for Study: " + responseModel.getStudyName() + " (" +
-                responseModel.getStudyId() + ")", SwingConstants.CENTER);
+                responseModel.getStudyId() + ")", SwingConstants.LEFT);
 
         JScrollPane scrollPane = new JScrollPane();
-        JLabel studyDescription = new JLabel("Study Description: ", SwingConstants.CENTER);
+        JLabel studyDescription = new JLabel("Study Description: ", SwingConstants.LEFT);
         JTextArea studyDescriptionText = new JTextArea(5, 20);
         studyDescriptionText.setText(responseModel.getStudyDescription());
         studyDescriptionText.setEditable(false);
         studyDescriptionText.setLineWrap(true);
         scrollPane.setViewportView(studyDescriptionText);
 
-        JLabel risksAndBenefits = new JLabel("Risks and Benefits: ", SwingConstants.CENTER);
+        JLabel risksAndBenefits = new JLabel("Risks and Benefits: ", SwingConstants.LEFT);
         JTextArea risksAndBenefitsText = new JTextArea(5, 20);
         risksAndBenefitsText.setText(responseModel.getRisksAndBenefits());
         risksAndBenefitsText.setEditable(false);
         risksAndBenefitsText.setLineWrap(true);
         scrollPane.setViewportView(risksAndBenefitsText);
 
-        JLabel participantRights = new JLabel("Participant Rights: ", SwingConstants.CENTER);
+        JLabel participantRights = new JLabel("Participant Rights: ", SwingConstants.LEFT);
         JTextArea participantRightsText = new JTextArea(5, 20);
         participantRightsText.setText(responseModel.getParticipantRights());
         participantRightsText.setEditable(false);
