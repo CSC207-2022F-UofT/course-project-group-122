@@ -15,7 +15,6 @@ public class FetchQuestionnaireScreenInteractor implements FetchQuestionnaireScr
     public void fetchQuestionnaireData(int researchId, int studyId, int questionnaireId) {
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
         if (questionnaire == null) {
-            FetchQuestionnaireScreenPresenter presenter = new FetchQuestionnaireScreenPresenter();
             presenter.presentQuestionnaireScreenDataFailure("Questionnaire not found");
         } else {
             String questionnaireName = questionnaire.getTitle();
@@ -26,8 +25,8 @@ public class FetchQuestionnaireScreenInteractor implements FetchQuestionnaireScr
                 String[] formattedQuestion = new String[]{q.getQuestionType(), q.getContent(), q.getAnswerChoices()};
                 InputData.put(q.getVariableName(), formattedQuestion);
             }
-            use_cases.questionnaire_screen_data_request.CheckQuestionnaireInputData data = new CheckQuestionnaireInputData(questionnaireId,
-                    questionnaireName, questionnaireDescription, InputData);
+            CheckQuestionnaireInputData data = new CheckQuestionnaireInputData(questionnaireId,
+                    questionnaireName, questionnaireDescription, InputData, studyId);
             presenter.presentQuestionnaireScreenData(data);
         }
     }

@@ -26,7 +26,7 @@ public class DisplayResearcherQuestionnaire implements DisplayResearcherQuestion
 
     @Override
     public void presentQuestionnaireScreenForResearcher(CheckQuestionnaireInputData data) {
-        CheckQuestionnaireScreen screen = new CheckQuestionnaireScreen(data);
+        CheckQuestionnaireScreen screen = new CheckQuestionnaireScreen(data, controllerManager);
         screenManager.setCheckQuestionnaireScreen(screen);
         screenManager.updateCurrentScreenNoDispose(screen);
     }

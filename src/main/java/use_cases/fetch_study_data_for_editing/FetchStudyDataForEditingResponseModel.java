@@ -1,4 +1,4 @@
-package use_cases.edit_study_data_request;
+package use_cases.fetch_study_data_for_editing;
 
 public class FetchStudyDataForEditingResponseModel {
     int studyID;
