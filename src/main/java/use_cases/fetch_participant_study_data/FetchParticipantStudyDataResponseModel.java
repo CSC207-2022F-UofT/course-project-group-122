@@ -188,8 +188,7 @@ public class FetchParticipantStudyDataResponseModel {
         String[] questionnaireData = new String[4];
         questionnaireData[0] = Integer.toString(questionnaire.getId());
         questionnaireData[1] = questionnaire.getTitle();
-        questionnaireData[2] = Integer.toString(questionnaire.getVersion());
-        questionnaireData[3] = getQuestionnaireStatus(questionnaire);
+        questionnaireData[2] = getQuestionnaireStatus(questionnaire);
         return questionnaireData;
     }
 

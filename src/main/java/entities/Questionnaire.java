@@ -59,14 +59,6 @@ public class Questionnaire implements java.io.Serializable{
      */
     private String description;
 
-    /**
-     * The version of this Questionnaire. This is used to differentiate between different versions of the same
-     * Questionnaire. In particular, when a Questionnaire is edited, a new version of the Questionnaire is created.
-     * The version number is incremented by 1. The original version of the Questionnaire that is edited is not deleted,
-     * but it must be marked as closed. This function is up to the use case to ensure that the original version is
-     * closed. In short, a Questionnaire can be active (not closed) if and only if it is the current version.
-     */
-    private int version = 1;
 
     /**
      * The groups in the Study that this Questionnaire is part of, that can answer this Questionnaire. We will use an
@@ -179,7 +171,6 @@ public class Questionnaire implements java.io.Serializable{
         this.study = study;
         this.title = title;
         this.description = description;
-        this.version = version;
         this.targetGroups = targetGroups;
     }
 
@@ -202,7 +193,6 @@ public class Questionnaire implements java.io.Serializable{
         this.study = study;
         this.title = title;
         this.description = description;
-        this.version = version;
     }
 
 
@@ -443,14 +433,6 @@ public class Questionnaire implements java.io.Serializable{
      */
     public void reactivate() {
         this.closedStatus = false;
-    }
-
-
-    /**
-     * @return the version of this Questionnaire.
-     */
-    public int getVersion() {
-        return version;
     }
 
 

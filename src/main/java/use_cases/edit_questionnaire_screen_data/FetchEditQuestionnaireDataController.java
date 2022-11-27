@@ -7,4 +7,7 @@ public class FetchEditQuestionnaireDataController {
 
     }
 
+    public void setFetchEditQuestionnaireDataInteractor(FetchEditQuestionnaireDataInteractor fetchEditQuestionnaireDataInteractor) {
+        this.fetchEditQuestionnaireDataInputBoundary = fetchEditQuestionnaireDataInteractor;
+    }
 }

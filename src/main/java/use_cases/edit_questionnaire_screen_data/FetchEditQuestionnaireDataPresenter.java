@@ -8,4 +8,8 @@ public class FetchEditQuestionnaireDataPresenter implements FetchEditQuestionnai
     public void presentEditQuestionnaireScreenData(EditQuestionnaireScreenInputData response) {
         displayEditQuestionnaireInterface.presentEditQuestionnaireScreen(response);
     }
+
+    public void setDisplayEditQuestionnaireInterface(DisplayEditQuestionnaireInterface displayEditQuestionnaireInterface) {
+        this.displayEditQuestionnaireInterface = displayEditQuestionnaireInterface;
+    }
 }

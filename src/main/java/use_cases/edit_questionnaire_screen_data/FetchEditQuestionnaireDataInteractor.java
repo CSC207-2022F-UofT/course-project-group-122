@@ -29,4 +29,8 @@ public class FetchEditQuestionnaireDataInteractor implements FetchEditQuestionna
         presenter.presentEditQuestionnaireScreenData(data);
 
     }
+
+    public void setFetchEditQuestionnaireDataPresenter(FetchEditQuestionnaireDataPresenter fetchEditQuestionnaireDataPresenter) {
+        this.presenter = fetchEditQuestionnaireDataPresenter;
+    }
 }
