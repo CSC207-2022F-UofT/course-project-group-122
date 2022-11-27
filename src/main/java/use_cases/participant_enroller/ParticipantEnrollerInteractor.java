@@ -207,20 +207,10 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
         if (randomGroupGeneratorManager.studyGeneratorExists(study)) {
             return randomGroupGeneratorManager.getStudyGenerator(study);
         } else {
-            String type = study.getRandomizationMethod();
-            if (type.equals("Block")) {
-                RandomGroupGenerator generator = new BlockRandomGroupGenerator(study);
-                randomGroupGeneratorManager.addStudyGenerator(study, generator);
-                return generator;
-            } else if (type.equals("Stratified")) {
-                RandomGroupGenerator generator =  new StratifiedRandomGroupGenerator(study);
-                randomGroupGeneratorManager.addStudyGenerator(study, generator);
-                return generator;
-            } else {
-                RandomGroupGenerator generator =  new SimpleRandomGroupGenerator(study);
-                randomGroupGeneratorManager.addStudyGenerator(study, generator);
-                return generator;
-            }
+            RandomGroupGenteratorFactoryInterface randomGroupGeneratorFactory = new RandomGroupGenteratorFactory();
+            RandomGroupGenerator randomGroupGenerator = randomGroupGeneratorFactory.createRandomGroupGenerator(study);
+            randomGroupGeneratorManager.addStudyGenerator(study, randomGroupGenerator);
+            return randomGroupGenerator;
         }
     }
 
