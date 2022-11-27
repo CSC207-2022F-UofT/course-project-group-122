@@ -17,11 +17,11 @@ public class FetchConsentFormController {
 
     /**
      * Shows the consent form for the researcher to see it
-     * @param reseacherId   The id of the researcher
+     * @param researcherId   The id of the researcher
      * @param studyId       The id of the study
      */
-    public void showConsentForm(int reseacherId, int studyId) {
-        fetchConsentFormInteractor.showConsentForm(reseacherId, studyId);
+    public void showConsentForm(int researcherId, int studyId) {
+        fetchConsentFormInteractor.showConsentForm(researcherId, studyId);
 
     }
 

@@ -59,7 +59,7 @@ public class StudyDataLogScreen extends JFrame {
             }});
         mainPanel.add(downloadDataButton);
 
-        JLabel userIDLabel = new JLabel(data.getResearherName() + " (" + data.getResearcherId() + ")", SwingConstants.CENTER);
+        JLabel userIDLabel = new JLabel(data.getResearcherName() + " (" + data.getResearcherId() + ")", SwingConstants.CENTER);
         mainPanel.add(userIDLabel);
 
         JButton logOutButton = new JButton("Log Out");

@@ -18,7 +18,7 @@ public class FetchStudyLogResponseModel {
     /**
      * The name of the researcher.
      */
-    private final String researherName;
+    private final String researcherName;
 
     /**
      * The study ID.
@@ -99,7 +99,7 @@ public class FetchStudyLogResponseModel {
      */
     public FetchStudyLogResponseModel(int researcherId, String researcherName, @NotNull Study study) {
         this.researcherId = researcherId;
-        this.researherName = researcherName;
+        this.researcherName = researcherName;
         this.studyId = study.getId();
         this.studyName = study.getStudyName();
         this.studyDescription = study.getStudyDescription();
@@ -307,8 +307,8 @@ public class FetchStudyLogResponseModel {
         return researcherId;
     }
 
-    public String getResearherName() {
-        return researherName;
+    public String getResearcherName() {
+        return researcherName;
     }
 
     public int getStudyId() {

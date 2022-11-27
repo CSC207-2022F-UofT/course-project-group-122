@@ -12,29 +12,54 @@ public class ConsentFormScreen extends JFrame {
 
 
     public ConsentFormScreen(@NotNull FetchConsentFormResponseModel responseModel, ControllerManager controllerManager) {
-        setTitle("Consent Form for Study: " + responseModel.getStudyName() + " (" + responseModel.getStudyId() + ")");
         setLayout(new BorderLayout());
-        JLabel studyDescription = new JLabel("Study Description: ");
-        JTextArea studyDescriptionText = new JTextArea(responseModel.getStudyDescription());
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        JLabel headerLabel = new JLabel("Consent Form for Study: " + responseModel.getStudyName() + " (" +
+                responseModel.getStudyId() + ")", SwingConstants.CENTER);
+
+        JScrollPane scrollPane = new JScrollPane();
+        JLabel studyDescription = new JLabel("Study Description: ", SwingConstants.CENTER);
+        JTextArea studyDescriptionText = new JTextArea(5, 20);
+        studyDescriptionText.setText(responseModel.getStudyDescription());
         studyDescriptionText.setEditable(false);
-        JLabel risksAndBenefits = new JLabel("Risks and Benefits: ");
-        JTextArea risksAndBenefitsText = new JTextArea(responseModel.getRisksAndBenefits());
+        studyDescriptionText.setLineWrap(true);
+        scrollPane.setViewportView(studyDescriptionText);
+
+        JLabel risksAndBenefits = new JLabel("Risks and Benefits: ", SwingConstants.CENTER);
+        JTextArea risksAndBenefitsText = new JTextArea(5, 20);
+        risksAndBenefitsText.setText(responseModel.getRisksAndBenefits());
         risksAndBenefitsText.setEditable(false);
-        JLabel participantRights = new JLabel("Participant Rights: ");
-        JTextArea participantRightsText = new JTextArea(responseModel.getParticipantRights());
+        risksAndBenefitsText.setLineWrap(true);
+        scrollPane.setViewportView(risksAndBenefitsText);
+
+        JLabel participantRights = new JLabel("Participant Rights: ", SwingConstants.CENTER);
+        JTextArea participantRightsText = new JTextArea(5, 20);
+        participantRightsText.setText(responseModel.getParticipantRights());
         participantRightsText.setEditable(false);
+        participantRightsText.setLineWrap(true);
+        scrollPane.setViewportView(participantRightsText);
+
+        panel.add(headerLabel);
+        panel.add(studyDescription);
+        panel.add(studyDescriptionText);
+        panel.add(risksAndBenefits);
+        panel.add(risksAndBenefitsText);
+        panel.add(participantRights);
+        panel.add(participantRightsText);
+
+        add(panel, BorderLayout.NORTH);
+
         JButton accept = new JButton("Accept");
         accept.addActionListener(e -> {
             controllerManager.answerEligibilityQuestionnaireRequestData(responseModel.getUserId(),
                     responseModel.getParticipantId(), responseModel.getEligibilityQuestionnaireId(),
                     responseModel.getStudyId());
         });
-        add(studyDescription, BorderLayout.NORTH);
-        add(studyDescriptionText, BorderLayout.NORTH);
-        add(risksAndBenefits, BorderLayout.CENTER);
-        add(risksAndBenefitsText, BorderLayout.CENTER);
-        add(participantRights, BorderLayout.SOUTH);
-        add(participantRightsText, BorderLayout.SOUTH);
+
+        add(panel, BorderLayout.NORTH);
         add(accept, BorderLayout.SOUTH);
         pack();
         SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);

@@ -49,7 +49,20 @@ public class FetchConsentFormPresenter implements FetchConsentFormOutpuBoundary 
     }
 
 
+    /**
+     * Set the display consent form method
+     * @param displayConsentForm    The display consent form method
+     */
     public void setDisplayConsentForm(DisplayConsentFormInterface displayConsentForm) {
         this.displayConsentForm = displayConsentForm;
+    }
+
+
+    /**
+     * Set the display failure message method
+     * @param displayFailureMessage The display failure message method
+     */
+    public void setDisplayFailureMessage(DisplayFailureMessageInterface displayFailureMessage) {
+        this.displayFailureMessage = displayFailureMessage;
     }
 }

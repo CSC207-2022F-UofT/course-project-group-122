@@ -36,8 +36,8 @@ public class CreateConsentFormInteractor implements CreateConsentFormInputBounda
             }
             ConsentForm consentForm = new ConsentForm(study, studyDescription, risksAndBenefits, participantRights);
             study.setConsentForm(consentForm);
-            createConsentFormPresenter.presentSuccess(study.getId(), researchId, "Consent form for study" +
-                    study.getId() + "created successfully.");
+            createConsentFormPresenter.presentSuccess(study.getId(), researchId, "Consent form for study " +
+                    study.getId() + " has been created successfully.");
         }
     }
 

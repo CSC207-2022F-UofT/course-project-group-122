@@ -477,6 +477,9 @@ public class Main {
         createConsentFormPresenter.setFetchStudyLogController(fetchStudyLogController);
 
         fetchConsentFormPresenter.setDisplayConsentForm(presenterManagerDisplayConsentForm);
+        fetchConsentFormPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+
+
 
 
 
@@ -503,6 +506,8 @@ public class Main {
         controllerManager.setResultExtractionController(resultExtractionController);
         controllerManager.setAssignQuestionnaireController(assignQuestionnaireController);
         controllerManager.setCloseQuestionnaireController(closeQuestionnaireController);
+        controllerManager.setCreateConsentFormController(createConsentFormController);
+        controllerManager.setFetchConsentFormController(fetchConsentFormController);
 
         SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
         SetUpSignUpScreenDriver setUpSignUpScreenDriver = new SetUpSignUpScreenDriver();
