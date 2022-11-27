@@ -8,7 +8,7 @@ public interface ResultExtractionInputBoundary {
     /**
      * This method pull and extract result of certain study to certain file directory
      * <p>
-     * All the result in a study will be packed as file, including:
+     * All the result in a study will be packed as files, including:
      * - the name of the participant
      * - the ID of the participant
      * - the group number of the participant
@@ -18,7 +18,7 @@ public interface ResultExtractionInputBoundary {
      * - the versioned answer
      * - the variable related to the versioned answer
      * First, this use case will create a folder named by study in the given file path
-     * Second, the use case will create csv file for the questionnaires within this study, and save in the study folder
+     * Second, the use case will create a csv file for each of the questionnaires within this study, and save in the study folder memtioned above
      * Eventually, the use case will collect information above from questionnaire and write them into the csv file
      *
      * @param studyID The ID of the study that the researcher want to export
