@@ -13,6 +13,9 @@ import use_cases.create_questionnaire.CreateQuestionnaireController;
 import use_cases.create_questionnaire.CreateQuestionnaireRequestModel;
 import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyRequestModel;
+import use_cases.edit_questionnaire.EditQuestionnaireController;
+import use_cases.edit_questionnaire.EditQuestionnaireInputBoundary;
+import use_cases.edit_questionnaire.EditQuestionnaireRequestModel;
 import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
 import use_cases.edit_study_data_request.FetchStudyDataForEditingController;
 import use_cases.eligibility_checker.EligibilityCheckerController;
@@ -95,6 +98,8 @@ public class ControllerManager {
     private FetchConsentFormController fetchConsentFormController;
     private CreateConsentFormController createConsentFormController;
     private SetUpConsentFormCreationScreenDriver consentFormCreationScreenDriver;
+
+    private EditQuestionnaireController editQuestionnaireController;
 
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -311,6 +316,12 @@ public class ControllerManager {
         createConsentFormController.createConsentForm(requestModel);
     }
 
+    public void editQuestionnaire(int studyID, int questionnaireID, int researcherID, String text, String text1, ArrayList<String> studyGroupNames, List<QuestionModel> addedQuestions) {
+        EditQuestionnaireRequestModel editQuestionnaireRequestModel = new EditQuestionnaireRequestModel(
+                studyID, questionnaireID, researcherID, text, text1, studyGroupNames, addedQuestions);
+        editQuestionnaireController.editQuestionnaire(editQuestionnaireRequestModel);
+    }
+
     public void reviewConsentForm(int studyId) {
         fetchConsentFormController.showConsentForm(currentUserId, studyId);
     }
@@ -479,5 +490,12 @@ public class ControllerManager {
         this.consentFormCreationScreenDriver = consentFormCreationScreenDriver;
     }
 
+    public void setEditQuestionnaireScreenDataController(FetchEditQuestionnaireDataController editQuestionnaireScreenDataController) {
+        this.editQuestionnaireScreenDataController = editQuestionnaireScreenDataController;
+    }
+
+    public void setEditQuestionnaireController(EditQuestionnaireController editQuestionnaireController) {
+        this.editQuestionnaireController = editQuestionnaireController;
+    }
 
 }

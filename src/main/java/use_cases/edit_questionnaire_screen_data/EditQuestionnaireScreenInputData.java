@@ -1,7 +1,8 @@
 package use_cases.edit_questionnaire_screen_data;
 
-import user_interface_layer.screens.ControllerManager;
+import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,9 @@ public class EditQuestionnaireScreenInputData {
      * The study ID.
      */
     private final int studyID;
+
+
+    private final int researcherID;
 
     /*
      * The questionnaire ID.
@@ -28,12 +32,6 @@ public class EditQuestionnaireScreenInputData {
      */
     private final String questionnaireDescription;
 
-    /*
-     * The header for the question's table.
-     */
-    private final String[] questionsTableHeader = {"Type", "Question", "Variable", "Options"};
-
-
     private List<String> studyGroups;
     /*
      * The questions of the questionnaire.
@@ -43,10 +41,7 @@ public class EditQuestionnaireScreenInputData {
      *     - For Scale questions: comma separated such like buttonLabel,topLabel,scale.
      *     - For Text questions: empty string.
      */
-    private final Map<String, String[]> questions;
-
-
-
+    private final List<QuestionModel> questions;
 
     /*
      * The constructor of the class.
@@ -57,18 +52,26 @@ public class EditQuestionnaireScreenInputData {
      * @param questions The questions of the questionnaire. Map< "Variable" ; [type, description, options] >
      * @param controllerManager The controller manager.
      */
+    private List<String> previousVariables = new ArrayList<>();
+
     public EditQuestionnaireScreenInputData(int studyID,
                                             int questionnaireID,
+                                            int researcherID,
                                             String questionnaireName,
                                             String questionnaireDescription,
                                             List<String> studyGroups,
-                                            Map<String, String[]> questions) {
+                                            List<QuestionModel> questions) {
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
+        this.researcherID = researcherID;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
         this.studyGroups = studyGroups;
         this.questions = questions;
+        for (QuestionModel question : questions) {
+            previousVariables.add(question.getVariable());
+        }
+
     }
 
     public int getStudyID() {
@@ -78,6 +81,9 @@ public class EditQuestionnaireScreenInputData {
     public int getQuestionnaireID() {
         return questionnaireID;
     }
+
+    public int getResearcherID() {return researcherID; }
+
     public String getQuestionnaireName() {
         return questionnaireName;
     }
@@ -86,14 +92,13 @@ public class EditQuestionnaireScreenInputData {
         return questionnaireDescription;
     }
 
-    public Map<String, String[]> getQuestions() {
+    public List<QuestionModel> getQuestions() {
         return questions;
     }
 
-    public String[] getQuestionsTableHeader() {
-        return questionsTableHeader;
+    public List<String> getPreviousVariables() {
+        return previousVariables;
     }
-
 
     public List<String> getStudyGroups() {
         return studyGroups;

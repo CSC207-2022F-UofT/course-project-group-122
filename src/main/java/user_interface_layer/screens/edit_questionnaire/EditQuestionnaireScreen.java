@@ -1,5 +1,6 @@
 package user_interface_layer.screens.edit_questionnaire;
 
+import entities.Question;
 import use_cases.edit_questionnaire_screen_data.EditQuestionnaireScreenInputData;
 import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screen_setters.SetLabelTextPanel;
@@ -20,14 +21,14 @@ import java.util.*;
 import java.util.List;
 
 public class EditQuestionnaireScreen extends JFrame {
-    public EditQuestionnaireScreenInputData data;
-    Map<String, String[]> existingQuestions;
+    private final List<QuestionModel> existingQuestions;
     List<QuestionModel> addedQuestions = new ArrayList<>();
     List<JRadioButton> studyGroups = new ArrayList<>();
 
-    ArrayList<String> variables = new ArrayList<>();
+    ArrayList<String> variables;
 
     public EditQuestionnaireScreen(EditQuestionnaireScreenInputData data, ControllerManager controllerManager) {
+        this.variables = (ArrayList<String>) data.getPreviousVariables();
         existingQuestions = data.getQuestions();
 
         JPanel headerPanel = new JPanel();
@@ -47,21 +48,12 @@ public class EditQuestionnaireScreen extends JFrame {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(questionnaireDescription);
 
-//        JScrollPane scrollPane2 = new JScrollPane();
-//        JTextArea reasonForModification = new JTextArea(3, 20);
-//        reasonForModification.setLineWrap(true);
-//        scrollPane2.setViewportView(reasonForModification);
-//        JPanel reasonForModificationPanel = new JPanel(new GridLayout(2, 1));
-//        JLabel reasonForModificationLabel = new JLabel("Reason for Modification: ", SwingConstants.CENTER);
-//        reasonForModificationPanel.add(reasonForModificationLabel);
-//        reasonForModificationPanel.add(scrollPane2);
 
         questionnaireDescriptionPanel.add(questionnaireDescriptionLabel);
         questionnaireDescriptionPanel.add(scrollPane);
-//        questionnaireDescriptionPanel.add(reasonForModificationPanel);
 
         JPanel groupsPanel = new JPanel();
-        JLabel groupsLabel = new JLabel("Select Target groups: ", SwingConstants.CENTER);
+        JLabel groupsLabel = new JLabel("Select target groups: ", SwingConstants.CENTER);
         groupsPanel.setLayout(new BoxLayout(groupsPanel, BoxLayout.Y_AXIS));
         groupsPanel.add(groupsLabel);
         for (String group : data.getStudyGroups()) {
@@ -73,30 +65,26 @@ public class EditQuestionnaireScreen extends JFrame {
 
         JPanel questionsPanel = new JPanel();
         questionsPanel.setLayout(new BoxLayout(questionsPanel, BoxLayout.Y_AXIS));
-        JLabel questionsLabel = new JLabel("Questions: ", SwingConstants.CENTER);
-
         JScrollPane previousQuestionsScrollPane = new JScrollPane();
-        SetTableModel setTableModel2 = new SetTableModel(new String[]{"Type", "Question", "Variable", "Options"});
+        SetTableModel setTableModel2 = new SetTableModel(new String[]{"Type", "Previous Questions", "Variable", "Options"});
         DefaultTableModel model = setTableModel2.getModel();
         JTable table = setTableModel2.getTable();
         previousQuestionsScrollPane.setViewportView(table);
-        for (Map.Entry<String, String[]> entry : existingQuestions.entrySet()) {
+        for (QuestionModel questionModel : existingQuestions) {
             String[] question = new String[4];
-            question[1] = entry.getKey();
-            question[0] = entry.getValue()[0];
-            question[2] = entry.getValue()[1];
-            question[3] = entry.getValue()[2];
+            question[0] = questionModel.getType();
+            question[1] = questionModel.getContent();
+            question[2] = questionModel.getVariable();
+            question[3] =  questionModel.getOptions();
             model.addRow(question);
         }
 
         JScrollPane questionsScrollPane = new JScrollPane();
-        SetTableModel setTableModel = new SetTableModel(new String[]{"Type", "Question", "Variable", "Options"});
+        SetTableModel setTableModel = new SetTableModel(new String[]{"Type", "New Questions", "Variable", "Options"});
         DefaultTableModel questionsTableModel = setTableModel.getModel();
         JTable questionsTable = setTableModel.getTable();
 
         questionsScrollPane.setViewportView(questionsTable);
-
-        questionsPanel.add(questionsLabel, BorderLayout.NORTH);
 
         JPanel questionsTablePanel = new JPanel();
         questionsTablePanel.setLayout(new BoxLayout(questionsTablePanel, BoxLayout.Y_AXIS));
@@ -144,7 +132,7 @@ public class EditQuestionnaireScreen extends JFrame {
             });
             mcNumOfChoices.add(numOfChoices, BorderLayout.CENTER);
             mcNumOfChoices.add(continueButton, BorderLayout.SOUTH);
-            mcNumOfChoices.pack();
+            mcNumOfChoices.setSize(300, 100);
             SetScreenToCenter s = new SetScreenToCenter(mcNumOfChoices);
             mcNumOfChoices.setVisible(true);
         });
@@ -187,8 +175,9 @@ public class EditQuestionnaireScreen extends JFrame {
         deletePreviousQuestionButton.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row != -1) {
-                String question = (String) table.getValueAt(row, 1);
-                existingQuestions.remove(question);
+                String variable = (String) table.getValueAt(row, 2);
+                existingQuestions.remove(row);
+                variables.remove(variable);
                 model.removeRow(row);
             }else {
                 JOptionPane.showMessageDialog(null, "Please select a question to delete");
@@ -204,6 +193,7 @@ public class EditQuestionnaireScreen extends JFrame {
                 if (row == -1) {
                     JOptionPane.showMessageDialog(null, "Please select a question to delete");
                 } else {
+                    variables.remove(row);
                     addedQuestions.remove(row);
                     questionsTableModel.removeRow(row);
                 }
@@ -240,11 +230,16 @@ public class EditQuestionnaireScreen extends JFrame {
                         studyGroupNames.add(radioButton.getName());
                     }
                 }
-                for (QuestionModel question : addedQuestions) {
-                    existingQuestions.put(question.getVariable(), new String[]{question.getType(), question.getContent(), question.getOptions()});
-                }
-//                controllerManager.editQuestionnaire(data.getStudyID(), data.getQuestionnaireID(),questionnaireName.getText(), questionnaireDescription.getText(), studyGroupNames,existingQuestions);
-//                this.dispose();
+                addedQuestions.addAll(existingQuestions);
+                controllerManager.editQuestionnaire(
+                        data.getStudyID(),
+                        data.getQuestionnaireID(),
+                        data.getResearcherID(),
+                        questionnaireName.getText(),
+                        questionnaireDescription.getText(),
+                        studyGroupNames,
+                        addedQuestions);
+                this.dispose();
             }
         });
 
@@ -269,14 +264,14 @@ public class EditQuestionnaireScreen extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        HashMap<String, String[]> existingQuestions = new HashMap<>();
-        existingQuestions.put("What is your name?", new String[]{"Text", "name", "John"});
-        existingQuestions.put("What is your age?", new String[]{"Scale", "age", "20"});
-
-        EditQuestionnaireScreenInputData data = new EditQuestionnaireScreenInputData(44, 1, "Questionnaire 1", "This is a description",new ArrayList<>(Arrays.asList("me", "you", "Question 3")),existingQuestions);
-EditQuestionnaireScreen editQuestionnaireScreen = new EditQuestionnaireScreen(data , new ControllerManager(new ScreenManager()));
-        editQuestionnaireScreen.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        HashMap<String, String[]> existingQuestions = new HashMap<>();
+//        existingQuestions.put("What is your name?", new String[]{"Text", "name", "John"});
+//        existingQuestions.put("What is your age?", new String[]{"Scale", "age", "20"});
+//
+//        EditQuestionnaireScreenInputData data = new EditQuestionnaireScreenInputData(44, 1, "Questionnaire 1", "This is a description",new ArrayList<>(Arrays.asList("me", "you", "Question 3")),existingQuestions);
+//        EditQuestionnaireScreen editQuestionnaireScreen = new EditQuestionnaireScreen(data , new ControllerManager(new ScreenManager()));
+//        editQuestionnaireScreen.setVisible(true);
+//    }
 }
 

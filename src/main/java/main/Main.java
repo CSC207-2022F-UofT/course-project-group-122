@@ -26,6 +26,11 @@ import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyInteractor;
 import use_cases.create_study.CreateStudyPresenter;
 import use_cases.create_study.CreateStudyRequestModel;
+import use_cases.edit_questionnaire.EditQuestionnaireController;
+import use_cases.edit_questionnaire.EditQuestionnairePresenter;
+import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
+import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataInteractor;
+import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataPresenter;
 import use_cases.eligibility_checker.EligibilityCheckerController;
 import use_cases.eligibility_checker.EligibilityCheckerInteractor;
 import use_cases.eligibility_checker.EligibilityCheckerPresenter;
@@ -174,6 +179,13 @@ public class Main {
 
         //TODO: edit_questionnaire_screen_data
 
+        FetchEditQuestionnaireDataController fetchEditQuestionnaireDataController = new FetchEditQuestionnaireDataController();
+        FetchEditQuestionnaireDataInteractor FetchEditQuestionnaireDataInteractor = new FetchEditQuestionnaireDataInteractor();
+        FetchEditQuestionnaireDataPresenter fetchEditQuestionnaireDataPresenter = new FetchEditQuestionnaireDataPresenter();
+        fetchEditQuestionnaireDataController.setFetchEditQuestionnaireDataInteractor(FetchEditQuestionnaireDataInteractor);
+        FetchEditQuestionnaireDataInteractor.setFetchEditQuestionnaireDataPresenter(fetchEditQuestionnaireDataPresenter);
+
+
         //Eligibility use case
         EligibilityCheckerController eligibilityCheckerController = new EligibilityCheckerController();
         EligibilityCheckerInteractor eligibilityCheckerInteractor = new EligibilityCheckerInteractor();
@@ -312,8 +324,14 @@ public class Main {
         CreateQuestionnaireController createQuestionnaireController = new CreateQuestionnaireController();
         CreateQuestionnaireInteractor createQuestionnaireInteractor = new CreateQuestionnaireInteractor();
         CreateQuestionnairePresenter createQuestionnairePresenter = new CreateQuestionnairePresenter();
+        EditQuestionnaireController editQuestionnaireController = new EditQuestionnaireController();
+        EditQuestionnairePresenter editQuestionnairePresenter = new EditQuestionnairePresenter();
         createQuestionnaireController.setInputBoundary(createQuestionnaireInteractor);
-        createQuestionnaireInteractor.setOutputBoundary(createQuestionnairePresenter);
+        editQuestionnaireController.setInputBoundary(createQuestionnaireInteractor);
+        createQuestionnaireInteractor.setCreationOutputBoundary(createQuestionnairePresenter);
+        createQuestionnaireInteractor.setEditOutputBoundary(editQuestionnairePresenter);
+
+
 
         //ResultExtraction use case
         ResultExtractionController resultExtractionController = new ResultExtractionController();
@@ -479,6 +497,10 @@ public class Main {
         fetchConsentFormPresenter.setDisplayConsentForm(presenterManagerDisplayConsentForm);
         fetchConsentFormPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
 
+        fetchEditQuestionnaireDataPresenter.setDisplayEditQuestionnaireInterface(presenterManagerDisplayEditQuestionnaire);
+        fetchEditQuestionnaireDataPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+
+
 
 
 
@@ -508,6 +530,9 @@ public class Main {
         controllerManager.setCloseQuestionnaireController(closeQuestionnaireController);
         controllerManager.setCreateConsentFormController(createConsentFormController);
         controllerManager.setFetchConsentFormController(fetchConsentFormController);
+        controllerManager.setEditQuestionnaireScreenDataController(fetchEditQuestionnaireDataController);
+        controllerManager.setEditQuestionnaireController(editQuestionnaireController);
+
 
         SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
         SetUpSignUpScreenDriver setUpSignUpScreenDriver = new SetUpSignUpScreenDriver();

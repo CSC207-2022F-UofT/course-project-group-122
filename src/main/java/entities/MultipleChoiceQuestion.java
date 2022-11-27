@@ -133,7 +133,7 @@ public class MultipleChoiceQuestion extends Question implements java.io.Serializ
      * @return The choices of this MultipleChoiceQuestion.
      */
     public List<String> getChoices() {
-        return new ArrayList<>(choices);
+        return choices;
     }
 
 
