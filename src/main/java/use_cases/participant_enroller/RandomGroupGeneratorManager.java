@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * The manager for the random group generators
  */
-public class RandomGroupGeneratorManager {
+public class RandomGroupGeneratorManager implements java.io.Serializable{
 
     /**
      * The map of study to random group generators.
