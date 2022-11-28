@@ -7,6 +7,9 @@ import use_cases.add_potential_participant.AddPotentialParticipantPresenter;
 import use_cases.answer_questionnaire.AnswerQuestionnaireController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireInteractor;
 import use_cases.answer_questionnaire.AnswerQuestionnairePresenter;
+import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerController;
+import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerInteractor;
+import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerPresenter;
 import use_cases.assign_questionnaire.AssignQuestionnaireController;
 import use_cases.assign_questionnaire.AssignQuestionnaireInteractor;
 import use_cases.assign_questionnaire.AssignQuestionnairePresenter;
@@ -141,7 +144,17 @@ public class Main {
         addPotentialParticipantInteractor.setPresenter(addPotentialParticipantPresenter);
 
 
-        //TODO: answer_questionnaire_data_request use case
+        //answer_questionnaire_data_request use case
+        FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController =
+                new FetchQuestionnaireDataForAnswerController();
+        FetchQuestionnaireDataForAnswerInteractor fetchQuestionnaireDataForAnswerInteractor =
+                new FetchQuestionnaireDataForAnswerInteractor();
+        FetchQuestionnaireDataForAnswerPresenter fetchQuestionnaireDataForAnswerPresenter =
+                new FetchQuestionnaireDataForAnswerPresenter();
+        fetchQuestionnaireDataForAnswerController.setFetchQuestionnaireDataForAnsweringInputBoundary(
+                fetchQuestionnaireDataForAnswerInteractor);
+        fetchQuestionnaireDataForAnswerInteractor.setPresenter(fetchQuestionnaireDataForAnswerPresenter);
+
 
         //assign_questionnaire use case
         AssignQuestionnaireController assignQuestionnaireController = new AssignQuestionnaireController();
@@ -273,11 +286,6 @@ public class Main {
         FetchStudyDataForEditingPresenter fetchStudyDataForEditingPresenter = new FetchStudyDataForEditingPresenter();
         fetchStudyDataForEditingController.setFetchStudyDataForEditingInteractor(fetchStudyDataForEditingInteractor);
         fetchStudyDataForEditingInteractor.setFetchStudyDataForEditingPresenter(fetchStudyDataForEditingPresenter);
-
-
-
-
-        //TODO: questionnaire_answer_data_request use case
 
         //questionnaire_screen_data_request use case
         FetchQuestionnaireScreenController fetchQuestionnaireScreenController = new FetchQuestionnaireScreenController();
@@ -516,6 +524,10 @@ public class Main {
 
         editQuestionnairePresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
         editQuestionnairePresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
+
+        fetchQuestionnaireDataForAnswerPresenter.setDisplayParticipantAnswerQuestionnairePanelInterface(
+                presenterManagerDisplayScreenForAnsweringQuestionnaire);
+        fetchQuestionnaireDataForAnswerPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
 
 
 

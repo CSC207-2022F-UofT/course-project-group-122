@@ -11,7 +11,7 @@ import java.util.Map;
 /*
  * This is the use case that fetches the data for the participant to answer the questionnaire.
  */
-public class FetchQuestionnaireDataForAnsweringInteractor implements FetchQuestionnaireDataForAnsweringInputBoundary {
+public class FetchQuestionnaireDataForAnswerInteractor implements FetchQuestionnaireDataForAnswerInputBoundary {
     /*
      * This is the interface that the controller calls on to call on the presenter to present the data.
      */

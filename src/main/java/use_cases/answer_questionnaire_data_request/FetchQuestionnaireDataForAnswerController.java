@@ -7,7 +7,7 @@ public class FetchQuestionnaireDataForAnswerController {
     /*
      * The interface that the use case implements and is called on by the controller.
      */
-    FetchQuestionnaireDataForAnsweringInputBoundary interactor;
+    FetchQuestionnaireDataForAnswerInputBoundary interactor;
 
     /**
      * This method calls on the use case that fetches the data for the participant to answer the questionnaire.
@@ -23,7 +23,7 @@ public class FetchQuestionnaireDataForAnswerController {
      * This method sets the Input Boundary of the controller.
      * @param interactor The interface that the use case implements and is called on by the controller.
      */
-    public void setFetchQuestionnaireDataForAnsweringInputBoundary(FetchQuestionnaireDataForAnsweringInputBoundary interactor) {
+    public void setFetchQuestionnaireDataForAnsweringInputBoundary(FetchQuestionnaireDataForAnswerInputBoundary interactor) {
         this.interactor = interactor;
     }
 }

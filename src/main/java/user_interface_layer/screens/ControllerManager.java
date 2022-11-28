@@ -140,10 +140,10 @@ public class ControllerManager {
     }
 
     /**
-     * @param modifier
-     * @param participantID
-     * @param questionnaireID
-     * @param studyID
+     * @param modifier          the id of the user that is requesting the data
+     * @param participantID     the id of the participant that the data is being requested for
+     * @param questionnaireID   the id of the questionnaire that the data is being requested for
+     * @param studyID           the id of the study that the data is being requested for
      * @param answers   - a hashmap of the answers to the questions in the questionnaire.
      *                  Key is the variable and value is the string answer.
      */
@@ -161,9 +161,6 @@ public class ControllerManager {
         modifyStudyParameterController.modifyStudyParameters(requestModel);
     }
 
-//    public void assignQuestionnaireToGroups(int studyID, int questionnaireID, List<String> selectedGroups) {
-//        assignQuestionnaireController.assignQuestionnaireToGroup(studyID, questionnaireID, selectedGroups);
-//    }
 
     public void setStratificationVariableRequest(int studyId, String stratificationVariable) {
         modifyStudyParameterController.modifyStudyStratification(studyId, stratificationVariable, currentUserId);

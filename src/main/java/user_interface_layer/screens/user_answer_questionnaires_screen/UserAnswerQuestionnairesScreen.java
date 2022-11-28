@@ -59,7 +59,8 @@ public class UserAnswerQuestionnairesScreen extends JFrame {
                     answers.put(questionPanel.getVariable(),questionPanel.getAnswer());
                 }
             }
-            controllerManager.answerQuestionnaire(data.getModifierId(),data.getParticipantID(),data.getQuestionnaireID(), data.getStudyID(),answers);
+            controllerManager.answerQuestionnaire(data.getModifierId(), data.getParticipantID(),
+                    data.getQuestionnaireID(), data.getStudyID(), answers);
 
         });
         submitPanel.add(submitButton);
@@ -69,23 +70,6 @@ public class UserAnswerQuestionnairesScreen extends JFrame {
         add(submitPanel, BorderLayout.SOUTH);
         pack();
         SetScreenToCenter s = new SetScreenToCenter(this);
-    }
-
-    public static void main(String[] args) {
-//        FetchQuestionnaireDataForAnswerResponseModel data = new FetchQuestionnaireDataForAnswerResponseModel(
-//                1,
-//                44,
-//                55,
-//                "This is questionnaire 1",
-//                "This is the description of questionnaire 1",
-//                new HashMap<>(){{
-//                    put("Question 1", new String[]{"MC", "Variable 1", "A,B, C, D", "C"});
-//                    put("Question 2", new String[]{"MC", "Variable 2", "A,B, C, D", "A"});
-//                    put("Question 3", new String[]{"MC", "Variable 3", "A,B, C, D", "B"});
-//
-//                }});
-//        UserAnswerQuestionnairesScreen panel = new UserAnswerQuestionnairesScreen(data, new ControllerManager(new ScreenManager()));
-//        panel.setVisible(true);
     }
 
 }
