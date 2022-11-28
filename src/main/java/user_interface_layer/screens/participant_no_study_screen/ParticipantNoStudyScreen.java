@@ -1,6 +1,5 @@
 package user_interface_layer.screens.participant_no_study_screen;
 
-import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 
@@ -9,7 +8,7 @@ import java.awt.*;
 
 public class ParticipantNoStudyScreen extends JFrame {
 
-    public ParticipantNoStudyScreen(@NotNull int participantId, String participantName, ControllerManager controllerManager) {
+    public ParticipantNoStudyScreen(int participantId, String participantName, ControllerManager controllerManager) {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         JPanel header = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -29,7 +28,4 @@ public class ParticipantNoStudyScreen extends JFrame {
         setSize(600, 400);
         SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
     }
-
-
-
 }

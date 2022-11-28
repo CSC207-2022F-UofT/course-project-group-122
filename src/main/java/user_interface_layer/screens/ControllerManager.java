@@ -1,23 +1,33 @@
 package user_interface_layer.screens;
 
+import org.jetbrains.annotations.NotNull;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireRequestModel;
 import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerController;
+import use_cases.assign_questionnaire.AssignQuestionnaireController;
+import use_cases.close_questionnaire.CloseQuestionnaireController;
 import use_cases.close_study.CloseStudyController;
+import use_cases.create_consent_form.CreateConsentFormController;
+import use_cases.create_consent_form.CreateConsentFormRequestModel;
 import use_cases.create_questionnaire.CreateQuestionnaireController;
 import use_cases.create_questionnaire.CreateQuestionnaireRequestModel;
 import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyRequestModel;
-import use_cases.edit_questionnaire_screen_data.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
-import use_cases.edit_study_data_request.FetchStudyDataForEditingController;
+import use_cases.edit_questionnaire.EditQuestionnaireController;
+import use_cases.edit_questionnaire.EditQuestionnaireInputBoundary;
+import use_cases.edit_questionnaire.EditQuestionnaireRequestModel;
+import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingController;
 import use_cases.eligibility_checker.EligibilityCheckerController;
+import use_cases.fetch_consent_form.FetchConsentFormController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
 import use_cases.fetch_study_data.FetchStudyDataController;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import use_cases.fetch_versioned_answer.FetchVersionedAnswerController;
 import use_cases.get_target_groups.GetTargetGroupsController;
 import use_cases.modify_study_parameters.ModifyStudyParameterController;
+import use_cases.modify_study_parameters.ModifyStudyParameterRequestModel;
 import use_cases.participant_drop_study.ParticipantDropStudyController;
 import use_cases.participant_enroller.ParticipantEnrollerController;
 import use_cases.publish_questionnaire.PublishQuestionnaireController;
@@ -25,6 +35,7 @@ import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenContr
 import use_cases.remove_researcher.RemoveResearcherController;
 import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
+import use_cases.result_extraction.ResultExtractionController;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_login.UserLoginController;
 import user_interface_layer.screen_setters.ScreenManager;
@@ -73,21 +84,24 @@ public class ControllerManager {
     FetchEditQuestionnaireDataController editQuestionnaireScreenDataController;
 //    EditQuestionnaireController editQuestionnaireController;
 
-    FetchStudyDataForEditingController fetchStudyDataForEditingController;
-//
-//    DownloadAllDataController downloadDataController;
-//
-//    DownlaodCurrentDataController downloadCurrentDataController;
-    FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController;
-    CreateStudyController createStudyController;
-    CreateQuestionnaireController createQuestionnaireController;
-    CloseStudyController closeStudyController;
-//    AssignQuestionnaireController assignQuestionnaireController;
-    AnswerQuestionnaireController answerQuestionnaireController;
-    AddPotentialParticipantController addPotentialParticipantController;
-    ResearcherEditAnswerController  researcherEditAnswerController;
-    EligibilityCheckerController eligibilityCheckerController;
-    FetchQuestionnaireScreenController fetchQuestionnaireScreenController;
+    private FetchStudyDataForEditingController fetchStudyDataForEditingController;
+    private ResultExtractionController resultExtractionController;
+    private FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController;
+    private CreateStudyController createStudyController;
+    private CreateQuestionnaireController createQuestionnaireController;
+    private CloseStudyController closeStudyController;
+    private AssignQuestionnaireController assignQuestionnaireController;
+    private AnswerQuestionnaireController answerQuestionnaireController;
+    private AddPotentialParticipantController addPotentialParticipantController;
+    private ResearcherEditAnswerController  researcherEditAnswerController;
+    private EligibilityCheckerController eligibilityCheckerController;
+    private FetchQuestionnaireScreenController fetchQuestionnaireScreenController;
+    private CloseQuestionnaireController closeQuestionnaireController;
+    private FetchConsentFormController fetchConsentFormController;
+    private CreateConsentFormController createConsentFormController;
+    private SetUpConsentFormCreationScreenDriver consentFormCreationScreenDriver;
+
+    private EditQuestionnaireController editQuestionnaireController;
 
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -139,6 +153,12 @@ public class ControllerManager {
         answerQuestionnaireController.answerQuestionnaire(requestModel);
     }
 
+
+    public void modifyStudyParameters(@NotNull ModifyStudyParameterRequestModel requestModel) {
+        requestModel.setResearcherId(currentUserId);
+        modifyStudyParameterController.modifyStudyParameters(requestModel);
+    }
+
 //    public void assignQuestionnaireToGroups(int studyID, int questionnaireID, List<String> selectedGroups) {
 //        assignQuestionnaireController.assignQuestionnaireToGroup(studyID, questionnaireID, selectedGroups);
 //    }
@@ -147,9 +167,8 @@ public class ControllerManager {
         modifyStudyParameterController.modifyStudyStratification(studyId, stratificationVariable, currentUserId);
     }
 
-    public void createQuestionnaireController(int studyID, String questionnaireName, String description, ArrayList<String> groups, int numQuestions, List<QuestionModel> addedQuestions) {
-        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(studyID, currentUserId, questionnaireName, description, groups, numQuestions, addedQuestions);
-        System.out.println("I am here 1");
+    public void createQuestionnaireController(String type, int studyID, int researcherID, String questionnaireName, String description, ArrayList<String> groups, int numQuestions, List<QuestionModel> addedQuestions) {
+        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(type, studyID, researcherID, questionnaireName, description, groups, numQuestions, addedQuestions);
         createQuestionnaireController.createQuestionnaire(requestModel);
     }
 
@@ -192,8 +211,8 @@ public class ControllerManager {
     }
 
 
-    public void answerEligibilityQuestionnaireRequestData(int participantId, int questionnaireId, int studyId) {
-        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(participantId, participantId, studyId, questionnaireId);
+    public void answerEligibilityQuestionnaireRequestData(int userId, int participantId, int questionnaireId, int studyId) {
+        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(userId, participantId, studyId, questionnaireId);
     }
 
 
@@ -271,10 +290,49 @@ public class ControllerManager {
     public void requestCreateStudyModel(int researchID) {
         studyCreationScreenDriver.requestStudyCreationScreen(screenManager, this, researchID);
     }
+
     public void editStudyDataRequest(Integer studyId, int researchID) {
         fetchStudyDataForEditingController.editStudyRequest(studyId, researchID);
     }
 
+    public void downloadData(int studyId, String filePath) {
+        resultExtractionController.resultPullingAndExtraction(studyId, filePath);
+    }
+
+    public void closeQuestionnaire(int questionnaireId, int studyId) {
+        closeQuestionnaireController.closeQuestionnaire(questionnaireId, studyId, currentUserId);
+    }
+
+    public void closeStudy(int studyId, int researcherId) {
+        closeStudyController.closeStudy(studyId, researcherId);
+    }
+
+    public void reopenStudy(int studyId, int researcherId) {
+        closeStudyController.reopenStudy(studyId, researcherId);
+    }
+
+    public void fetchConsentForm(int studyId, int eligibilityQuestionnaireId, int participantId) {
+        fetchConsentFormController.fetchConsentForm(this.currentUserId, studyId, eligibilityQuestionnaireId, participantId);
+    }
+
+    public void requestConsentFormCreation(int studyId) {
+        consentFormCreationScreenDriver.requestConsentFormCreationScreen(screenManager, this,
+                currentUserId, studyId);
+    }
+
+    public void createConsentForm(CreateConsentFormRequestModel requestModel) {
+        createConsentFormController.createConsentForm(requestModel);
+    }
+
+    public void editQuestionnaire(int studyID, int questionnaireID, int researcherID, String text, String text1, ArrayList<String> studyGroupNames, List<QuestionModel> addedQuestions) {
+        EditQuestionnaireRequestModel editQuestionnaireRequestModel = new EditQuestionnaireRequestModel(
+                studyID, questionnaireID, researcherID, text, text1, studyGroupNames, addedQuestions);
+        editQuestionnaireController.editQuestionnaire(editQuestionnaireRequestModel);
+    }
+
+    public void reviewConsentForm(int studyId) {
+        fetchConsentFormController.showConsentForm(currentUserId, studyId);
+    }
 
     public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -392,9 +450,9 @@ public class ControllerManager {
         this.closeStudyController = closeStudyController;
     }
 
-//    public void setAssignQuestionnaireController(AssignQuestionnaireController assignQuestionnaireController) {
-//        this.assignQuestionnaireController = assignQuestionnaireController;
-//    }
+    public void setAssignQuestionnaireController(AssignQuestionnaireController assignQuestionnaireController) {
+        this.assignQuestionnaireController = assignQuestionnaireController;
+    }
 
     public void setAnswerQuestionnaireController(AnswerQuestionnaireController answerQuestionnaireController) {
         this.answerQuestionnaireController = answerQuestionnaireController;
@@ -419,4 +477,33 @@ public class ControllerManager {
     public void researcherHomeScreenDriver(int researcherId) {
         fetchStudyDataController.fetchStudyData(researcherId);
     }
+
+    public void setResultExtractionController(ResultExtractionController resultExtractionController) {
+        this.resultExtractionController = resultExtractionController;
+    }
+
+    public void setCloseQuestionnaireController(CloseQuestionnaireController closeQuestionnaireController) {
+        this.closeQuestionnaireController = closeQuestionnaireController;
+    }
+
+    public void setFetchConsentFormController(FetchConsentFormController fetchConsentFormController) {
+        this.fetchConsentFormController = fetchConsentFormController;
+    }
+
+    public void setCreateConsentFormController(CreateConsentFormController createConsentFormController) {
+        this.createConsentFormController = createConsentFormController;
+    }
+
+    public void setConsentFormCreationScreenDriver(SetUpConsentFormCreationScreenDriver consentFormCreationScreenDriver) {
+        this.consentFormCreationScreenDriver = consentFormCreationScreenDriver;
+    }
+
+    public void setEditQuestionnaireScreenDataController(FetchEditQuestionnaireDataController editQuestionnaireScreenDataController) {
+        this.editQuestionnaireScreenDataController = editQuestionnaireScreenDataController;
+    }
+
+    public void setEditQuestionnaireController(EditQuestionnaireController editQuestionnaireController) {
+        this.editQuestionnaireController = editQuestionnaireController;
+    }
+
 }

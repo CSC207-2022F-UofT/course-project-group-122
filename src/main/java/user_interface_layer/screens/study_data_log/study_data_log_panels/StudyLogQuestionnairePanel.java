@@ -39,7 +39,8 @@ public class StudyLogQuestionnairePanel extends JPanel {
         scrollPane.setViewportView(table);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, eligibilityScrollPane, scrollPane);
-        splitPane.setDividerLocation(2);
+        splitPane.setDividerLocation(0.5);
+        splitPane.setResizeWeight(0.5);
         add(splitPane, BorderLayout.CENTER);
 
         JButton assignEligibilityButton = new JButton("Assign Eligibility Questionnaire");
@@ -146,13 +147,17 @@ public class StudyLogQuestionnairePanel extends JPanel {
 
 
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(assignEligibilityButton);
-        buttonPanel.add(checkEligibility);
-        buttonPanel.add(check);
-        buttonPanel.add(addQuestionnaire);
-        buttonPanel.add(editQuestionnaire);
-        buttonPanel.add(assignQuestionnaire);
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
+        JPanel buttonPanel1row = new JPanel();
+        JPanel buttonPanel2row = new JPanel();
+        buttonPanel1row.add(checkEligibility);
+        buttonPanel1row.add(assignEligibilityButton);
+        buttonPanel2row.add(check);
+        buttonPanel2row.add(addQuestionnaire);
+        buttonPanel2row.add(editQuestionnaire);
+        buttonPanel2row.add(assignQuestionnaire);
+        buttonPanel.add(buttonPanel1row);
+        buttonPanel.add(buttonPanel2row);
         add(buttonPanel, BorderLayout.SOUTH);
 
     }

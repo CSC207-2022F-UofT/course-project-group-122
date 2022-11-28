@@ -78,7 +78,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
     @Override
     public void enroll(int participantId, int studyId, int group, int userId) {
         Participant participant = checkParticipantIdIsValid(participantId);
-        Study study = (Study) FetchId.getStudy(studyId);
+        Study study = FetchId.getStudy(studyId);
         if (enrollParticipant(participant, study, group)) {
             assignQuestionnaires(participant, study);
             participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup(), studyId, userId);
@@ -112,8 +112,14 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             } else {
                 participant.setGroup(1);
             }
-            study.removePotentialParticipant(participant);
+            //TODO: to remove
+            System.out.println(study.getPotentialParticipants());
+            System.out.println(study.getParticipants());
+
             study.addParticipant(participant);
+            //TODO: to remove
+            System.out.println(study.getPotentialParticipants());
+            System.out.println(study.getParticipants());
             participant.enroll();
             return true;
         } else {
@@ -145,7 +151,6 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             if (enrollable(participant, study)) {
                 if (1 <= group && group <= study.getNumGroups()) {
                     participant.setGroup(group);
-                    study.removePotentialParticipant(participant);
                     study.addParticipant(participant);
                     participant.enroll();
                     return true;

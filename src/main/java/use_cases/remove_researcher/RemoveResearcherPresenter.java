@@ -32,8 +32,8 @@ public class RemoveResearcherPresenter implements RemoveResearcherOutputBoundary
     @Override
     public void presentResearcherRemoved(int researcherId, String name, int studyID, int userId) {
         String successMessage = "Researcher " + researcherId + " (" + name + ") was removed from study " + studyID + ".";
-        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
         fetchStudyLogController.fetchStudyLog(studyID, userId);
+        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
     /**

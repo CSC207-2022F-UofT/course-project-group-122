@@ -109,12 +109,9 @@ public class ScaleQuestion extends Question implements java.io.Serializable{
      */
     @Override
     public String getAnswerChoices() {
-        return bottomLabel + " - " + scale + " - " + topLabel;
+        return bottomLabel + " - " + scaleRange + " - " + topLabel;
     }
 
-    public void setScaleRange(int scaleRange) {
-        this.scaleRange = scaleRange;
-    }
 
     public void setBottomLabel(String bottomLabel) {
         this.bottomLabel = bottomLabel;
@@ -122,5 +119,13 @@ public class ScaleQuestion extends Question implements java.io.Serializable{
 
     public void setTopLabel(String topLabel) {
         this.topLabel = topLabel;
+    }
+
+    public String getBottomLabel() {
+        return bottomLabel;
+    }
+
+    public String getTopLabel() {
+        return topLabel;
     }
 }

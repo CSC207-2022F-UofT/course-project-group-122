@@ -1,7 +1,9 @@
 package use_cases.add_potential_participant;
 
 import entities.Participant;
+import entities.Researcher;
 import entities.Study;
+import entities.User;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
@@ -19,6 +21,8 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
     public void addPotentialParticipant(int participantID, int studyId, int userId) {
         Participant participant = (Participant) FetchId.getUser(participantID);
         Study study = FetchId.getStudy(studyId);
+        assert participant != null;
+        assert study != null;
         if (canBeAddedToStudy(participant, study)) {
             participant.setStudy(study);
             study.addPotentialParticipant(participant);
@@ -37,19 +41,20 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
      */
     @Override
     public void fetchParticipantInfo(int participantID, int studyId) {
-        Participant participant = (Participant) FetchId.getUser(participantID);
+        User user = FetchId.getUser(participantID);
         Study study = FetchId.getStudy(studyId);
-        if (participant == null) {
+        if (user == null) {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant " +
                     "does not exist.");
+        } else if (user instanceof Researcher) {
+            addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant " +
+                    "is a researcher.");
         } else if (study == null) {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Study does not exist.");
-        } else {
-        }
-        if (participant.getStudy() != null) {
+        } else if (((Participant)user).getStudy() != null) {
             addPotentialParticipantPresenter.presentFailure(participantID, studyId, "Participant is already in a study.");
         } else {
-            addPotentialParticipantPresenter.presentParticipantInfo(participantID, participant.getName(), studyId);
+            addPotentialParticipantPresenter.presentParticipantInfo(participantID, user.getName(), studyId);
         }
     }
 

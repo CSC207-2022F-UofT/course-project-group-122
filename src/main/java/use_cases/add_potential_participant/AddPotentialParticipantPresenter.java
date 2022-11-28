@@ -38,8 +38,8 @@ public class AddPotentialParticipantPresenter implements AddPotentialParticipant
     public void presentSuccess(int participantID, int studyId, int userId) {
         String successMessage = "Participant " + participantID + " has been added to study " + studyId + " as a " +
                 "potential participant.";
-        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
         fetchStudyLogController.fetchStudyLog(studyId, userId);
+        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
     /**

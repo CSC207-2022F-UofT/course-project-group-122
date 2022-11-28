@@ -27,7 +27,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         } else {
             User newUser = userFactory.create(userType, username, name);
             userPool.addUser(newUser);
-            userLoginPresenter.onUserSignUpSuccess(newUser, userType);
+            userLoginPresenter.onUserSignUpSuccess(newUser.getId(), newUser.getName(), newUser.getUsername(), userType);
         }
     }
 
@@ -40,7 +40,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
     public void userLogin(String username) {
         if (usernameExists(username)) {
             User user = userPool.getUser(username);
-            userLoginPresenter.onUserLoginSuccess(user);
+            userLoginPresenter.onUserLoginSuccess(user.getId(), user.getName(), user.getUsername());
         } else {
             userLoginPresenter.onUserLoginFailure("Username does not exist.");
         }

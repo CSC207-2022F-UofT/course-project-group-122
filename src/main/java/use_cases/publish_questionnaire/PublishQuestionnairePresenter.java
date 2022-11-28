@@ -1,5 +1,6 @@
 package use_cases.publish_questionnaire;
 
+import use_cases.assign_questionnaire.AssignQuestionnaireController;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
@@ -10,6 +11,11 @@ public class PublishQuestionnairePresenter implements PublishQuestionnaireOutput
      * The fetch study log controller.
      */
     FetchStudyLogController fetchStudyLogController;
+
+    /**
+     * The assign questionnaire controller.
+     */
+    AssignQuestionnaireController assignQuestionnaireController;
 
 
     /**
@@ -31,7 +37,7 @@ public class PublishQuestionnairePresenter implements PublishQuestionnaireOutput
      * @param message         The message to present.
      */
     @Override
-    public void invalidQuestionnaireId(int QuestionnaireId, String message) {
+    public void invalidQuestionnaire(int QuestionnaireId, String message) {
         String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot be published. " + message;
         displayFailureMessage.presentFailureMessage(errorMessages);
     }
@@ -48,6 +54,17 @@ public class PublishQuestionnairePresenter implements PublishQuestionnaireOutput
                 "study with the id " + studyId + ".";
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
         fetchStudyLogController.fetchStudyLog(studyId, researcherId);
+    }
+
+    /**
+     * Assign the questionnaire to all potential participants.
+     *
+     * @param questionnaireId The ID of the questionnaire that has been published.
+     * @param studyId         The ID of the study that the questionnaire has been published to.
+     */
+    @Override
+    public void assignToAllPotentialParticipants(int questionnaireId, int studyId, int researcherId) {
+        assignQuestionnaireController.assignEligibilityQuestionnaireToAll(questionnaireId, studyId, researcherId);
     }
 
 
@@ -75,5 +92,14 @@ public class PublishQuestionnairePresenter implements PublishQuestionnaireOutput
      */
     public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
         this.fetchStudyLogController = fetchStudyLogController;
+    }
+
+
+    /**
+     * Sets the assign questionnaire controller.
+     * @param assignQuestionnaireController     The assign questionnaire controller.
+     */
+    public void setAssignQuestionnaireController(AssignQuestionnaireController assignQuestionnaireController) {
+        this.assignQuestionnaireController = assignQuestionnaireController;
     }
 }
