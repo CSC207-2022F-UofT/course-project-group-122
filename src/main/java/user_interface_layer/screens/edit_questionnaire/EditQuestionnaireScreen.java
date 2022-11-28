@@ -33,7 +33,7 @@ public class EditQuestionnaireScreen extends JFrame {
 
         JPanel headerPanel = new JPanel();
         setLayout(new BorderLayout());
-        JTextField questionnaireName = new JTextField(data.getQuestionnaireName(),30);
+        JTextField questionnaireName = new JTextField(data.getQuestionnaireName(), 30);
         JTextArea questionnaireDescription = new JTextArea(3, 20);
         questionnaireDescription.setText(data.getQuestionnaireDescription());
 
@@ -75,7 +75,7 @@ public class EditQuestionnaireScreen extends JFrame {
             question[0] = questionModel.getType();
             question[1] = questionModel.getContent();
             question[2] = questionModel.getVariable();
-            question[3] =  questionModel.getOptions();
+            question[3] = questionModel.getOptions();
             model.addRow(question);
         }
 
@@ -91,9 +91,6 @@ public class EditQuestionnaireScreen extends JFrame {
         questionsTablePanel.add(previousQuestionsScrollPane);
         questionsTablePanel.add(questionsScrollPane);
         questionsPanel.add(questionsTablePanel, BorderLayout.CENTER);
-
-
-
 
 
         JButton addQuestionButton = new JButton("Add Question");
@@ -179,7 +176,7 @@ public class EditQuestionnaireScreen extends JFrame {
                 existingQuestions.remove(row);
                 variables.remove(variable);
                 model.removeRow(row);
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Please select a question to delete");
             }
         });
@@ -200,11 +197,6 @@ public class EditQuestionnaireScreen extends JFrame {
             }
         });
 
-        JButton publishButton = new JButton("Publish");
-        publishButton.addActionListener(e->
-                controllerManager.publishQuestionnaire(data.getQuestionnaireID(), data.getStudyID()));
-
-
         JButton createQuestionnaireButton = new JButton("Save Questionnaire");
         createQuestionnaireButton.addActionListener(e -> {
             boolean selected = false;
@@ -220,8 +212,7 @@ public class EditQuestionnaireScreen extends JFrame {
                 JOptionPane.showMessageDialog(null, "Please enter a description for the questionnaire");
             } else if (addedQuestions.size() + existingQuestions.size() == 0) {
                 JOptionPane.showMessageDialog(null, "Please add at least one question to the questionnaire");
-            }
-            else if (!selected) {
+            } else if (!selected) {
                 JOptionPane.showMessageDialog(null, "Please select at least one study group");
             } else {
                 ArrayList<String> studyGroupNames = new ArrayList<>();
@@ -251,7 +242,6 @@ public class EditQuestionnaireScreen extends JFrame {
         buttonsPanel.add(addQuestionButton);
         buttonsPanel.add(deleteQuestionButton);
         buttonsPanel.add(deletePreviousQuestionButton);
-        buttonsPanel.add(publishButton);
         inputsPanel.add(buttonsPanel);
 
         add(inputsPanel, BorderLayout.CENTER);
@@ -263,15 +253,5 @@ public class EditQuestionnaireScreen extends JFrame {
         SetScreenToCenter s = new SetScreenToCenter(this);
 
     }
-
-//    public static void main(String[] args) {
-//        HashMap<String, String[]> existingQuestions = new HashMap<>();
-//        existingQuestions.put("What is your name?", new String[]{"Text", "name", "John"});
-//        existingQuestions.put("What is your age?", new String[]{"Scale", "age", "20"});
-//
-//        EditQuestionnaireScreenInputData data = new EditQuestionnaireScreenInputData(44, 1, "Questionnaire 1", "This is a description",new ArrayList<>(Arrays.asList("me", "you", "Question 3")),existingQuestions);
-//        EditQuestionnaireScreen editQuestionnaireScreen = new EditQuestionnaireScreen(data , new ControllerManager(new ScreenManager()));
-//        editQuestionnaireScreen.setVisible(true);
-//    }
 }
 

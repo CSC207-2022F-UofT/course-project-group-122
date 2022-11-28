@@ -13,5 +13,13 @@ public class EditQuestionnairePresenter implements EditQuestionnaireOutputBounda
     public void presentSuccessScreen(int researcherID, int studyID) {
         displaySuccessMessageInterface.presentGeneralSuccessMessage("Questionnaire edited successfully");
     }
+
+    public void setDisplayFailureMessageInterface(DisplayFailureMessageInterface displayFailureMessageInterface) {
+        this.displayFailureMessageInterface = displayFailureMessageInterface;
+    }
+
+    public void setDisplaySuccessMessageInterface(DisplaySuccessMessageInterface displaySuccessMessageInterface) {
+        this.displaySuccessMessageInterface = displaySuccessMessageInterface;
+    }
 }
 
