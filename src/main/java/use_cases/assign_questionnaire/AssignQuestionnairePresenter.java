@@ -1,7 +1,8 @@
 package use_cases.assign_questionnaire;
 
+import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
-import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBoundary {
 
@@ -19,14 +20,20 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
 
 
     /**
+     * Fetch the study log controller.
+     */
+    private FetchStudyLogController fetchStudyLogController;
+
+
+    /**
      * Presents that the questionnaire has fail to assign to all participant in study.
      *
      * @param QuestionnaireId The ID of the questionnaire that cannot be published.
      * @param message         The message to present.
      */
     @Override
-    public void assigntoallfail(int QuestionnaireId, int studyID, String message) {
-        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign " + message;
+    public void assignToAllFail(int QuestionnaireId, int studyID, String message) {
+        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot be assigned " + message;
         displayFailureMessage.presentFailureMessage(errorMessages);
     }
 
@@ -37,8 +44,10 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param studyID         The ID of the study that the questionnaire has been published to.
      */
     @Override
-    public void assigntoallpresent(int questionnaireID, int studyID) {
-        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to all participants in the study" + studyID;
+    public void assignToAllPresent(int questionnaireID, int studyID, int researcherId) {
+        String successMessage = "The questionnaire" + questionnaireID +
+                " has been assigned to all participants in the study" + studyID;
+        fetchStudyLogController.fetchStudyLog(studyID, researcherId);
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
@@ -51,8 +60,9 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param message         The message to present.
      */
     @Override
-    public void assigntogroupfail(int QuestionnaireId, int studyID, String group, String message) {
-        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign to group " + group + message;
+    public void assignToGroupFail(int QuestionnaireId, int studyID, String group, String message) {
+        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign to group "
+                + group + message;
         displayFailureMessage.presentFailureMessage(errorMessages);
     }
 
@@ -64,8 +74,10 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      *  @param group          The ID of the group that the questionnaire should assign to.
      */
     @Override
-    public void assigntogrouppresent(int questionnaireID, int studyID, String group) {
-        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to group" + group + " in the study" + studyID;
+    public void assignToGroupPresent(int questionnaireID, int studyID, String group, int researcherId) {
+        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to group" + group +
+                " in the study" + studyID;
+        fetchStudyLogController.fetchStudyLog(studyID, researcherId);
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
@@ -78,8 +90,9 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param message         The message to present.
      */
     @Override
-    public void assigntoparticipantfail(int QuestionnaireId, int studyID, int participantID, String message) {
-        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign to participant" + participantID + message;
+    public void assignToParticipantFail(int QuestionnaireId, int studyID, int participantID, String message) {
+        String errorMessages = "The questionnaire with the id " + QuestionnaireId + " cannot assign to participant" +
+                participantID + message;
         displayFailureMessage.presentFailureMessage(errorMessages);
     }
 
@@ -91,8 +104,10 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param participantID   The ID of the participant that the questionnaire should assign to.
      */
     @Override
-    public void assigntoparticipantpresent(int questionnaireID, int studyID, int participantID) {
-        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to participant" + participantID + " in the study" + studyID;
+    public void assignToParticipantPresent(int questionnaireID, int studyID, int participantID, int researcherId) {
+        String successMessage = "The questionnaire" + questionnaireID + " has been assigned to participant" +
+                participantID + " in the study" + studyID;
+        fetchStudyLogController.fetchStudyLog(studyID, researcherId);
         displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
@@ -112,6 +127,15 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
+    }
+
+
+    /**
+     * set the fetch study log controller
+     * @param fetchStudyLogController The controller to fetch the study log.
+     */
+    public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
+        this.fetchStudyLogController = fetchStudyLogController;
     }
 }
 

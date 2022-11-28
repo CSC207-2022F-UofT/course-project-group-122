@@ -45,8 +45,8 @@ public class EligibilityCheckerPresenter implements EligibilityCheckerOutputBoun
     public void presentSuccess(int participantId, int studyId, int userId) {
         String successMessage = "Participant " + participantId + " is successfully made eligible to participate in " +
                 "the study " + studyId;
-        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
         fetchStudyLogController.fetchStudyLog(studyId, userId);
+        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
 

@@ -16,12 +16,12 @@ public class FetchParticipantStudyDataResponseModel {
     /**
      * The user's ID.
      */
-    private int userId;
+    private final int userId;
 
     /**
      * The ID of the participant.
      */
-    private int participantId;
+    private final int participantId;
 
     /**
      * The name of the participant.
@@ -113,7 +113,7 @@ public class FetchParticipantStudyDataResponseModel {
      * Creates a FetchParticipantStudyDataResponseModel.
      * @param participant   The participant to fetch the study data for.
      */
-    public FetchParticipantStudyDataResponseModel(@NotNull Participant participant, User user) {
+    public FetchParticipantStudyDataResponseModel(@NotNull Participant participant, @NotNull User user) {
         this.participantId = participant.getId();
         this.participantName = participant.getName();
         this.userId = user.getId();
@@ -188,8 +188,7 @@ public class FetchParticipantStudyDataResponseModel {
         String[] questionnaireData = new String[4];
         questionnaireData[0] = Integer.toString(questionnaire.getId());
         questionnaireData[1] = questionnaire.getTitle();
-        questionnaireData[2] = Integer.toString(questionnaire.getVersion());
-        questionnaireData[3] = getQuestionnaireStatus(questionnaire);
+        questionnaireData[2] = getQuestionnaireStatus(questionnaire);
         return questionnaireData;
     }
 
@@ -352,4 +351,5 @@ public class FetchParticipantStudyDataResponseModel {
     public int getUserId() {
         return userId;
     }
+
 }

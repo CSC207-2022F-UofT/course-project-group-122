@@ -61,7 +61,7 @@ public class QuestionModel {
             case "Scale":
                 return bottomLabel +"," + topLabel + ","+ scale;
             case "Text":
-                return "";
+                return "Free Text Entry";
         }
         return "";
     }

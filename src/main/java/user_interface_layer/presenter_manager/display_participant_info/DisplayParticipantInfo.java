@@ -5,7 +5,7 @@ import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.show_participant_info.ShowParticipantInfoScreen;
 
 /**
- * This class is responsible for displaying the participant info screen (a name and a id) when the
+ * This class is responsible for displaying the participant info screen (a name and an id) when the
  * researcher inputs an id.
  */
 public class DisplayParticipantInfo implements DisplayParticipantInfoInterface {
@@ -25,10 +25,12 @@ public class DisplayParticipantInfo implements DisplayParticipantInfoInterface {
     }
 
 
+
+    @Override
     public void displayParticipantInfo(int participantId, String name, int studyId) {
         ShowParticipantInfoScreen screen = new ShowParticipantInfoScreen(participantId, name, studyId, controllerManager);
         screenManager.setShowParticipantInfoScreen(screen);
-        screenManager.updateCurrentScreen(screen);
+        screenManager.updateCurrentScreenNoDispose(screen);
 
     }
 }

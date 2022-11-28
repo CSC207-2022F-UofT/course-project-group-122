@@ -9,7 +9,7 @@ import java.awt.*;
 public class ShowParticipantInfoScreen extends JFrame {
 
     public ShowParticipantInfoScreen(int participantId, String name, int studyId, ControllerManager controllerManager) {
-    setTitle("Enroll Participant");
+    setTitle("Participant Information");
     setLayout(new BorderLayout());
     JLabel participantTag = new JLabel(name + " (" + participantId+") ");
     JButton enroll = new JButton("Add");

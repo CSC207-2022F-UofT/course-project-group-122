@@ -53,11 +53,19 @@ public class ModifyStudyParameterRequestModel {
      * @param studyName         The new name of the study.
      * @param studyDescription  The new description of the study.
      */
-    public ModifyStudyParameterRequestModel(int researcherId, int studyId, String studyName, String studyDescription) {
-        this.researcherId = researcherId;
+    public ModifyStudyParameterRequestModel(int studyId, String studyName, String studyDescription) {
         this.studyId = studyId;
         this.studyName = studyName;
         this.studyDescription = studyDescription;
+    }
+
+
+    /**
+     * Creates a new ModifyStudyParameterRequestModel.
+     * @param researcherId    The ID of the researcher.
+     */
+    public void setResearcherId(int researcherId) {
+        this.researcherId = researcherId;
     }
 
 

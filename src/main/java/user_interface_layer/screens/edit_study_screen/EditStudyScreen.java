@@ -1,8 +1,8 @@
 package user_interface_layer.screens.edit_study_screen;
 
 import org.jetbrains.annotations.NotNull;
-import use_cases.edit_study_data_request.FetchStudyDataForEditingResponseModel;
-import user_interface_layer.screen_setters.ScreenManager;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingResponseModel;
+import use_cases.modify_study_parameters.ModifyStudyParameterRequestModel;
 import user_interface_layer.screen_setters.SetLabelTextPanel;
 import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
@@ -90,7 +90,8 @@ public class EditStudyScreen extends JFrame {
         JPanel createStudyButtonPanel = new JPanel();
         JButton createStudyButton = new JButton("Edit Study");
         createStudyButton.addActionListener(e -> {
-            if (studyName.getText().equals("") || studyDescription.getText().equals("") || studyTargetSize.getText().equals("") || studyTypeInput.equals("") || groupNames == null) {
+            if (studyName.getText().equals("") || studyDescription.getText().equals("") ||
+                    studyTargetSize.getText().equals("") || studyTypeInput.equals("") || groupNames == null) {
                 new GeneralFailureScreen("Please fill out all fields");
             } else {
                 try {
@@ -98,9 +99,13 @@ public class EditStudyScreen extends JFrame {
                 } catch (NumberFormatException nfe) {
                     new GeneralFailureScreen("Please enter a valid number for study target size");
                 }
-//                controllerManager.editStudyRequest(data.getStudyID(), studyName.getText(),
-//                        studyDescription.getText(), Integer.parseInt(studyTargetSize.getText()), this.studyTypeInput,
-//                        count.get(), groupNames);
+                ModifyStudyParameterRequestModel requestModel = new ModifyStudyParameterRequestModel(
+                        data.getStudyID(), studyName.getText(), studyDescription.getText());
+                requestModel.setStudyTargetSize(Integer.parseInt(studyTargetSize.getText()));
+                requestModel.setStudyType(studyTypeInput);
+                requestModel.setGroupNames(groupNames.toArray(new String[count.get()]));
+                requestModel.setNumGroups(count.get());
+                controllerManager.modifyStudyParameters(requestModel);
 
             }
             dispose();

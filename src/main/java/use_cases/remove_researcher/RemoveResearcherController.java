@@ -10,7 +10,7 @@ public class RemoveResearcherController {
      * @param studyID       The id of the study to remove the researcher from.
      */
     public void removeResearcherFromStudy(int researcherId, int studyID, int userId) {
-        removeResearcherInteractor.removeResearcherFromStudy(researcherId, studyID, userId);
+        removeResearcherInteractor.removeResearcherFromStudy(userId, researcherId, studyID);
     }
 
 

@@ -21,7 +21,8 @@ public class RemoveResearcherInteractor implements RemoveResearcherInputBoundary
         Study study = FetchId.getStudy(studyID);
         if (userId == researcherId) {
             removeResearcherPresenter.presentRemoveResearcherError(researcherId, studyID);
-        } else if (researcherToRemove.getListStudies().contains(study) && study.getResearchers().contains(researcherToRemove)) {
+        } else if (researcherToRemove.getListStudies().contains(study) && study.getResearchers().contains(
+                researcherToRemove)) {
             researcherToRemove.removeFromListStudies(study);
             study.removeResearcher(researcherToRemove);
             removeResearcherPresenter.presentResearcherRemoved(researcherToRemove.getId(), researcherToRemove.getName(),

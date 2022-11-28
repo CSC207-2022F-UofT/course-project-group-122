@@ -7,16 +7,28 @@ package use_cases.close_questionnaire;
 
 public class CloseQuestionnaireController {
 
-    private final CloseQuestionnaireInputBoundary closequestionnaireinteractor;
+    private CloseQuestionnaireInputBoundary closeQuestionnaireInputBoundary;
 
-    public CloseQuestionnaireController(CloseQuestionnaireInputBoundary closeinputBoundary) {
-        this.closequestionnaireinteractor = closeinputBoundary;
+
+    /**
+     * Close the selected questionnaire from a study
+     *
+     * @param questionnaireID   the id of the questionnaire
+     * @param studyID           the id of the study
+     * @param researcherID      the id of the researcher
+     */
+    public void closeQuestionnaire(int questionnaireID, int studyID, int researcherID) {
+
+        closeQuestionnaireInputBoundary.closeQuestionnaire(questionnaireID, studyID, researcherID);
     }
 
-    public void close(int questionnaireID, int studyID) {
 
-        closequestionnaireinteractor.closeQuestionnaire(questionnaireID, studyID);
+    /**
+     * Set the input boundary
+     * @param closeQuestionnaireInputBoundary   the input boundary
+     */
+    public void setCloseQuestionnaireInputBoundary(CloseQuestionnaireInputBoundary closeQuestionnaireInputBoundary) {
+        this.closeQuestionnaireInputBoundary = closeQuestionnaireInputBoundary;
     }
-
 
 }

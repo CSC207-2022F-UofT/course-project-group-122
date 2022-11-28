@@ -29,5 +29,6 @@ public class DisplayResearcherInfo implements DisplayResearcherInfoInterface {
         ShowResearcherInfoScreen screen = new ShowResearcherInfoScreen(researcherId, researcherName, studyId,
                 controllerManager);
         screenManager.setShowResearcherInfoScreen(screen);
+        screenManager.updateCurrentScreenNoDispose(screen);
     }
 }

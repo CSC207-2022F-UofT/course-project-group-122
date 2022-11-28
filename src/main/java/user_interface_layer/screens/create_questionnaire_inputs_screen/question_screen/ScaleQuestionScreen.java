@@ -7,6 +7,7 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScaleQuestionScreen extends JFrame {
@@ -15,7 +16,7 @@ public class ScaleQuestionScreen extends JFrame {
     private final JTextField bottomLabel;
     private final JTextField topLabel;
 
-    public ScaleQuestionScreen(List<QuestionModel> addedQuestions, DefaultTableModel model, int scale){
+    public ScaleQuestionScreen(ArrayList<String> variables, List<QuestionModel> addedQuestions, DefaultTableModel model, int scale){
         setTitle("Create Scale Question");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -45,9 +46,13 @@ public class ScaleQuestionScreen extends JFrame {
         submitButton.addActionListener(e -> {
             if (question.getText().equals("") || variable.getText().equals("") || bottomLabel.getText().equals("") || topLabel.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");
-            } else {
+            } else if (variables.contains(variable.getText())) {
+                JOptionPane.showMessageDialog(null, "Variable already exists");
+            }
+            else {
+                variables.add(variable.getText());
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText(), bottomLabel.getText(), topLabel.getText(), scale);
-                model.addRow(new String[]{"Scale",question.getText(), variable.getText(), bottomLabel.getText()+ " - " + scale + " - "+ topLabel.getText()});
+                model.addRow(new String[]{newQuestion.getType(), newQuestion.getContent(), newQuestion.getVariable(), newQuestion.getOptions()});
                 addedQuestions.add(newQuestion);
                 this.dispose();
             }

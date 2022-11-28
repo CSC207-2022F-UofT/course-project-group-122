@@ -23,6 +23,7 @@ public class StudyDataLogScreen extends JFrame {
     JPanel questionsPanel;
 
     public StudyDataLogScreen(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
+        setTitle(data.getStudyName() + " (" + data.getStudyStatus() + ")");
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel backPanel = new JPanel();
         JPanel mainPanel = new JPanel();
@@ -44,7 +45,11 @@ public class StudyDataLogScreen extends JFrame {
 //                    controllerManager.downloadDataButtonActionPerformed("All Data", data.getStudyId());
                 });
         currentData.addActionListener(e->{
-//                        controllerManager.downloadDataButtonActionPerformed("Current Data", data.getStudyId());
+            JFileChooser jFileChooser = new JFileChooser();
+            jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            jFileChooser.showSaveDialog(null);
+            String filePath = (jFileChooser.getSelectedFile()).getAbsolutePath();
+                        controllerManager.downloadData(data.getStudyId(), filePath);
                 });
         popupMenu.add(allData);
         popupMenu.add(currentData);
@@ -54,34 +59,7 @@ public class StudyDataLogScreen extends JFrame {
             }});
         mainPanel.add(downloadDataButton);
 
-//        JButton dropStudyButton = new JButton("Drop Study");
-//        dropStudyButton.setText("Drop Study");
-//        dropStudyButton.addActionListener(e->{
-//            JFrame confirm = new JFrame();
-//            confirm.setSize(400, 200);
-//            confirm.setLayout(new GridLayout(3, 1));
-//            JLabel confirmLabel = new JLabel("Are you sure you want to drop this study?");
-//            confirmLabel.setHorizontalAlignment(JLabel.CENTER);
-//            confirm.add(confirmLabel);
-//            JPanel buttons = new JPanel();
-//            buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
-//            JButton yesButton = new JButton("Yes");
-//            JButton noButton = new JButton("No");
-//            yesButton.addActionListener(e1 -> {
-//                        controllerManager.userDropStudyRequest(data.getResearchId(), data.getStudyId());
-//                });
-//            noButton.addActionListener(e1 -> {
-//                        confirm.dispose();
-//                });
-//            buttons.add(yesButton);
-//            buttons.add(noButton);
-//            confirm.add(buttons);
-//            confirm.setVisible(true);
-//        SetScreenToCenter s = new SetScreenToCenter(confirm);
-//        });
-//        add(dropStudyButton, BorderLayout.SOUTH);
-
-        JLabel userIDLabel = new JLabel(data.getResearherName() + " (" + data.getResearcherId() + ")", SwingConstants.CENTER);
+        JLabel userIDLabel = new JLabel(data.getResearcherName() + " (" + data.getResearcherId() + ")", SwingConstants.CENTER);
         mainPanel.add(userIDLabel);
 
         JButton logOutButton = new JButton("Log Out");
@@ -91,6 +69,39 @@ public class StudyDataLogScreen extends JFrame {
         mainPanel.add(logOutButton);
         header.add(mainPanel);
         add(header, BorderLayout.NORTH);
+
+
+        JButton closeStudyButton = new JButton("Close Study");
+        JPopupMenu popupMenu2 = new JPopupMenu();
+        JMenuItem closeStudy = new JMenuItem("Close Study");
+        JMenuItem openStudy = new JMenuItem("Reopen Study");
+        closeStudy.addActionListener(e -> {
+            controllerManager.closeStudy(data.getStudyId(), data.getResearcherId());});
+        openStudy.addActionListener(e -> {
+            controllerManager.reopenStudy(data.getStudyId(), data.getResearcherId());});
+        popupMenu2.add(closeStudy);
+        popupMenu2.add(openStudy);
+        closeStudyButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                popupMenu2.show(evt.getComponent(), evt.getX(), evt.getY());
+            }});
+        backPanel.add(closeStudyButton);
+
+        JButton consentFormButton = new JButton("Consent Form");
+        JPopupMenu popupMenu3 = new JPopupMenu();
+        JMenuItem createConsentForm = new JMenuItem("Create Consent Form");
+        JMenuItem reviewConsentFrom = new JMenuItem("Review Consent Form");
+        createConsentForm.addActionListener(e -> {
+            controllerManager.requestConsentFormCreation(data.getStudyId());});
+        reviewConsentFrom.addActionListener(e -> {
+            controllerManager.reviewConsentForm(data.getStudyId());});
+        popupMenu3.add(createConsentForm);
+        popupMenu3.add(reviewConsentFrom);
+        consentFormButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                popupMenu3.show(evt.getComponent(), evt.getX(), evt.getY());
+            }});
+        backPanel.add(consentFormButton);
 
 
         JTabbedPane StudyLogTabPane = new JTabbedPane();

@@ -2,6 +2,7 @@ package use_cases.user_log_out;
 
 import user_interface_layer.presenter_manager.display_register.DisplayRegisterInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.screens.ControllerManager;
 
 public class UserLogOutPresenter implements UserLogOutOutputBoundary {
 
@@ -16,12 +17,19 @@ public class UserLogOutPresenter implements UserLogOutOutputBoundary {
      */
     private DisplaySuccessMessageInterface displaySuccessMessage;
 
+
+    /**
+     * Controller manager
+     */
+    private ControllerManager controllerManager;
+
     /**
      * Log out the user
      */
     @Override
     public void logOut() {
         String message = "You have successfully logged out";
+        controllerManager.setCurrentUserId(-1);
         displayRegisterInterface.displayRegisterScreen();
         displaySuccessMessage.presentGeneralSuccessMessage(message);
     }
@@ -42,6 +50,15 @@ public class UserLogOutPresenter implements UserLogOutOutputBoundary {
      */
     public void setDisplayRegisterInterface(DisplayRegisterInterface displayRegisterInterface) {
         this.displayRegisterInterface = displayRegisterInterface;
+    }
+
+
+    /**
+     * Set the controller manager.
+     * @param controllerManager The controller manager.
+     */
+    public void setControllerManager(ControllerManager controllerManager) {
+        this.controllerManager = controllerManager;
     }
 
 }
