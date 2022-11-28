@@ -30,6 +30,11 @@ public class PublishQuestionnaireInteractor implements PublishQuestionnaireInput
         } else if (canBePublished(questionnaire, study)) {
         questionnaire.publish();
         publishQuestionnairePresenter.publishQuestionnaire(questionnaireID, studyId, researcherId);
+            if (study.getEligibilityQuestionnaire() == questionnaire) {
+                publishQuestionnairePresenter.assignToAllPotentialParticipants(questionnaireID, studyId, researcherId);
+            }
+        } else {
+            throw new IllegalStateException("The questionnaire with the given id cannot be published.");
         }
     }
 

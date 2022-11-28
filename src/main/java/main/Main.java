@@ -432,6 +432,7 @@ public class Main {
         publishQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         publishQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
         publishQuestionnairePresenter.setFetchStudyLogController(fetchStudyLogController);
+        publishQuestionnairePresenter.setAssignQuestionnaireController(assignQuestionnaireController);
 
         removeResearcherPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         removeResearcherPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);

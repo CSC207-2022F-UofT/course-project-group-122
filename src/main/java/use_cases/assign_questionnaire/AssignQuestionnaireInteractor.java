@@ -21,7 +21,7 @@ public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBo
      * @param questionnaireID   The ID of the questionnaire to be assigned.
      * @param studyID           The ID of the study that the questionnaire is assigned to.
      */
-    public void assignToAll(int questionnaireID, int studyID) {
+    public void assignToAll(int questionnaireID, int studyID, int researcherId) {
 
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireID, studyID);
         Study study = FetchId.getStudy(studyID);
@@ -46,7 +46,7 @@ public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBo
                     participant.assignQuestionnaire(questionnaire);
                 }
             }
-            assignQuestionnaireOutputBoundary.assignToAllPresent(questionnaireID, studyID);
+            assignQuestionnaireOutputBoundary.assignToAllPresent(questionnaireID, studyID, researcherId);
         }
     }
 
@@ -58,7 +58,7 @@ public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBo
      * @param studyID         The ID of the study that the questionnaire is assigned to.
      */
 
-    public void assignToGroup(int questionnaireID, String groupName, int studyID) {
+    public void assignToGroup(int questionnaireID, String groupName, int studyID, int researcherId) {
 
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireID, studyID);
         Study study = FetchId.getStudy(studyID);
@@ -84,7 +84,7 @@ public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBo
                     participant.assignQuestionnaire(questionnaire);
                 }
             }
-            assignQuestionnaireOutputBoundary.assignToGroupPresent(questionnaireID, studyID, groupName);
+            assignQuestionnaireOutputBoundary.assignToGroupPresent(questionnaireID, studyID, groupName, researcherId);
         }
     }
 
@@ -96,7 +96,7 @@ public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBo
      * @param studyID the id of the study.
      */
 
-    public void assignToParticipant(int questionnaireID, int participantID, int studyID) {
+    public void assignToParticipant(int questionnaireID, int participantID, int studyID, int researcherId) {
 
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireID, studyID);
         Participant participant = (Participant) FetchId.getUser(participantID);
@@ -133,8 +133,28 @@ public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBo
         } else {
             participant.assignQuestionnaire(questionnaire);
             assignQuestionnaireOutputBoundary.assignToParticipantPresent(questionnaireID, participantID,
-                    studyID);
+                    studyID, researcherId);
         }
+    }
+
+    /**
+     * This method is used to assign an eligibility questionnaire to all potential participant.
+     *
+     * @param questionnaireId The id of the questionnaire.
+     * @param studyId         The id of the study.
+     */
+    @Override
+    public void assignEligibilityQuestionnaireToAll(int questionnaireId, int studyId, int researcherId) {
+        Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
+        Study study = FetchId.getStudy(studyId);
+        assert study != null;
+        List<Participant> potentialParticipants = study.getPotentialParticipants();
+        for (Participant participant : potentialParticipants) {
+            if (participant.getEligibilityQuestionnaire() == null) {
+                participant.setEligibilityQuestionnaire(questionnaire);
+            }
+        }
+        assignQuestionnaireOutputBoundary.assignToAllPresent(questionnaireId, studyId, researcherId);
     }
 
 
