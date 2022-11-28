@@ -128,5 +128,14 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
     }
+
+
+    /**
+     * set the fetch study log controller
+     * @param fetchStudyLogController The controller to fetch the study log.
+     */
+    public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
+        this.fetchStudyLogController = fetchStudyLogController;
+    }
 }
 

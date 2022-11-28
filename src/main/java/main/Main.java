@@ -494,6 +494,7 @@ public class Main {
 
         assignQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         assignQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+        assignQuestionnairePresenter.setFetchStudyLogController(fetchStudyLogController);
 
         closeQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         closeQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);

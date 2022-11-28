@@ -28,10 +28,11 @@ public class PublishQuestionnaireInteractor implements PublishQuestionnaireInput
                     "created for the study. You must create a consent form before publishing the eligibility " +
                     "questionnaire.");
         } else if (canBePublished(questionnaire, study)) {
-        questionnaire.publish();
-        publishQuestionnairePresenter.publishQuestionnaire(questionnaireID, studyId, researcherId);
+            questionnaire.publish();
             if (study.getEligibilityQuestionnaire() == questionnaire) {
                 publishQuestionnairePresenter.assignToAllPotentialParticipants(questionnaireID, studyId, researcherId);
+            } else {
+                publishQuestionnairePresenter.publishQuestionnaire(questionnaireID, studyId, researcherId);
             }
         } else {
             throw new IllegalStateException("The questionnaire with the given id cannot be published.");

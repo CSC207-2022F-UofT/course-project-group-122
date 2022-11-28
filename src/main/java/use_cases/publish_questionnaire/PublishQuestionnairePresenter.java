@@ -64,7 +64,7 @@ public class PublishQuestionnairePresenter implements PublishQuestionnaireOutput
      */
     @Override
     public void assignToAllPotentialParticipants(int questionnaireId, int studyId, int researcherId) {
-        assignQuestionnaireController.assignQuestionnaireToAll(questionnaireId, studyId, researcherId);
+        assignQuestionnaireController.assignEligibilityQuestionnaireToAll(questionnaireId, studyId, researcherId);
     }
 
 
