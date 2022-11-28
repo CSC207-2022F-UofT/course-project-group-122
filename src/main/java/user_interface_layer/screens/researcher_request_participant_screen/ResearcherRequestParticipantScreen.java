@@ -9,9 +9,6 @@ import user_interface_layer.screens.researcher_request_participant_screen.questi
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
 public class ResearcherRequestParticipantScreen extends JFrame {
     JPanel completedQuestionnairePanel;
@@ -56,21 +53,6 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         pack();
         SetScreenToCenter s = new SetScreenToCenter(this);
     }
-
-    public static void main(String[] args) {
-        ResearcherRequestParticipantInputData data = new ResearcherRequestParticipantInputData(2, 1,
-                "Participant 1", "Active", 1, "Study1", "SD1",
-                "Active", 2, 3, "Active",
-                new ArrayList<>(Collections.singleton(1)), new ArrayList<>(Collections.singleton(1)),
-                new ArrayList<>(Collections.singleton(1)), new String[]{"1"},
-                new HashMap<>(Collections.singletonMap(1, new String[]{"Questionnaire1"})), new HashMap<>(Collections.singletonMap(1, new String[]{"Questionnaire1"})),
-                new ArrayList<>(Collections.singleton(new String[]{"1"})), new HashMap<>(Collections.singletonMap(1, new ArrayList<>(Collections.singleton(new String[]{"1"})))));
-
-        ResearcherRequestParticipantScreen screen = new ResearcherRequestParticipantScreen(data, null);
-        screen.setVisible(true);
-
-    }
-
 }
 
 
