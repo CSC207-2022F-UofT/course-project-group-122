@@ -150,7 +150,7 @@ public class ControllerManager {
     public void answerQuestionnaire(int modifier,int participantID, int questionnaireID, int studyID,
                                     HashMap<String, String> answers) {
         AnswerQuestionnaireRequestModel requestModel = new AnswerQuestionnaireRequestModel(questionnaireID,
-                participantID, studyID, modifier);
+                participantID, modifier, studyID);
         requestModel.setAnswers(answers, answers.size());
         answerQuestionnaireController.answerQuestionnaire(requestModel);
     }

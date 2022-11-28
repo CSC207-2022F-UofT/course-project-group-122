@@ -559,8 +559,9 @@ public class Main {
         controllerManager.setFetchConsentFormController(fetchConsentFormController);
         controllerManager.setEditQuestionnaireScreenDataController(fetchEditQuestionnaireDataController);
         controllerManager.setEditQuestionnaireController(editQuestionnaireController);
-
         controllerManager.setFetchStudyDataForEditingController(fetchStudyDataForEditingController);
+        controllerManager.setFetchQuestionnaireDataForAnswerController(fetchQuestionnaireDataForAnswerController);
+        controllerManager.setAnswerQuestionnaireController(answerQuestionnaireController);
 
         SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
         SetUpSignUpScreenDriver setUpSignUpScreenDriver = new SetUpSignUpScreenDriver();
