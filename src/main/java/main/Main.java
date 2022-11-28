@@ -338,7 +338,6 @@ public class Main {
         createQuestionnaireInteractor.setEditOutputBoundary(editQuestionnairePresenter);
 
 
-
         //ResultExtraction use case
         ResultExtractionController resultExtractionController = new ResultExtractionController();
         ResultExtractionInteractor resultExtractionInteractor = new ResultExtractionInteractor();
@@ -513,6 +512,8 @@ public class Main {
         fetchStudyDataForEditingPresenter.setDisplayEditStudy(presenterManagerDisplayEditStudyData);
         fetchStudyDataForEditingPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
 
+        editQuestionnairePresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+        editQuestionnairePresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
 
 
 
@@ -651,15 +652,15 @@ public class Main {
         study.addQuestionnaire(questionnaire2);
         study.addQuestionnaire(questionnaire3);
 
-        eligibilityq.addQuestion(new TextQuestion(eligibilityq, "What is your name?", "name"));
+        eligibilityq.addQuestion(new TextQuestion(eligibilityq, "name","What is your name?"));
         eligibilityq.publish();
 
-        questionnaire1.addQuestion(new TextQuestion(questionnaire1, "What is your name?", "name"));
-        questionnaire1.addQuestion(new TextQuestion(questionnaire1, "What is your age?", "age"));
+        questionnaire1.addQuestion(new TextQuestion(questionnaire1, "name", "What is your name?"));
+        questionnaire1.addQuestion(new TextQuestion(questionnaire1,  "age", "What is your age?"));
         questionnaire1.publish();
-        questionnaire2.addQuestion(new TextQuestion(questionnaire2, "What is your name?", "name"));
+        questionnaire2.addQuestion(new TextQuestion(questionnaire2, "name", "What is your name?"));
         questionnaire2.publish();
-        questionnaire3.addQuestion(new TextQuestion(questionnaire3, "What is your name?", "name"));
+        questionnaire3.addQuestion(new TextQuestion(questionnaire3, "name", "What is your name?"));
 
         study.addPotentialParticipant((Participant) FetchId.getUser(1));
         study.addPotentialParticipant((Participant) FetchId.getUser(2));

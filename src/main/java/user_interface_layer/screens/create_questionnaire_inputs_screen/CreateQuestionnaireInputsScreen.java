@@ -102,7 +102,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
             });
             mcNumOfChoices.add(numOfChoices, BorderLayout.CENTER);
             mcNumOfChoices.add(continueButton, BorderLayout.SOUTH);
-            numOfChoices.setSize(300, 100);
+            mcNumOfChoices.setSize(300, 100);
             SetScreenToCenter s = new SetScreenToCenter(mcNumOfChoices);
             mcNumOfChoices.setVisible(true);
         });

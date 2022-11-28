@@ -22,7 +22,7 @@ public class FetchQuestionnaireScreenInteractor implements FetchQuestionnaireScr
             Map<String, String[]> InputData = new HashMap<>();
             List<Question> question = questionnaire.getListOfQuestion();
             for (Question q : question) {
-                String[] formattedQuestion = new String[]{q.getQuestionType(), q.getContent(), q.getAnswerChoices()};
+                String[] formattedQuestion = new String[]{q.getQuestionType(),q.getContent(), q.getContent(), q.getAnswerChoices()};
                 InputData.put(q.getVariableName(), formattedQuestion);
             }
             CheckQuestionnaireInputData data = new CheckQuestionnaireInputData(questionnaireId,

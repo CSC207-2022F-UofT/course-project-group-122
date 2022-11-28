@@ -10,11 +10,11 @@ public class TextQuestion extends Question implements java.io.Serializable{
      * The Constructor of the TextQuestion class.
      *
      * @param questionnaire     The questionnaire this question is part of.
-     * @param description       Keyword that describes the content of this Question
+     * @param variableName       Keyword that describes the content of this Question
      * @param content           What is being asked the participants.
      */
-    public TextQuestion(Questionnaire questionnaire, String description, String content) {
-        super(questionnaire, description, content);
+    public TextQuestion(Questionnaire questionnaire, String variableName, String content) {
+        super(questionnaire, variableName, content);
     }
 
 

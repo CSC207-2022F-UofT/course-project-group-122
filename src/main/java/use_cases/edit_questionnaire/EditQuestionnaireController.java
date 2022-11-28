@@ -9,6 +9,7 @@ public class EditQuestionnaireController {
     }
 
     public void setInputBoundary(CreateQuestionnaireInteractor createQuestionnaireInteractor) {
+        this.inputBoundary = createQuestionnaireInteractor;
     }
 }
 

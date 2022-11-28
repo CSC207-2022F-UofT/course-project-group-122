@@ -58,8 +58,7 @@ public class CheckQuestionnaireInputData {
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
         for (Map.Entry<String, String[]> entry : questions.entrySet()) {
-            String[] question = new String[]{entry.getValue()[0], entry.getValue()[1], entry.getKey(), entry.getValue()[2]};
-            formattedQuestions.add(question);
+            formattedQuestions.add(entry.getValue());
         }
         this.studyId = studyId;
     }
