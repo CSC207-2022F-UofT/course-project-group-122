@@ -1,6 +1,7 @@
 package entities;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A QuestionFactory that creates and returns Question objects.
@@ -17,7 +18,7 @@ public class QuestionFactory implements QuestionFactoryInterface, java.io.Serial
      * @param content           The content of the Question.
      * @return                  The Question object that was created.
      */
-    public static Question create(@NotNull String type, Questionnaire questionnaire, String variableName, String content) {
+    public static @Nullable Question create(@NotNull String type, Questionnaire questionnaire, String variableName, String content) {
         switch (type) {
             case "MC":
                 return new MultipleChoiceQuestion(questionnaire, variableName, content);

@@ -2,6 +2,7 @@ package use_cases.assign_questionnaire;
 
 import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
+import user_interface_layer.presenter_manager.display_participant_info.DisplayParticipantInfoInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBoundary {
@@ -23,6 +24,12 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * Fetch the study log controller.
      */
     private FetchStudyLogController fetchStudyLogController;
+
+
+    /**
+     * Display the participant info
+     */
+    private DisplayParticipantInfoInterface displayParticipantInfo;
 
 
     /**
@@ -97,6 +104,19 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
     }
 
     /**
+     * Fetch the participant info to confirm the assignment.
+     * @param name              The name of the participant.
+     * @param studyId           The ID of the study that the questionnaire has been published to.
+     * @param participantId     The ID of the participant that the questionnaire should assign to.
+     * @param researcherId      The ID of the researcher that assign the questionnaire.
+     */
+    @Override
+    public void fetchParticipantInfoConfirmation(int participantId, String name, int studyId, int researcherId) {
+        displayParticipantInfo.displayParticipantInfoForQAssignment(participantId, name, studyId, researcherId);
+
+    }
+
+    /**
      * Presents that the questionnaire has been assigned to all participant in study.
      *
      * @param questionnaireID The ID of the questionnaire that has been published.
@@ -136,6 +156,15 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      */
     public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
         this.fetchStudyLogController = fetchStudyLogController;
+    }
+
+
+    /**
+     * set the display participant info interface
+     * @param displayParticipantInfo The presenter to display the participant info.
+     */
+    public void setDisplayParticipantInfo(DisplayParticipantInfoInterface displayParticipantInfo) {
+        this.displayParticipantInfo = displayParticipantInfo;
     }
 }
 

@@ -43,19 +43,11 @@ public class StudyLogQuestionnairePanel extends JPanel {
         splitPane.setResizeWeight(0.5);
         add(splitPane, BorderLayout.CENTER);
 
-        JButton assignEligibilityButton = new JButton("Assign Eligibility Questionnaire");
-        assignEligibilityButton.addActionListener(e -> {
-            if (eligibilityTable.getSelectedRow() == -1) {
-                JOptionPane.showMessageDialog(null, "Please select a questionnaire to assign");
-            } else {
-                int questionnaireId = data.getEligibilityQuestionnaireId();
-                controllerManager.assignQuestionnaireToAll(questionnaireId, data.getStudyId());
-            }
-        });
 
         JButton checkEligibility = new JButton("Check Eligibility Questionnaire");
         checkEligibility.addActionListener(e -> {
-            controllerManager.researcherQuestionnaireScreenRequest(data.getResearcherId(), data.getStudyId(), data.getEligibilityQuestionnaireId());
+            controllerManager.researcherQuestionnaireScreenRequest(data.getResearcherId(), data.getStudyId(),
+                    data.getEligibilityQuestionnaireId());
         });
 
         JButton check = new JButton("Check Questionnaire");
@@ -83,10 +75,12 @@ public class StudyLogQuestionnairePanel extends JPanel {
                 String publishStatus = (String) table.getValueAt(selectedRow, 2);
                 String closedStatus = (String) table.getValueAt(selectedRow, 3);
                 if (publishStatus.equals("Yes") || closedStatus.equals("Yes")) {
-                    JOptionPane.showMessageDialog(null, "Cannot edit a published or closed questionnaire");
+                    JOptionPane.showMessageDialog(null,
+                            "Cannot edit a published or closed questionnaire");
                 } else {
                     int questionnaireId = keys.get(selectedRow);
-                    controllerManager.researcherEditQuestionnaireScreenRequest(data.getResearcherId(), data.getStudyId(), questionnaireId);
+                    controllerManager.researcherEditQuestionnaireScreenRequest(data.getResearcherId(),
+                            data.getStudyId(), questionnaireId);
                 }
             }
         });
@@ -95,6 +89,8 @@ public class StudyLogQuestionnairePanel extends JPanel {
         JMenuItem individual = new JMenuItem("To One");
         JMenuItem group = new JMenuItem("To Group");
         JMenuItem all = new JMenuItem("To All");
+
+        //Assign to individual
         individual.addActionListener(e -> {
                     JFrame frame = new JFrame("Assign Questionnaire");
                     frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
@@ -108,7 +104,8 @@ public class StudyLogQuestionnairePanel extends JPanel {
                             int participant = Integer.parseInt(participantId);
                             int selectedRow = table.getSelectedRow();
                             int questionnaireId = keys.get(selectedRow);
-                            controllerManager.assignQuestionnaireToIndividual(questionnaireId, data.getStudyId(), participant);
+                            controllerManager.fetchParticipantInfoConfirmation(questionnaireId, data.getStudyId(),
+                                    participant);
                             frame.dispose();
                         } catch (NumberFormatException exception) {
                             JOptionPane.showMessageDialog(null, "Please enter a valid identifier");
@@ -121,17 +118,21 @@ public class StudyLogQuestionnairePanel extends JPanel {
                     SetScreenToCenter s = new SetScreenToCenter(frame);
                     frame.setVisible(true);
                 });
+
+        // Assign to group
         group.addActionListener(e->{
             int selectedRow = table.getSelectedRow();
             int questionnaireId = keys.get(selectedRow);
-                            controllerManager.fetchStudyGroups(questionnaireId,data.getStudyId());
+                            controllerManager.fetchStudyGroups(questionnaireId, data.getStudyId());
         });
 
+        // Assign to all
         all.addActionListener(e->{
             int selectedRow = table.getSelectedRow();
             int questionnaireId = keys.get(selectedRow);
             controllerManager.assignQuestionnaireToAll(questionnaireId, data.getStudyId());
         });
+
         popupMenu.add(individual);
         popupMenu.add(group);
         popupMenu.add(all);
@@ -151,7 +152,6 @@ public class StudyLogQuestionnairePanel extends JPanel {
         JPanel buttonPanel1row = new JPanel();
         JPanel buttonPanel2row = new JPanel();
         buttonPanel1row.add(checkEligibility);
-        buttonPanel1row.add(assignEligibilityButton);
         buttonPanel2row.add(check);
         buttonPanel2row.add(addQuestionnaire);
         buttonPanel2row.add(editQuestionnaire);

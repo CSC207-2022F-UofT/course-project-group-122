@@ -1,10 +1,10 @@
 package use_cases.assign_questionnaire;
 
 import entities.*;
-
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -58,33 +58,34 @@ public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBo
      * @param studyID         The ID of the study that the questionnaire is assigned to.
      */
 
-    public void assignToGroup(int questionnaireID, String groupName, int studyID, int researcherId) {
+    public void assignToGroup(int questionnaireID, List<String> groupName, int studyID, int researcherId) {
 
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireID, studyID);
         Study study = FetchId.getStudy(studyID);
         assert study != null;
         List<Participant> participants = study.getParticipants();
         if (questionnaire == null) {
-            assignQuestionnaireOutputBoundary.assignToGroupFail(questionnaireID, studyID, groupName,
+            assignQuestionnaireOutputBoundary.assignToGroupFail(questionnaireID, studyID, groupName.toString(),
                     "because the questionnaire does not exist");
         } else if (!questionnaire.isPublished()) {
-            assignQuestionnaireOutputBoundary.assignToGroupFail(questionnaireID, studyID, groupName,
+            assignQuestionnaireOutputBoundary.assignToGroupFail(questionnaireID, studyID, groupName.toString(),
                     NOTPUBLISHED);
         } else if (questionnaire.isClosed()) {
-            assignQuestionnaireOutputBoundary.assignToGroupFail(questionnaireID, studyID, groupName,
+            assignQuestionnaireOutputBoundary.assignToGroupFail(questionnaireID, studyID, groupName.toString(),
                     "because the questionnaire is closed");
         } else if (questionnaire.getStudy() != study) {
-            assignQuestionnaireOutputBoundary.assignToGroupFail(questionnaireID, studyID, groupName,
+            assignQuestionnaireOutputBoundary.assignToGroupFail(questionnaireID, studyID, groupName.toString(),
                     "because the questionnaire is not in the study");
         } else {
             for (Participant participant : participants) {
                 if ((!participant.getAssignedQuestionnaires().contains(questionnaire)) &&
-                        participant.getGroup() == getGroupIdByName(groupName, study) &&
+                        getGroupIdsByName(groupName, study).contains(participant.getGroup()) &&
                         (!participant.getCompletedQuestionnaires().contains(questionnaire))) {
                     participant.assignQuestionnaire(questionnaire);
                 }
             }
-            assignQuestionnaireOutputBoundary.assignToGroupPresent(questionnaireID, studyID, groupName, researcherId);
+            assignQuestionnaireOutputBoundary.assignToGroupPresent(questionnaireID, studyID, groupName.toString(),
+                    researcherId);
         }
     }
 
@@ -157,6 +158,32 @@ public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBo
         assignQuestionnaireOutputBoundary.assignToAllPresent(questionnaireId, studyId, researcherId);
     }
 
+    /**
+     * Fetch the information of a participant to confirm the assignment.
+     *
+     * @param questionnaireId The id of the questionnaire.
+     * @param studyId         The id of the study.
+     * @param participantId   The id of the participant.
+     * @param researcherId    The id of the researcher.
+     */
+    @Override
+    public void fetchParticipantInfoConfirmation(int questionnaireId, int studyId, int participantId, int researcherId) {
+        User user = FetchId.getUser(participantId);
+        if (user == null) {
+            assignQuestionnaireOutputBoundary.assignToParticipantFail(questionnaireId, studyId,
+                    participantId, "because the participant does not exist. Please confirm you are entering" +
+                            "the correct user ID.");
+        } else if (user instanceof Researcher) {
+            assignQuestionnaireOutputBoundary.assignToParticipantFail(questionnaireId, studyId,
+                    participantId, "because the participant is a researcher. Please confirm you are entering" +
+                            "the correct user ID.");
+        } else {
+            Participant participant = (Participant) user;
+            assignQuestionnaireOutputBoundary.fetchParticipantInfoConfirmation(participant.getId(),
+                    participant.getName(), studyId, researcherId);
+        }
+    }
+
 
     /**
      * Get the group number by group name
@@ -172,6 +199,21 @@ public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBo
             }
         }
         return -1;
+    }
+
+
+    /**
+     * Get the group numbers by group name
+     * @param groupNames    The names of the groups.
+     * @param study         The study that the group is in.
+     * @return              The group numbers.
+     */
+    private @NotNull List<Integer> getGroupIdsByName(@NotNull List<String> groupNames, @NotNull Study study) {
+        List<Integer> groupIds = new ArrayList<>();
+        for (String groupName : groupNames) {
+            groupIds.add(getGroupIdByName(groupName, study));
+        }
+        return groupIds;
     }
 
 

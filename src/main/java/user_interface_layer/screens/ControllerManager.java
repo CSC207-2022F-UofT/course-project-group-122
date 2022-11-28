@@ -15,14 +15,13 @@ import use_cases.create_questionnaire.CreateQuestionnaireRequestModel;
 import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyRequestModel;
 import use_cases.edit_questionnaire.EditQuestionnaireController;
-import use_cases.edit_questionnaire.EditQuestionnaireInputBoundary;
 import use_cases.edit_questionnaire.EditQuestionnaireRequestModel;
 import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
-import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingController;
 import use_cases.eligibility_checker.EligibilityCheckerController;
 import use_cases.fetch_consent_form.FetchConsentFormController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
 import use_cases.fetch_study_data.FetchStudyDataController;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingController;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import use_cases.fetch_versioned_answer.FetchVersionedAnswerController;
 import use_cases.get_target_groups.GetTargetGroupsController;
@@ -46,7 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/*
+/**
  * The class that manages all the calls to controllers from the user calls and inputs (buttons).
  * It contains an instance of each controller and the a single instance of this controller is injected to each of the screen.
  * The screen then calls on the controller through this class.
@@ -103,6 +102,7 @@ public class ControllerManager {
 
     private EditQuestionnaireController editQuestionnaireController;
 
+
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
     }
@@ -147,8 +147,10 @@ public class ControllerManager {
      * @param answers   - a hashmap of the answers to the questions in the questionnaire.
      *                  Key is the variable and value is the string answer.
      */
-    public void answerQuestionnaire(int modifier,int participantID, int questionnaireID, int studyID, HashMap<String, String> answers) {
-        AnswerQuestionnaireRequestModel requestModel = new AnswerQuestionnaireRequestModel(questionnaireID, participantID, studyID, modifier);
+    public void answerQuestionnaire(int modifier,int participantID, int questionnaireID, int studyID,
+                                    HashMap<String, String> answers) {
+        AnswerQuestionnaireRequestModel requestModel = new AnswerQuestionnaireRequestModel(questionnaireID,
+                participantID, studyID, modifier);
         requestModel.setAnswers(answers, answers.size());
         answerQuestionnaireController.answerQuestionnaire(requestModel);
     }
@@ -167,12 +169,16 @@ public class ControllerManager {
         modifyStudyParameterController.modifyStudyStratification(studyId, stratificationVariable, currentUserId);
     }
 
-    public void createQuestionnaireController(String type, int studyID, int researcherID, String questionnaireName, String description, ArrayList<String> groups, int numQuestions, List<QuestionModel> addedQuestions) {
-        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(type, studyID, researcherID, questionnaireName, description, groups, numQuestions, addedQuestions);
+    public void createQuestionnaireController(String type, int studyID, int researcherID, String questionnaireName,
+                                              String description, ArrayList<String> groups, int numQuestions,
+                                              List<QuestionModel> addedQuestions) {
+        CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(type, studyID, researcherID,
+                questionnaireName, description, groups, numQuestions, addedQuestions);
         createQuestionnaireController.createQuestionnaire(requestModel);
     }
 
-    public void createStudyController(int researcherID, String studyName, String description, int studySize, String studyType, int groupNum, String[] groupNamesArray) {
+    public void createStudyController(int researcherID, String studyName, String description, int studySize,
+                                      String studyType, int groupNum, String[] groupNamesArray) {
         CreateStudyRequestModel requestModel = new CreateStudyRequestModel(researcherID, studyName, description);
         requestModel.setStudyType(studyType);
         requestModel.setStudyTargetSize(studySize);
@@ -258,6 +264,7 @@ public class ControllerManager {
     }
 
     public void assignQuestionnaireToAll(int questionnaireId, int studyId) {
+        assignQuestionnaireController.assignQuestionnaireToAll(questionnaireId, studyId, currentUserId);
     }
 
     public void researcherQuestionnaireScreenRequest(int researcherId, int studyId, int questionnaireId) {
@@ -324,7 +331,8 @@ public class ControllerManager {
         createConsentFormController.createConsentForm(requestModel);
     }
 
-    public void editQuestionnaire(int studyID, int questionnaireID, int researcherID, String text, String text1, ArrayList<String> studyGroupNames, List<QuestionModel> addedQuestions) {
+    public void editQuestionnaire(int studyID, int questionnaireID, int researcherID, String text, String text1,
+                                  ArrayList<String> studyGroupNames, List<QuestionModel> addedQuestions) {
         EditQuestionnaireRequestModel editQuestionnaireRequestModel = new EditQuestionnaireRequestModel(
                 studyID, questionnaireID, researcherID, text, text1, studyGroupNames, addedQuestions);
         editQuestionnaireController.editQuestionnaire(editQuestionnaireRequestModel);
@@ -333,6 +341,22 @@ public class ControllerManager {
     public void reviewConsentForm(int studyId) {
         fetchConsentFormController.showConsentForm(currentUserId, studyId);
     }
+
+    public void fetchParticipantInfoConfirmation(int questionnaireId, int studyId, int participantId) {
+        assignQuestionnaireController.fetchParticipantInfoConfirmation(questionnaireId, studyId, participantId,
+                currentUserId);
+    }
+
+    public void assignQuestionnaireToGroups(int studyID, int questionnaireID, List<String> selectedGroups) {
+        assignQuestionnaireController.assignQuestionnaireToGroups(questionnaireID, studyID, selectedGroups, currentUserId);
+    }
+
+
+
+
+
+
+
 
     public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -505,5 +529,6 @@ public class ControllerManager {
     public void setEditQuestionnaireController(EditQuestionnaireController editQuestionnaireController) {
         this.editQuestionnaireController = editQuestionnaireController;
     }
+
 
 }

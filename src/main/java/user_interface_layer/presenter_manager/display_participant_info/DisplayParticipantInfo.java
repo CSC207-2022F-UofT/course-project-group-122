@@ -2,6 +2,7 @@ package user_interface_layer.presenter_manager.display_participant_info;
 
 import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
+import user_interface_layer.screens.show_participant_info.ShowParticipantInfoForQAssignment;
 import user_interface_layer.screens.show_participant_info.ShowParticipantInfoScreen;
 
 /**
@@ -33,4 +34,21 @@ public class DisplayParticipantInfo implements DisplayParticipantInfoInterface {
         screenManager.updateCurrentScreenNoDispose(screen);
 
     }
+
+    /**
+     * Displays the participant info screen for the researcher to confirm the participant.
+     * @param participantId     The participant id.
+     * @param name              The participant name.
+     * @param studyId           The study id.
+     * @param questionnaireId   The questionnaire id.
+     */
+    @Override
+    public void displayParticipantInfoForQAssignment(int participantId, String name, int studyId, int questionnaireId) {
+        ShowParticipantInfoForQAssignment screen = new ShowParticipantInfoForQAssignment(participantId, name, studyId,
+                questionnaireId, controllerManager);
+        screenManager.setShowParticipantInfoForQAssignmentScreen(screen);
+        screenManager.updateCurrentScreen(screen);
+    }
+
+
 }

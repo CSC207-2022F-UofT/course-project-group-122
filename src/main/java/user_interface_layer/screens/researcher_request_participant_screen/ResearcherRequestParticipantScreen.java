@@ -9,6 +9,9 @@ import user_interface_layer.screens.researcher_request_participant_screen.questi
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class ResearcherRequestParticipantScreen extends JFrame {
     JPanel completedQuestionnairePanel;
@@ -19,15 +22,21 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel userIDLabel = new JLabel(data.getParticipantName() + " (" + data.getParticipantId() + ")");
         topPanel.add(userIDLabel);
         header.add(topPanel, BorderLayout.NORTH);
-        JLabel message = new JLabel("You are a " + data.getParticipantStatus() + " Participant in " + data.getStudyName(), SwingConstants.CENTER);
-        header.add(message, BorderLayout.CENTER);
         add(header, BorderLayout.NORTH);
+
+        JPanel centerPanel = new JPanel(new GridLayout(3, 1));
+        JLabel nameLabel = new JLabel("Name: " + data.getParticipantName() + " (" + data.getParticipantId() + ")");
+        JLabel statusLabel = new JLabel("Status: " + data.getParticipantStatus());
+        JLabel groupNumberLabel = new JLabel("Group Number: " + data.getGroupNumber());
+        centerPanel.add(nameLabel);
+        centerPanel.add(statusLabel);
+        centerPanel.add(groupNumberLabel);
+        add(centerPanel, BorderLayout.CENTER);
 
         JTabbedPane QuestionnaireTabPane = new JTabbedPane();
         JPanel EligibilityQuestionnaire = new JPanel();
@@ -43,59 +52,25 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         completedQuestionnairePanel = new CompletedQuestionnairePanelForResearcher(data ,controllerManager);
         QuestionnaireTabPane.addTab("Completed Questionnaires", completedQuestionnairePanel);
 
-        add(QuestionnaireTabPane, BorderLayout.CENTER);
+        add(QuestionnaireTabPane, BorderLayout.SOUTH);
         pack();
         SetScreenToCenter s = new SetScreenToCenter(this);
     }
 
-//    public static void main(String[] args) {
-//        java.util.List<Integer> assignedQuestionnaires = new ArrayList<>();
-//        assignedQuestionnaires.add(1);
-//        assignedQuestionnaires.add(2);
-//        Map<Integer, String[]> assignedQuestionnairesData = new HashMap<>();
-//        assignedQuestionnairesData.put(1, new String[]{"1", "A second questionnaire", "Open"});
-//        assignedQuestionnairesData.put(2, new String[]{"2", "A third questionnaire", "Open"});
-//        java.util.List<Integer> completedQuestionnaires = new ArrayList<>();
-//        completedQuestionnaires.add(3);
-//        completedQuestionnaires.add(4);
-//        Map<Integer, String[]> completedQuestionnairesData = new HashMap<>();
-//        completedQuestionnairesData.put(3, new String[]{"3", "A first questionnaire", "Completed"});
-//        completedQuestionnairesData.put(4, new String[]{"4", "A second questionnaire", "Completed"});
-//        java.util.List<Integer> answeredToQuestionnaires = new ArrayList<>();
-//        answeredToQuestionnaires.add(5);
-//        answeredToQuestionnaires.add(6);
-//        java.util.List<String[]> eligibilityQuestionnaireAnswerHistory = new ArrayList<>();
-//        eligibilityQuestionnaireAnswerHistory.add(new String[]{"34", "6", "Jannet", "2020-12-12", "Some Answer"});
-//        eligibilityQuestionnaireAnswerHistory.add(new String[]{"35", "6", "Jannet", "2020-12-12", "Some Answer"});
-//        eligibilityQuestionnaireAnswerHistory.add(new String[]{"36", "6", "Jannet", "2020-12-12", "Some Answer"});
-//        Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory = new HashMap<>();
-//        completedQuestionnaireAnswerHistory.put(3,eligibilityQuestionnaireAnswerHistory);
-//        completedQuestionnaireAnswerHistory.put(4,eligibilityQuestionnaireAnswerHistory);
-//
-//
-//        ResearcherRequestParticipantInputData data = new ResearcherRequestParticipantInputData(44,45,
-//                "Bob",
-//                "Potential",
-//                4,
-//                "Sleep",
-//                "Sleep deprivation will give you cancer",
-//                "Open",
-//                3,
-//                2,
-//                "Open",
-//                assignedQuestionnaires,
-//                completedQuestionnaires,
-//                answeredToQuestionnaires,
-//                new String[]{"2", "a questionnaire", "Open"},
-//                assignedQuestionnairesData,
-//                completedQuestionnairesData,
-//                eligibilityQuestionnaireAnswerHistory,
-//                completedQuestionnaireAnswerHistory);
-//        ControllerManager controllerManager = new ControllerManager(new ScreenManager());
-//        controllerManager.setSetQuestionnaireVersionedAnswerDriver(new SetQuestionnaireVersionedAnswerDriver());
-//        ResearcherRequestParticipantScreen screen = new ResearcherRequestParticipantScreen(data, controllerManager);
-//        screen.setVisible(true);
-//    }
+    public static void main(String[] args) {
+        ResearcherRequestParticipantInputData data = new ResearcherRequestParticipantInputData(2, 1,
+                "Participant 1", "Active", 1, "Study1", "SD1",
+                "Active", 2, 3, "Active",
+                new ArrayList<>(Collections.singleton(1)), new ArrayList<>(Collections.singleton(1)),
+                new ArrayList<>(Collections.singleton(1)), new String[]{"1"},
+                new HashMap<>(Collections.singletonMap(1, new String[]{"Questionnaire1"})), new HashMap<>(Collections.singletonMap(1, new String[]{"Questionnaire1"})),
+                new ArrayList<>(Collections.singleton(new String[]{"1"})), new HashMap<>(Collections.singletonMap(1, new ArrayList<>(Collections.singleton(new String[]{"1"})))));
+
+        ResearcherRequestParticipantScreen screen = new ResearcherRequestParticipantScreen(data, null);
+        screen.setVisible(true);
+
+    }
+
 }
 
 

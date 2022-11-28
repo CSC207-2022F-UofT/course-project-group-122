@@ -1,9 +1,11 @@
 package user_interface_layer.screens.choose_groups_to_assign;
 
 import org.jetbrains.annotations.NotNull;
+import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +39,15 @@ public class ChooseGroupToAssignScreen extends JFrame {
             if (selectedGroups.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please select at least one group");
             } else {
-//                controllerManager.assignQuestionnaireToGroups(studyID, questionnaireID, selectedGroups);
+                controllerManager.assignQuestionnaireToGroups(studyID, questionnaireID, selectedGroups);
             }});
+        add(labelTargetGroups, BorderLayout.NORTH);
+        add(groupsPanel, BorderLayout.CENTER);
+        add(assignButton, BorderLayout.SOUTH);
+        pack();
+        setVisible(true);
+
+        setSize(600, 400);
+        SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
     }
 }

@@ -20,6 +20,7 @@ import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.register_screens.UserSignUpScreen;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantScreen;
+import user_interface_layer.screens.show_participant_info.ShowParticipantInfoForQAssignment;
 import user_interface_layer.screens.show_participant_info.ShowParticipantInfoScreen;
 import user_interface_layer.screens.show_researcher_info.ShowResearcherInfoScreen;
 import user_interface_layer.screens.study_data_log.StudyDataLogScreen;
@@ -49,7 +50,7 @@ public class ScreenManager {
     private UserAnswerQuestionnairesScreen userAnswerQuestionnairesScreen;
     private EditQuestionnaireAnswers editQuestionnaireAnswers;
     private StudyDataLogScreen studyDataLogScreen;
-    private  ShowResearcherInfoScreen showResearcherInfoScreen;
+    private ShowResearcherInfoScreen showResearcherInfoScreen;
     private ShowParticipantInfoScreen showParticipantInfoScreen;
 
 
@@ -61,6 +62,7 @@ public class ScreenManager {
     private ConsentFormScreen consentFormScreen;
     private CreateConsentFormScreen createConsentFormScreen;
     private ConsentFormScreenForReview consentFormScreenForReview;
+    private ShowParticipantInfoForQAssignment showParticipantInfoForQAssignment;
 
     public ScreenManager() {
     }
@@ -199,5 +201,9 @@ public class ScreenManager {
 
     public void setConsentFormScreenForReview(ConsentFormScreenForReview screen) {
         this.consentFormScreenForReview = screen;
+    }
+
+    public void setShowParticipantInfoForQAssignmentScreen(ShowParticipantInfoForQAssignment screen) {
+        this.showParticipantInfoForQAssignment = screen;
     }
 }
