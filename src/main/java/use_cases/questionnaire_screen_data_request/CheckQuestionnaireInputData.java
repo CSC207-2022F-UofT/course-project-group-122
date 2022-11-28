@@ -37,6 +37,11 @@ public class CheckQuestionnaireInputData {
      */
     private final List<String[]> formattedQuestions = new ArrayList<>();
 
+    /**
+     * The study id.
+     */
+    private final int studyId;
+
     /* Map <"Variable" ; [type, description, options]>
      * The key is the question. The value is an array with the question's type, variable and options.
      * The options should be formatted as follows:
@@ -47,7 +52,8 @@ public class CheckQuestionnaireInputData {
     public CheckQuestionnaireInputData(int questionnaireId,
                                        String questionnaireName,
                                        String questionnaireDescription,
-                                       @NotNull Map<String, String[]> questions) {
+                                       @NotNull Map<String, String[]> questions,
+                                       int studyId) {
         this.questionnaireId = questionnaireId;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
@@ -55,6 +61,7 @@ public class CheckQuestionnaireInputData {
             String[] question = new String[]{entry.getValue()[0], entry.getValue()[1], entry.getKey(), entry.getValue()[2]};
             formattedQuestions.add(question);
         }
+        this.studyId = studyId;
     }
 
     /*
@@ -90,6 +97,15 @@ public class CheckQuestionnaireInputData {
      */
     public List<String[]> getFormattedQuestions() {
         return formattedQuestions;
+    }
+
+
+    /**
+     * Returns the study id.
+     * @return
+     */
+    public int getStudyId() {
+        return studyId;
     }
 
 }

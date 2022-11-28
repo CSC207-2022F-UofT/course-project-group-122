@@ -44,6 +44,9 @@ import use_cases.fetch_participant_study_data.FetchParticipantStudyDataPresenter
 import use_cases.fetch_study_data.FetchStudyDataController;
 import use_cases.fetch_study_data.FetchStudyDataInteractor;
 import use_cases.fetch_study_data.FetchStudyDataPresenter;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingController;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingInteractor;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingPresenter;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import use_cases.fetch_study_log.FetchStudyLogInteractor;
 import use_cases.fetch_study_log.FetchStudyLogPresenter;
@@ -263,11 +266,14 @@ public class Main {
         publishQuestionnaireController.setPublishQuestionnaireInteractor(publishQuestionnaireInteractor);
         publishQuestionnaireInteractor.setPublishQuestionnairePresenter(publishQuestionnairePresenter);
 
-        //questionnaire_answer_data_for_editing_request use case
-//        QuestionnaireAnswerDataRequestForEditingController questionnaireAnswerDataRequestForEditingController =
-//                new QuestionnaireAnswerDataRequestForEditingController();
-//        QuestionnaireAnswerDataRequestForEditingInteractor questionnaireAnswerDataRequestForEditingInteractor =
-//                new QuestionnaireAnswerDataRequestForEditingInteractor();
+
+        // Fetch study data for editing use case
+        FetchStudyDataForEditingController fetchStudyDataForEditingController = new FetchStudyDataForEditingController();
+        FetchStudyDataForEditingInteractor fetchStudyDataForEditingInteractor = new FetchStudyDataForEditingInteractor();
+        FetchStudyDataForEditingPresenter fetchStudyDataForEditingPresenter = new FetchStudyDataForEditingPresenter();
+        fetchStudyDataForEditingController.setFetchStudyDataForEditingInteractor(fetchStudyDataForEditingInteractor);
+        fetchStudyDataForEditingInteractor.setFetchStudyDataForEditingPresenter(fetchStudyDataForEditingPresenter);
+
 
 
 
@@ -403,6 +409,8 @@ public class Main {
                 new DisplayVersionedAnswer(screenManager);
         DisplayConsentForm presenterManagerDisplayConsentForm =
                 new DisplayConsentForm(screenManager, controllerManager);
+        DisplayEditStudy presenterManagerDisplayEditStudyData =
+                new DisplayEditStudy(screenManager, controllerManager);
 
 
         //Inject Presenter Managers and/or Controllers to Presenters
@@ -501,6 +509,9 @@ public class Main {
         fetchEditQuestionnaireDataPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
 
 
+        fetchStudyDataForEditingPresenter.setDisplayEditStudy(presenterManagerDisplayEditStudyData);
+        fetchStudyDataForEditingPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+
 
 
 
@@ -533,6 +544,7 @@ public class Main {
         controllerManager.setEditQuestionnaireScreenDataController(fetchEditQuestionnaireDataController);
         controllerManager.setEditQuestionnaireController(editQuestionnaireController);
 
+        controllerManager.setFetchStudyDataForEditingController(fetchStudyDataForEditingController);
 
         SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
         SetUpSignUpScreenDriver setUpSignUpScreenDriver = new SetUpSignUpScreenDriver();

@@ -1,5 +1,6 @@
 package user_interface_layer.screens;
 
+import org.jetbrains.annotations.NotNull;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireRequestModel;
@@ -17,7 +18,7 @@ import use_cases.edit_questionnaire.EditQuestionnaireController;
 import use_cases.edit_questionnaire.EditQuestionnaireInputBoundary;
 import use_cases.edit_questionnaire.EditQuestionnaireRequestModel;
 import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
-import use_cases.edit_study_data_request.FetchStudyDataForEditingController;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingController;
 import use_cases.eligibility_checker.EligibilityCheckerController;
 import use_cases.fetch_consent_form.FetchConsentFormController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
@@ -26,6 +27,7 @@ import use_cases.fetch_study_log.FetchStudyLogController;
 import use_cases.fetch_versioned_answer.FetchVersionedAnswerController;
 import use_cases.get_target_groups.GetTargetGroupsController;
 import use_cases.modify_study_parameters.ModifyStudyParameterController;
+import use_cases.modify_study_parameters.ModifyStudyParameterRequestModel;
 import use_cases.participant_drop_study.ParticipantDropStudyController;
 import use_cases.participant_enroller.ParticipantEnrollerController;
 import use_cases.publish_questionnaire.PublishQuestionnaireController;
@@ -149,6 +151,12 @@ public class ControllerManager {
         AnswerQuestionnaireRequestModel requestModel = new AnswerQuestionnaireRequestModel(questionnaireID, participantID, studyID, modifier);
         requestModel.setAnswers(answers, answers.size());
         answerQuestionnaireController.answerQuestionnaire(requestModel);
+    }
+
+
+    public void modifyStudyParameters(@NotNull ModifyStudyParameterRequestModel requestModel) {
+        requestModel.setResearcherId(currentUserId);
+        modifyStudyParameterController.modifyStudyParameters(requestModel);
     }
 
 //    public void assignQuestionnaireToGroups(int studyID, int questionnaireID, List<String> selectedGroups) {
@@ -291,8 +299,8 @@ public class ControllerManager {
         resultExtractionController.resultPullingAndExtraction(studyId, filePath);
     }
 
-    public void closeQuestionnaire(int questionnaireId, int studyId, int researcherId) {
-        closeQuestionnaireController.closeQuestionnaire(questionnaireId, studyId, researcherId);
+    public void closeQuestionnaire(int questionnaireId, int studyId) {
+        closeQuestionnaireController.closeQuestionnaire(questionnaireId, studyId, currentUserId);
     }
 
     public void closeStudy(int studyId, int researcherId) {
