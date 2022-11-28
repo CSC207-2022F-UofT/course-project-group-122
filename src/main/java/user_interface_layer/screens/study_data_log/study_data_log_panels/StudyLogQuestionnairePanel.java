@@ -39,7 +39,8 @@ public class StudyLogQuestionnairePanel extends JPanel {
         scrollPane.setViewportView(table);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, eligibilityScrollPane, scrollPane);
-        splitPane.setDividerLocation(2);
+        splitPane.setDividerLocation(0.5);
+        splitPane.setResizeWeight(0.5);
         add(splitPane, BorderLayout.CENTER);
 
         JButton assignEligibilityButton = new JButton("Assign Eligibility Questionnaire");

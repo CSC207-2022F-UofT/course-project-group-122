@@ -52,7 +52,7 @@ public class ScaleQuestionScreen extends JFrame {
             else {
                 variables.add(variable.getText());
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText(), bottomLabel.getText(), topLabel.getText(), scale);
-                model.addRow(new String[]{"Scale",question.getText(), variable.getText(), bottomLabel.getText()+ " - " + scale + " - "+ topLabel.getText()});
+                model.addRow(new String[]{newQuestion.getType(), newQuestion.getContent(), newQuestion.getVariable(), newQuestion.getOptions()});
                 addedQuestions.add(newQuestion);
                 this.dispose();
             }

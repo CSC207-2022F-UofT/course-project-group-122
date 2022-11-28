@@ -91,7 +91,7 @@ public class Questionnaire implements java.io.Serializable{
      * The list of Questions in this Questionnaire. The questions are stored in the order that they are added. The order
      * of the questions is important, as it determines how the questions are displayed to the Participant User.
      */
-    private final List<Question> listOfQuestion = new ArrayList<>();
+    private List<Question> listOfQuestion = new ArrayList<>();
 
 
     /**
@@ -481,6 +481,13 @@ public class Questionnaire implements java.io.Serializable{
         return variableNames;
     }
 
+    public void setTargetGroups(List<String> targetGroups) {
+        this.targetGroups = targetGroups;
+    }
+
+    public void removeQuestions() {
+        this.listOfQuestion.clear();
+    }
 
     /**
      * Retrieve the study that this Questionnaire belongs to.
