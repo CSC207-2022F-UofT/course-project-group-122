@@ -34,7 +34,6 @@ public class DisplayRegister implements DisplayRegisterInterface {
     public void displayRegisterScreen() {
         UserRegisterScreen screen = new UserRegisterScreen(controllerManager);
         screenManager.setUserRegisterScreen(screen);
-        screenManager.disposeCurrentScreen();
         screenManager.updateCurrentScreen(screen);
     }
 }
