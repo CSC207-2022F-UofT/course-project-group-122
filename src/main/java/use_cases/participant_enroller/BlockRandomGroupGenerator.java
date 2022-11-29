@@ -15,7 +15,7 @@ public class BlockRandomGroupGenerator implements RandomGroupGenerator {
      * The factor used to determine the size of the block. The block size is the number of participants in each block.
      * Block size = number of groups * block factor.
      */
-    protected static final int BLOCKSIZEFACTOR = 3;
+    public static final int BLOCKSIZEFACTOR = 3;
 
     /**
      * The number of groups in the study.

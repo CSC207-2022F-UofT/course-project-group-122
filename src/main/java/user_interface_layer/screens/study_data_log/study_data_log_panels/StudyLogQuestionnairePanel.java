@@ -94,7 +94,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
         individual.addActionListener(e -> {
                     JFrame frame = new JFrame("Assign Questionnaire");
                     frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     JLabel label = new JLabel("Enter participant's Identifier", SwingConstants.CENTER);
                     JTextField textField = new JTextField(10);
                     JButton button = new JButton("Assign");

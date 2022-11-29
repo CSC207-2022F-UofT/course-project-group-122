@@ -2,6 +2,7 @@ package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_study_log.FetchStudyLogResponseModel;
+import use_cases.participant_enroller.BlockRandomGroupGenerator;
 import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
@@ -29,6 +30,28 @@ public class StudyLogGroupsPanel extends JPanel {
         }
         add(scrollPane, BorderLayout.CENTER);
         scrollPane.setViewportView(table);
+
+        if (data.getStudyType().equals("Randomized")) {
+            JPanel randomizationPanel = new JPanel();
+            randomizationPanel.setLayout(new BoxLayout(randomizationPanel, BoxLayout.Y_AXIS));
+            JLabel randomizationLabel = new JLabel("Randomization Method: " + data.getRandomizationMethod() +
+                    RANDOMIZATION, SwingConstants.CENTER);
+            randomizationPanel.add(randomizationLabel);
+            if (data.getRandomizationMethod().equals(BLOCK)) {
+                JLabel blockLabel = new JLabel("Block Size: " + BlockRandomGroupGenerator.BLOCKSIZEFACTOR,
+                        SwingConstants.CENTER);
+                randomizationPanel.add(blockLabel);
+            } else if (data.getRandomizationMethod().equals(STRATIFIED)) {
+                JLabel stratifiedLabel = new JLabel("Stratification Factor: " + data.getStratificationMethod(),
+                        SwingConstants.CENTER);
+                JLabel stratifiedLabel2 = new JLabel("Block randomization within each stratum with block size = "
+                        + BlockRandomGroupGenerator.BLOCKSIZEFACTOR, SwingConstants.CENTER);
+                randomizationPanel.add(stratifiedLabel);
+                randomizationPanel.add(stratifiedLabel2);
+            }
+            add(randomizationPanel);
+        }
+
         JPanel buttonPanel = new JPanel();
         if (data.getStudyType().equals("Randomized")) {
             JButton selectStrategy = new JButton("Select Randomized Strategy");
