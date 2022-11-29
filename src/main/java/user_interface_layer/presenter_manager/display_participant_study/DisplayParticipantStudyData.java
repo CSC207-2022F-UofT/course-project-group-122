@@ -83,7 +83,7 @@ public class DisplayParticipantStudyData implements DisplayParticipantStudyDataI
         );
         ResearcherRequestParticipantScreen screen = new ResearcherRequestParticipantScreen(data, controllerManager);
         screenManager.setResearcherRequestParticipantScreen(screen);
-        screenManager.updateCurrentScreenNoDispose(screen);
+
 
     }
     public void setScreenManager(ScreenManager screenManager){

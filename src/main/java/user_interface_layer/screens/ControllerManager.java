@@ -187,19 +187,6 @@ public class ControllerManager {
     public void publishQuestionnaire(int questionnaireID, int studyID) {
         publishQuestionnaireController.publishQuestionnaire(questionnaireID, studyID, currentUserId);
     }
-
-//    public void editQuestionnaire(int studyID, int questionnaireID, String text, String text1, ArrayList<String> studyGroupNames, Map<String, String[]> existingQuestions) {
-//        editQuestionnaireController.editQuestionnaire();
-//    }
-
-//    public void researcherEditAnswerRequest(int researcherID, int questionnaireID, int studyID, HashMap<String, String> answers, String text) {
-//        researcherEditAnswerController.researcherEditAnswerRequest();
-//    }
-
-//    public void editStudyRequest(int studyID, String text, String text1, int parseInt, String studyTypeInput, int i, List<String> groupNames) {
-//        editStudyController.
-//    }
-
     public void userLogOutController() {
         userLogOutController.logOut();
     }

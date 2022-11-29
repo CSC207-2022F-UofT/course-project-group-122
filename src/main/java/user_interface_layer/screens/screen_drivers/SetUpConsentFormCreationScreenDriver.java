@@ -10,7 +10,6 @@ public class SetUpConsentFormCreationScreenDriver {
                                                  ControllerManager controllerManager, int researcherId, int studyId) {
         CreateConsentFormScreen screen = new CreateConsentFormScreen(studyId, researcherId, controllerManager);
         screenManager.setCreateConsentFormScreen(screen);
-        screenManager.updateCurrentScreen(screen);
     }
 }
 

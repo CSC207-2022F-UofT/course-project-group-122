@@ -16,6 +16,5 @@ public class SetQuestionnaireVersionedAnswerDriver {
         AllVersionsInputData data = new AllVersionsInputData(studyId, participantID, questionnaireID, answers);
         AllVersionsScreen screen = new AllVersionsScreen(data, controllerManager);
         screenManager.setQuestionnaireVersionedAnswerScreen(screen);
-        screenManager.updateCurrentScreen(screen);
     }
 }

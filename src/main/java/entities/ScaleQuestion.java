@@ -109,7 +109,7 @@ public class ScaleQuestion extends Question implements java.io.Serializable{
      */
     @Override
     public String getAnswerChoices() {
-        return bottomLabel + " - " + scaleRange + " - " + topLabel;
+        return bottomLabel + "," + topLabel + "," + scaleRange ;
     }
 
 

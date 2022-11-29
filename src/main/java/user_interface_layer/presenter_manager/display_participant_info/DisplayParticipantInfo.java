@@ -31,7 +31,6 @@ public class DisplayParticipantInfo implements DisplayParticipantInfoInterface {
     public void displayParticipantInfo(int participantId, String name, int studyId) {
         ShowParticipantInfoScreen screen = new ShowParticipantInfoScreen(participantId, name, studyId, controllerManager);
         screenManager.setShowParticipantInfoScreen(screen);
-        screenManager.updateCurrentScreenNoDispose(screen);
 
     }
 
@@ -47,7 +46,6 @@ public class DisplayParticipantInfo implements DisplayParticipantInfoInterface {
         ShowParticipantInfoForQAssignment screen = new ShowParticipantInfoForQAssignment(participantId, name, studyId,
                 questionnaireId, controllerManager);
         screenManager.setShowParticipantInfoForQAssignmentScreen(screen);
-        screenManager.updateCurrentScreenNoDispose(screen);
     }
 
 

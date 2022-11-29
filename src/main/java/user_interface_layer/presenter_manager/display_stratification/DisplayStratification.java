@@ -37,7 +37,6 @@ public class DisplayStratification implements DisplayStratificationInterface {
     public void presentStratificationVarScreen(int studyId, List<String> stratificationVariables) {
         ChooseStratificationScreen screen = new ChooseStratificationScreen(studyId, stratificationVariables, controllerManager);
         screenManager.setChooseStratificationScreen(screen);
-        screenManager.updateCurrentScreen(screen);
     }
 
 

@@ -29,9 +29,6 @@ public class DisplayEditAnswers implements DisplayEditAnswersInterface {
     public void presentResearcherEditQuestionnaireAnswersScreen(ResearcherEditQuestionnaireScreenAnswersInputData data) {
         EditQuestionnaireAnswers screen = new EditQuestionnaireAnswers(data, controllerManager);
         screenManager.setResearcherEditQuestionnaireAnswersScreen(screen);
-        screenManager.updateCurrentScreen(screen);
-
-
     }
 
 }

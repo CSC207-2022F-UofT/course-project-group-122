@@ -29,6 +29,5 @@ public class DisplayEditStudy implements DisplayEditStudyInterface {
     public void presentEditStudyScreen(FetchStudyDataForEditingResponseModel data) {
         EditStudyScreen screen = new EditStudyScreen(data, controllerManager);
         screenManager.setEditStudyScreen(screen);
-        screenManager.updateCurrentScreenNoDispose(screen);
     }
 }

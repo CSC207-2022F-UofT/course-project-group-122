@@ -29,7 +29,6 @@ public class DisplayScreenForAnsweringQuestionnaire implements DisplayScreenForA
     public void presentUserAnswerQuestionnairesScreen(FetchQuestionnaireDataForAnswerResponseModel data) {
         UserAnswerQuestionnairesScreen screen = new UserAnswerQuestionnairesScreen(data, controllerManager);
         screenManager.setParticipantAnswerQuestionnairePanel(screen);
-        screenManager.updateCurrentScreen(screen);
 
     }
 }

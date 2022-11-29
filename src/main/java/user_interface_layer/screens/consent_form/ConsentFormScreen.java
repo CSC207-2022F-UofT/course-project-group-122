@@ -73,6 +73,7 @@ public class ConsentFormScreen extends JFrame {
             controllerManager.answerEligibilityQuestionnaireRequestData(responseModel.getUserId(),
                     responseModel.getParticipantId(), responseModel.getEligibilityQuestionnaireId(),
                     responseModel.getStudyId());
+            dispose();
         });
 
         add(panel, BorderLayout.NORTH);

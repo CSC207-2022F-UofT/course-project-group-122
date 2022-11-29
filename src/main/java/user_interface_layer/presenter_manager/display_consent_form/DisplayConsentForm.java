@@ -41,7 +41,7 @@ public class DisplayConsentForm implements DisplayConsentFormInterface {
     public void displayConsentForm(FetchConsentFormResponseModel responseModel) {
         ConsentFormScreen screen = new ConsentFormScreen(responseModel, controllerManager);
         screenManager.setConsentFormScreen(screen);
-        screenManager.updateCurrentScreen(screen);
+
     }
 
     /**
@@ -53,6 +53,5 @@ public class DisplayConsentForm implements DisplayConsentFormInterface {
     public void showConsentFormContent(FetchConsentFormResponseModel responseModel) {
         ConsentFormScreenForReview screen = new ConsentFormScreenForReview(responseModel, controllerManager);
         screenManager.setConsentFormScreenForReview(screen);
-        screenManager.updateCurrentScreenNoDispose(screen);
     }
 }

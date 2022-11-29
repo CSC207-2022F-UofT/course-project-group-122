@@ -11,6 +11,6 @@ public class SetUpStudyCreationScreenDriver {
         CreateStudyInputInputData data = new CreateStudyInputInputData(userId);
         CreateStudyInputScreen screen = new CreateStudyInputScreen(data, controllerManager);
         screenManager.setCreateStudyInputScreen(screen);
-        screenManager.updateCurrentScreen(screen);
+
     }
 }
