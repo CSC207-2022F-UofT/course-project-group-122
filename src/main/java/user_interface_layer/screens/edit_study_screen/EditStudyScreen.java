@@ -130,25 +130,7 @@ public class EditStudyScreen extends JFrame {
     private void askForGeneralGroupNames(int i, java.util.List<JTextField> groupNames, JFrame askGroupNamesScreen) {
         if (i > 0) {
 
-            for (int j = 0; j < i; j++) {
-                JTextField groupName = new JTextField("Group " + (j + 1), 30);
-                groupNames.add(groupName);
-                JPanel groupNamePanel = new SetLabelTextPanel(new JLabel("Group Name: "), groupName);
-                askGroupNamesScreen.add(groupNamePanel);
-            }
-            JPanel confirmGroupNamesPanel = new JPanel();
-            JButton confirmGroupNamesButton = new JButton("Confirm Group Names");
-            confirmGroupNamesButton.addActionListener(e -> {
-                this.groupNames = groupNames.stream().map(JTextField::getText).collect(Collectors.toList());
-                for (String s : this.groupNames) {
-                    System.out.println(s);
-                }
-                askGroupNamesScreen.dispose();
-
-            });
-            confirmGroupNamesPanel.add(confirmGroupNamesButton);
-            askGroupNamesScreen.add(confirmGroupNamesPanel);
-            askGroupNamesScreen.setVisible(true);
+            getGroupNames(i, groupNames, askGroupNamesScreen);
         } else {
             JOptionPane.showMessageDialog(null, "Please enter a number greater than 0 for a General Study.");
         }
@@ -157,29 +139,32 @@ public class EditStudyScreen extends JFrame {
     private void askForRandomizedGroupNames(int i, List<JTextField> groupNames, JFrame askGroupNamesScreen) {
         if (i > 1) {
 
-            for (int j = 0; j < i; j++) {
-                JTextField groupName = new JTextField("Group " + (j + 1), 30);
-                groupNames.add(groupName);
-                JPanel groupNamePanel = new SetLabelTextPanel(new JLabel("Group Name: "), groupName);
-                askGroupNamesScreen.add(groupNamePanel);
-            }
-            JPanel confirmGroupNamesPanel = new JPanel();
-            JButton confirmGroupNamesButton = new JButton("Confirm Group Names");
-            confirmGroupNamesButton.addActionListener(e -> {
-                this.groupNames = groupNames.stream().map(JTextField::getText).collect(Collectors.toList());
-                for (String s : this.groupNames) {
-                    System.out.println(s);
-                }
-                askGroupNamesScreen.dispose();
-            });
-            confirmGroupNamesPanel.add(confirmGroupNamesButton);
-            askGroupNamesScreen.add(confirmGroupNamesPanel);
-            askGroupNamesScreen.setVisible(true);
+            getGroupNames(i, groupNames, askGroupNamesScreen);
 
         } else {
             JOptionPane.showMessageDialog(null, "Please enter a number greater than 1 for a Randomized Study.");
         }
 
+    }
+
+    private void getGroupNames(int i, List<JTextField> groupNames, JFrame askGroupNamesScreen) {
+        for (int j = 0; j < i; j++) {
+            JTextField groupName = new JTextField("Group " + (j + 1), 30);
+            groupNames.add(groupName);
+            JPanel groupNamePanel = new SetLabelTextPanel(new JLabel("Group Name: "), groupName);
+            askGroupNamesScreen.add(groupNamePanel);
+        }
+        JPanel confirmGroupNamesPanel = new JPanel();
+        JButton confirmGroupNamesButton = new JButton("Confirm Group Names");
+        confirmGroupNamesButton.addActionListener(e -> {
+            this.groupNames = groupNames.stream().map(JTextField::getText).collect(Collectors.toList());
+            for (String s : this.groupNames) {
+            }
+            askGroupNamesScreen.dispose();
+        });
+        confirmGroupNamesPanel.add(confirmGroupNamesButton);
+        askGroupNamesScreen.add(confirmGroupNamesPanel);
+        askGroupNamesScreen.setVisible(true);
     }
 
 }

@@ -1,8 +1,7 @@
 package use_cases.edit_questionnaire_screen_data;
 
 import entities.*;
-import org.jetbrains.annotations.NotNull;
-import use_cases.GetQuestionsModel;
+import use_cases.questionnaire_information_model.GetQuestionsModel;
 import use_cases.fetch_id.FetchId;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 

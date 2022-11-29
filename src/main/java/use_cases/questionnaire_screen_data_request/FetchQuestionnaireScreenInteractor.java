@@ -2,14 +2,11 @@ package use_cases.questionnaire_screen_data_request;
 
 import entities.Question;
 import entities.Questionnaire;
-import use_cases.GetQuestionsModel;
+import use_cases.questionnaire_information_model.GetQuestionsModel;
 import use_cases.fetch_id.FetchId;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FetchQuestionnaireScreenInteractor implements FetchQuestionnaireScreenInputBoundary {
     FetchQuestionnaireScreenPresenter presenter;

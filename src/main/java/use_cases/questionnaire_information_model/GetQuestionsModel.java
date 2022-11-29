@@ -1,4 +1,4 @@
-package use_cases;
+package use_cases.questionnaire_information_model;
 
 import entities.MultipleChoiceQuestion;
 import entities.Question;

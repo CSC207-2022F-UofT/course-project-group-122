@@ -1,5 +1,6 @@
 package user_interface_layer.screens.choose_stratification_variable;
 
+import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screen_setters.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
@@ -16,7 +17,7 @@ public class ChooseStratificationScreen extends JFrame {
      * This constructor sets the component's locale property to the value
      * returned by <code>JComponent.getDefaultLocale</code>.
      */
-    public ChooseStratificationScreen(int studyId, List<String> stratificationVariables,
+    public ChooseStratificationScreen(int studyId, @NotNull List<String> stratificationVariables,
                                       ControllerManager controllerManager) throws HeadlessException {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JLabel label = new JLabel("Choose Stratification Variable", SwingConstants.CENTER);

@@ -176,6 +176,11 @@ public class ControllerManager {
         modifyStudyParameterController.modifyStudyStratification(studyId, stratificationVariable, currentUserId);
     }
 
+
+    public void fetchStratificationVariables(int studyId) {
+        modifyStudyParameterController.checkPotentialStratificationVariables(studyId);
+    }
+
     public void createQuestionnaireController(String type, int studyID, int researcherID, String questionnaireName,
                                               String description, List<String> groups, int numQuestions,
                                               List<QuestionModel> addedQuestions) {
@@ -241,8 +246,8 @@ public class ControllerManager {
         researcherEnrollerController.enrollResearcher(researcherId, studyId, currentUserId);
     }
 
-    public void setRandomizationStrategyRequest(int studyId, String simple, int researcherId) {
-        modifyStudyParameterController.modifyStudyStratification(studyId, simple, researcherId);
+    public void setRandomizationStrategyRequest(int studyId, String randomizationStrategy, int researcherId) {
+        modifyStudyParameterController.modifyStudyRandomization(studyId, randomizationStrategy, researcherId);
     }
 
 
