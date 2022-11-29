@@ -104,8 +104,16 @@ public class FetchStudyLogResponseModel {
         this.studyName = study.getStudyName();
         this.studyDescription = study.getStudyDescription();
         this.studyType = study.getStudyType();
-        this.RandomizationMethod = study.getRandomizationMethod();
-        this.stratificationMethod = study.getStratificationMethod();
+        if (study instanceof Randomizable) {
+            this.RandomizationMethod = ((Randomizable) study).getRandomizationMethod();
+        } else {
+            this.RandomizationMethod = null;
+        }
+        if (study instanceof Stratifiable) {
+            this.stratificationMethod = ((Stratifiable) study).getStratificationMethod();
+        } else {
+            this.stratificationMethod = null;
+        }
         this.studyStatus = fetchStatus(study);
         this.eligibilityQuestionnaireId = fetchEligibilityQuestionnaireId(study);
         this.eligibilityQuestionnaireContent = fetchEligibilityQuestionnaireContent(study);
