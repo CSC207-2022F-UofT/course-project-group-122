@@ -1,5 +1,6 @@
 package use_cases.answer_questionnaire_data_request;
 
+import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel.ParticipantsQuestionPanel;
 import user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel.QuestionsPanelBuilder;
 
@@ -74,7 +75,7 @@ public class FetchQuestionnaireDataForAnswerResponseModel {
                                                         int questionnaireID,
                                                         String questionnaireName,
                                                         String questionnaireDescription,
-                                                        Map<String, String[]> questionsInformation) {
+                                                        @NotNull Map<String, String[]> questionsInformation) {
         this.participantID = participantID;
         this.modifierId = modifierId;
         this.studyID = studyID;

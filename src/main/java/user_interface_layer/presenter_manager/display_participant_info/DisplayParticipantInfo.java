@@ -47,7 +47,7 @@ public class DisplayParticipantInfo implements DisplayParticipantInfoInterface {
         ShowParticipantInfoForQAssignment screen = new ShowParticipantInfoForQAssignment(participantId, name, studyId,
                 questionnaireId, controllerManager);
         screenManager.setShowParticipantInfoForQAssignmentScreen(screen);
-        screenManager.updateCurrentScreen(screen);
+        screenManager.updateCurrentScreenNoDispose(screen);
     }
 
 

@@ -278,6 +278,7 @@ public class ControllerManager {
     }
 
     public void assignQuestionnaireToIndividual(int questionnaireId, int studyId, int participant) {
+        assignQuestionnaireController.assignQuestionnaireToIndividual(questionnaireId, studyId, participant, currentUserId);
     }
 
     public void fetchStudyGroups(int questionnaireId, int studyId) {

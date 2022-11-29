@@ -41,7 +41,8 @@ public AssignedQuestionnairePanelForResearcher(@NotNull ResearcherRequestPartici
             if (model.getValueAt(selectedRow, 2).toString().equals("Closed")) {
                 JOptionPane.showMessageDialog(null, "This Questionnaire is closed");
             } else {
-                controllerManager.questionnaireRequestDataForAnswering(data.getUserId(), data.getParticipantId(), data.getStudyId(), keys.get(selectedRow));
+                controllerManager.questionnaireRequestDataForAnswering(data.getUserId(), data.getParticipantId(),
+                        data.getStudyId(), keys.get(selectedRow));
             }
 
         }

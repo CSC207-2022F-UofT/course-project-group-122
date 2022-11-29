@@ -152,9 +152,14 @@ public class MultipleChoiceQuestion extends Question implements java.io.Serializ
     @Override
     public String getAnswerChoices() {
         StringBuilder answerChoices = new StringBuilder();
+        answerChoices.append("<html>");
         for (int i = 0; i < this.choices.size(); i++) {
-            answerChoices.append(i + 1).append(". ").append(this.choices.get(i)).append("\n");
+            if (i != 0) {
+                answerChoices.append("<BR>");
+            }
+            answerChoices.append(i + 1).append(". ").append(this.choices.get(i));
         }
+        answerChoices.append("</html>");
         return answerChoices.toString();
     }
 }

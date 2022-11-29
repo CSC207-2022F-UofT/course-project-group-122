@@ -36,7 +36,7 @@ public class FetchQuestionnaireDataForAnswerInteractor implements FetchQuestionn
                 questionsInformation.put(questionVariable, questionInformation);
             }
             FetchQuestionnaireDataForAnswerResponseModel responseModel =
-                    new FetchQuestionnaireDataForAnswerResponseModel(participantID,modifier, studyId, questionnaireId,
+                    new FetchQuestionnaireDataForAnswerResponseModel(participantID, modifier, studyId, questionnaireId,
                             questionnaireName, questionnaireDescription, questionsInformation);
             presenter.presentQuestionnaireDataForAnswering(responseModel);
         }

@@ -1,10 +1,10 @@
 package use_cases.answer_questionnaire_data_request;
 
-/*
+/**
  * This the controller that calls on the use case that fetches the data for the participant to answer the questionnaire.
  */
 public class FetchQuestionnaireDataForAnswerController {
-    /*
+    /**
      * The interface that the use case implements and is called on by the controller.
      */
     FetchQuestionnaireDataForAnswerInputBoundary interactor;
