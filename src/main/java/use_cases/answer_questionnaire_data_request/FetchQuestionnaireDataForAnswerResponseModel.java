@@ -62,6 +62,7 @@ public class FetchQuestionnaireDataForAnswerResponseModel {
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
         this.questionsModel = questionsModel;
+        createQuestionsPanels();
     }
 
     /*
