@@ -9,7 +9,7 @@ public class TextQuestionPanel extends JPanel implements ParticipantsQuestionPan
     private final String variable;
 
     private final String question;
-    public TextQuestionPanel(String question, String type, String variable, String answer) {
+    public TextQuestionPanel(String question, String type, String variable) {
         this.type = type;
         this.variable = variable;
         this.question = question;
