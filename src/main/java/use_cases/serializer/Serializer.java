@@ -70,5 +70,4 @@ public class Serializer {
         purge(names);
         return objs;
     }
-
 }
