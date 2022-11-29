@@ -200,4 +200,6 @@ public class AnswerTest {
         answer1.addNewVersion(versionedAnswer2);
         assertEquals(versionedAnswer2, answer1.getCurrentVersion());
     }
+
+
 }

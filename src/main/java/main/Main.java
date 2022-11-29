@@ -544,6 +544,7 @@ public class Main {
         createQuestionnairePresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
 
         resultExtractionPresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
+        resultExtractionPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
 
         assignQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         assignQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
