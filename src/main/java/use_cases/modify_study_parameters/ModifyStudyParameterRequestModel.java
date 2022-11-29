@@ -27,13 +27,6 @@ public class ModifyStudyParameterRequestModel {
      */
     private int studyTargetSize;
 
-    /**
-     * The type of the study.
-     * Has to be one of the following:
-     * "General",
-     * "Randomized"
-     */
-    private String studyType;
 
     /**
      * The number of groups in the study.
@@ -71,20 +64,12 @@ public class ModifyStudyParameterRequestModel {
 
     /**
      * Set the target size of the study.
-     * @param studyTargetSize
+     * @param studyTargetSize   The target size of the study.
      */
     public void setStudyTargetSize(int studyTargetSize) {
         this.studyTargetSize = studyTargetSize;
     }
 
-
-    /**
-     * Set the type of the study.
-     * @param studyType The type of the study.
-     */
-    public void setStudyType(String studyType) {
-        this.studyType = studyType;
-    }
 
     /**
      * Set the number of groups in the study.
@@ -147,15 +132,6 @@ public class ModifyStudyParameterRequestModel {
      */
     public int getStudyTargetSize() {
         return studyTargetSize;
-    }
-
-
-    /**
-     * Get the type of the study.
-     * @return  The type of the study.
-     */
-    public String getStudyType() {
-        return studyType;
     }
 
 

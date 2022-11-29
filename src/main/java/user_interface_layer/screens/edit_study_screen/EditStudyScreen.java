@@ -16,8 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class EditStudyScreen extends JFrame {
-    String studyTypeInput = "";
-    List<String> groupNames;
+    private List<String> groupNames;
+
     public EditStudyScreen(@NotNull FetchStudyDataForEditingResponseModel data, ControllerManager controllerManager) {
         super("Edit Study Input Screen");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -39,21 +39,6 @@ public class EditStudyScreen extends JFrame {
         JTextField studyTargetSize = new JTextField( Integer.toString(data.getTargetSize()),10);
         JPanel studyTargetSizePanel = new SetLabelTextPanel(new JLabel("Study Target Size: "), studyTargetSize);
         studyTargetSizePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JPanel studyTypePanel = new JPanel();
-        studyTypePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel studyTypeLabel = new JLabel("Study Type: ", SwingConstants.CENTER);
-        JButton randomizeButton = new JButton("Randomized");
-        randomizeButton.addActionListener(e -> {
-            this.studyTypeInput = "Randomized";
-        });
-        JButton generalButton = new JButton("General");
-        generalButton.addActionListener(e -> {
-            this.studyTypeInput = "General";
-        });
-        studyTypePanel.add(studyTypeLabel);
-        studyTypePanel.add(randomizeButton);
-        studyTypePanel.add(generalButton);
 
 
         JPanel numOfGroupsPanel = new JPanel();
@@ -77,7 +62,7 @@ public class EditStudyScreen extends JFrame {
 
         JButton confirmNumOfGroupsButton = new JButton("Confirm Groups");
         confirmNumOfGroupsButton.addActionListener(e -> {
-            this.askGroupNamesScreen(count.get());
+            this.askGroupNamesScreen(count.get(), data.getStudyType());
         });
 
         addRemoveButtons.add(addGroupButton);
@@ -91,7 +76,7 @@ public class EditStudyScreen extends JFrame {
         JButton createStudyButton = new JButton("Edit Study");
         createStudyButton.addActionListener(e -> {
             if (studyName.getText().equals("") || studyDescription.getText().equals("") ||
-                    studyTargetSize.getText().equals("") || studyTypeInput.equals("") || groupNames == null) {
+                    studyTargetSize.getText().equals("") || groupNames == null) {
                 new GeneralFailureScreen("Please fill out all fields");
             } else {
                 try {
@@ -102,7 +87,6 @@ public class EditStudyScreen extends JFrame {
                 ModifyStudyParameterRequestModel requestModel = new ModifyStudyParameterRequestModel(
                         data.getStudyID(), studyName.getText(), studyDescription.getText());
                 requestModel.setStudyTargetSize(Integer.parseInt(studyTargetSize.getText()));
-                requestModel.setStudyType(studyTypeInput);
                 requestModel.setGroupNames(groupNames.toArray(new String[count.get()]));
                 requestModel.setNumGroups(count.get());
                 controllerManager.modifyStudyParameters(requestModel);
@@ -117,7 +101,6 @@ public class EditStudyScreen extends JFrame {
         screenPanel.add(studyNameInputPanel);
         screenPanel.add(studyDescriptionPanel);
         screenPanel.add(studyTargetSizePanel);
-        screenPanel.add(studyTypePanel);
         screenPanel.add(numOfGroupsPanel);
         screenPanel.add(createStudyButtonPanel);
 
@@ -128,14 +111,14 @@ public class EditStudyScreen extends JFrame {
 
     }
 
-    private void askGroupNamesScreen(int i) {
-        java.util.List<JTextField> groupNames = new ArrayList<>();
+    private void askGroupNamesScreen(int i, @NotNull String studyType) {
+        List<JTextField> groupNames = new ArrayList<>();
         JFrame askGroupNamesScreen = new JFrame();
         askGroupNamesScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         askGroupNamesScreen.setLayout(new BoxLayout(askGroupNamesScreen.getContentPane(), BoxLayout.Y_AXIS));
-        if (studyTypeInput.equals("Randomized")) {
+        if (studyType.equals("Randomized")) {
             askForRandomizedGroupNames(i, groupNames, askGroupNamesScreen);
-        } else if (studyTypeInput.equals("General")) {
+        } else if (studyType.equals("General")) {
             askForGeneralGroupNames(i, groupNames, askGroupNamesScreen);
         } else {
             JOptionPane.showMessageDialog(null, "Please select a study type");

@@ -44,10 +44,11 @@ public class FetchStudyDataResponseModel {
     private @NotNull Map<Integer, String[]> compileStudyData(@NotNull List<Study> listOfStudies) {
         Map<Integer, String[]> studiesData = new HashMap<>();
         for (Study study : listOfStudies) {
-            String[] studyData = new String[3];
+            String[] studyData = new String[4];
             studyData[0] = Integer.toString(study.getId());
             studyData[1] = study.getStudyName();
             studyData[2] = getStatus(study);
+            studyData[3] = study.getStudyType();
             studiesData.put(study.getId(), studyData);
         }
         return studiesData;
