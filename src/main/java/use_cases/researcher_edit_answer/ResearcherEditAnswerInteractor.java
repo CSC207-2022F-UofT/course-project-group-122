@@ -10,10 +10,10 @@ import java.util.HashMap;
 public class ResearcherEditAnswerInteractor implements ResearcherEditAnswerInputBoundary{
 
     @Override
-    public void editAnswer(int researcherID, int answerID, int participantID, HashMap<String, String> newAns,
-                           String reasonForModification) {
-        Answer ans = FetchId.getAnswer(answerID, participantID);
-        Researcher uModifier = (Researcher) FetchId.getUser(researcherID);
-        ans.modifyAnswer(newAns, uModifier, reasonForModification);
+    public void editAnswer(ResearcherEditAnswerRequestModel params) {
+        Answer ans = FetchId.getAnswer(params.getAnswerID(), params.getParticipantID());
+        Researcher uModifier = (Researcher) FetchId.getUser(params.getResearcherID());
+        assert ans != null;
+        ans.modifyAnswer(params.getAnswers(), uModifier, params.getReason());
     }
 }

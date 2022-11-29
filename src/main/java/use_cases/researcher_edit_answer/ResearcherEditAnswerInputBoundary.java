@@ -4,6 +4,5 @@ import java.util.HashMap;
 
 public interface ResearcherEditAnswerInputBoundary {
 
-    void editAnswer(int researcherID, int answerID, int participantID,
-                           HashMap<String, String> answers, String reasonForModification);
+    void editAnswer(ResearcherEditAnswerRequestModel inputData);
 }
