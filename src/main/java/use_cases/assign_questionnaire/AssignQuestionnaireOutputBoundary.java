@@ -14,5 +14,5 @@ public interface AssignQuestionnaireOutputBoundary {
 
     void assignToParticipantFail(int questionnaireID, int studyID, int participantID, String message);
 
-    void fetchParticipantInfoConfirmation(int participantId, String name, int studyId, int researcherId);
+    void fetchParticipantInfoConfirmation(int participantId, String name, int studyId, int questionnaireId);
 }

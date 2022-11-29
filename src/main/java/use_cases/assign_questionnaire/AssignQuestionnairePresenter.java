@@ -108,11 +108,11 @@ public class AssignQuestionnairePresenter implements AssignQuestionnaireOutputBo
      * @param name              The name of the participant.
      * @param studyId           The ID of the study that the questionnaire has been published to.
      * @param participantId     The ID of the participant that the questionnaire should assign to.
-     * @param researcherId      The ID of the researcher that assign the questionnaire.
+     * @param questionnaireId   The ID of the questionnaire that has been published.
      */
     @Override
-    public void fetchParticipantInfoConfirmation(int participantId, String name, int studyId, int researcherId) {
-        displayParticipantInfo.displayParticipantInfoForQAssignment(participantId, name, studyId, researcherId);
+    public void fetchParticipantInfoConfirmation(int participantId, String name, int studyId, int questionnaireId) {
+        displayParticipantInfo.displayParticipantInfoForQAssignment(participantId, name, studyId, questionnaireId);
 
     }
 

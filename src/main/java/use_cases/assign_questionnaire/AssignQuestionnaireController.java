@@ -46,7 +46,7 @@ public class AssignQuestionnaireController {
      * @param researcherId      The id of the researcher.
      */
     public void assignQuestionnaireToIndividual(int questionnaireId, int studyId, int participantId, int researcherId) {
-        assignQuestionnaireInteractor.assignToParticipant(questionnaireId, studyId, participantId, researcherId);
+        assignQuestionnaireInteractor.assignToParticipant(questionnaireId, participantId, studyId, researcherId);
     }
 
 

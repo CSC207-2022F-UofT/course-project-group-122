@@ -112,14 +112,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             } else {
                 participant.setGroup(1);
             }
-            //TODO: to remove
-            System.out.println(study.getPotentialParticipants());
-            System.out.println(study.getParticipants());
-
             study.addParticipant(participant);
-            //TODO: to remove
-            System.out.println(study.getPotentialParticipants());
-            System.out.println(study.getParticipants());
             participant.enroll();
             return true;
         } else {
