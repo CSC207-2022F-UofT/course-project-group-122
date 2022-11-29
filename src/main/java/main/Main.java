@@ -588,22 +588,24 @@ public class Main {
 
         // The serializer object
 
-//        Serializer s = new Serializer();
-//        ArrayList<Object> objs = s.getAll();
-//
-//        for(Object obj : objs){
-//            switch (obj.getClass().getSimpleName()){
-//                case "UserPool":
-//                    userPool = (UserPool) obj;
-//                    break;
-//                case "StudyPool":
-//                    studyPool = (StudyPool) obj;
-//                    break;
-//                case "RandomGroupGeneratorManager":
-//                    randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
-//                    break;
-//            }
-//        }
+        Serializer s = new Serializer();
+        ArrayList<Object> objs = s.getAll();
+
+        if (!objs.isEmpty()) {
+            for(Object obj : objs){
+                switch (obj.getClass().getSimpleName()){
+                    case "UserPool":
+                        userPool = (UserPool) obj;
+                        break;
+                    case "StudyPool":
+                        studyPool = (StudyPool) obj;
+                        break;
+                    case "RandomGroupGeneratorManager":
+                        randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
+                        break;
+                }
+        }
+
 
 
 
