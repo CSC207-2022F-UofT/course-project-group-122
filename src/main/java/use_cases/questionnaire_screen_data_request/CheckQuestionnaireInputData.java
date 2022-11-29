@@ -1,6 +1,7 @@
 package use_cases.questionnaire_screen_data_request;
 
 import org.jetbrains.annotations.NotNull;
+import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +53,13 @@ public class CheckQuestionnaireInputData {
     public CheckQuestionnaireInputData(int questionnaireId,
                                        String questionnaireName,
                                        String questionnaireDescription,
-                                       @NotNull Map<String, String[]> questions,
+                                       @NotNull List<QuestionModel> questions,
                                        int studyId) {
         this.questionnaireId = questionnaireId;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
-        for (Map.Entry<String, String[]> entry : questions.entrySet()) {
-            formattedQuestions.add(entry.getValue());
+        for (QuestionModel question : questions) {
+            formattedQuestions.add(new String[]{question.getType(), question.getContent(), question.getVariable(), question.getOptions()});
         }
         this.studyId = studyId;
     }

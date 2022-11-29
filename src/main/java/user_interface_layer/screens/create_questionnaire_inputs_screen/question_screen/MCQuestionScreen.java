@@ -57,7 +57,7 @@ public class MCQuestionScreen extends JFrame {
                 variables.add(variable.getText());
                 this.options = stringOptions;
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText(), this.options);
-                model.addRow(new String[]{"MC", question.getText(), variable.getText(), String.join(",", this.options)});
+                model.addRow(new String[]{newQuestion.getType(), newQuestion.getContent(), newQuestion.getVariable(), newQuestion.getOptions()});
                 addedQuestions.add(newQuestion);
                 this.dispose();
             }

@@ -487,6 +487,7 @@ public class Questionnaire implements java.io.Serializable{
 
     public void removeQuestions() {
         this.listOfQuestion.clear();
+        this.numOfQuestion = 0;
     }
 
     /**

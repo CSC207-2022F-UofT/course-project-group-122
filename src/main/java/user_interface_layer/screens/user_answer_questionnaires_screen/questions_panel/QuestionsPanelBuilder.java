@@ -16,8 +16,8 @@ public class QuestionsPanelBuilder {
         return new ScaleQuestionPanel(question, type, variable, bottomLabel, topLabel, scale);
     }
 
-    public ParticipantsQuestionPanel buildTextQuestionPanel(String question, String type, String variable, String options){
-        return new TextQuestionPanel(question, type, variable, options);
+    public ParticipantsQuestionPanel buildTextQuestionPanel(String question, String type, String variable){
+        return new TextQuestionPanel(question, type, variable);
 
 
     }

@@ -43,7 +43,7 @@ public class TextQuestionScreen extends JFrame{
             else {
                 variables.add(variable.getText());
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText());
-                model.addRow(new String[]{"Text",question.getText(), variable.getText(), ""});
+                model.addRow(new String[]{newQuestion.getType(),newQuestion.getContent(),newQuestion.getVariable(), newQuestion.getOptions()});
                 addedQuestions.add(newQuestion);
                 this.dispose();
             }

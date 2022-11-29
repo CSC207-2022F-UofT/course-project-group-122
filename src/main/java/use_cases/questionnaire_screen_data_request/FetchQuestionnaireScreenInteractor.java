@@ -2,8 +2,11 @@ package use_cases.questionnaire_screen_data_request;
 
 import entities.Question;
 import entities.Questionnaire;
+import use_cases.GetQuestionsModel;
 import use_cases.fetch_id.FetchId;
+import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +22,8 @@ public class FetchQuestionnaireScreenInteractor implements FetchQuestionnaireScr
         } else {
             String questionnaireName = questionnaire.getTitle();
             String questionnaireDescription = questionnaire.getDescription();
-            Map<String, String[]> InputData = new HashMap<>();
-            List<Question> question = questionnaire.getListOfQuestion();
-            for (Question q : question) {
-                String[] formattedQuestion = new String[]{q.getQuestionType(),q.getContent(), q.getContent(), q.getAnswerChoices()};
-                InputData.put(q.getVariableName(), formattedQuestion);
-            }
+            List<Question> questions = questionnaire.getListOfQuestion();
+            List<QuestionModel> InputData = GetQuestionsModel.getQuestionsModelForScreen(questions);
             CheckQuestionnaireInputData data = new CheckQuestionnaireInputData(questionnaireId,
                     questionnaireName, questionnaireDescription, InputData, studyId);
             presenter.presentQuestionnaireScreenData(data);

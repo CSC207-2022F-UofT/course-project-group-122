@@ -122,6 +122,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
                     } else {
                         ScaleQuestionScreen scaleQuestionScreen = new ScaleQuestionScreen(variables, addedQuestions, questionsTableModel, num);
                         scaleQuestionScreen.setVisible(true);
+                        numOfScale.setSize(300, 100);
                         numOfScale.dispose();
                     }
                 } catch (NumberFormatException ex) {

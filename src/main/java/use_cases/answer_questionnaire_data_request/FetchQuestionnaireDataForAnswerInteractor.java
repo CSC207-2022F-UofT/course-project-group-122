@@ -2,7 +2,9 @@ package use_cases.answer_questionnaire_data_request;
 
 import entities.Question;
 import entities.Questionnaire;
+import use_cases.GetQuestionsModel;
 import use_cases.fetch_id.FetchId;
+import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,18 +28,11 @@ public class FetchQuestionnaireDataForAnswerInteractor implements FetchQuestionn
             String questionnaireName = questionnaire.getTitle();
             String questionnaireDescription = questionnaire.getDescription();
             List<Question> questions = questionnaire.getListOfQuestion();
-            Map<String, String[]> questionsInformation = new HashMap<>();
-            for (Question question : questions) {
-                String questionVariable = question.getVariableName();
-                String questionType = question.getQuestionType();
-                String questionContent = question.getContent();
-                String questionOptions = question.getAnswerChoices();
-                String[] questionInformation = {questionType, questionContent, questionOptions};
-                questionsInformation.put(questionVariable, questionInformation);
-            }
+            List<QuestionModel> questionsModel = GetQuestionsModel.getQuestionsModelForScreen(questions);
+
             FetchQuestionnaireDataForAnswerResponseModel responseModel =
                     new FetchQuestionnaireDataForAnswerResponseModel(participantID,modifier, studyId, questionnaireId,
-                            questionnaireName, questionnaireDescription, questionsInformation);
+                            questionnaireName, questionnaireDescription, questionsModel);
             presenter.presentQuestionnaireDataForAnswering(responseModel);
         }
 

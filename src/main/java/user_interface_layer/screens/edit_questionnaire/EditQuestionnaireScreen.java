@@ -221,7 +221,7 @@ public class EditQuestionnaireScreen extends JFrame {
                         studyGroupNames.add(radioButton.getName());
                     }
                 }
-                addedQuestions.addAll(existingQuestions);
+                existingQuestions.addAll(addedQuestions);
                 controllerManager.editQuestionnaire(
                         data.getStudyID(),
                         data.getQuestionnaireID(),
@@ -229,7 +229,7 @@ public class EditQuestionnaireScreen extends JFrame {
                         questionnaireName.getText(),
                         questionnaireDescription.getText(),
                         studyGroupNames,
-                        addedQuestions);
+                        existingQuestions);
                 this.dispose();
             }
         });
