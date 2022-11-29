@@ -37,6 +37,7 @@ public class AnswerQuestionnaireInteractor implements AnswerQuestionnaireInputBo
             VersionedAnswer newVersionedAnswer = new VersionedAnswer(1, modifier, answers, newAnswer);
             newAnswer.addNewVersion(newVersionedAnswer);
             participant.addAnswer(newAnswer, questionnaire);
+            participant.completeQuestionnaire(questionnaire);
             String time  = newVersionedAnswer.getTimeOfModification();
             answerQuestionnairePresenter.presentAnswerQuestionnaireSuccess(participantId, modifierId,
                     questionnaireId, time);
