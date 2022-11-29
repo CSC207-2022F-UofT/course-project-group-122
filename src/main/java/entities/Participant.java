@@ -2,6 +2,7 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  * A participant class. A participant is a user who is participating in a study. Each participant object is associated
  * with only one study.
  */
-public class Participant extends User implements java.io.Serializable{
+public class Participant extends User implements Serializable {
 
     /**
      * The Study object this Participant belongs to.

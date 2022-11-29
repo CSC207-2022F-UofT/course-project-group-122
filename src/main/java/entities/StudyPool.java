@@ -3,9 +3,10 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class StudyPool implements java.io.Serializable{
+public class StudyPool implements Serializable {
     /**
      * The collection of all studies in the system.
      * This is outside the Study class because it is a static collection of all studies.

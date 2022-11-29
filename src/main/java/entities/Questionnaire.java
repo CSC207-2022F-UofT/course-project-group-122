@@ -2,6 +2,7 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ import java.util.List;
  *     Representation Invariant:
  *     <ul> <li> The variable names of all questions in a questionnaire must be unique </li>
  */
-public class Questionnaire implements java.io.Serializable{
+public class Questionnaire implements Serializable {
 
     /**
      * The current maximum ID of all the Questionnaires in the system. This is used to generate the next ID.

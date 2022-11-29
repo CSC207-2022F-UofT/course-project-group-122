@@ -1,9 +1,11 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * An abstract Question class. Each instance of a Question is part of a particular Questionnaire.
  */
-public abstract class Question implements java.io.Serializable{
+public abstract class Question implements Serializable {
 
     /**
      * The current maximum ID of all the Questions in the system. This is used to generate the next ID.

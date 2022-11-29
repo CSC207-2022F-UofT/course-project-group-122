@@ -2,6 +2,7 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
  * The ParticipantDataManager object is responsible for managing the data of the Participant object, including the
  * questionnaires and the answers to the questionnaires.
  */
-public class ParticipantDataManager implements java.io.Serializable{
+public class ParticipantDataManager implements Serializable {
 
     /**
      * The Participant object this ParticipantDataManager object is associated with.

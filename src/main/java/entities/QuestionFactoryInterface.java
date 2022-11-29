@@ -1,6 +1,9 @@
 package entities;
 
-public interface QuestionFactoryInterface{
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public interface QuestionFactoryInterface {
 
 
     /**
@@ -13,7 +16,7 @@ public interface QuestionFactoryInterface{
      * @param content           The content of the Question.
      * @return                  The Question object that was created.
      */
-    static Question create(String type, Questionnaire questionnaire, String variableName, String content){
+    static @Nullable Question create(@NotNull String type, Questionnaire questionnaire, String variableName, String content){
         switch (type) {
             case "MC":
                 return new MultipleChoiceQuestion(questionnaire, variableName, content);

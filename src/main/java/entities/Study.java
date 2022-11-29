@@ -2,6 +2,7 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.Map;
  * Representation Invariants:
  * potentialParticipants, participants, researchers, and questionnaires do not contain duplicates.
  */
-public class Study implements java.io.Serializable{
+public class Study implements Serializable {
 
     /**
      * Current study ID

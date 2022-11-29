@@ -3,10 +3,12 @@ package entities;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
+
 /**
  * A QuestionFactory that creates and returns Question objects.
  */
-public class QuestionFactory implements QuestionFactoryInterface, java.io.Serializable{
+public class QuestionFactory implements QuestionFactoryInterface, Serializable {
 
     /**
      * The create method that gets called with a specified type of Question when creating a Question object.
