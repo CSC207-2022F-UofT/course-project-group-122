@@ -52,7 +52,7 @@ public class DisplayParticipantStudyData implements DisplayParticipantStudyDataI
                 response.getEligibilityQuestionnaireAnswerHistory(),
                 response.getCompletedQuestionnaireAnswerHistory()
         );
-        ParticipantHomeScreen screen = new ParticipantHomeScreen(data, controllerManager);
+        ParticipantHomeScreen screen = new ParticipantHomeScreen(response, controllerManager);
         screenManager.setParticipantHomeScreen(screen);
         screenManager.updateCurrentScreen(screen);
         controllerManager.setCurrentUserId(response.getParticipantId());

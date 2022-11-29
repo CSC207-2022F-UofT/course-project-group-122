@@ -189,6 +189,7 @@ public class ScreenManager {
         if (this.studyDataLogScreen != null) {
             this.studyDataLogScreen.dispose();
         }
+        screen.setVisible(true);
         this.studyDataLogScreen = screen;
     }
 

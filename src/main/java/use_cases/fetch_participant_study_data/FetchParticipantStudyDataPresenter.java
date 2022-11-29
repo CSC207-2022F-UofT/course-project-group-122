@@ -3,6 +3,7 @@ package use_cases.fetch_participant_study_data;
 import user_interface_layer.presenter_manager.display_participant_study.DisplayParticipantStudyDataInterface;
 
 
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -25,6 +26,8 @@ public class FetchParticipantStudyDataPresenter implements FetchParticipantStudy
     @Override
     public void displayParticipantStudyData(FetchParticipantStudyDataResponseModel response, int userId,
                                             String userType) {
+
+        System.out.println(response.getCompletedQuestionnaireAnswerHistory().values().size());
         if (Objects.equals(userType, "Participant")) {
             displayParticipantStudyData.presentParticipantHomeScreenForParticipant(response);
         } else if (Objects.equals(userType, "Researcher")) {

@@ -12,28 +12,40 @@ import java.util.Map;
 
 public class FetchVersionedAnswerInteractor implements FetchVersionedAnswerInputBoundary {
     FetchVersionedAnswerOutBoundary fetchVersionedAnswerOutBoundary;
+
     @Override
     public void fetchVersionedAnswer(int studyId, int participantId, int questionnaireID, int answerID, int version) {
-        Answer answer = FetchId.getAnswer(answerID, participantId);
-        Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireID, studyId);
-        List< Question > questions = questionnaire.getListOfQuestion();
-        List<VersionedAnswer> versionedAnswers = answer.getAllVersions();
-        List<String[]> versionedAnswersList = new ArrayList<>();
-        for (VersionedAnswer versionedAnswer : versionedAnswers) {
-            if (versionedAnswer.getVersion() == version) {
-                Map<String, String> answers = versionedAnswer.getAnswer();
-                for (Question question : questions) {
-                    String variable = question.getVariableName();
-                    String answerString = answers.get(variable);
-                    String[] questionAnswer = {variable, answerString};
-                    versionedAnswersList.add(questionAnswer);
+        try {
+            Answer answer = FetchId.getAnswer(answerID, participantId);
+            if (answer == null) {
+                throw new Exception("Answer does not exist");
+            }
+            Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireID, studyId);
+            assert questionnaire != null;
+            List<Question> questions = questionnaire.getListOfQuestion();
+            List<VersionedAnswer> versionedAnswers = answer.getAllVersions();
+            if (versionedAnswers.size() == 0) {
+                throw new Exception("Version does not exist");
+            }
+            List<String[]> versionedAnswersList = new ArrayList<>();
+            for (VersionedAnswer versionedAnswer : versionedAnswers) {
+                if (versionedAnswer.getVersion() == version) {
+                    Map<String, String> answers = versionedAnswer.getAnswer();
+                    for (Question question : questions) {
+                        String variable = question.getVariableName();
+                        String answerString = answers.get(variable);
+                        String[] questionAnswer = {variable, answerString};
+                        versionedAnswersList.add(questionAnswer);
+                    }
                 }
             }
+            FetchVersionedAnswerResponseModel data = new FetchVersionedAnswerResponseModel(studyId, questionnaireID, versionedAnswersList);
+            fetchVersionedAnswerOutBoundary.presentVersionedAnswer(data);
+        }catch (Exception e){
+            fetchVersionedAnswerOutBoundary.presentFailedScreen(e.getMessage());
         }
-        FetchVersionedAnswerResponseModel data = new FetchVersionedAnswerResponseModel(studyId, questionnaireID, versionedAnswersList);
-        fetchVersionedAnswerOutBoundary.presentVersionedAnswer(data);
-    }
 
+    }
 
     public void setFetchVersionedAnswerOutBoundary(FetchVersionedAnswerOutBoundary fetchVersionedAnswerOutBoundary) {
         this.fetchVersionedAnswerOutBoundary = fetchVersionedAnswerOutBoundary;

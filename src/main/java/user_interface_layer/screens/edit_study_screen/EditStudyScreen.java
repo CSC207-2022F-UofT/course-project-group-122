@@ -106,9 +106,8 @@ public class EditStudyScreen extends JFrame {
                 requestModel.setGroupNames(groupNames.toArray(new String[count.get()]));
                 requestModel.setNumGroups(count.get());
                 controllerManager.modifyStudyParameters(requestModel);
-
+                dispose();
             }
-            dispose();
         });
         createStudyButtonPanel.add(createStudyButton);
 

@@ -61,6 +61,7 @@ public class UserAnswerQuestionnairesScreen extends JFrame {
             }
             controllerManager.answerQuestionnaire(data.getModifierId(), data.getParticipantID(),
                     data.getQuestionnaireID(), data.getStudyID(), answers);
+            dispose();
 
         });
         submitPanel.add(submitButton);

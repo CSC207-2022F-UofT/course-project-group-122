@@ -1,5 +1,6 @@
 package user_interface_layer.screens.participant_home_screens;
 
+import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
 import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
@@ -20,7 +21,7 @@ public class ParticipantHomeScreen extends JFrame {
     JPanel assignedQuestionnairePanel;
     JPanel completedQuestionnairePanel;
 
-    public ParticipantHomeScreen(@NotNull ParticipantHomeScreenInputData data, @NotNull ControllerManager controllerManager) {
+    public ParticipantHomeScreen(@NotNull FetchParticipantStudyDataResponseModel data, @NotNull ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -80,54 +81,5 @@ public class ParticipantHomeScreen extends JFrame {
         add(participantScreenMain, BorderLayout.CENTER);
         setSize(600, 400);
         SetScreenToCenter s = new SetScreenToCenter(this);
-    }
-
-    public static void main(String[] args) {
-        List<Integer> assignedQuestionnaires = new ArrayList<>();
-        assignedQuestionnaires.add(1);
-        assignedQuestionnaires.add(2);
-        Map<Integer, String[]> assignedQuestionnairesData = new HashMap<>();
-        assignedQuestionnairesData.put(1, new String[]{"1", "A second questionnaire", "Open"});
-        assignedQuestionnairesData.put(2, new String[]{"2", "A third questionnaire", "Open"});
-        List<Integer> completedQuestionnaires = new ArrayList<>();
-        completedQuestionnaires.add(3);
-        completedQuestionnaires.add(4);
-        Map<Integer, String[]> completedQuestionnairesData = new HashMap<>();
-        completedQuestionnairesData.put(3, new String[]{"3", "A first questionnaire", "Completed"});
-        completedQuestionnairesData.put(4, new String[]{"4", "A second questionnaire", "Completed"});
-        List<Integer> answeredToQuestionnaires = new ArrayList<>();
-        answeredToQuestionnaires.add(5);
-        answeredToQuestionnaires.add(6);
-        List<String[]> eligibilityQuestionnaireAnswerHistory = new ArrayList<>();
-        eligibilityQuestionnaireAnswerHistory.add(new String[]{"34", "6", "Jannet", "2020-12-12", "Some Answer"});
-        eligibilityQuestionnaireAnswerHistory.add(new String[]{"35", "6", "Jannet", "2020-12-12", "Some Answer"});
-        eligibilityQuestionnaireAnswerHistory.add(new String[]{"36", "6", "Jannet", "2020-12-12", "Some Answer"});
-        Map<Integer, List<String[]>> completedQuestionnaireAnswerHistory = new HashMap<>();
-        completedQuestionnaireAnswerHistory.put(3,eligibilityQuestionnaireAnswerHistory);
-        completedQuestionnaireAnswerHistory.put(4,eligibilityQuestionnaireAnswerHistory);
-
-
-        ParticipantHomeScreenInputData data = new ParticipantHomeScreenInputData(45,
-                "Bob",
-                "Potential",
-                4,
-                "Sleep",
-                "Sleep deprivation will give you cancer",
-                "Open",
-                3,
-                2,
-                "Open",
-                assignedQuestionnaires,
-                completedQuestionnaires,
-                answeredToQuestionnaires,
-                new String[]{"2", "a questionnaire", "Open"},
-                assignedQuestionnairesData,
-                completedQuestionnairesData,
-                eligibilityQuestionnaireAnswerHistory,
-                completedQuestionnaireAnswerHistory);
-        ParticipantHomeScreen screen = new ParticipantHomeScreen(data, new ControllerManager(new ScreenManager()));
-        screen.setVisible(true);
-
-
     }
 }

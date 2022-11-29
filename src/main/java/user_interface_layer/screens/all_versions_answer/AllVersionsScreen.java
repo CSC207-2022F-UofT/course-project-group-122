@@ -22,6 +22,10 @@ public class AllVersionsScreen extends JFrame {
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
 
+        for (String[] answer : data.getAnswer()) {
+            System.out.println(answer);
+        }
+        assert data.getAnswer() != null;
         for (String[] answerData : data.getAnswer()) {
             model.addRow(answerData);
         }

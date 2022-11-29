@@ -192,6 +192,11 @@ public class ControllerManager {
     }
 
     public void checkQuestionnaireVersionedAnswer(int studyId, int participantId, int questionnaireID, List<String[]> answers) {
+        for (String[] answer : answers) {
+            int answerID = Integer.parseInt(answer[0]);
+            int version = Integer.parseInt(answer[1]);
+            System.out.println("Checking answer " + answerID + " version " + version);
+        }
         setQuestionnaireVersionedAnswerDriver.checkQuestionnaireVersionedAnswerDriver(studyId,
                 participantId,
                 questionnaireID,
