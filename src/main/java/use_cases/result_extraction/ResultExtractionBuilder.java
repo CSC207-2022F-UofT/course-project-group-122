@@ -15,9 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ResultExtractionBuilder {
-    private static final Integer notSuccess = 0;
-    private static final Integer isSuccess = 1;
-
     private final ArrayList<String> failMessage = new ArrayList<>();
 
 
@@ -34,14 +31,32 @@ public class ResultExtractionBuilder {
     }
 
     public void createFile(@NotNull Questionnaire questionnaire, String folderPath, Study study){
-        String fileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
-        String filePath = folderPath + "\\" + fileName;
-        File questionnaireResult = new File(filePath);
-        writeCSVFile(questionnaireResult, questionnaire, study);
-        verifyCreation(questionnaireResult, fileName);
+        if (questionnaire.isPublished()) {
+            String fileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
+            String filePath = folderPath + "\\" + fileName;
+            File questionnaireResult = new File(filePath);
+            writeCSVFile(questionnaireResult, questionnaire, study);
+            verifyCreation(questionnaireResult, fileName);
+        }
     }
 
-    private void writeCSVFile(File questionnaireResult, Questionnaire questionnaire, Study study){
+
+
+
+    private void verifyCreation(@NotNull File fileObj, String fileName) {
+        if (!fileObj.mkdir()) {
+            String info = fileName + "create unsuccessfully";
+            failMessage.add(info);
+        }
+    }
+    public ArrayList<String> getFailMessage(){
+        return this.failMessage;
+    }
+
+
+
+
+    private void writeCSVFile(File questionnaireResult, Questionnaire questionnaire, @NotNull Study study){
         try {
             FileWriter exportFile = new FileWriter(questionnaireResult);
             CSVWriter writer = new CSVWriter(exportFile);
@@ -57,9 +72,17 @@ public class ResultExtractionBuilder {
         } catch (IOException err) {
             err.printStackTrace();
         }
-
     }
 
+    /**
+     * Pack the names of information type and question variable into a String array
+     * Return thIS string array for the correlated questionnaire csv file to write.
+     * Preconditions:
+     * The questionnaire is in the study.
+     * The questionnaire have been published
+     * @param questionnaire The questionnaire in the study.
+     * @return String array that contain all type name and question variable.
+     */
     private String @NotNull [] firstLine(@NotNull Questionnaire questionnaire) {
         ArrayList<String> headLine = new ArrayList<>();
         headLine.add("ParticipantName");
@@ -72,6 +95,15 @@ public class ResultExtractionBuilder {
         return headLine.toArray(new String[0]);
     }
 
+    /**
+     * Pack the identity information of the participants, the modification information and the modified versioned answer.
+     * After packing information above, the String array of this information will be sent to questionnaire csv file.
+     * Precondition:
+     * the participant have finished
+     * @param par1 the participant to extract information from
+     * @param questionnaire1 the questionnaire used to find exact versioned answer
+     * @return the string array contained result information of the participant.
+     */
     private String @NotNull [] restLine(@NotNull Participant par1, Questionnaire questionnaire1){
         ArrayList<String> oneLine = new ArrayList<>();
         oneLine.add(par1.getName());
@@ -91,10 +123,5 @@ public class ResultExtractionBuilder {
         return oneLine.toArray(new String[0]);
     }
 
-    private void verifyCreation(@NotNull File fileObj, String fileName) {
-        if (!fileObj.mkdir()) {
-            String info = fileName + "create unsuccessfully";
-            failMessage.add(info);
-        }
-    }
+
 }
