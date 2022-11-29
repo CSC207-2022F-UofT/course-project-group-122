@@ -83,6 +83,7 @@ import use_cases.remove_researcher.RemoveResearcherPresenter;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.researcher_enroller.ResearcherEnrollerInteractor;
 import use_cases.researcher_enroller.ResearcherEnrollerPresenter;
+import use_cases.result_extraction.ResultExtractionBuilder;
 import use_cases.result_extraction.ResultExtractionController;
 import use_cases.result_extraction.ResultExtractionInteractor;
 import use_cases.result_extraction.ResultExtractionPresenter;
@@ -398,6 +399,7 @@ public class Main {
         ResultExtractionPresenter resultExtractionPresenter = new ResultExtractionPresenter();
         resultExtractionController.setResultExtractionInteractor(resultExtractionInteractor);
         resultExtractionInteractor.setResultExtractionPresenter(resultExtractionPresenter);
+        ResultExtractionBuilder resultExtractionBuilder= new ResultExtractionBuilder();
 
         // Create consent form use case
         CreateConsentFormController createConsentFormController = new CreateConsentFormController();
@@ -545,6 +547,7 @@ public class Main {
 
         resultExtractionPresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
         resultExtractionPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+        resultExtractionInteractor.setResultExtractionBuilder(resultExtractionBuilder);
 
         assignQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         assignQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);

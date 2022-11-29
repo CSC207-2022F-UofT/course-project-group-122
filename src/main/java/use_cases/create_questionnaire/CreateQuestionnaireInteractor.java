@@ -18,7 +18,7 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
         try {
             Study study = FetchId.getStudy(data.getStudyID());
             if (!study.isActive()) {
-                throw new Exception("Study is not active");
+                creationOutputBoundary.presentFailureScreen("Study is not active");
             }
             List<String> groupNum = CreateTargetGroups.createTargetGroups(data.getGroups(), study);
             Questionnaire questionnaire = new Questionnaire(study,
@@ -29,9 +29,13 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
             if (data.getType().equals("General")) {
                 study.addQuestionnaire(questionnaire);
             } else if (data.getType().equals("Eligibility")) {
+                if (study.getEligibilityQuestionnaire() != null) {
+                    creationOutputBoundary.presentFailureScreen("Eligibility questionnaire already exists");
+                    throw new IllegalStateException("Eligibility questionnaire already exists");
+                }
                 study.setEligibilityQuestionnaire(questionnaire);
             } else {
-                throw new Exception("Failed to create questionnaire");
+                throw new IllegalStateException("Failed to create questionnaire");
             }
         } catch (Exception e) {
             creationOutputBoundary.presentFailureScreen(e.getMessage());
@@ -44,7 +48,7 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
         try {
             Study study = FetchId.getStudy(data.getStudyID());
             if (!study.isActive()) {
-                throw new Exception("Study is not active");
+                editOutputBoundary.presentFailureScreen("Study is not active");
             }
             Questionnaire questionnaire = FetchId.getQuestionnaire(data.getQuestionnaireID(),data.getStudyID());
             assert questionnaire != null;
