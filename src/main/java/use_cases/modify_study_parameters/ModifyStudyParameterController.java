@@ -24,12 +24,10 @@ public class ModifyStudyParameterController {
         String studyName = requestModel.getStudyName();
         String studyDescription = requestModel.getStudyDescription();
         int targetSize = requestModel.getStudyTargetSize();
-        String studyType = requestModel.getStudyType();
         int numGroups = requestModel.getNumGroups();
         String[] groupNames = requestModel.getGroupNames();
 
         modifyStudyParameterInteractor.modifyStudyBasicParameters(studyId, studyName, studyDescription, targetSize);
-        modifyStudyParameterInteractor.modifyStudyType(studyId, studyType);
         modifyStudyParameterInteractor.modifyStudyGrouping(studyId, numGroups, groupNames, researcherId);
     }
 
