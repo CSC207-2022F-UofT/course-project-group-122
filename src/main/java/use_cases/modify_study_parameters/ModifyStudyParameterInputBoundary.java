@@ -20,13 +20,6 @@ interface ModifyStudyParameterInputBoundary {
      */
     void modifyStudyBasicParameters(int studyId, String studyName, String studyDescription, int targetSize);
 
-    /**
-     * Modifies the type of the study.
-     * @param studyId   The ID of the study.
-     * @param studyType      The new type of the study.
-     */
-    void modifyStudyType(int studyId, String studyType);
-
 
     /**
      * Modifies the randomization method of the study.

@@ -41,7 +41,7 @@ public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoun
             researcherEnrollerPresenter.invalidResearcherId(researcherId,
                     "The researcher is already enrolled in the study.");
         } else {
-            study.addResearchers(researcher);
+            study.addResearcher(researcher);
             researcher.addToListStudies(study);
             researcherEnrollerPresenter.presentEnrollmentSuccess(researcher.getId(), researcher.getName(),
                     study.getId(), study.getStudyName(), userId);

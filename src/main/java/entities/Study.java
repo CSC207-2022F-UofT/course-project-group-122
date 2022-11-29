@@ -15,55 +15,17 @@ import java.util.Map;
  * Representation Invariants:
  * potentialParticipants, participants, researchers, and questionnaires do not contain duplicates.
  */
-public class Study implements Serializable {
+public abstract class Study implements Serializable {
 
     /**
      * Current study ID
      */
     private static int currID = 0;
+
     /**
      * The ID of the study
      */
     private final int id;
-    /**
-     * The type of the study. The type must be either "Randomized" or "General"
-     */
-    private String studyType;
-
-    /**
-     * The randomization method of the study. The randomization method is "N/A" if and only if the study type is
-     * "General". The randomization method must be "Simple", "Block", or "Stratified" when the study type is
-     * "Randomized". This attribute is initially set to "N/A". If the study type is changed to "Randomized", the
-     * randomization method must not be "N/A". For randomized studies, the randomization method is by default set to
-     * "Block". The randomization method can be changed to "Simple" if the user wishes to do so, but this is done after
-     * the study is initialized.
-     * <p>
-     * There are three types of randomization methods:
-     * - Simple randomization: each participant is assigned to a group using a pseudo-random number generator based on
-     * simple uniform distribution.
-     * - Block randomization: each participant is assigned to a group using a pseudo-random number generator based on
-     * randomization within a block. The participants are evenly distributed across the groups within a block. The block
-     * size is a multiple of the number of groups. This method is used to ensure a balance in sample size across groups
-     * over time.
-     * - Stratified randomization: each participant is assigned to a group using a pseudo-random number generator based
-     * on randomization within a stratum. The participants are evenly distributed across the groups within a stratum.
-     * The stratum is a subset of the participants that have the same value for a certain attribute. This attribute is
-     * defined by the user as a variable (question) in the eligibility questionnaire. This method is used to ensure a
-     * balance in sample size across groups over time.
-     */
-
-    private String randomizationMethod = "N/A";
-
-    /**
-     * The stratification method of the study. The stratification method is "N/A" if and only if (the study type is
-     * "General") or (the study type is "Randomized" AND the randomizationMethod is not "Stratified"). The
-     * stratification method must be a non-empty string indicating a variable name in the eligibility questionnaire and
-     * that the question this variable refers to is a multiple choice or a scale question. This attribute is initially
-     * set to "N/A". If the study type is changed to "Randomized" and the randomization method is changed to
-     * "Stratified", the stratification method must not be "N/A". The stratification method can be changed to a
-     * non-empty string if the user wishes to do so, but this is done after the study is initialized.
-     */
-    private String stratificationMethod = "N/A";
 
     /**
      * The title of the study
@@ -90,85 +52,27 @@ public class Study implements Serializable {
      * manager is initialized when the study is initialized. This includes the researchers, potential participants,
      * and participants of the study.
      */
-    private final StudyUserManager studyUserManager = new StudyUserManager(this);
+    protected final StudyUserManager studyUserManager = new StudyUserManager(this);
 
     /**
      * The study questionnaire manager of the study. The study questionnaire manager manages the questionnaires of
      * the study. The study questionnaire manager is initialized when the study is initialized. This includes the
      * eligibility questionnaire, the consent form, and the questionnaires for the participants.
      */
-    private final StudyQuestionnaireManager studyQuestionnaireManager = new StudyQuestionnaireManager(this);
+    protected final StudyQuestionnaireManager studyQuestionnaireManager = new StudyQuestionnaireManager(this);
 
 
     /**
      * Construct a study object with the following parameters specified:
-     * The first constructor where the researchers define custom groupings of the study participants.
-     * <p>
-     * Precondition: the type of the study must be either "Randomized" or "General". The number of groups must be
-     * the same as the number of group names specified. This condition is checked in the use case class.
-     *
-     * @param studyType       The type of the study, which must be either "Randomized" or "General"
-     * @param studyName       The name of the study that the researcher specifies
-     * @param targetStudySize The target study size. What is the number of participants the researchers of this study
-     *                        want to achieve?
-     * @param numGroups       The number of groups that the researchers specify. The researchers specify the custom
-     *                        grouping they want.
-     * @param groupNames      The name for each of the group that researcher specifies. The length of the list must be
-     *                        the same as the number of groups, and each name corresponds to the right index to be
-     *                        referred to.
-     */
-    public Study(@NotNull String studyType, String studyName, int targetStudySize, int numGroups, String[] groupNames) {
-        // update the current ID
-        currID++;
-        this.id = currID;
-        this.studyType = studyType;
-        if (studyType.equals("Randomized")) {
-            this.randomizationMethod = "Block";
-        }
-        this.studyName = studyName;
-        this.targetStudySize = targetStudySize;
-        this.studyUserManager.resetGroups(numGroups, groupNames);
-    }
-
-
-    /**
-     * Construct a study object with the following parameters specified:
-     * A second constructor, where the grouping is left by default - there is only one group.
-     * <p>
-     * Precondition: the type of the study must be either "Randomized" or "General".
-     *
-     * @param studyType       The type of the study, which must be either "Randomized" or "General"
-     * @param studyName       The name of the study that the researcher specifies
-     * @param targetStudySize The target study size. What is the number of participants the researchers of this study
-     *                        want to achieve?
-     */
-    public Study(@NotNull String studyType, String studyName, int targetStudySize) {
-        // update the current ID
-        currID++;
-        this.id = currID;
-        this.studyType = studyType;
-        if (studyType.equals("Randomized")) {
-            this.randomizationMethod = "Block";
-        }
-        this.studyName = studyName;
-        this.targetStudySize = targetStudySize;
-    }
-
-
-    /**
-     * Construct a study object with the following parameters specified:
-     * A third constructor, where the grouping is left by default - there is only one group, and the study type is
-     * "General" by default.
      *
      * @param studyName       The name of the study that the researcher specifies
      * @param targetStudySize The target study size. What is the number of participants the researchers of this study
      *                        want to achieve?
      */
-    public Study(String studyName, int targetStudySize) {
+    protected Study(String studyName, int targetStudySize) {
         // update the current ID
         currID++;
         this.id = currID;
-        this.studyType = "General";
         this.studyName = studyName;
         this.targetStudySize = targetStudySize;
     }
@@ -211,16 +115,6 @@ public class Study implements Serializable {
      */
     public void modifyTargetStudySize(int targetStudySize) {
         this.targetStudySize = targetStudySize;
-    }
-
-
-    /**
-     * The current number of participants in the study.
-     *
-     * @return the current number of participants in the study.
-     */
-    public int currentStudySize() {
-        return studyUserManager.currentStudySize();
     }
 
 
@@ -281,6 +175,7 @@ public class Study implements Serializable {
         return studyUserManager.getGroupNames();
     }
 
+
     /**
      * Reset the grouping of the study, including the names.
      * Only allowed when there is no eligible participants in the study.
@@ -293,10 +188,9 @@ public class Study implements Serializable {
      *
      * @param numGroups  the number of groups
      * @param groupNames the name of the groups
-     * @return whether the change is successful
      */
-    public boolean resetGroups(int numGroups, String[] groupNames) {
-        return studyUserManager.resetGroups(numGroups, groupNames);
+    public void resetGroups(int numGroups, String[] groupNames) {
+        studyUserManager.resetGroups(numGroups, groupNames);
     }
 
 
@@ -311,10 +205,9 @@ public class Study implements Serializable {
      * maintained in the use case.
      *
      * @param numGroups the number of groups
-     * @return whether the change is successful
      */
-    public boolean resetGroups(int numGroups) {
-        return studyUserManager.resetGroups(numGroups);
+    public void resetGroups(int numGroups) {
+        studyUserManager.resetGroups(numGroups);
     }
 
 
@@ -323,91 +216,7 @@ public class Study implements Serializable {
      *
      * @return the type of the study.
      */
-    public String getStudyType() {
-        return this.studyType;
-    }
-
-
-    /**
-     * Reset the type of the study.
-     * Only allowed when there is no eligible participants in the study.
-     * <p>
-     * Precondition: the type of the study must be either "Randomized" or "General".
-     *
-     * @param studyType the type of the study
-     * @return whether the change is successful
-     */
-    public boolean setStudyType(String studyType) {
-        if (this.studyUserManager.getParticipants().isEmpty()) {
-            this.studyType = studyType;
-            if (studyType.equals("Randomized")) {
-                this.randomizationMethod = "Block";
-            } else {
-                this.randomizationMethod = "N/A";
-            }
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Retrieve the randomization method of the study.
-     *
-     * @return the randomization method of the study.
-     */
-    public String getRandomizationMethod() {
-        return randomizationMethod;
-    }
-
-
-    /**
-     * Reset the randomization method of the study.
-     * Only allowed when there is no eligible participants in the study. Also, only allowed when the study type is
-     * "Randomized".
-     * <p>
-     * Precondition: the randomization method of the study must be "Block", "Simple", or "Stratified".
-     *
-     * @param randomizationMethod the randomization method of the study
-     * @return whether the change is successful
-     */
-    public boolean setRandomizationMethod(String randomizationMethod) {
-        if (this.studyUserManager.getParticipants().isEmpty() && this.studyType.equals("Randomized")) {
-            this.randomizationMethod = randomizationMethod;
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Retrieve the stratification method of the study.
-     *
-     * @return the stratification method of the study.
-     */
-    public String getStratificationMethod() {
-        return stratificationMethod;
-    }
-
-
-    /**
-     * Reset the stratification method of the study.
-     * Only allowed when there is no eligible participants in the study. Also, only allowed when the study type is
-     * "Randomized" and the randomization method is "Stratified".
-     * <p>
-     * The stratification method of the study must be a valid variable name in the eligibility questionnaire.
-     *
-     * @param stratificationMethod the stratification method of the study
-     * @return whether the change is successful
-     */
-    public boolean setStratificationMethod(String stratificationMethod) {
-        if (this.studyUserManager.getParticipants().isEmpty() && this.studyType.equals("Randomized") &&
-                this.randomizationMethod.equals("Stratified")) {
-            this.stratificationMethod = stratificationMethod;
-            return true;
-        }
-        return false;
-    }
+    public abstract String getStudyType();
 
 
     /**
@@ -441,24 +250,12 @@ public class Study implements Serializable {
 
 
     /**
-     * Remove a potential participant from the list of potential participants.
-     *
-     * @param p the potential participant to be removed.
-     * @return whether the removal is successful.
-     */
-    public boolean removePotentialParticipant(Participant p) {
-        return studyUserManager.removePotentialParticipant(p);
-    }
-
-
-    /**
      * Add a potential participant from the list of potential participants.
      *
      * @param p the potential participant to be added.
-     * @return whether the addition is successful.
      */
-    public boolean addPotentialParticipant(Participant p) {
-        return studyUserManager.addPotentialParticipant(p);
+    public void addPotentialParticipant(Participant p) {
+        studyUserManager.addPotentialParticipant(p);
     }
 
 
@@ -473,25 +270,13 @@ public class Study implements Serializable {
 
 
     /**
-     * Remove a participant from the list of eligible participants.
-     *
-     * @param p participant to be removed.
-     * @return whether the removal is successful.
-     */
-    public boolean removeParticipant(Participant p) {
-        return studyUserManager.removeParticipant(p);
-    }
-
-
-    /**
      * Add participants from the list of eligible participants.
      * The participant must be in the list of potential participants.
      *
      * @param p participant to be added.
-     * @return whether the addition is successful.
      */
-    public boolean addParticipant(Participant p) {
-        return studyUserManager.addParticipant(p);
+    public void addParticipant(Participant p) {
+        studyUserManager.addParticipant(p);
     }
 
 
@@ -506,25 +291,12 @@ public class Study implements Serializable {
 
 
     /**
-     * Add a list of researchers to the existing list of researchers in the study.
-     * Return false if the added list is empty.
-     *
-     * @param researcherList a list of researchers to be added.
-     * @return whether the addition is successful.
-     */
-    public boolean addResearchers(@NotNull List<Researcher> researcherList) {
-        return studyUserManager.addResearchers(researcherList);
-    }
-
-
-    /**
      * Add a researcher to the existing list of researchers in the study.
      *
      * @param researcher a researcher to be added.
-     * @return whether the addition is successful.
      */
-    public boolean addResearchers(Researcher researcher) {
-        return studyUserManager.addResearcher(researcher);
+    public void addResearcher(Researcher researcher) {
+        studyUserManager.addResearcher(researcher);
     }
 
 
@@ -532,10 +304,9 @@ public class Study implements Serializable {
      * Remove a researcher from the list of researchers in the study.
      *
      * @param researcher researcher to be removed.
-     * @return whether the removal is successful.
      */
-    public boolean removeResearcher(Researcher researcher) {
-        return studyUserManager.removeResearcher(researcher);
+    public void removeResearcher(Researcher researcher) {
+        studyUserManager.removeResearcher(researcher);
     }
 
 
@@ -570,10 +341,9 @@ public class Study implements Serializable {
      * Add a questionnaire to the list of questionnaires.
      *
      * @param q the questionnaire to be added.
-     * @return whether the addition is successful.
      */
-    public boolean addQuestionnaire(Questionnaire q) {
-        return this.studyQuestionnaireManager.addQuestionnaire(q);
+    public void addQuestionnaire(Questionnaire q) {
+        this.studyQuestionnaireManager.addQuestionnaire(q);
     }
 
     /**
@@ -595,18 +365,16 @@ public class Study implements Serializable {
         return this.studyQuestionnaireManager.getConsentForm();
     }
 
+
     /**
      * Set the consent form. Returns true if the consent form is set successfully.
      *
      * @param consentForm the consent form.
-     * @return whether the consent form is set successfully.
      */
-    public boolean setConsentForm(@NotNull ConsentForm consentForm) {
+    public void setConsentForm(@NotNull ConsentForm consentForm) {
         if (consentForm.getStudy().equals(this)) {
             this.studyQuestionnaireManager.setConsentForm(consentForm);
-            return true;
         }
-        return false;
     }
 
 
