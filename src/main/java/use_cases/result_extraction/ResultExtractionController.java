@@ -10,7 +10,6 @@ public class ResultExtractionController {
      * @param filepath The file path to save the result folder
      */
     public void resultPullingAndExtraction(int studyID, String filepath){
-        System.out.println(filepath);
         resultPullingAndExtractionInteractor.resultPullingAndExtraction(studyID, filepath);
     }
 

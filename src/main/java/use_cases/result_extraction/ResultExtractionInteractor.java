@@ -51,50 +51,18 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
     public void resultPullingAndExtraction(int studyID, String filepath) {
         ArrayList<String> presentInfo = new ArrayList<>();
         ArrayList<Integer> presentIndicator = new ArrayList<>();
-        Integer notSuccess = 0;
-        Integer isSuccess = 1;
 
 
         Study study = FetchId.getStudy(studyID);
-        String folderName = study.getId() + "_" + study.getStudyName();
-        String folderPath = filepath + "\\" + folderName;
-        File studyFolder = new File(folderPath);
-        if (studyFolder.mkdir()) {
-            presentInfo.add("folder " + folderName + "create successfully");
-            presentIndicator.add(isSuccess);
-        }else {
-            presentInfo.add("folder " + folderName + "create unsuccessfully");
-            presentIndicator.add(notSuccess);
-        }
+        ResultExtractionBuilder fBuilder = new ResultExtractionBuilder();
+
+        String folderPath = fBuilder.createFolder(study, filepath);
+
 
 
         if (study.getEligibilityQuestionnaire() != null) {
             Questionnaire eliQuestionnaire = study.getEligibilityQuestionnaire();
-            String eliFileName = eliQuestionnaire.getId() + "_" + eliQuestionnaire.getTitle() + ".csv";
-            String eliFilePath = folderPath + "\\" + eliFileName;
-            File eliQuestionnaireResult = new File(eliFilePath);
-            try {
-                FileWriter exportFile = new FileWriter(eliQuestionnaireResult);
-                CSVWriter writer = new CSVWriter(exportFile);
-                List<String[]> result1 = new ArrayList<>();
-                result1.add(firstLine(eliQuestionnaire));
-                for (Participant par2 : study.getParticipants()) {
-                    if (par2.hasCompletedEligibilityQuestionnaire()) {
-                        result1.add(restLine(par2, eliQuestionnaire));
-                    }
-                }
-                writer.writeAll(result1);
-                writer.close();
-            } catch (IOException err) {
-                err.printStackTrace();
-            }
-            if (eliQuestionnaireResult.mkdir()) {
-                presentInfo.add("file " + eliFileName + "create successfully");
-                presentIndicator.add(isSuccess);
-            } else {
-                presentInfo.add("file " + eliFileName + "create unsuccessfully");
-                presentIndicator.add(notSuccess);
-            }
+            fBuilder.createFile(eliQuestionnaire, folderPath, study);
 
 
             List<Questionnaire> listOfQuestionnaire = study.getQuestionnaires();

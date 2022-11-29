@@ -1,5 +1,6 @@
 package use_cases.result_extraction;
 
+import org.jetbrains.annotations.NotNull;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 
@@ -23,11 +24,16 @@ public class ResultExtractionPresenter implements ResultExtractionOutputBoundary
      * @param failList the given list of failure message.
      * @return a String that contain all the failure information.
      */
-    public String presentSavingInfo(ArrayList<String> failList){
+    public String presentSavingInfo(@NotNull ArrayList<String> failList){
         StringBuilder failMessage = new StringBuilder();
-        for (String fail: failList){
-            failMessage.append("\r\n").append(fail);
+        failMessage.append("<html>");
+        for (int i = 0; i < failList.size(); i++){
+            if (i != 0) {
+                failMessage.append("<BR>");
+            }
+            failMessage.append(failList.get(i));
         }
+        failMessage.append("</html>");
         return failMessage.toString();
     }
 
