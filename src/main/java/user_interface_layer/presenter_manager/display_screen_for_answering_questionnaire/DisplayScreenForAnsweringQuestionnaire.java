@@ -26,8 +26,8 @@ public class DisplayScreenForAnsweringQuestionnaire implements DisplayScreenForA
     }
 
     @Override
-    public void presentUserAnswerQuestionnairesScreen(FetchQuestionnaireDataForAnswerResponseModel data) {
-        UserAnswerQuestionnairesScreen screen = new UserAnswerQuestionnairesScreen(data, controllerManager);
+    public void presentUserAnswerQuestionnairesScreen(FetchQuestionnaireDataForAnswerResponseModel data, String type) {
+        UserAnswerQuestionnairesScreen screen = new UserAnswerQuestionnairesScreen(data, type, controllerManager);
         screenManager.setParticipantAnswerQuestionnairePanel(screen);
 
     }

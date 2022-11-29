@@ -19,7 +19,7 @@ public class FetchQuestionnaireDataForAnswerInteractor implements FetchQuestionn
      */
     private FetchQuestionnaireDataForAnswerOutputBoundary presenter;
 
-    public void questionnaireRequestData(int modifier, int participantID, int studyId, int questionnaireId){
+    public void questionnaireRequestData(int modifier, int participantID, int studyId, int questionnaireId, String type){
 
     Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
         if (questionnaire == null) {
@@ -33,7 +33,7 @@ public class FetchQuestionnaireDataForAnswerInteractor implements FetchQuestionn
             FetchQuestionnaireDataForAnswerResponseModel responseModel =
                     new FetchQuestionnaireDataForAnswerResponseModel(participantID,modifier, studyId, questionnaireId,
                             questionnaireName, questionnaireDescription, questionsModel);
-            presenter.presentQuestionnaireDataForAnswering(responseModel);
+            presenter.presentQuestionnaireDataForAnswering(responseModel, type);
         }
 
     }

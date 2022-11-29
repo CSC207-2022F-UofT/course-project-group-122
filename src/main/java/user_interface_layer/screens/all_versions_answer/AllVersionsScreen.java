@@ -1,5 +1,6 @@
 package user_interface_layer.screens.all_versions_answer;
 
+import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screen_setters.SetScreenToCenter;
 import user_interface_layer.screen_setters.SetTableModel;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * The screen that shows all the versions of an answer.
  */
 public class AllVersionsScreen extends JFrame {
-    public AllVersionsScreen(AllVersionsInputData data, ControllerManager controllerManager) {
+    public AllVersionsScreen(@NotNull AllVersionsInputData data, ControllerManager controllerManager) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Questionnaire Versioned Answers");
 

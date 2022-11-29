@@ -26,7 +26,7 @@ public class FetchParticipantStudyDataResponseModel {
     /**
      * The name of the participant.
      */
-    private String participantName;
+    private final String participantName;
 
     /**
      * The status of the participant.

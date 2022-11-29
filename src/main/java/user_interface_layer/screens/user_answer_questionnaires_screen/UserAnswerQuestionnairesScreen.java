@@ -10,10 +10,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class UserAnswerQuestionnairesScreen extends JFrame {
 
-    public UserAnswerQuestionnairesScreen(@NotNull FetchQuestionnaireDataForAnswerResponseModel data, ControllerManager controllerManager) {
+    public static final String QUESTIONNAIRE = "Questionnaire";
+
+    public static final String ELIGIBILITY_QUESTIONNAIRE = "Eligibility Questionnaire";
+
+    public UserAnswerQuestionnairesScreen(@NotNull FetchQuestionnaireDataForAnswerResponseModel data, String type,
+                                          ControllerManager controllerManager) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setTitle("Answer Questionnaire");
@@ -22,7 +28,8 @@ public class UserAnswerQuestionnairesScreen extends JFrame {
         JPanel header = new JPanel();
         header.setLayout(new BorderLayout());
 
-        JLabel questionnaireNameLabel = new JLabel(data.getQuestionnaireID() + ": " + data.getQuestionnaireName(), SwingConstants.CENTER);
+        JLabel questionnaireNameLabel = new JLabel(data.getQuestionnaireID() + ": " + data.getQuestionnaireName(),
+                SwingConstants.CENTER);
 
         JScrollPane descriptionScrollPanel = new JScrollPane();
         JTextArea descriptionArea = new JTextArea();
@@ -59,8 +66,13 @@ public class UserAnswerQuestionnairesScreen extends JFrame {
                     answers.put(questionPanel.getVariable(),questionPanel.getAnswer());
                 }
             }
-            controllerManager.answerQuestionnaire(data.getModifierId(), data.getParticipantID(),
-                    data.getQuestionnaireID(), data.getStudyID(), answers);
+            if (Objects.equals(type, ELIGIBILITY_QUESTIONNAIRE)) {
+                controllerManager.answerEligibilityQuestionnaire(data.getModifierId(), data.getParticipantID(),
+                        data.getQuestionnaireID(), data.getStudyID(), answers);
+            } else if (Objects.equals(type, QUESTIONNAIRE)) {
+                controllerManager.answerQuestionnaire(data.getModifierId(), data.getParticipantID(),
+                        data.getQuestionnaireID(), data.getStudyID(), answers);
+            }
             dispose();
 
         });

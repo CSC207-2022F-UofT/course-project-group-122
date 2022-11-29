@@ -6,6 +6,6 @@ import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnsw
  * The interface that the presenter calls to display the screen where the user can answer a questionnaire.
  */
 public interface DisplayScreenForAnsweringQuestionnaireInterface {
-    void presentUserAnswerQuestionnairesScreen(FetchQuestionnaireDataForAnswerResponseModel data);
+    void presentUserAnswerQuestionnairesScreen(FetchQuestionnaireDataForAnswerResponseModel data, String type);
 
 }

@@ -12,7 +12,7 @@ public class SetQuestionnaireVersionedAnswerDriver {
     public void checkQuestionnaireVersionedAnswerDriver(int studyId,
                                                         int participantID,
                                                         int questionnaireID,
-                                                        List<String[]> answers,
+                                                        @NotNull List<String[]> answers,
                                                         @NotNull ScreenManager screenManager,
                                                         ControllerManager controllerManager) {
         for (String[] answer : answers) {

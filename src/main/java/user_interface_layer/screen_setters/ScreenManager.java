@@ -1,5 +1,6 @@
 package user_interface_layer.screen_setters;
 
+import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screens.all_versions_answer.AllVersionsScreen;
 import user_interface_layer.screens.check_questionnaire_screen.CheckQuestionnaireScreen;
 import user_interface_layer.screens.check_versioned_answer.CheckVersionedAnswer;
@@ -130,57 +131,57 @@ public class ScreenManager {
         this.participantHomeScreen = participantHomeScreen;
     }
 
-    public void setResearcherRequestParticipantScreen(ResearcherRequestParticipantScreen screen) {
+    public void setResearcherRequestParticipantScreen(@NotNull ResearcherRequestParticipantScreen screen) {
         screen.setVisible(true);
         this.researcherRequestParticipantScreen = screen;
     }
 
-    public void setCreateStudyInputScreen(CreateStudyInputScreen screen) {
+    public void setCreateStudyInputScreen(@NotNull CreateStudyInputScreen screen) {
         screen.setVisible(true);
         this.createStudyInputScreen = screen;
 
     }
 
-    public void setQuestionnaireVersionedAnswerScreen(AllVersionsScreen screen) {
+    public void setQuestionnaireVersionedAnswerScreen(@NotNull AllVersionsScreen screen) {
         screen.setVisible(true);
         this.allVersionsScreen = screen;
     }
 
-    public void setCreateQuestionnaireInputsScreen(CreateQuestionnaireInputsScreen screen) {
+    public void setCreateQuestionnaireInputsScreen(@NotNull CreateQuestionnaireInputsScreen screen) {
         screen.setVisible(true);
         this.createQuestionnaireInputsScreen = screen;
     }
 
-    public void setCheckQuestionnaireScreen(CheckQuestionnaireScreen screen) {
+    public void setCheckQuestionnaireScreen(@NotNull CheckQuestionnaireScreen screen) {
         screen.setVisible(true);
         this.checkQuestionnaireScreen = screen;
     }
 
-    public void setCheckQuestionnaireVersionedAnswerScreen(CheckVersionedAnswer screen) {
+    public void setCheckQuestionnaireVersionedAnswerScreen(@NotNull CheckVersionedAnswer screen) {
         screen.setVisible(true);
         this.checkVersionedAnswer = screen;
     }
 
-    public void setChooseStratificationScreen(ChooseStratificationScreen screen) {
+    public void setChooseStratificationScreen(@NotNull ChooseStratificationScreen screen) {
         screen.setVisible(true);
         this.chooseStratificationScreen = screen;
     }
 
-    public void setEditQuestionnaireScreen(EditQuestionnaireScreen screen) {
+    public void setEditQuestionnaireScreen(@NotNull EditQuestionnaireScreen screen) {
         screen.setVisible(true);
         this.editQuestionnaireScreen = screen;
     }
 
-    public void setEditStudyScreen(EditStudyScreen screen) {
+    public void setEditStudyScreen(@NotNull EditStudyScreen screen) {
         screen.setVisible(true);
         this.editStudyScreen = screen;
     }
-    public void setParticipantAnswerQuestionnairePanel(UserAnswerQuestionnairesScreen screen) {
+    public void setParticipantAnswerQuestionnairePanel(@NotNull UserAnswerQuestionnairesScreen screen) {
         screen.setVisible(true);
         this.userAnswerQuestionnairesScreen = screen;
     }
 
-    public void setResearcherEditQuestionnaireAnswersScreen(EditQuestionnaireAnswers screen) {
+    public void setResearcherEditQuestionnaireAnswersScreen(@NotNull EditQuestionnaireAnswers screen) {
         screen.setVisible(true);
         this.editQuestionnaireAnswers = screen;
     }
@@ -193,37 +194,37 @@ public class ScreenManager {
         this.studyDataLogScreen = screen;
     }
 
-    public void setShowResearcherInfoScreen(ShowResearcherInfoScreen screen) {
+    public void setShowResearcherInfoScreen(@NotNull ShowResearcherInfoScreen screen) {
         screen.setVisible(true);
         this.showResearcherInfoScreen = screen;
     }
 
-    public void setShowParticipantInfoScreen(ShowParticipantInfoScreen screen) {
+    public void setShowParticipantInfoScreen(@NotNull ShowParticipantInfoScreen screen) {
         screen.setVisible(true);
         this.showParticipantInfoScreen = screen;
     }
 
-    public void setChooseGroupToAssignScreen(ChooseGroupToAssignScreen screen) {
+    public void setChooseGroupToAssignScreen(@NotNull ChooseGroupToAssignScreen screen) {
         screen.setVisible(true);
         this.chooseGroupToAssignScreen = screen;
     }
 
-    public void setConsentFormScreen(ConsentFormScreen screen) {
+    public void setConsentFormScreen(@NotNull ConsentFormScreen screen) {
         screen.setVisible(true);
         this.consentFormScreen = screen;
     }
 
-    public void setCreateConsentFormScreen(CreateConsentFormScreen screen) {
+    public void setCreateConsentFormScreen(@NotNull CreateConsentFormScreen screen) {
         screen.setVisible(true);
         this.createConsentFormScreen = screen;
     }
 
-    public void setConsentFormScreenForReview(ConsentFormScreenForReview screen) {
+    public void setConsentFormScreenForReview(@NotNull ConsentFormScreenForReview screen) {
         screen.setVisible(true);
         this.consentFormScreenForReview = screen;
     }
 
-    public void setShowParticipantInfoForQAssignmentScreen(ShowParticipantInfoForQAssignment screen) {
+    public void setShowParticipantInfoForQAssignmentScreen(@NotNull ShowParticipantInfoForQAssignment screen) {
         screen.setVisible(true);
         this.showParticipantInfoForQAssignment = screen;
     }

@@ -42,8 +42,8 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 import user_interface_layer.screens.screen_drivers.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The class that manages all the calls to controllers from the user calls and inputs (buttons).
@@ -136,7 +136,8 @@ public class ControllerManager {
     }
 
     public void questionnaireRequestDataForAnswering(int modifier, int participantId1, int studyId, int questionnaireId) {
-        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(modifier, participantId1, studyId, questionnaireId);
+        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(modifier, participantId1, studyId,
+                questionnaireId, AnswerQuestionnaireController.QUESTIONNAIRE);
     }
 
     /**
@@ -148,11 +149,20 @@ public class ControllerManager {
      *                  Key is the variable and value is the string answer.
      */
     public void answerQuestionnaire(int modifier,int participantID, int questionnaireID, int studyID,
-                                    HashMap<String, String> answers) {
+                                    Map<String, String> answers) {
         AnswerQuestionnaireRequestModel requestModel = new AnswerQuestionnaireRequestModel(questionnaireID,
                 participantID, modifier, studyID);
         requestModel.setAnswers(answers, answers.size());
-        answerQuestionnaireController.answerQuestionnaire(requestModel);
+        answerQuestionnaireController.answerQuestionnaire(requestModel, AnswerQuestionnaireController.QUESTIONNAIRE);
+    }
+
+
+    public void answerEligibilityQuestionnaire(int modifier,int participantID, int questionnaireID, int studyID,
+                                               Map<String, String> answers) {
+        AnswerQuestionnaireRequestModel requestModel = new AnswerQuestionnaireRequestModel(questionnaireID,
+                participantID, modifier, studyID);
+        requestModel.setAnswers(answers, answers.size());
+        answerQuestionnaireController.answerQuestionnaire(requestModel, AnswerQuestionnaireController.ELIGIBILITY_QUESTIONNAIRE);
     }
 
 
@@ -167,7 +177,7 @@ public class ControllerManager {
     }
 
     public void createQuestionnaireController(String type, int studyID, int researcherID, String questionnaireName,
-                                              String description, ArrayList<String> groups, int numQuestions,
+                                              String description, List<String> groups, int numQuestions,
                                               List<QuestionModel> addedQuestions) {
         CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(type, studyID, researcherID,
                 questionnaireName, description, groups, numQuestions, addedQuestions);
@@ -191,7 +201,8 @@ public class ControllerManager {
         userLogOutController.logOut();
     }
 
-    public void checkQuestionnaireVersionedAnswer(int studyId, int participantId, int questionnaireID, List<String[]> answers) {
+    public void checkQuestionnaireVersionedAnswer(int studyId, int participantId, int questionnaireID,
+                                                  @NotNull List<String[]> answers) {
         for (String[] answer : answers) {
             int answerID = Integer.parseInt(answer[0]);
             int version = Integer.parseInt(answer[1]);
@@ -207,7 +218,8 @@ public class ControllerManager {
 
 
     public void answerEligibilityQuestionnaireRequestData(int userId, int participantId, int questionnaireId, int studyId) {
-        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(userId, participantId, studyId, questionnaireId);
+        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(userId, participantId, studyId,
+                questionnaireId, AnswerQuestionnaireController.ELIGIBILITY_QUESTIONNAIRE);
     }
 
 

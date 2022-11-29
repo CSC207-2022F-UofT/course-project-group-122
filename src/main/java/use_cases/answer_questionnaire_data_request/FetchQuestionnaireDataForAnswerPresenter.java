@@ -12,8 +12,8 @@ public class FetchQuestionnaireDataForAnswerPresenter implements FetchQuestionna
     }
 
     @Override
-    public void presentQuestionnaireDataForAnswering(FetchQuestionnaireDataForAnswerResponseModel data) {
-        displayScreenForAnsweringQuestionnaireInterface.presentUserAnswerQuestionnairesScreen(data);
+    public void presentQuestionnaireDataForAnswering(FetchQuestionnaireDataForAnswerResponseModel data, String type) {
+        displayScreenForAnsweringQuestionnaireInterface.presentUserAnswerQuestionnairesScreen(data, type);
     }
 
     public void setDisplayFailureMessageInterface(DisplayFailureMessageInterface displayFailureMessageInterface) {
