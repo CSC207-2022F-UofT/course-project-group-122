@@ -25,7 +25,7 @@ public class ParticipantDataManagerTest {
         assertNull(pdm4.getEligibilityQuestionnaire());
     }
 
-    Study study1 = new Study("title", 3);
+    Study study1 = new RandomizedStudy("title", 3);
     Questionnaire questionnaireEligibility = new Questionnaire(study1, "title", "description", 1);
     Questionnaire questionnaire2 = new Questionnaire(study1, "title", "description", 1);
     Questionnaire questionnaire3 = new Questionnaire(study1, "title", "description", 1);
