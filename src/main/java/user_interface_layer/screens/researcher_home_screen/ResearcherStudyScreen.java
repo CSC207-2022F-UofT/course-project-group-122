@@ -9,9 +9,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ResearcherStudyScreen extends JFrame {
 
@@ -34,7 +32,6 @@ public class ResearcherStudyScreen extends JFrame {
 
         // Set the properties of the screen and elements.
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        setBackground(new Color(255, 255, 255, 0));
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.LINE_AXIS));
         framePanel.setLayout(new BorderLayout());
         headerPanel.setLayout(new GridLayout(2, 1));
@@ -108,18 +105,6 @@ public class ResearcherStudyScreen extends JFrame {
         getContentPane().add(framePanel);
         pack();
         SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
-    }
-
-
-    public static void main(String[] args) {
-        Map<Integer, String[]> studiesData = new HashMap<>();
-        String[] study1 = {"1", "Study1", "status", "Randomized"};
-        String[] study2 = {"2", "Study2", "status", "General"};
-        studiesData.put(1, study1);
-        studiesData.put(2, study2);
-        ResearcherStudyScreenInputData data = new ResearcherStudyScreenInputData(2, "John Doe", studiesData);
-        ResearcherStudyScreen researcherStudyScreen = new ResearcherStudyScreen(data, null);
-        researcherStudyScreen.setVisible(true);
     }
 }
 
