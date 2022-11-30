@@ -26,14 +26,10 @@ public class ResultExtractionPresenter implements ResultExtractionOutputBoundary
      */
     public String presentSavingInfo(@NotNull ArrayList<String> failList){
         StringBuilder failMessage = new StringBuilder();
-        failMessage.append("<html>");
-        for (int i = 0; i < failList.size(); i++){
-            if (i != 0) {
-                failMessage.append("<BR>");
-            }
-            failMessage.append(failList.get(i));
+        for (String fail: failList){
+            failMessage.append(fail);
+            failMessage.append("\n");
         }
-        failMessage.append("</html>");
         return failMessage.toString();
     }
 
@@ -55,7 +51,7 @@ public class ResultExtractionPresenter implements ResultExtractionOutputBoundary
      * @param failList the list collect failure message.
      */
     public void presentFailSave(int StudyID, String filepath, ArrayList<String> failList){
-        String message =  "The result of study " + StudyID + " has been saved to " + filepath + " incorrectly\r\n" +
+        String message =  "The result of study " + StudyID + " has been saved to " + filepath + " incorrectly\n" +
                 presentSavingInfo(failList);
 
         displayFailureMessageInterface.presentFailureMessage(message);
