@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionModel {
-    private String type;
-    private String content;
-    private String variable;
+    private final String type;
+    private final String content;
+    private final String variable;
 
     private List<String> MCoptions = new ArrayList<>();
 

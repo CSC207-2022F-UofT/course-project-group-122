@@ -124,6 +124,10 @@ public class FetchId {
                 return answer;
             }
         }
+        Answer eligibilityAnswer = participant.getEligibilityQuestionnaireAnswer();
+        if (eligibilityAnswer != null && eligibilityAnswer.getId() == id) {
+            return eligibilityAnswer;
+        }
         return null;
     }
 

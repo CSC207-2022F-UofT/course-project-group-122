@@ -52,7 +52,7 @@ public class EditQuestionnaireAnswers extends JFrame {
         questionsScrollPanel.setViewportView(questionsPanel);
 
         JScrollPane scrollPane2 = new JScrollPane();
-        JTextArea reasonForModification = new JTextArea(3, 20);
+        JTextArea reasonForModification = new JTextArea(3, 5);
         reasonForModification.setLineWrap(true);
         scrollPane2.setViewportView(reasonForModification);
         JPanel reasonForModificationPanel = new JPanel(new GridLayout(2, 1));

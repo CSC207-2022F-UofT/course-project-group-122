@@ -19,7 +19,7 @@ public class CheckVersionedAnswer extends JFrame{
         for (String[] i : data.getVersionedAnswers()) {
             JPanel subPanel = new JPanel(new BorderLayout());
             subPanel.add(new JLabel(i[0]), BorderLayout.NORTH);
-            JTextArea answer = new JTextArea(2,20);
+            JTextArea answer = new JTextArea(2,5);
             answer.setText(i[1]);
             answer.setEditable(false);
             answer.setLineWrap(true);

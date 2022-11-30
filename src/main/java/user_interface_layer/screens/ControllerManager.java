@@ -30,6 +30,7 @@ import use_cases.modify_study_parameters.ModifyStudyParameterRequestModel;
 import use_cases.participant_drop_study.ParticipantDropStudyController;
 import use_cases.participant_enroller.ParticipantEnrollerController;
 import use_cases.publish_questionnaire.PublishQuestionnaireController;
+import use_cases.questionnaire_answer_data_for_editing_request.FetchLatestAnswerDataRequestController;
 import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenController;
 import use_cases.remove_researcher.RemoveResearcherController;
 import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
@@ -92,7 +93,7 @@ public class ControllerManager {
     private AssignQuestionnaireController assignQuestionnaireController;
     private AnswerQuestionnaireController answerQuestionnaireController;
     private AddPotentialParticipantController addPotentialParticipantController;
-    private ResearcherEditAnswerController  researcherEditAnswerController;
+    private FetchLatestAnswerDataRequestController fetchLatestAnswerDataRequestController;
     private EligibilityCheckerController eligibilityCheckerController;
     private FetchQuestionnaireScreenController fetchQuestionnaireScreenController;
     private CloseQuestionnaireController closeQuestionnaireController;
@@ -357,7 +358,9 @@ public class ControllerManager {
     public void assignQuestionnaireToGroups(int studyID, int questionnaireID, List<String> selectedGroups) {
         assignQuestionnaireController.assignQuestionnaireToGroups(questionnaireID, studyID, selectedGroups, currentUserId);
     }
-
+    public void editQuestionnaireAnswerDataRequest(int researcherId, int studyId, int participantId, int questionnaireID) {
+        fetchLatestAnswerDataRequestController.fetchQuestionnaireAnswerData(researcherId, studyId, participantId, questionnaireID);
+    }
 
 
 
@@ -409,9 +412,9 @@ public class ControllerManager {
         this.removeResearcherController = removeResearcherController;
     }
 
-//    public void setQuestionnaireAnswerDataRequestForEditingController(QuestionnaireAnswerDataRequestForEditingController questionnaireAnswerDataRequestForEditingController) {
-//        this.questionnaireAnswerDataRequestForEditingController = questionnaireAnswerDataRequestForEditingController;
-//    }
+    public void setFetchLatestAnswerDataRequestController(FetchLatestAnswerDataRequestController fetchLatestAnswerDataRequestController) {
+        this.fetchLatestAnswerDataRequestController = fetchLatestAnswerDataRequestController;
+    }
 
     public void setPublishQuestionnaireController(PublishQuestionnaireController publishQuestionnaireController) {
         this.publishQuestionnaireController = publishQuestionnaireController;
@@ -449,18 +452,6 @@ public class ControllerManager {
         this.fetchParticipantStudyDataController = fetchParticipantStudyDataController;
     }
 
-//    public void setEditQuestionnaireScreenDataController(FetchEditQuestionnaireDataController editQuestionnaireScreenDataController) {
-//        this.editQuestionnaireScreenDataController = editQuestionnaireScreenDataController;
-//    }
-
-//    public void setEditQuestionnaireController(EditQuestionnaireController editQuestionnaireController) {
-//        this.editQuestionnaireController = editQuestionnaireController;
-//    }
-
-//    public void setQuestionnaireScreenDataRequestController(QuestionnaireScreenDataRequestController questionnaireScreenDataRequestController) {
-//        this.questionnaireScreenDataRequestController = questionnaireScreenDataRequestController;
-//    }
-
     public void setFetchStudyDataForEditingController(FetchStudyDataForEditingController fetchStudyDataForEditingController) {
         this.fetchStudyDataForEditingController = fetchStudyDataForEditingController;
     }
@@ -491,10 +482,6 @@ public class ControllerManager {
 
     public void setAddPotentialParticipantController(AddPotentialParticipantController addPotentialParticipantController) {
         this.addPotentialParticipantController = addPotentialParticipantController;
-    }
-
-    public void setResearcherEditAnswerController(ResearcherEditAnswerController researcherEditAnswerController) {
-        this.researcherEditAnswerController = researcherEditAnswerController;
     }
 
     public void setEligibilityCheckerController(EligibilityCheckerController eligibilityCheckerController) {
@@ -536,6 +523,7 @@ public class ControllerManager {
     public void setEditQuestionnaireController(EditQuestionnaireController editQuestionnaireController) {
         this.editQuestionnaireController = editQuestionnaireController;
     }
+
 
 
 }

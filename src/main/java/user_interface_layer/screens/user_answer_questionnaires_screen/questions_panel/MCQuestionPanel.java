@@ -33,7 +33,7 @@ public class MCQuestionPanel extends JPanel implements ParticipantsQuestionPanel
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
             AbstractButton button = buttons.nextElement();
             if (button.isSelected()) {
-                return button.getText();
+                return button.getText().split("\\.")[0];
             }
         }
         return "";

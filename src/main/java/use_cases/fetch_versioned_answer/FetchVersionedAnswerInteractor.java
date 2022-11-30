@@ -32,9 +32,10 @@ public class FetchVersionedAnswerInteractor implements FetchVersionedAnswerInput
                 if (versionedAnswer.getVersion() == version) {
                     Map<String, String> answers = versionedAnswer.getAnswer();
                     for (Question question : questions) {
+                        String questionContent = question.getContent();
                         String variable = question.getVariableName();
                         String answerString = answers.get(variable);
-                        String[] questionAnswer = {variable, answerString};
+                        String[] questionAnswer = {questionContent, answerString};
                         versionedAnswersList.add(questionAnswer);
                     }
                 }

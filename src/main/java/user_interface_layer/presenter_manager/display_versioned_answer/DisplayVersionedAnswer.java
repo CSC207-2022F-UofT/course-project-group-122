@@ -25,6 +25,5 @@ public class DisplayVersionedAnswer implements DisplayVersionedAnswerInterface {
     public void presentVersionedAnswersOfQuestionnaireScreen(FetchVersionedAnswerResponseModel data) {
         CheckVersionedAnswer screen = new CheckVersionedAnswer(data);
         screenManager.setCheckQuestionnaireVersionedAnswerScreen(screen);
-        screenManager.updateCurrentScreen(screen);
     }
 }

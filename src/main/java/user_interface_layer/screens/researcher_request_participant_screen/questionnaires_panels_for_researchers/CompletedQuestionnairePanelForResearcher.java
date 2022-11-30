@@ -38,14 +38,14 @@ public class CompletedQuestionnairePanelForResearcher extends JPanel {
             }
         });
 
-        JButton newAnswerButton = new JButton("Edit Answer");
+        JButton newAnswerButton = new JButton("Modify Answer");
         newAnswerButton.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to edit its answer.");
             } else {
                 int questionnaireID = keys.get(selectedRow);
-//                controllerManager.editQuestionnaireAnswerDataRequest(data.getUserId(), data.getStudyId(), data.getParticipantId(), questionnaireID);
+                controllerManager.editQuestionnaireAnswerDataRequest(data.getUserId(), data.getStudyId(), data.getParticipantId(), questionnaireID);
             }
         });
         add(scrollPane, BorderLayout.CENTER);

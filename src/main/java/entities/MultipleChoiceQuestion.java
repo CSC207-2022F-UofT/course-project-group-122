@@ -134,7 +134,11 @@ public class MultipleChoiceQuestion extends Question implements Serializable {
      * @return The choices of this MultipleChoiceQuestion.
      */
     public List<String> getChoices() {
-        return choices;
+        List<String> choicesToReturn = new ArrayList<>();
+        for (int i = 0; i < this.choices.size(); i++) {
+            choicesToReturn.add((i + 1)+". "+this.choices.get(i));
+        }
+        return choicesToReturn;
     }
 
 
@@ -153,14 +157,23 @@ public class MultipleChoiceQuestion extends Question implements Serializable {
     @Override
     public String getAnswerChoices() {
         StringBuilder answerChoices = new StringBuilder();
-        answerChoices.append("<html>");
+//        answerChoices.append("<html>");
+//        for (int i = 0; i < this.choices.size(); i++) {
+//            if (i != 0) {
+//                answerChoices.append("<BR>");
+//            }
+//            answerChoices.append(i + 1).append(". ").append(this.choices.get(i));
+//        }
+//        answerChoices.append("</html>");
+//        return answerChoices.toString();
+
         for (int i = 0; i < this.choices.size(); i++) {
             if (i != 0) {
-                answerChoices.append("<BR>");
+                answerChoices.append(",");
             }
             answerChoices.append(i + 1).append(". ").append(this.choices.get(i));
         }
-        answerChoices.append("</html>");
         return answerChoices.toString();
+
     }
 }
