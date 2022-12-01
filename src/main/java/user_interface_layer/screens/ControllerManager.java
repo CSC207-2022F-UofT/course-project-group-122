@@ -33,7 +33,6 @@ import use_cases.publish_questionnaire.PublishQuestionnaireController;
 import use_cases.questionnaire_answer_data_for_editing_request.FetchLatestAnswerDataRequestController;
 import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenController;
 import use_cases.remove_researcher.RemoveResearcherController;
-import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.result_extraction.ResultExtractionController;
 import use_cases.user_log_out.UserLogOutController;
@@ -50,7 +49,7 @@ import java.util.Map;
  * The class that manages all the calls to controllers from the user calls and inputs (buttons).
  * It contains an instance of each controller and the a single instance of this controller is injected to each of the screen.
  * The screen then calls on the controller through this class.
- *
+ * <p>
  * This class also calls other screens that need to be displayed, but do not need a controller to be called on.
  * Those are screen driver that are called on by some of the screens to display other screens.
  */
@@ -82,8 +81,6 @@ public class ControllerManager {
     FetchVersionedAnswerController fetchVersionedAnswerDataController;
     FetchParticipantStudyDataController fetchParticipantStudyDataController;
     FetchEditQuestionnaireDataController editQuestionnaireScreenDataController;
-//    EditQuestionnaireController editQuestionnaireController;
-
     private FetchStudyDataForEditingController fetchStudyDataForEditingController;
     private ResultExtractionController resultExtractionController;
     private FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController;
@@ -252,7 +249,7 @@ public class ControllerManager {
     }
 
 
-    public void researcherRequestParticipantScreenRequest(int researcherId, int participantId, int studyId) {
+    public void researcherRequestParticipantScreenRequest(int researcherId, int participantId) {
         fetchParticipantStudyDataController.fetchParticipantStudyData(participantId,researcherId);
     }
 

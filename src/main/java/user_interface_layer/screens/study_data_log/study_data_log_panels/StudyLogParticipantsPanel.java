@@ -38,7 +38,7 @@ public class StudyLogParticipantsPanel extends JPanel {
             } else {
                 int participantId = keys.get(selectedRow);
                 System.out.println(participantId);
-                controllerManager.researcherRequestParticipantScreenRequest(data.getResearcherId(),participantId,data.getStudyId());
+                controllerManager.researcherRequestParticipantScreenRequest(data.getResearcherId(),participantId);
             }
         });
 

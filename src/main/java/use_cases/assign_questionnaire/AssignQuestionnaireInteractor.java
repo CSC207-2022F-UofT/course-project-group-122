@@ -8,10 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The use case for assigning a questionnaire to a participant.
+ */
 public class AssignQuestionnaireInteractor implements AssignQuestionnaireInputBoundary {
 
+    /**
+     * The constant for the error message when the questionnaire is not published.
+     */
     static final String NOTPUBLISHED = " because the questionnaire is not published";
 
+    /**
+     * The interface that the presenter implements.
+     */
     private AssignQuestionnaireOutputBoundary assignQuestionnaireOutputBoundary;
 
 

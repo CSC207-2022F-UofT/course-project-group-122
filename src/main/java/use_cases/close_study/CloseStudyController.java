@@ -1,5 +1,8 @@
 package use_cases.close_study;
 
+/**
+ * The controller for the use case CloseStudy. The screen calls on this class to close a study.
+ */
 public class CloseStudyController {
 
     /**

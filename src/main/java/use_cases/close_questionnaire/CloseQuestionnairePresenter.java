@@ -4,8 +4,10 @@ import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
+/**
+ * The presenter for the close questionnaire use case.
+ */
 public class CloseQuestionnairePresenter implements CloseQuestionnaireOutputBoundary {
-
 
     /**
      * The fetch study log controller
@@ -25,8 +27,9 @@ public class CloseQuestionnairePresenter implements CloseQuestionnaireOutputBoun
 
     /**
      * Presents that the questionnaire has closed
+     *
      * @param questionnaireID The ID of the questionnaire that has been closed.
-     * @param studyID The ID of the study that the questionnaire has been closed to.
+     * @param studyID         The ID of the study that the questionnaire has been closed to.
      */
 
     @Override
@@ -38,9 +41,10 @@ public class CloseQuestionnairePresenter implements CloseQuestionnaireOutputBoun
 
     /**
      * Presents that the questionnaire has fail to close
+     *
      * @param questionnaireID The ID of the questionnaire that cannot be closed.
-     * @param studyID The ID of the study that the questionnaire has been closed to.
-     * @param message The message to present.
+     * @param studyID         The ID of the study that the questionnaire has been closed to.
+     * @param message         The message to present.
      */
     @Override
     public void closeFail(int questionnaireID, int studyID, String message) {
@@ -50,6 +54,7 @@ public class CloseQuestionnairePresenter implements CloseQuestionnaireOutputBoun
 
     /**
      * Sets the display failure message interface
+     *
      * @param displayFailureMessage The display failure message interface
      */
 
@@ -61,6 +66,7 @@ public class CloseQuestionnairePresenter implements CloseQuestionnaireOutputBoun
 
     /**
      * Sets the display success message interface
+     *
      * @param displaySuccessMessage The presenter to display the success message.
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
@@ -70,7 +76,8 @@ public class CloseQuestionnairePresenter implements CloseQuestionnaireOutputBoun
 
     /**
      * Sets the fetch study log controller
-     * @param fetchStudyLogController   The fetch study log controller
+     *
+     * @param fetchStudyLogController The fetch study log controller
      */
     public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
         this.fetchStudyLogController = fetchStudyLogController;

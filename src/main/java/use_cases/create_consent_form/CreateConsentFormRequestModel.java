@@ -1,7 +1,9 @@
 package use_cases.create_consent_form;
 
+/**
+ * The data structure class for the create consent form use case.
+ */
 public class CreateConsentFormRequestModel {
-
 
     /**
      * The ID of the researcher who is creating the consent form.

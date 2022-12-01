@@ -2,8 +2,14 @@ package use_cases.assign_questionnaire;
 
 import java.util.List;
 
+/**
+ * The controller that the UI calls on to assign a questionnaire to a participant.
+ */
 public class AssignQuestionnaireController {
 
+    /**
+     * The interface that the use case implements and is called on by the controller.
+     */
     private AssignQuestionnaireInputBoundary assignQuestionnaireInteractor;
 
 

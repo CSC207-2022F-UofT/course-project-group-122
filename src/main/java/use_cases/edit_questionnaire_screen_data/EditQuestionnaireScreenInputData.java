@@ -4,9 +4,11 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
+/**
+ * The data structure class that the use case needs to fetch the information for editing the questionnaire.
+ */
 public class EditQuestionnaireScreenInputData {
 
     /*
@@ -14,7 +16,9 @@ public class EditQuestionnaireScreenInputData {
      */
     private final int studyID;
 
-
+    /**
+     * The questionnaire ID.
+     */
     private final int researcherID;
 
     /*
@@ -32,28 +36,30 @@ public class EditQuestionnaireScreenInputData {
      */
     private final String questionnaireDescription;
 
-    private List<String> studyGroups;
+    /**
+     * The list of the target groups of participants that the questionnaire is targeted to.
+     */
+    private final List<String> studyGroups;
     /*
-     * The questions of the questionnaire.
-     * The key is the question. The value is an array with the question's type, variable and options.
-     * The options should be formatted as follows:
-     *     - For MC questions: comma separated and without spaces.
-     *     - For Scale questions: comma separated such like buttonLabel,topLabel,scale.
-     *     - For Text questions: empty string.
+     * The questions of the questionnaire, formatted in the QuestionModel class.
      */
     private final List<QuestionModel> questions;
 
     /*
+     * The list of variables corresponding to each question.
+     */
+    private final List<String> previousVariables = new ArrayList<>();
+
+    /**
      * The constructor of the class.
      * @param studyID The study ID.
      * @param questionnaireID The questionnaire ID.
+     * @param researcherID The researcher ID.
      * @param questionnaireName The questionnaire name.
      * @param questionnaireDescription The questionnaire description.
-     * @param questions The questions of the questionnaire. Map< "Variable" ; [type, description, options] >
-     * @param controllerManager The controller manager.
+     * @param studyGroups The list of the target groups of participants that the questionnaire is targeted to.
+     * @param questions The questions of the questionnaire, formatted in the QuestionModel class.
      */
-    private List<String> previousVariables = new ArrayList<>();
-
     public EditQuestionnaireScreenInputData(int studyID,
                                             int questionnaireID,
                                             int researcherID,
@@ -74,32 +80,56 @@ public class EditQuestionnaireScreenInputData {
 
     }
 
+    /**
+     * @return The study ID.
+     */
     public int getStudyID() {
         return studyID;
     }
 
+    /**
+     * @return The questionnaire ID.
+     */
     public int getQuestionnaireID() {
         return questionnaireID;
     }
 
+    /**
+     * @return The researcher ID.
+     */
     public int getResearcherID() {return researcherID; }
 
+    /**
+     * @return The questionnaire name.
+     */
     public String getQuestionnaireName() {
         return questionnaireName;
     }
 
+    /**
+     * @return The questionnaire description.
+     */
     public String getQuestionnaireDescription() {
         return questionnaireDescription;
     }
 
+    /**
+     * @return The list of the target groups of participants that the questionnaire is targeted to.
+     */
     public List<QuestionModel> getQuestions() {
         return questions;
     }
 
+    /**
+     * @return The list of the target groups of participants that the questionnaire is targeted to.
+     */
     public List<String> getPreviousVariables() {
         return previousVariables;
     }
 
+    /**
+     * @return The list of the target groups of participants that the questionnaire is targeted to.
+     */
     public List<String> getStudyGroups() {
         return studyGroups;
     }

@@ -15,13 +15,23 @@ public class FetchQuestionnaireDataForAnswerInteractor implements FetchQuestionn
     /*
      * This is the interface that the controller calls on to call on the presenter to present the data.
      */
-    private FetchQuestionnaireDataForAnswerOutputBoundary presenter;
+    private FetchQuestionnaireDataForAnswerOutputBoundary fetchQuestionnaireDataForAnswerOutputBoundary;
 
-    public void questionnaireRequestData(int modifier, int participantID, int studyId, int questionnaireId, String type){
+    /**
+     * This method fetches the data for the participant to answer the questionnaire.
+     *
+     * @param modifier          The modifier's ID that is modifying the answer to the questionnaire.
+     * @param participantID     The participant ID of the participant that the questionnaire was assigned to.
+     * @param studyId           The study ID of the study that the questionnaire belongs to.
+     * @param questionnaireId   The questionnaire ID of the questionnaire that the participant is answering.
+     * @param questionnaireType The questionnaireType of questionnaire that the participant is answering.
+     */
+    public void questionnaireRequestData(int modifier, int participantID, int studyId,
+                                         int questionnaireId, String questionnaireType){
 
     Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
         if (questionnaire == null) {
-            presenter.presentFailureScreen("Questionnaire not found");
+            fetchQuestionnaireDataForAnswerOutputBoundary.presentFailureScreen("Questionnaire not found");
         } else {
             String questionnaireName = questionnaire.getTitle();
             String questionnaireDescription = questionnaire.getDescription();
@@ -31,12 +41,17 @@ public class FetchQuestionnaireDataForAnswerInteractor implements FetchQuestionn
             FetchQuestionnaireDataForAnswerResponseModel responseModel =
                     new FetchQuestionnaireDataForAnswerResponseModel(participantID,modifier, studyId, questionnaireId,
                             questionnaireName, questionnaireDescription, questionsModel);
-            presenter.presentQuestionnaireDataForAnswering(responseModel, type);
+            fetchQuestionnaireDataForAnswerOutputBoundary.presentQuestionnaireDataForAnswering(responseModel, questionnaireType);
         }
 
     }
 
-    public void setPresenter(FetchQuestionnaireDataForAnswerOutputBoundary presenter) {
-        this.presenter = presenter;
+    /**
+     * This method sets the presenter.
+     *
+     * @param fetchQuestionnaireDataForAnswerOutputBoundary The presenter interface that the use case calls on to present the data.
+     */
+    public void setFetchQuestionnaireDataForAnswerOutputBoundary(FetchQuestionnaireDataForAnswerOutputBoundary fetchQuestionnaireDataForAnswerOutputBoundary) {
+        this.fetchQuestionnaireDataForAnswerOutputBoundary = fetchQuestionnaireDataForAnswerOutputBoundary;
     }
 }

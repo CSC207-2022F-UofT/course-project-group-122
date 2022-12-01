@@ -1,6 +1,9 @@
 package use_cases.close_questionnaire;
 
 
+/**
+ * This the interface that the use case implements and the controller calls on.
+ */
 public interface CloseQuestionnaireInputBoundary {
 
 

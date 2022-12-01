@@ -1,7 +1,6 @@
 package main;
 
 import data_access.SaveApplicationState;
-import data_access.Serializer;
 import entities.*;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.add_potential_participant.AddPotentialParticipantInteractor;
@@ -32,6 +31,7 @@ import use_cases.create_study.CreateStudyInteractor;
 import use_cases.create_study.CreateStudyPresenter;
 import use_cases.create_study.CreateStudyRequestModel;
 import use_cases.edit_questionnaire.EditQuestionnaireController;
+import use_cases.edit_questionnaire.EditQuestionnaireInteractor;
 import use_cases.edit_questionnaire.EditQuestionnairePresenter;
 import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
 import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataInteractor;
@@ -111,7 +111,6 @@ import user_interface_layer.presenter_manager.display_researcher_study.DisplayRe
 import user_interface_layer.presenter_manager.display_researcher_study_log.DisplayResearcherStudyLog;
 import user_interface_layer.presenter_manager.display_screen_for_answering_questionnaire.DisplayScreenForAnsweringQuestionnaire;
 import user_interface_layer.presenter_manager.display_screen_for_editing_answers.DisplayEditAnswers;
-import user_interface_layer.presenter_manager.display_screen_for_editing_answers.DisplayEditAnswersInterface;
 import user_interface_layer.presenter_manager.display_stratification.DisplayStratification;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessage;
 import user_interface_layer.presenter_manager.display_versioned_answer.DisplayVersionedAnswer;
@@ -213,7 +212,7 @@ public class Main {
                 new FetchQuestionnaireDataForAnswerPresenter();
         fetchQuestionnaireDataForAnswerController.setFetchQuestionnaireDataForAnsweringInputBoundary(
                 fetchQuestionnaireDataForAnswerInteractor);
-        fetchQuestionnaireDataForAnswerInteractor.setPresenter(fetchQuestionnaireDataForAnswerPresenter);
+        fetchQuestionnaireDataForAnswerInteractor.setFetchQuestionnaireDataForAnswerOutputBoundary(fetchQuestionnaireDataForAnswerPresenter);
 
 
         //assign_questionnaire use case
@@ -385,16 +384,18 @@ public class Main {
         getTargetGroupsController.setGetTargetGroupsInteractor(getTargetGroupsInteractor);
         getTargetGroupsInteractor.setGetTargetGroupsPresenter(getTargetGroupsPresenter);
 
-        //Create Questionnaire use case
+        //Create and edit Questionnaire use case
         CreateQuestionnaireController createQuestionnaireController = new CreateQuestionnaireController();
         CreateQuestionnaireInteractor createQuestionnaireInteractor = new CreateQuestionnaireInteractor();
         CreateQuestionnairePresenter createQuestionnairePresenter = new CreateQuestionnairePresenter();
+        EditQuestionnaireInteractor editQuestionnaireInteractor = new EditQuestionnaireInteractor();
         EditQuestionnaireController editQuestionnaireController = new EditQuestionnaireController();
         EditQuestionnairePresenter editQuestionnairePresenter = new EditQuestionnairePresenter();
         createQuestionnaireController.setInputBoundary(createQuestionnaireInteractor);
-        editQuestionnaireController.setInputBoundary(createQuestionnaireInteractor);
+        editQuestionnaireController.setInputBoundary(editQuestionnaireInteractor);
         createQuestionnaireInteractor.setCreationOutputBoundary(createQuestionnairePresenter);
-        createQuestionnaireInteractor.setEditOutputBoundary(editQuestionnairePresenter);
+        editQuestionnaireInteractor.setEditOutputBoundary(editQuestionnairePresenter);
+
 
 
         //ResultExtraction use case

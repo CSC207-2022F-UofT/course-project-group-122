@@ -42,7 +42,7 @@ public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswer
     }
 
     @NotNull
-    private static Map<String, String[]> createAnswerData(List<Question> questionList, Map<String, String> variableAnswer) {
+    private static Map<String, String[]> createAnswerData(@NotNull List<Question> questionList, Map<String, String> variableAnswer) {
         Map<String, String[]> answerData = new HashMap<>();
         for (Question question : questionList) {
             String variable = question.getVariableName();

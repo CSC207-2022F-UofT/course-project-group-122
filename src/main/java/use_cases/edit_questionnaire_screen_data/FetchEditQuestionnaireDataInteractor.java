@@ -8,14 +8,23 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 import java.util.*;
 
 public class FetchEditQuestionnaireDataInteractor implements FetchEditQuestionnaireDataInputBoundary {
-    private FetchEditQuestionnaireDataOutBoundary presenter;
+    /**
+     * The output boundary of the use case, that the presenter implements.
+     */
+    private FetchEditQuestionnaireDataOutBoundary fetchEditQuestionnaireDataOutBoundary;
 
+    /**
+     * The method that fetches the data needed for the researcher to edit the questionnaire.
+     * @param studyId The study id of the study that the questionnaire belongs to.
+     * @param researcherId The researcher id of the researcher that wants to edit the questionnaire.
+     * @param questionnaireId The questionnaire id of the questionnaire that the researcher wants to edit.
+     */
     @Override
     public void fetchEditQuestionnaireData(int studyId, int researcherId, int questionnaireId) {
         try {
             Study study = FetchId.getStudy(studyId);
             Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
-            if (!study.isActive()){
+            if (!study.isActive()) {
                 throw new Exception("Study is not active");
             } else {
                 assert questionnaire != null;
@@ -29,14 +38,21 @@ public class FetchEditQuestionnaireDataInteractor implements FetchEditQuestionna
             String questionnaireDescription = questionnaire.getDescription();
             List<Question> questions = questionnaire.getListOfQuestion();
             List<QuestionModel> questionsModel = GetQuestionsModel.getQuestionsModelForScreen(questions);
-            EditQuestionnaireScreenInputData data = new EditQuestionnaireScreenInputData(studyId, questionnaireId, researcherId, questionnaireName, questionnaireDescription, studyGroups, questionsModel);
-            presenter.presentEditQuestionnaireScreenData(data);
+            EditQuestionnaireScreenInputData data = new EditQuestionnaireScreenInputData(
+                    studyId,
+                    questionnaireId,
+                    researcherId,
+                    questionnaireName,
+                    questionnaireDescription,
+                    studyGroups,
+                    questionsModel);
+            fetchEditQuestionnaireDataOutBoundary.presentEditQuestionnaireScreenData(data);
         } catch (Exception e) {
-            presenter.presentFailureScreen(e.getMessage());
+            fetchEditQuestionnaireDataOutBoundary.presentFailureScreen(e.getMessage());
         }
     }
 
     public void setFetchEditQuestionnaireDataPresenter(FetchEditQuestionnaireDataPresenter fetchEditQuestionnaireDataPresenter) {
-        this.presenter = fetchEditQuestionnaireDataPresenter;
+        this.fetchEditQuestionnaireDataOutBoundary = fetchEditQuestionnaireDataPresenter;
     }
 }
