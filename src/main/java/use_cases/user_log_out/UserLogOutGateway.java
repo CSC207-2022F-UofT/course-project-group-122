@@ -4,6 +4,9 @@ import entities.StudyPool;
 import entities.UserPool;
 import use_cases.participant_enroller.RandomGroupGeneratorManager;
 
+/**
+ * The interface that the class that saves the state of the application implements.
+ */
 public interface UserLogOutGateway {
 
     /**

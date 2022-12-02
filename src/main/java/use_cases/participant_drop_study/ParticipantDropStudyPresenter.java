@@ -4,6 +4,9 @@ import use_cases.fetch_participant_study_data.FetchParticipantStudyDataControlle
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
+/**
+ * The presenter class that the use case calls on to present the updated study data.
+ */
 public class ParticipantDropStudyPresenter implements ParticipantDropStudyOutputBoundary {
 
 

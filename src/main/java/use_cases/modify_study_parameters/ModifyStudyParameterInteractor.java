@@ -10,8 +10,14 @@ import use_cases.fetch_id.FetchId;
 
 import java.util.List;
 
+/**
+ * This is the use case that modifies the parameters of a study.
+ */
 public class ModifyStudyParameterInteractor implements ModifyStudyParameterInputBoundary {
 
+    /**
+     * The interface that the use case calls on to present the result of the modification.
+     */
     private ModifyStudyParameterOutputBoundary modifyStudyParameterPresenter;
 
 

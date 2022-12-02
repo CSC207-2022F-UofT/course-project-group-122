@@ -1,7 +1,7 @@
 package user_interface_layer.presenter_manager.display_researcher_questionnaire;
 
 import use_cases.questionnaire_screen_data_request.CheckQuestionnaireInputData;
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.check_questionnaire_screen.CheckQuestionnaireScreen;
 
@@ -9,7 +9,13 @@ import user_interface_layer.screens.check_questionnaire_screen.CheckQuestionnair
  * The class that displays information about a questionnaire.
  */
 public class DisplayResearcherQuestionnaire implements DisplayResearcherQuestionnaireInterface {
+    /**
+     * The screen manager.
+     */
     ScreenManager screenManager;
+    /**
+     * The controller manager.
+     */
     ControllerManager controllerManager;
 
 
@@ -30,11 +36,11 @@ public class DisplayResearcherQuestionnaire implements DisplayResearcherQuestion
         screenManager.setCheckQuestionnaireScreen(screen);
     }
 
+    /**
+     * @param screenManager The screen manager.
+     */
     public void setScreenManager(ScreenManager screenManager){
         this.screenManager = screenManager;
     }
 
-    public void setControllerManager(ControllerManager controllerManager){
-        this.controllerManager = controllerManager;
-    }
 }

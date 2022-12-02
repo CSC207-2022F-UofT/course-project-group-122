@@ -5,6 +5,9 @@ import entities.StudyPool;
 import entities.UserPool;
 import use_cases.participant_enroller.RandomGroupGeneratorManager;
 
+/**
+ * The class that logs out the user.
+ */
 public class UserLogOutInteractor implements UserLogOutInputBoundary{
 
     /**

@@ -1,14 +1,15 @@
 package user_interface_layer.presenter_manager.display_consent_form;
 
 import use_cases.fetch_consent_form.FetchConsentFormResponseModel;
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.consent_form.ConsentFormScreen;
 import user_interface_layer.screens.consent_form.ConsentFormScreenForReview;
 
+/**
+ * This class is responsible for displaying the consent form.
+ */
 public class DisplayConsentForm implements DisplayConsentFormInterface {
-
-
     /**
      * The screen manager.
      */
@@ -51,7 +52,7 @@ public class DisplayConsentForm implements DisplayConsentFormInterface {
      */
     @Override
     public void showConsentFormContent(FetchConsentFormResponseModel responseModel) {
-        ConsentFormScreenForReview screen = new ConsentFormScreenForReview(responseModel, controllerManager);
+        ConsentFormScreenForReview screen = new ConsentFormScreenForReview(responseModel);
         screenManager.setConsentFormScreenForReview(screen);
     }
 }

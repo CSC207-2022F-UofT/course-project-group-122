@@ -1,4 +1,4 @@
-package user_interface_layer.screen_setters;
+package user_interface_layer;
 
 import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screens.all_versions_answer.AllVersionsScreen;

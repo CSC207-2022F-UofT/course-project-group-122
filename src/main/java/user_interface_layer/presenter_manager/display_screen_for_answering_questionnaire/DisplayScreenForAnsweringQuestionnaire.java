@@ -2,7 +2,7 @@ package user_interface_layer.presenter_manager.display_screen_for_answering_ques
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerResponseModel;
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.user_answer_questionnaires_screen.UserAnswerQuestionnairesScreen;
 
@@ -10,7 +10,13 @@ import user_interface_layer.screens.user_answer_questionnaires_screen.UserAnswer
  * The class that displays the screen where the user can answer a questionnaire.
  */
 public class DisplayScreenForAnsweringQuestionnaire implements DisplayScreenForAnsweringQuestionnaireInterface {
+    /**
+     * The screen manager.
+     */
     ScreenManager screenManager;
+    /**
+     * The controller manager.
+     */
     ControllerManager controllerManager;
 
 
@@ -25,6 +31,10 @@ public class DisplayScreenForAnsweringQuestionnaire implements DisplayScreenForA
         this.controllerManager = controllerManager;
     }
 
+    /**
+     * @param data The data needed to display the screen where the user can answer a questionnaire.
+     * @param type The type of the questionnaire.
+     */
     @Override
     public void presentUserAnswerQuestionnairesScreen(FetchQuestionnaireDataForAnswerResponseModel data, String type) {
         UserAnswerQuestionnairesScreen screen = new UserAnswerQuestionnairesScreen(data, type, controllerManager);

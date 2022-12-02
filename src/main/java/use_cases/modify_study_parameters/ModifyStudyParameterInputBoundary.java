@@ -1,5 +1,8 @@
 package use_cases.modify_study_parameters;
 
+/**
+ * The interface that the use case implements and the controller calls on.
+ */
 interface ModifyStudyParameterInputBoundary {
 
     /**

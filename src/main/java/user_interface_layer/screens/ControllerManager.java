@@ -37,7 +37,7 @@ import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.result_extraction.ResultExtractionController;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_login.UserLoginController;
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 import user_interface_layer.screens.screen_drivers.*;
 

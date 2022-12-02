@@ -1,9 +1,8 @@
 package user_interface_layer.screens.create_questionnaire_inputs_screen;
 
-import user_interface_layer.screen_setters.ScreenManager;
-import user_interface_layer.screen_setters.SetLabelTextPanel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetLabelTextPanel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen.MCQuestionScreen;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen.ScaleQuestionScreen;
@@ -15,13 +14,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CreateQuestionnaireInputsScreen extends JFrame {
     private final List<QuestionModel> addedQuestions = new ArrayList<>();
     List<JRadioButton> studyGroups = new ArrayList<>();
-    private ArrayList<String> variables = new ArrayList<>();
+    private final ArrayList<String> variables = new ArrayList<>();
 
     public CreateQuestionnaireInputsScreen(CreateQuestionnaireInputsScreenInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
@@ -103,7 +101,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
             mcNumOfChoices.add(numOfChoices, BorderLayout.CENTER);
             mcNumOfChoices.add(continueButton, BorderLayout.SOUTH);
             mcNumOfChoices.setSize(300, 100);
-            SetScreenToCenter s = new SetScreenToCenter(mcNumOfChoices);
+            SetScreenToCenter.setCenter(mcNumOfChoices);
             mcNumOfChoices.setVisible(true);
         });
 
@@ -132,7 +130,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
             numOfScale.add(numOfChoices, BorderLayout.CENTER);
             numOfScale.add(continueButton, BorderLayout.SOUTH);
             numOfScale.setSize(300, 100);
-            SetScreenToCenter s = new SetScreenToCenter(numOfScale);
+            SetScreenToCenter.setCenter(numOfScale);
             numOfScale.setVisible(true);
 
         });
@@ -158,21 +156,25 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
         });
 
         JButton createQuestionnaireButton = new JButton("Create Questionnaire");
-        createQuestionnaireButton.addActionListener(e -> {
-            createQuestionnaire("General", data, controllerManager, questionnaireName, questionnaireDescription);
-        });
+        createQuestionnaireButton.addActionListener(e ->
+                createQuestionnaire("General",
+                        data, controllerManager,
+                        questionnaireName, questionnaireDescription));
 
         JButton createEligibilityQuestionnaireButton = new JButton("Create Eligibility Questionnaire");
-        createEligibilityQuestionnaireButton.addActionListener(e -> {
-            createQuestionnaire("Eligibility", data, controllerManager, questionnaireName, questionnaireDescription);
-        });
+        createEligibilityQuestionnaireButton.addActionListener(e -> createQuestionnaire(
+                "Eligibility",
+                data,
+                controllerManager,
+                questionnaireName,
+                questionnaireDescription));
 
         inputsPanel.add(questionnaireNamePanel);
         inputsPanel.add(questionnaireDescriptionPanel);
-        JPanel leftalign = new JPanel();
-        leftalign.setLayout(new FlowLayout(FlowLayout.LEFT));
-        leftalign.add(groupsPanel);
-        inputsPanel.add(leftalign);
+        JPanel leftAlign = new JPanel();
+        leftAlign.setLayout(new FlowLayout(FlowLayout.LEFT));
+        leftAlign.add(groupsPanel);
+        inputsPanel.add(leftAlign);
         inputsPanel.add(questionsPanel);
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(addQuestionButton);
@@ -188,7 +190,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
 
-        SetScreenToCenter s = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
 
     private void createQuestionnaire(String questionnaireType, CreateQuestionnaireInputsScreenInputData data,
@@ -219,11 +221,5 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
             controllerManager.createQuestionnaireController(questionnaireType, data.getStudyID(), data.getResearchID(), questionnaireName.getText(), questionnaireDescription.getText(), groups, addedQuestions.size(), addedQuestions);
             dispose();
         }
-    }
-
-    public static void main(String[] args) {
-        CreateQuestionnaireInputsScreenInputData data = new CreateQuestionnaireInputsScreenInputData(45, new ArrayList<>(Arrays.asList("me", "you", "Question 3")), 4);
-        CreateQuestionnaireInputsScreen createQuestionnaireInputsScreen = new CreateQuestionnaireInputsScreen(data, new ControllerManager(new ScreenManager()));
-        createQuestionnaireInputsScreen.setVisible(true);
     }
 }

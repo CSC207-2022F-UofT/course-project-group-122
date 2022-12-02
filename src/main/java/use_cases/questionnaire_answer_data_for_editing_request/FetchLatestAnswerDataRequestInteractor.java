@@ -8,8 +8,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is the use case that fetches the data for the participant to answer the questionnaire.
+ */
 public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswerDataRequestInputBoundary {
+    /**
+     * The interface that the presenter implements and use case calls on to present the data.
+     */
     FetchLatestAnswerDataRequestOutputBoundary presenter;
+
+    /**
+     * The method in the use case that fetches the latest answer data for the researcher to check.
+     * @param researcherId    The researcher ID of the researcher that is fetching the latest answer data of a questionnaire.
+     * @param studyId         The study ID of the study that the questionnaire belongs to.
+     * @param participantId   The participant ID of the participant that answered the questionnaire.
+     * @param questionnaireID The questionnaire ID of the questionnaire that the participant answered.
+     */
     @Override
     public void fetchLatestAnswerDataRequest(int researcherId, int studyId, int participantId, int questionnaireID) {
         try{
@@ -41,6 +55,12 @@ public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswer
 
     }
 
+    /**
+     * Formats the answer data for the screen to display.
+     * @param questionList  The list of questions in the questionnaire.
+     * @param variableAnswer The map of variable name to answer.
+     * @return The map of variable name to answer data.
+     */
     @NotNull
     private static Map<String, String[]> createAnswerData(@NotNull List<Question> questionList, Map<String, String> variableAnswer) {
         Map<String, String[]> answerData = new HashMap<>();
@@ -53,6 +73,10 @@ public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswer
         return answerData;
     }
 
+    /**
+     * Sets the presenter for the use case.
+     * @param presenter The presenter of the use case.
+     */
     public void setPresenter(FetchLatestAnswerDataRequestOutputBoundary presenter) {
         this.presenter = presenter;
     }

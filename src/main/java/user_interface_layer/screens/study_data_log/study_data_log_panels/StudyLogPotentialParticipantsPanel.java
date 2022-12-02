@@ -2,8 +2,8 @@ package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_study_log.FetchStudyLogResponseModel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
@@ -12,8 +12,16 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to display the potential participants of a study.
+ */
 public class StudyLogPotentialParticipantsPanel extends JPanel {
 
+    /**
+     * Creates the panel to display the potential participants of a study.
+     * @param data The data to display.
+     * @param controllerManager The controller manager.
+     */
     public StudyLogPotentialParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         String[] potentialParticipantsTableHeader = {"ID", "Name", "Eligibility"};
@@ -53,7 +61,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
             frame.add(textField);
             frame.add(button);
             frame.pack();
-            SetScreenToCenter s = new SetScreenToCenter(frame);
+            SetScreenToCenter.setCenter(frame);
             frame.setVisible(true);
         });
 

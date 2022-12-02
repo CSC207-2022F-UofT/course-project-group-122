@@ -1,5 +1,8 @@
 package use_cases.publish_questionnaire;
 
+/**
+ * The interface that the presenter implements and the use case calls on.
+ */
 public interface PublishQuestionnaireOutputBoundary {
 
     /**

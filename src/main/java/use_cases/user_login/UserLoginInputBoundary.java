@@ -1,5 +1,8 @@
 package use_cases.user_login;
 
+/**
+ * The interface that the class that logs in the user implements.
+ */
 public interface UserLoginInputBoundary {
 
     /**

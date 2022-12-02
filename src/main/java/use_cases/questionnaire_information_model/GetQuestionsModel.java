@@ -9,7 +9,15 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The data structure class that use cases use to format questions for the screen.
+ */
 public class GetQuestionsModel {
+    /**
+     * The method that formats the questions for the screen.
+     * @param questions The list of questions in the questionnaire.
+     * @return The list of questions in the questionnaire in the format that the screen can use.
+     */
     @NotNull
     public static List<QuestionModel> getQuestionsModelForScreen(List<Question> questions) {
         List<QuestionModel> questionsModel = new ArrayList<>();

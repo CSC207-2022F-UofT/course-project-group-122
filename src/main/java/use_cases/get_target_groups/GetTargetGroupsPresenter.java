@@ -5,6 +5,9 @@ import user_interface_layer.presenter_manager.display_failure_message.DisplayFai
 
 import java.util.Map;
 
+/**
+ * The presenter class that the use case calls on to present the target groups.
+ */
 public class GetTargetGroupsPresenter implements GetTargetGroupsOutputBoundary {
 
 

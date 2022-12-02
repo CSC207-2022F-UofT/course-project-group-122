@@ -1,7 +1,7 @@
 package user_interface_layer.screens.researcher_request_participant_screen;
 
 import org.jetbrains.annotations.NotNull;
-import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.AssignedQuestionnairePanelForResearcher;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.CompletedQuestionnairePanelForResearcher;
@@ -36,10 +36,6 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         add(centerPanel, BorderLayout.CENTER);
 
         JTabbedPane QuestionnaireTabPane = new JTabbedPane();
-        JPanel EligibilityQuestionnaire = new JPanel();
-        JPanel AssignedQuestionnaires = new JPanel();
-        JPanel completedQuestionnaire = new JPanel();
-
         eligibilityQuestionnairePanel = new EligibilityQuestionnairePanelForResearcher(data, controllerManager);
         QuestionnaireTabPane.addTab("Eligibility Questionnaire", eligibilityQuestionnairePanel);
 
@@ -51,7 +47,7 @@ public class ResearcherRequestParticipantScreen extends JFrame {
 
         add(QuestionnaireTabPane, BorderLayout.SOUTH);
         setSize(600, 600);
-        SetScreenToCenter s = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
 }
 

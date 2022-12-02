@@ -14,7 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The builder that builds the result file.
+ */
 public class ResultExtractionBuilder {
+    /**
+     * The fail message organized in a list.
+     */
     private final ArrayList<String> failMessage = new ArrayList<>();
 
 
@@ -22,6 +28,12 @@ public class ResultExtractionBuilder {
 
     }
 
+    /**
+     *
+     * @param study The study that the researcher want to export
+     * @param filepath The file path to save the result folder
+     * @return The file path of the result folder
+     */
     public String createFolder(@NotNull Study study, String filepath){
         String folderName = study.getId() + "_" + study.getStudyName();
         String folderPath = filepath + "\\" + folderName;
@@ -30,6 +42,11 @@ public class ResultExtractionBuilder {
         return folderPath;
     }
 
+    /**
+     * @param questionnaire The questionnaire that the researcher want to export
+     * @param folderPath The file path to save the result folder
+     * @param study The study that the researcher want to export
+     */
     public void createFile(@NotNull Questionnaire questionnaire, String folderPath, Study study){
         if (questionnaire.isPublished()) {
             String fileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
@@ -41,21 +58,30 @@ public class ResultExtractionBuilder {
     }
 
 
-
-
+    /**
+     * @param fileObj The file that the researcher want to export
+     * @param fileName The name of the file that the researcher want to export
+     */
     private void verifyCreation(@NotNull File fileObj, String fileName) {
         if (!fileObj.mkdir()) {
             String info = fileName + "create unsuccessfully";
             failMessage.add(info);
         }
     }
+
+    /**
+     * @return The fail message organized in a list.
+     */
     public ArrayList<String> getFailMessage(){
         return this.failMessage;
     }
 
 
-
-
+    /**
+     * @param questionnaireResult The file that the researcher want to export
+     * @param questionnaire The questionnaire that the researcher want to export
+     * @param study The study that the researcher want to export
+     */
     private void writeCSVFile(File questionnaireResult, Questionnaire questionnaire, @NotNull Study study){
         try {
             FileWriter exportFile = new FileWriter(questionnaireResult);

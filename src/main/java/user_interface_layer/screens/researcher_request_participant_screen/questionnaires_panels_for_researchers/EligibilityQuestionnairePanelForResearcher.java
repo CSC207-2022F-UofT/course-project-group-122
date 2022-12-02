@@ -1,6 +1,6 @@
 package user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers;
 
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantInputData;
 
@@ -8,8 +8,16 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
+/**
+ * This class is the panel that displays the eligibility questionnaire of a participant for a researcher
+ */
 public class EligibilityQuestionnairePanelForResearcher extends JPanel {
 
+    /**
+     * Creates a panel that displays the eligibility questionnaire of a participant for a researcher.
+     * @param data The data needed to display the eligibility questionnaire
+     * @param controllerManager The controller manager that handles the actions of the buttons
+     */
     public EligibilityQuestionnairePanelForResearcher(ResearcherRequestParticipantInputData data, ControllerManager controllerManager) {
         super();
         setLayout(new BorderLayout());

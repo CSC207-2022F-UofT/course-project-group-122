@@ -114,7 +114,7 @@ import user_interface_layer.presenter_manager.display_screen_for_editing_answers
 import user_interface_layer.presenter_manager.display_stratification.DisplayStratification;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessage;
 import user_interface_layer.presenter_manager.display_versioned_answer.DisplayVersionedAnswer;
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.screen_drivers.*;

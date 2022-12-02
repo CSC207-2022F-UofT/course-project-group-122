@@ -6,6 +6,9 @@ import use_cases.fetch_id.FetchId;
 
 import java.util.List;
 
+/**
+ * The use case that fetches the data of a participant in a study.
+ */
 public class FetchParticipantStudyDataInteractor implements FetchParticipantStudyDataInputBoundary {
 
     private FetchParticipantStudyDataOutputBoundary fetchParticipantStudyDataPresenter;

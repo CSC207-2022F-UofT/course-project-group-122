@@ -276,78 +276,135 @@ public class FetchParticipantStudyDataResponseModel {
     }
 
 
+    /**
+     * @return The id of the participant.
+     */
     public int getParticipantId() {
         return participantId;
     }
 
+    /**
+     * @return The name of the participant.
+     */
     public String getParticipantName() {
         return participantName;
     }
 
+    /**
+     * @return The email of the study.
+     */
     public String getParticipantStatus() {
         return participantStatus;
     }
 
+    /**
+     * @return The id of the study
+     */
     public int getStudyId() {
         return studyId;
     }
 
+    /**
+     * @return The name of the study.
+     */
     public String getStudyName() {
         return studyName;
     }
 
+    /**
+     * @return The description of the study.
+     */
     public String getStudyDescription() {
         return studyDescription;
     }
 
+    /**
+     * @return The status of the study.
+     */
     public String getStudyStatus() {
         return studyStatus;
     }
 
+    /**
+     * @return The number of groups in the study.
+     */
     public int getGroupNumber() {
         return groupNumber;
     }
 
+    /**
+     * @return The id of the eligibility questionnaire.
+     */
     public int getEligibilityQuestionnaire() {
         return eligibilityQuestionnaireId;
     }
 
+    /**
+     * @return The status of the answer of the questionnaire, whether it is answered or not.
+     */
     public String getEligibilityQuestionnaireAnswerStatus() {
         return eligibilityQuestionnaireAnswerStatus;
     }
 
+    /**
+     * @return The list of ids of the assigned questionnaires.
+     */
     public List<Integer> getAssignedQuestionnaires() {
         return assignedQuestionnaires;
     }
 
+    /**
+     * @return The list of ids of the completed questionnaires.
+     */
     public List<Integer> getCompletedQuestionnaires() {
         return completedQuestionnaires;
     }
 
+    /**
+     * @return The list of ids of the questionnaire answers.
+     */
     public List<Integer> getQuestionnaireAnswers() {
         return questionnaireAnswers;
     }
 
+    /**
+     * @return The data of the eligibility questionnaire.
+     */
     public String[] getEligibilityQuestionnaireData() {
         return eligibilityQuestionnaireData;
     }
 
+    /**
+     * @return The data of the assigned questionnaires.
+     */
     public Map<Integer, String[]> getAssignedQuestionnaireData() {
         return assignedQuestionnaireData;
     }
 
+    /**
+     * @return The data of the completed questionnaires.
+     */
     public Map<Integer, String[]> getCompletedQuestionnaireData() {
         return completedQuestionnaireData;
     }
 
+    /**
+     * @return The history of answers to the eligibility questionnaire.
+     */
     public List<String[]> getEligibilityQuestionnaireAnswerHistory() {
         return eligibilityQuestionnaireAnswerHistory;
     }
 
+    /**
+     * @return The history of answers to the completed questionnaires.
+     */
     public Map<Integer, List<String[]>> getCompletedQuestionnaireAnswerHistory() {
         return completedQuestionnaireAnswerHistory;
     }
 
+    /**
+     * @return The id of the user that is currently logged in.
+     */
     public int getUserId() {
         return userId;
     }

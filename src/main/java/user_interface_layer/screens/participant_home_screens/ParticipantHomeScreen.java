@@ -1,8 +1,7 @@
 package user_interface_layer.screens.participant_home_screens;
 
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
-import user_interface_layer.screen_setters.ScreenManager;
-import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants.AssignedQuestionnairePanel;
 import user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants.CompletedQuestionnairePanel;
@@ -11,16 +10,29 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+/**
+ * This class is the screen that displays the screen for an enrolled participant and potential participant
+ */
 public class ParticipantHomeScreen extends JFrame {
+    /**
+     * The panel that displays the eligibility questionnaire
+     */
     JPanel eligibilityQuestionnairePanel;
+    /**
+     * The panel that displays the assigned questionnaires
+     */
     JPanel assignedQuestionnairePanel;
+    /**
+     * The panel that displays the completed questionnaires
+     */
     JPanel completedQuestionnairePanel;
 
+    /**
+     * This is the constructor for the ParticipantHomeScreen class
+     * @param data The data needed to display the screen
+     * @param controllerManager The controller manager that handles the actions of the buttons
+     */
     public ParticipantHomeScreen(@NotNull FetchParticipantStudyDataResponseModel data, @NotNull ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -30,9 +42,7 @@ public class ParticipantHomeScreen extends JFrame {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel userIDLabel = new JLabel(data.getParticipantName() + " (" + data.getParticipantId()+ ")");
         JButton logOutButton = new JButton("Log Out");
-        logOutButton.addActionListener(e -> {
-            controllerManager.userLogOutController();
-        });
+        logOutButton.addActionListener(e -> controllerManager.userLogOutController());
 
         // JLabel message = new JLabel("You are enrolled in " + data.getStudyName(), SwingConstants.CENTER);
         topPanel.add(userIDLabel);
@@ -73,13 +83,11 @@ public class ParticipantHomeScreen extends JFrame {
                                 .addContainerGap())
         );
         JButton dropOutButton = new JButton("Drop Out");
-        dropOutButton.addActionListener(e -> {
-            controllerManager.participantDropStudy(data.getParticipantId(),data.getStudyId());
-        });
+        dropOutButton.addActionListener(e -> controllerManager.participantDropStudy(data.getParticipantId(),data.getStudyId()));
         add(dropOutButton, BorderLayout.SOUTH);
 
         add(participantScreenMain, BorderLayout.CENTER);
         setSize(600, 400);
-        SetScreenToCenter s = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
 }

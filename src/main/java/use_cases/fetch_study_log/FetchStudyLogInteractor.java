@@ -4,9 +4,15 @@ import entities.Researcher;
 import entities.Study;
 import use_cases.fetch_id.FetchId;
 
+/**
+ *
+ */
 public class FetchStudyLogInteractor implements FetchStudyLogInputBoundary {
 
 
+    /**
+     * The presenter for this use case.
+     */
     private FetchStudyLogOutputBoundary fetchStudyLogPresenter;
 
     /**
@@ -26,6 +32,8 @@ public class FetchStudyLogInteractor implements FetchStudyLogInputBoundary {
         } else if (!study.getResearchers().contains(researcher)) {
             System.out.println("Researcher is not part of the study");
         }
+        assert researcher != null;
+        assert study != null;
         FetchStudyLogResponseModel fetchStudyLogResponseModel =
                 new FetchStudyLogResponseModel(researcher.getId(), researcher.getName(), study);
         fetchStudyLogPresenter.presentStudyLog(fetchStudyLogResponseModel);

@@ -1,5 +1,8 @@
 package use_cases.fetch_consent_form;
 
+/**
+ * The interface that the use case implements and the controller calls on.
+ */
 public interface FetchConsentFormInputBoundary {
 
     /**

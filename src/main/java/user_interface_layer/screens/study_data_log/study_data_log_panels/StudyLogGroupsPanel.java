@@ -3,21 +3,41 @@ package user_interface_layer.screens.study_data_log.study_data_log_panels;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_study_log.FetchStudyLogResponseModel;
 import use_cases.participant_enroller.BlockRandomGroupGenerator;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class is used to display the groups of a study.
+ */
 public class StudyLogGroupsPanel extends JPanel {
 
+    /**
+     * The constant string for the Simple strategy
+     */
     private static final String SIMPLE = "Simple";
+    /**
+     * The constant string for the Block strategy
+     */
     private static final String BLOCK = "Block";
+    /**
+     *  The constant string for the stratified strategy
+     */
     private static final String STRATIFIED = "Stratified";
 
+    /**
+     * The constant string for the random type
+     */
     private static final String RANDOMIZATION = " Randomization";
 
+    /**
+     * Creates the panel to display the groups of a study.
+     * @param data The data to display.
+     * @param controllerManager The controller manager.
+     */
     public StudyLogGroupsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel label = new JLabel(data.getStudyType() + " Groups", SwingConstants.CENTER);
@@ -87,7 +107,7 @@ public class StudyLogGroupsPanel extends JPanel {
                             });
                             frame.add(button);
                             frame.pack();
-                            SetScreenToCenter s = new SetScreenToCenter(frame);
+                            SetScreenToCenter.setCenter(frame);
                             frame.setVisible(true);
                         } else {
                             JOptionPane.showMessageDialog(null, "You can't change the strategy " +
@@ -106,6 +126,4 @@ public class StudyLogGroupsPanel extends JPanel {
         }
         add(buttonPanel, BorderLayout.SOUTH);
     }
-
-
 }

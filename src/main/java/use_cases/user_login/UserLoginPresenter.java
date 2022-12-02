@@ -5,6 +5,9 @@ import user_interface_layer.presenter_manager.display_failure_message.DisplayFai
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 import user_interface_layer.screens.ControllerManager;
 
+/**
+ * The presenter that the use case calls on.
+ */
 public class UserLoginPresenter implements UserLoginOutputBoundary {
 
     /**

@@ -2,7 +2,7 @@ package user_interface_layer.presenter_manager.display_researcher_study;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_study_data.FetchStudyDataResponseModel;
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen;
 import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreenInputData;
@@ -11,7 +11,13 @@ import user_interface_layer.screens.researcher_home_screen.ResearcherStudyScreen
  * The class that displays the researcher's study screen where all  the studies are displayed.
  */
 public class DisplayResearcherStudyData implements DisplayResearcherStudyDataInterface{
+    /**
+     * The screen manager.
+     */
     ScreenManager screenManager;
+    /**
+     * The controller manager.
+     */
     ControllerManager controllerManager;
 
     /**
@@ -26,6 +32,9 @@ public class DisplayResearcherStudyData implements DisplayResearcherStudyDataInt
     }
 
 
+    /**
+     * @param response The data needed to display the researcher study screen.
+     */
     @Override
     public void presentResearcherHomeScreen(@NotNull FetchStudyDataResponseModel response) {
         ResearcherStudyScreenInputData data = new ResearcherStudyScreenInputData(
@@ -38,6 +47,10 @@ public class DisplayResearcherStudyData implements DisplayResearcherStudyDataInt
         screenManager.updateCurrentScreen(screen);
 
     }
+
+    /**
+     * @param screenManager The screen manager.
+     */
     public void setScreenManager(ScreenManager screenManager){
         this.screenManager = screenManager;
     }

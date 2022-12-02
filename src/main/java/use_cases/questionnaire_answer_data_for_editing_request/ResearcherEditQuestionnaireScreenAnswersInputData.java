@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The data structure class that the use case fetches and the presenter gives to the screen.
+ */
 public class ResearcherEditQuestionnaireScreenAnswersInputData {
 
     /*
@@ -173,7 +176,7 @@ public class ResearcherEditQuestionnaireScreenAnswersInputData {
     /*
      * The method that returns the map of questions and its type.
      */
-    public Map<String, String> getQuestionsTypes() {
+    public Map<String, String> getQuestioznsTypes() {
         return questionsTypes;
     }
 

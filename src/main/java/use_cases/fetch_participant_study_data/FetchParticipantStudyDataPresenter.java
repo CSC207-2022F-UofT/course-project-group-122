@@ -2,11 +2,12 @@ package use_cases.fetch_participant_study_data;
 
 import user_interface_layer.presenter_manager.display_participant_study.DisplayParticipantStudyDataInterface;
 
-
-import java.util.Map;
 import java.util.Objects;
 
 
+/**
+ *
+ */
 public class FetchParticipantStudyDataPresenter implements FetchParticipantStudyDataOutputBoundary {
 
     /**

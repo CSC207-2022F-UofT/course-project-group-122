@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_screen_for_editing_answers;
 
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.edit_questionnaire_answers.EditQuestionnaireAnswers;
 import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQuestionnaireScreenAnswersInputData;
@@ -9,8 +9,14 @@ import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQue
  * The class that displays the screen where the researcher can edit the answers of a questionnaire.
  */
 public class DisplayEditAnswers implements DisplayEditAnswersInterface {
+    /**
+     * The screen manager.
+     */
     ScreenManager screenManager;
 
+    /**
+     * The controller manager.
+     */
     ControllerManager controllerManager;
 
     /**
@@ -25,6 +31,9 @@ public class DisplayEditAnswers implements DisplayEditAnswersInterface {
     }
 
 
+    /**
+     * @param data The data needed to display the screen.
+     */
     @Override
     public void presentResearcherEditQuestionnaireAnswersScreen(ResearcherEditQuestionnaireScreenAnswersInputData data) {
         EditQuestionnaireAnswers screen = new EditQuestionnaireAnswers(data, controllerManager);

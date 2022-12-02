@@ -1,7 +1,7 @@
 package user_interface_layer.screens.choose_groups_to_assign;
 
 import org.jetbrains.annotations.NotNull;
-import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
@@ -10,11 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A screen that allows the user to choose the groups to assign.
+ */
 public class ChooseGroupToAssignScreen extends JFrame {
+    /**
+     * The radio buttons of groups that the user can choose from.
+     */
     List<JRadioButton> groupButtons = new ArrayList<>();
 
-    public ChooseGroupToAssignScreen(@NotNull Map<Integer, String> targetGroups, @NotNull Map<Integer, String> allStudyGroups,
-                                     ControllerManager controllerManager, int studyID, int questionnaireID) {
+    /**
+     * @param targetGroups The groups that the user can choose from.
+     * @param allStudyGroups The study groups that the user can choose from.
+     * @param controllerManager The controller manager.
+     * @param studyID The study ID.
+     * @param questionnaireID The questionnaire ID.
+     */
+    public ChooseGroupToAssignScreen(@NotNull Map<Integer, String> targetGroups,
+                                     @NotNull Map<Integer, String> allStudyGroups,
+                                     ControllerManager controllerManager,
+                                     int studyID, int questionnaireID) {
         StringBuilder targets = new StringBuilder();
         for (Map.Entry<Integer, String> entry : targetGroups.entrySet()) {
             targets.append("Group ").append(entry.getKey()).append(": ").append(entry.getValue()).append("; ");
@@ -48,6 +63,6 @@ public class ChooseGroupToAssignScreen extends JFrame {
         setVisible(true);
 
         setSize(600, 400);
-        SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
 }

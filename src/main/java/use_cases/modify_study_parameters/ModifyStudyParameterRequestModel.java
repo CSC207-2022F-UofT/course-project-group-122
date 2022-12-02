@@ -1,5 +1,8 @@
 package use_cases.modify_study_parameters;
 
+/**
+ * The data structure class that contains the input data to the use case.
+ */
 public class ModifyStudyParameterRequestModel {
 
     /**
@@ -10,17 +13,17 @@ public class ModifyStudyParameterRequestModel {
     /**
      * The id of the study to modify.
      */
-    private int studyId;
+    private final int studyId;
 
     /**
      * The new name of the study.
      */
-    private String studyName;
+    private final String studyName;
 
     /**
      * The new description of the study.
      */
-    private String studyDescription;
+    private final String studyDescription;
 
     /**
      * The target number of participants for the study.

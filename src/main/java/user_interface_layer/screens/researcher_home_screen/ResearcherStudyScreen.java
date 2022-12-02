@@ -1,8 +1,8 @@
 package user_interface_layer.screens.researcher_home_screen;
 
 import org.jetbrains.annotations.NotNull;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
@@ -11,10 +11,21 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is the screen that displays the list of studies for a researcher
+ */
 public class ResearcherStudyScreen extends JFrame {
 
+    /**
+     * The table that contains the list of studies
+     */
     private JTable studiesTable;
 
+    /**
+     * This is the constructor for the ResearcherStudyScreen class
+     * @param data The data needed to display the list of studies
+     * @param controllerManager The controller manager that handles the actions of the buttons
+     */
     public ResearcherStudyScreen(@NotNull ResearcherStudyScreenInputData data, ControllerManager controllerManager) {
 
         // Initialize the elements of the screen.
@@ -43,9 +54,7 @@ public class ResearcherStudyScreen extends JFrame {
 
         logOutButton.setText("Log Out");
         logOutButton.addActionListener(
-                e-> {
-                    controllerManager.userLogOutController();
-                });
+                e-> controllerManager.userLogOutController());
 
         userPanel.add(logOutButton);
         headerPanel.add(userPanel);
@@ -86,9 +95,7 @@ public class ResearcherStudyScreen extends JFrame {
         southPanel.add(selectStudyButton);
 
         createStudyButton.setText("Create Study");
-        createStudyButton.addActionListener(e -> {
-            controllerManager.requestCreateStudyModel(data.getResearchID());
-        });
+        createStudyButton.addActionListener(e -> controllerManager.requestCreateStudyModel(data.getResearchID()));
 
         JButton editStudyButton = new JButton("Edit Study");
         editStudyButton.addActionListener(e -> {
@@ -104,7 +111,7 @@ public class ResearcherStudyScreen extends JFrame {
         framePanel.add(southPanel, BorderLayout.PAGE_END);
         getContentPane().add(framePanel);
         pack();
-        SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
 }
 

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * This class is responsible for generating simple random groups for a randomized study.
+ */
 public class SimpleRandomGroupGenerator implements RandomGroupGenerator {
 
     /**

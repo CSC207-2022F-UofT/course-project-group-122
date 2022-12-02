@@ -1,5 +1,8 @@
 package use_cases.researcher_enroller;
 
+/**
+ * The interface that the use case implements and the controller calls on.
+ */
 public interface ResearcherEnrollerInputBoundary {
 
     /**

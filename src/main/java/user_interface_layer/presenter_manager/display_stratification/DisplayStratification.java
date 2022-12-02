@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_stratification;
 
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationScreen;
 
@@ -10,21 +10,26 @@ import java.util.List;
  * The class that displays the screen where the researcher can choose a stratification variable.
  */
 public class DisplayStratification implements DisplayStratificationInterface {
+    /**
+     * The screen manager.
+     */
     ScreenManager screenManager;
+    /**
+     * The controller manager.
+     */
     ControllerManager controllerManager;
 
 
     /**
      * The constructor of the class.
      *
-     * @param screenManager         The screen manager.
-     * @param controllerManager     The controller manager.
+     * @param screenManager     The screen manager.
+     * @param controllerManager The controller manager.
      */
     public DisplayStratification(ScreenManager screenManager, ControllerManager controllerManager) {
         this.screenManager = screenManager;
         this.controllerManager = controllerManager;
     }
-
 
 
     /**
@@ -42,11 +47,21 @@ public class DisplayStratification implements DisplayStratificationInterface {
     }
 
 
-    public void setScreenManager(ScreenManager screenManager){
+    /**
+     * Sets the screen manager.
+     *
+     * @param screenManager The screen manager.
+     */
+    public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
     }
 
-    public void setControllerManager(ControllerManager controllerManager){
+    /**
+     * Sets the controller manager.
+     *
+     * @param controllerManager The controller manager.
+     */
+    public void setControllerManager(ControllerManager controllerManager) {
         this.controllerManager = controllerManager;
     }
 }

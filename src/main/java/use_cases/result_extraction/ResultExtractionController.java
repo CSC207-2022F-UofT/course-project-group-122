@@ -1,5 +1,8 @@
 package use_cases.result_extraction;
 
+/**
+ * The controller for the result extraction use case.
+ */
 public class ResultExtractionController {
 
     private ResultExtractionInputBoundary resultPullingAndExtractionInteractor;

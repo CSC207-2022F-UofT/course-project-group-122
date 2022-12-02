@@ -2,16 +2,23 @@ package user_interface_layer.screens.participant_home_screens.questionnaire_pane
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreenInputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
+/**
+ * This class is the panel that displays the eligibility questionnaire for a participant
+ */
 public class EligibilityQuestionnairePanel extends JPanel {
 
+    /**
+     * Creates a panel that displays the eligibility questionnaire for a participant.
+     * @param data The data needed to display the eligibility questionnaire
+     * @param controllerManager The controller manager that handles the actions of the buttons
+     */
     public EligibilityQuestionnairePanel(@NotNull FetchParticipantStudyDataResponseModel data , ControllerManager controllerManager) {
         super();
         setLayout(new BorderLayout());
@@ -56,6 +63,5 @@ public class EligibilityQuestionnairePanel extends JPanel {
         buttonsPanel.add(answerButton);
         buttonsPanel.add(checkAnswerButton);
         add(buttonsPanel, BorderLayout.SOUTH);
-
     }
 }

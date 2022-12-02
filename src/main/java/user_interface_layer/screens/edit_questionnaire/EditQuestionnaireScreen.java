@@ -1,11 +1,10 @@
 package user_interface_layer.screens.edit_questionnaire;
 
-import entities.Question;
+import org.jetbrains.annotations.NotNull;
 import use_cases.edit_questionnaire_screen_data.EditQuestionnaireScreenInputData;
-import user_interface_layer.screen_setters.ScreenManager;
-import user_interface_layer.screen_setters.SetLabelTextPanel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetLabelTextPanel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen.MCQuestionScreen;
@@ -20,18 +19,36 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.List;
 
+/**
+ * The screen for editing a questionnaire.
+ */
 public class EditQuestionnaireScreen extends JFrame {
+    /**
+     * The list of questions from the questionnaire.
+     */
     private final List<QuestionModel> existingQuestions;
+    /**
+     * The list of questions that need to be added.
+     */
     List<QuestionModel> addedQuestions = new ArrayList<>();
+    /**
+     * The list of study groups.
+     */
     List<JRadioButton> studyGroups = new ArrayList<>();
 
+    /**
+     * The list of variables.
+     */
     ArrayList<String> variables;
 
+    /**
+     * @param data The data for the screen.
+     * @param controllerManager The controller manager.
+     */
     public EditQuestionnaireScreen(EditQuestionnaireScreenInputData data, ControllerManager controllerManager) {
         this.variables = (ArrayList<String>) data.getPreviousVariables();
         existingQuestions = data.getQuestions();
 
-        JPanel headerPanel = new JPanel();
         setLayout(new BorderLayout());
         JTextField questionnaireName = new JTextField(data.getQuestionnaireName(), 30);
         JTextArea questionnaireDescription = new JTextArea(3, 20);
@@ -130,7 +147,7 @@ public class EditQuestionnaireScreen extends JFrame {
             mcNumOfChoices.add(numOfChoices, BorderLayout.CENTER);
             mcNumOfChoices.add(continueButton, BorderLayout.SOUTH);
             mcNumOfChoices.setSize(300, 100);
-            SetScreenToCenter s = new SetScreenToCenter(mcNumOfChoices);
+            SetScreenToCenter.setCenter(mcNumOfChoices);
             mcNumOfChoices.setVisible(true);
         });
 
@@ -158,7 +175,7 @@ public class EditQuestionnaireScreen extends JFrame {
             numOfScale.add(numOfChoices, BorderLayout.CENTER);
             numOfScale.add(continueButton, BorderLayout.SOUTH);
             numOfScale.pack();
-            SetScreenToCenter s = new SetScreenToCenter(numOfScale);
+            SetScreenToCenter.setCenter(numOfScale);
             numOfScale.setVisible(true);
 
         });
@@ -197,6 +214,42 @@ public class EditQuestionnaireScreen extends JFrame {
             }
         });
 
+        JButton createQuestionnaireButton = createSaveQuestionnaireButton(data,
+                controllerManager,
+                questionnaireName,
+                questionnaireDescription);
+
+        inputsPanel.add(questionnaireNamePanel);
+        inputsPanel.add(questionnaireDescriptionPanel);
+        inputsPanel.add(groupsPanel);
+        inputsPanel.add(questionsPanel);
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(addQuestionButton);
+        buttonsPanel.add(deleteQuestionButton);
+        buttonsPanel.add(deletePreviousQuestionButton);
+        inputsPanel.add(buttonsPanel);
+
+        add(inputsPanel, BorderLayout.CENTER);
+        add(createQuestionnaireButton, BorderLayout.SOUTH);
+        setTitle("Edit Questionnaire");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pack();
+        SetScreenToCenter.setCenter(this);
+    }
+
+    /**
+     * Creates a button that saves the questionnaire to the database
+     * @param data the data
+     * @param controllerManager the controller manager
+     * @param questionnaireName the questionnaire name
+     * @param questionnaireDescription the questionnaire description
+     * @return The button to save the questionnaire
+     */
+    @NotNull
+    private JButton createSaveQuestionnaireButton(EditQuestionnaireScreenInputData data,
+                                                  ControllerManager controllerManager,
+                                                  JTextField questionnaireName,
+                                                  JTextArea questionnaireDescription) {
         JButton createQuestionnaireButton = new JButton("Save Questionnaire");
         createQuestionnaireButton.addActionListener(e -> {
             boolean selected = false;
@@ -207,13 +260,17 @@ public class EditQuestionnaireScreen extends JFrame {
                 }
             }
             if (questionnaireName.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter a name for the questionnaire");
+                JOptionPane.showMessageDialog(null,
+                        "Please enter a name for the questionnaire");
             } else if (questionnaireDescription.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter a description for the questionnaire");
+                JOptionPane.showMessageDialog(null,
+                        "Please enter a description for the questionnaire");
             } else if (addedQuestions.size() + existingQuestions.size() == 0) {
-                JOptionPane.showMessageDialog(null, "Please add at least one question to the questionnaire");
+                JOptionPane.showMessageDialog(null,
+                        "Please add at least one question to the questionnaire");
             } else if (!selected) {
-                JOptionPane.showMessageDialog(null, "Please select at least one study group");
+                JOptionPane.showMessageDialog(null,
+                        "Please select at least one study group");
             } else {
                 ArrayList<String> studyGroupNames = new ArrayList<>();
                 for (JRadioButton radioButton : studyGroups) {
@@ -233,25 +290,7 @@ public class EditQuestionnaireScreen extends JFrame {
                 this.dispose();
             }
         });
-
-        inputsPanel.add(questionnaireNamePanel);
-        inputsPanel.add(questionnaireDescriptionPanel);
-        inputsPanel.add(groupsPanel);
-        inputsPanel.add(questionsPanel);
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.add(addQuestionButton);
-        buttonsPanel.add(deleteQuestionButton);
-        buttonsPanel.add(deletePreviousQuestionButton);
-        inputsPanel.add(buttonsPanel);
-
-        add(inputsPanel, BorderLayout.CENTER);
-        add(createQuestionnaireButton, BorderLayout.SOUTH);
-        setTitle("Edit Questionnaire");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        pack();
-
-        SetScreenToCenter s = new SetScreenToCenter(this);
-
+        return createQuestionnaireButton;
     }
 }
 

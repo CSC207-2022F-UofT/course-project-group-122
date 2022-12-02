@@ -6,6 +6,9 @@ import user_interface_layer.presenter_manager.display_failure_message.DisplayFai
 
 import java.util.ArrayList;
 
+/**
+ * The presenter that the use case calls on.
+ */
 public class ResultExtractionPresenter implements ResultExtractionOutputBoundary {
 
     /**

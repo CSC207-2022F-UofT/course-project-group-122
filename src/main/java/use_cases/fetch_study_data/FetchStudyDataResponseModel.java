@@ -17,12 +17,12 @@ public class FetchStudyDataResponseModel {
     /**
      * The ID of the researcher whose study data is to be fetched.
      */
-    private int researcherId;
+    private final int researcherId;
 
     /**
      * The name of the researcher whose study data is to be fetched.
      */
-    private String researcherName;
+    private final String researcherName;
 
     /**
      * The map of study data that is associated with the researcher.
@@ -31,7 +31,7 @@ public class FetchStudyDataResponseModel {
      * - the study name
      * - the study status (Active or Closed)
      */
-    private Map<Integer, String[]> studiesData;
+    private final Map<Integer, String[]> studiesData;
 
 
     public FetchStudyDataResponseModel(@NotNull Researcher researcher, List<Study> listOfStudies) {
