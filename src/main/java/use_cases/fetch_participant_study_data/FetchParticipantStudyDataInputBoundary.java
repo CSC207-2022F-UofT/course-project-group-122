@@ -1,5 +1,8 @@
 package use_cases.fetch_participant_study_data;
 
+/**
+ * The interface that the use case implements and the controller calls on.
+ */
 interface FetchParticipantStudyDataInputBoundary {
 
 

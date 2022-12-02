@@ -7,7 +7,15 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A helper class for the create questionnaire use case.
+ */
 public class CreateQuestion {
+
+    /**
+     * @param questionnaire The questionnaire to add the questions to.
+     * @param questionData The data for the questions to be createdd and added.
+     */
     public static void createQuestion(Questionnaire questionnaire, @NotNull QuestionModel questionData) {
         String type = questionData.getType();
         Question question =

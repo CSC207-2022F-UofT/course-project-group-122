@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_versioned_answer;
 
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import use_cases.fetch_versioned_answer.FetchVersionedAnswerResponseModel;
 import user_interface_layer.screens.check_versioned_answer.CheckVersionedAnswer;
 
@@ -20,11 +20,12 @@ public class DisplayVersionedAnswer implements DisplayVersionedAnswerInterface {
     }
 
 
-
+    /**
+     * @param data The data needed to display the screen.
+     */
     @Override
     public void presentVersionedAnswersOfQuestionnaireScreen(FetchVersionedAnswerResponseModel data) {
         CheckVersionedAnswer screen = new CheckVersionedAnswer(data);
         screenManager.setCheckQuestionnaireVersionedAnswerScreen(screen);
-        screenManager.updateCurrentScreen(screen);
     }
 }

@@ -1,12 +1,13 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A subclass of Question that allows User to answer a Question by choosing one of the specified choices.
  */
-public class MultipleChoiceQuestion extends Question implements java.io.Serializable{
+public class MultipleChoiceQuestion extends Question implements Serializable {
 
     /**
      * The number of choices for this MultipleChoiceQuestion. The default value is 0.
@@ -133,7 +134,11 @@ public class MultipleChoiceQuestion extends Question implements java.io.Serializ
      * @return The choices of this MultipleChoiceQuestion.
      */
     public List<String> getChoices() {
-        return choices;
+        List<String> choicesToReturn = new ArrayList<>();
+        for (int i = 0; i < this.choices.size(); i++) {
+            choicesToReturn.add((i + 1)+". "+this.choices.get(i));
+        }
+        return choicesToReturn;
     }
 
 
@@ -152,9 +157,23 @@ public class MultipleChoiceQuestion extends Question implements java.io.Serializ
     @Override
     public String getAnswerChoices() {
         StringBuilder answerChoices = new StringBuilder();
+//        answerChoices.append("<html>");
+//        for (int i = 0; i < this.choices.size(); i++) {
+//            if (i != 0) {
+//                answerChoices.append("<BR>");
+//            }
+//            answerChoices.append(i + 1).append(". ").append(this.choices.get(i));
+//        }
+//        answerChoices.append("</html>");
+//        return answerChoices.toString();
+
         for (int i = 0; i < this.choices.size(); i++) {
-            answerChoices.append(i + 1).append(". ").append(this.choices.get(i)).append("\n");
+            if (i != 0) {
+                answerChoices.append(",");
+            }
+            answerChoices.append(i + 1).append(". ").append(this.choices.get(i));
         }
         return answerChoices.toString();
+
     }
 }

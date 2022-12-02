@@ -6,10 +6,15 @@ import use_cases.fetch_id.FetchId;
 
 import java.util.Objects;
 
+/**
+ * The use case that creates a consent form for a study.
+ */
 public class CreateConsentFormInteractor implements CreateConsentFormInputBoundary {
 
+    /**
+     * The output boundary of this use case that the presenter implements.
+     */
     private CreateConsentFormOutputBoundary createConsentFormPresenter;
-
 
     /**
      * Create the consent form for the given study.
@@ -40,7 +45,6 @@ public class CreateConsentFormInteractor implements CreateConsentFormInputBounda
                     study.getId() + " has been created successfully.");
         }
     }
-
 
     /**
      * Set the presenter for this interactor.

@@ -27,7 +27,7 @@ public class FetchStudyDataForEditingInteractor implements FetchStudyDataForEdit
             String studyDescription = study.getStudyDescription();
             int targetSize = study.getTargetStudySize();
             FetchStudyDataForEditingResponseModel inputData = new FetchStudyDataForEditingResponseModel(studyId,
-                    studyName, studyDescription, targetSize);
+                    studyName, studyDescription, targetSize, study.getStudyType());
             presenter.presentStudyDataForEditing(inputData);
         }
     }

@@ -1,5 +1,8 @@
 package use_cases.modify_study_parameters;
 
+/**
+ * The data structure class that contains the input data to the use case.
+ */
 public class ModifyStudyParameterRequestModel {
 
     /**
@@ -10,30 +13,23 @@ public class ModifyStudyParameterRequestModel {
     /**
      * The id of the study to modify.
      */
-    private int studyId;
+    private final int studyId;
 
     /**
      * The new name of the study.
      */
-    private String studyName;
+    private final String studyName;
 
     /**
      * The new description of the study.
      */
-    private String studyDescription;
+    private final String studyDescription;
 
     /**
      * The target number of participants for the study.
      */
     private int studyTargetSize;
 
-    /**
-     * The type of the study.
-     * Has to be one of the following:
-     * "General",
-     * "Randomized"
-     */
-    private String studyType;
 
     /**
      * The number of groups in the study.
@@ -71,20 +67,12 @@ public class ModifyStudyParameterRequestModel {
 
     /**
      * Set the target size of the study.
-     * @param studyTargetSize
+     * @param studyTargetSize   The target size of the study.
      */
     public void setStudyTargetSize(int studyTargetSize) {
         this.studyTargetSize = studyTargetSize;
     }
 
-
-    /**
-     * Set the type of the study.
-     * @param studyType The type of the study.
-     */
-    public void setStudyType(String studyType) {
-        this.studyType = studyType;
-    }
 
     /**
      * Set the number of groups in the study.
@@ -147,15 +135,6 @@ public class ModifyStudyParameterRequestModel {
      */
     public int getStudyTargetSize() {
         return studyTargetSize;
-    }
-
-
-    /**
-     * Get the type of the study.
-     * @return  The type of the study.
-     */
-    public String getStudyType() {
-        return studyType;
     }
 
 

@@ -4,11 +4,23 @@ import entities.User;
 import entities.UserFactory;
 import entities.UserPool;
 
+/**
+ * The class that logs in the user.
+ */
 public class UserLoginInteractor implements UserLoginInputBoundary {
 
+    /**
+     * The presenter that updates the screen of the use that logged in.
+     */
     private UserLoginOutputBoundary userLoginPresenter;
+    /**
+     * A user factory instance that creates a user.
+     */
     private final UserFactory userFactory = new UserFactory();
 
+    /**
+     * The user pool.
+     */
     private UserPool userPool;
 
     /**

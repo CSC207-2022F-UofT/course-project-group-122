@@ -21,7 +21,7 @@ interface FetchStudyDataInputBoundary {
      * is involved in the study (i.e., their status in the study, the questionnaires assigned to the participant,
      * the answers of these participants that they have provided, etc.).
      *
-     * @param user The user whose study data is to be fetched.
+     * @param userId The user whose study data is to be fetched.
      */
     void fetchStudyData(int userId);
 }

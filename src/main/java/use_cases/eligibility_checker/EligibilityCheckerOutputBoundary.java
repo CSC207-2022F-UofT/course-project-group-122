@@ -1,5 +1,8 @@
 package use_cases.eligibility_checker;
 
+/**
+ * The interface that the presenter implements and is called on by the use case.
+ */
 public interface EligibilityCheckerOutputBoundary {
 
     /**

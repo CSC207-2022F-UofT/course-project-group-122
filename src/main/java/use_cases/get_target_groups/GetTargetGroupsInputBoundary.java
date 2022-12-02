@@ -1,5 +1,8 @@
 package use_cases.get_target_groups;
 
+/**
+ * The interface that the use case implements and the controller calls on.
+ */
 public interface GetTargetGroupsInputBoundary {
 
     /**

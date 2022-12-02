@@ -7,5 +7,8 @@ import use_cases.fetch_study_data.FetchStudyDataResponseModel;
  */
 public interface DisplayResearcherStudyDataInterface {
 
+    /**
+     * @param response The data needed to display the researcher study screen.
+     */
     void presentResearcherHomeScreen(FetchStudyDataResponseModel response);
 }

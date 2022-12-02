@@ -1,5 +1,8 @@
 package use_cases.create_consent_form;
 
+/**
+ * This the interface that the presenter implements and the use case calls on.
+ */
 public interface CreateConsentFormOutputBoundary {
 
 

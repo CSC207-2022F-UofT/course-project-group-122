@@ -1,5 +1,8 @@
 package use_cases.remove_researcher;
 
+/**
+ * The interface that the presenter implements and the use case calls on.
+ */
 public interface RemoveResearcherOutputBoundary {
 
     /**

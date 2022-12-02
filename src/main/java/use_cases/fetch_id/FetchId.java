@@ -13,7 +13,14 @@ import java.util.List;
  */
 public class FetchId {
 
+    /**
+     * The user pool where all the users are stored.
+     */
     private static UserPool userPool;
+
+    /**
+     * The study pool where all the studies are stored.
+     */
     private static StudyPool studyPool;
 
 
@@ -123,6 +130,10 @@ public class FetchId {
             if (answer.getId() == id) {
                 return answer;
             }
+        }
+        Answer eligibilityAnswer = participant.getEligibilityQuestionnaireAnswer();
+        if (eligibilityAnswer != null && eligibilityAnswer.getId() == id) {
+            return eligibilityAnswer;
         }
         return null;
     }

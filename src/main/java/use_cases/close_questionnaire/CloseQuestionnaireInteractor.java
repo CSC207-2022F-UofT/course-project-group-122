@@ -2,8 +2,15 @@ package use_cases.close_questionnaire;
 import entities.*;
 
 import use_cases.fetch_id.FetchId;
+
+/**
+ * The use case for closing a questionnaire
+ */
 public class CloseQuestionnaireInteractor implements CloseQuestionnaireInputBoundary {
 
+    /**
+     * The output boundary that the use case calls on.
+     */
     private CloseQuestionnaireOutputBoundary closeQuestionnaireOutputBoundary;
 
     /**

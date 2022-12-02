@@ -4,8 +4,14 @@ import entities.Researcher;
 import entities.Study;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that removes a researcher from a study.
+ */
 public class RemoveResearcherInteractor implements RemoveResearcherInputBoundary {
 
+    /**
+     * The presenter that the use case calls on to present the updated data.
+     */
     private RemoveResearcherOutputBoundary removeResearcherPresenter;
 
 
@@ -31,7 +37,6 @@ public class RemoveResearcherInteractor implements RemoveResearcherInputBoundary
             removeResearcherPresenter.presentResearcherNotInStudy(researcherToRemove.getId(), study.getId());
         }
     }
-
 
     /**
      * Set the presenter for this interactor.

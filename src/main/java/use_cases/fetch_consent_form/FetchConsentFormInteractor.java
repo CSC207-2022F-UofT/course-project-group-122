@@ -4,8 +4,14 @@ import entities.ConsentForm;
 import entities.Study;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that fetches the consent form for a study
+ */
 public class FetchConsentFormInteractor implements FetchConsentFormInputBoundary {
 
+    /**
+     * The interface that the presenter implements and the interactor calls on.
+     */
     private FetchConsentFormOutpuBoundary fetchConsentFormPresenter;
 
 

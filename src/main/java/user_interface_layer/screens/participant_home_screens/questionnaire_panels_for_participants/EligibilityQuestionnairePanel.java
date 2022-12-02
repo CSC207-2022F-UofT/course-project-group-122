@@ -1,20 +1,28 @@
 package user_interface_layer.screens.participant_home_screens.questionnaire_panels_for_participants;
 
 import org.jetbrains.annotations.NotNull;
-import user_interface_layer.screen_setters.SetTableModel;
+import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreenInputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
+/**
+ * This class is the panel that displays the eligibility questionnaire for a participant
+ */
 public class EligibilityQuestionnairePanel extends JPanel {
 
-    public EligibilityQuestionnairePanel(@NotNull ParticipantHomeScreenInputData data , ControllerManager controllerManager) {
+    /**
+     * Creates a panel that displays the eligibility questionnaire for a participant.
+     * @param data The data needed to display the eligibility questionnaire
+     * @param controllerManager The controller manager that handles the actions of the buttons
+     */
+    public EligibilityQuestionnairePanel(@NotNull FetchParticipantStudyDataResponseModel data , ControllerManager controllerManager) {
         super();
         setLayout(new BorderLayout());
-        SetTableModel setTableModel = new SetTableModel(data.getQuestionnairesTableHeader());
+        SetTableModel setTableModel = new SetTableModel(new String[]{"Questionnaire ID", "Questionnaire Name", "Questionnaire Status"});
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
         model.addRow(data.getEligibilityQuestionnaireData());
@@ -55,6 +63,5 @@ public class EligibilityQuestionnairePanel extends JPanel {
         buttonsPanel.add(answerButton);
         buttonsPanel.add(checkAnswerButton);
         add(buttonsPanel, BorderLayout.SOUTH);
-
     }
 }

@@ -3,7 +3,7 @@ package use_cases.researcher_edit_answer;
 import entities.Answer;
 import use_cases.fetch_id.FetchId;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
-import user_interface_layer.presenter_manager.display_general_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
 import java.util.HashMap;
 

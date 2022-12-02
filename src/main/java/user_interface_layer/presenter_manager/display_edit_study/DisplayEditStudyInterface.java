@@ -7,5 +7,8 @@ import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingResponseMo
  */
 public interface DisplayEditStudyInterface {
 
+    /**
+     * @param data The data needed to display the edit study screen.
+     */
     void presentEditStudyScreen(FetchStudyDataForEditingResponseModel data);
 }

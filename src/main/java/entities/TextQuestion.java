@@ -1,9 +1,11 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * A subclass of Question that allows Users to answer a Question by inputting a text/short answer.
  */
-public class TextQuestion extends Question implements java.io.Serializable{
+public class TextQuestion extends Question implements Serializable {
 
 
     /**

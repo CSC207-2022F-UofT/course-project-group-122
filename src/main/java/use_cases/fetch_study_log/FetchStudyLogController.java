@@ -1,7 +1,13 @@
 package use_cases.fetch_study_log;
 
+/**
+ * The controller class that the controller manager uses to call the interactor.
+ */
 public class FetchStudyLogController {
 
+    /**
+     * The interactor for this use case.
+     */
     private FetchStudyLogInputBoundary fetchStudyLogInteractor;
 
     /**

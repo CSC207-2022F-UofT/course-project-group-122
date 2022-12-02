@@ -2,6 +2,8 @@ package use_cases.create_study;
 
 import entities.Researcher;
 import entities.Study;
+import entities.StudyFactory;
+import entities.StudyFactoryInterface;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
@@ -11,6 +13,8 @@ import java.util.Objects;
 public class CreateStudyInteractor implements CreateStudyInputBoundary {
 
     private CreateStudyOutputBoundary createStudyPresenter;
+
+    private final StudyFactoryInterface studyFactory = new StudyFactory();
 
     /**
      * Creates a new study.
@@ -24,10 +28,10 @@ public class CreateStudyInteractor implements CreateStudyInputBoundary {
     @Override
     public int createStudyObject(int researcherId, String studyType, String studyName,
                                   String description, int targetSize) {
-        Study newStudy = new Study(studyType, studyName, targetSize);
+        Study newStudy = studyFactory.createStudy(studyType, studyName, targetSize);
         newStudy.setStudyDescription(description);
         Researcher researcher = (Researcher) FetchId.getUser(researcherId);
-        newStudy.addResearchers(researcher);
+        newStudy.addResearcher(researcher);
         researcher.addToListStudies(newStudy);
         return FetchId.addStudy(newStudy);
     }

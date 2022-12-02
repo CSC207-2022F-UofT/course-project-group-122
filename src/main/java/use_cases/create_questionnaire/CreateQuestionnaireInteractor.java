@@ -9,16 +9,26 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 
 import java.util.List;
 
-public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBoundary, EditQuestionnaireInputBoundary {
+/**
+ * The interactor for the create questionnaire use case.
+ */
+public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBoundary{
+    /**
+     * The output boundary for the create questionnaire use case, that the presenter implements.
+     */
     private CreateQuestionnaireOutputBoundary creationOutputBoundary;
-    private EditQuestionnaireOutputBoundary editOutputBoundary;
 
+    /**
+     * The use case that creates a questionnaire.
+     * @param data The request model that contains the data for the questionnaire to be created.
+     *             This is the data that the screen passes in.
+     */
     @Override
     public void createQuestionnaire(CreateQuestionnaireRequestModel data) {
         try {
             Study study = FetchId.getStudy(data.getStudyID());
             if (!study.isActive()) {
-                throw new Exception("Study is not active");
+                creationOutputBoundary.presentFailureScreen("Study is not active");
             }
             List<String> groupNum = CreateTargetGroups.createTargetGroups(data.getGroups(), study);
             Questionnaire questionnaire = new Questionnaire(study,
@@ -29,9 +39,13 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
             if (data.getType().equals("General")) {
                 study.addQuestionnaire(questionnaire);
             } else if (data.getType().equals("Eligibility")) {
+                if (study.getEligibilityQuestionnaire() != null) {
+                    creationOutputBoundary.presentFailureScreen("Eligibility questionnaire already exists");
+                    throw new IllegalStateException("Eligibility questionnaire already exists");
+                }
                 study.setEligibilityQuestionnaire(questionnaire);
             } else {
-                throw new Exception("Failed to create questionnaire");
+                throw new IllegalStateException("Failed to create questionnaire");
             }
         } catch (Exception e) {
             creationOutputBoundary.presentFailureScreen(e.getMessage());
@@ -39,36 +53,15 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
         creationOutputBoundary.presentSuccessScreen(data.getResearcherID(), data.getStudyID());
 
     }
-    @Override
-    public void editQuestionnaire(EditQuestionnaireRequestModel data) {
-        try {
-            Study study = FetchId.getStudy(data.getStudyID());
-            if (!study.isActive()) {
-                throw new Exception("Study is not active");
-            }
-            Questionnaire questionnaire = FetchId.getQuestionnaire(data.getQuestionnaireID(),data.getStudyID());
-            assert questionnaire != null;
-            questionnaire.setTitle(data.getQuestionnaireName());
-            questionnaire.setDescription(data.getQuestionnaireDescription());
-            List<String> groupNum = CreateTargetGroups.createTargetGroups(data.getStudyGroups(), study);
-            questionnaire.setTargetGroups(groupNum);
-            questionnaire.removeQuestions();
-            for (QuestionModel questionData : data.getQuestions()) {
-                CreateQuestion.createQuestion(questionnaire, questionData);
-            }
-        } catch (Exception e) {
-            editOutputBoundary.presentFailureScreen(e.getMessage());
-        }
-        editOutputBoundary.presentSuccessScreen(data.getResearcherID(), data.getStudyID());
-    }
 
+    /**
+     * Sets the output boundary for the create questionnaire use case.
+     * @param outputBoundary The output boundary for the create questionnaire use case, that the presenter implements.
+     */
     public void setCreationOutputBoundary(CreateQuestionnaireOutputBoundary outputBoundary) {
         this.creationOutputBoundary = outputBoundary;
     }
 
-    public void setEditOutputBoundary(EditQuestionnaireOutputBoundary editOutputBoundary) {
-        this.editOutputBoundary = editOutputBoundary;
-    }
 }
 
 

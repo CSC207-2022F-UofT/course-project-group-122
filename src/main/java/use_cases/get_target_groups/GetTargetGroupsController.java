@@ -1,7 +1,13 @@
 package use_cases.get_target_groups;
 
+/**
+ * The class that the screen calls to get all target groups of a questionnaire.
+ */
 public class GetTargetGroupsController {
 
+    /**
+     * The interface that the use case implements and the controller calls on.
+     */
     private GetTargetGroupsInputBoundary getTargetGroupsInteractor;
 
 

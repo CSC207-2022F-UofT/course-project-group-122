@@ -2,8 +2,14 @@ package use_cases.fetch_study_log;
 
 import user_interface_layer.presenter_manager.display_researcher_study_log.DisplayResearcherStudyLogInterface;
 
+/**
+ * The presenter class that the use case calls on.
+ */
 public class FetchStudyLogPresenter implements FetchStudyLogOutputBoundary {
 
+    /**
+     * The interface that the display class implements and the presenter calls on.
+     */
     private DisplayResearcherStudyLogInterface displayResearcherStudyLog;
 
     /**

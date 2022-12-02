@@ -1,18 +1,21 @@
 package use_cases.fetch_study_data_for_editing;
 
 public class FetchStudyDataForEditingResponseModel {
-    int studyID;
-    String studyName;
-    String studyDescription;
-    int targetSize;
+    private int studyID;
+    private String studyName;
+    private String studyDescription;
+    private int targetSize;
+    private String studyType;
     public FetchStudyDataForEditingResponseModel(int studyID,
                                                  String studyName,
                                                  String studyDescription,
-                                                 int targetSize) {
+                                                 int targetSize,
+                                                 String studyType) {
         this.studyID = studyID;
         this.studyName = studyName;
         this.studyDescription = studyDescription;
         this.targetSize = targetSize;
+        this.studyType = studyType;
     }
 
     public int getStudyID() {
@@ -29,6 +32,10 @@ public class FetchStudyDataForEditingResponseModel {
 
     public int getTargetSize() {
         return targetSize;
+    }
+
+    public String getStudyType() {
+        return studyType;
     }
 
 

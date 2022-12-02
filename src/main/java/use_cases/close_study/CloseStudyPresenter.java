@@ -5,9 +5,15 @@ import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
+/**
+ * The presenter for the close study use case.
+ */
 public class CloseStudyPresenter implements CloseStudyOutputBoundary {
 
 
+    /**
+     * The fetch study log controller to call on the fetch study log use case. This is used to update the study log.
+     */
     private FetchStudyLogController fetchStudyLogController;
 
     /**

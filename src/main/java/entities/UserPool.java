@@ -2,9 +2,10 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class UserPool implements java.io.Serializable{
+public class UserPool implements Serializable {
     /**
      * The collection of all users in the system.
      * This is outside the User class because it is a static collection of all users.

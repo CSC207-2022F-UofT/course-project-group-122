@@ -25,7 +25,7 @@ public class AnswerTest {
     @Test
     public void getCurrentVersion() {
         Participant participant1 = new Participant("1234", "Doe");
-        Study study1 = new Study("Study1", 100);
+        Study study1 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "Q1");
         MultipleChoiceQuestion question1 = new MultipleChoiceQuestion(questionnaire1, "MCQ1", "something");
         questionnaire1.addQuestion(question1);
@@ -52,7 +52,7 @@ public class AnswerTest {
     @Test
     public void addNewVersion() {
         Participant participant1 = new Participant("1234", "Doe");
-        Study study1 = new Study("Study1", 100);
+        Study study1 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "Q1");
         Answer answer1 = new Answer(participant1, questionnaire1);
         VersionedAnswer versionedAnswer1 = new VersionedAnswer(1, participant1, new HashMap<>(),
@@ -75,7 +75,7 @@ public class AnswerTest {
     @Test
     public void modifyAnswer() {
         Participant participant1 = new Participant("1234", "Doe");
-        Study study1 = new Study("Study1", 100);
+        Study study1 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "Q1");
         MultipleChoiceQuestion question1 = new MultipleChoiceQuestion(questionnaire1, "MCQ1",
                 "something");
@@ -102,7 +102,7 @@ public class AnswerTest {
     @Test
     public void getId() {
         Participant participant1 = new Participant("1234", "Doe");
-        Study study1 = new Study("Study1", 100);
+        Study study1 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "Q1");
         Answer answer1 = new Answer(participant1, questionnaire1);
         int currentId = answer1.getId();
@@ -115,7 +115,7 @@ public class AnswerTest {
         Answer answer3 = new Answer(participant3, questionnaire3);
         assertEquals(currentId + 2, answer3.getId());
         Participant participant4 = new Participant("1234", "Doe");
-        Study study2 = new Study("Study1", 100);
+        Study study2 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire4 = new Questionnaire(study2, "Q1", "Q1");
         Answer answer4 = new Answer(participant4, questionnaire4);
         assertEquals(currentId + 3, answer4.getId());
@@ -124,7 +124,7 @@ public class AnswerTest {
     @Test
     public void getParticipant() {
         Participant participant1 = new Participant("1234", "Doe");
-        Study study1 = new Study("Study1", 100);
+        Study study1 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "Q1");
         Answer answer1 = new Answer(participant1, questionnaire1);
         assertEquals(participant1, answer1.getParticipant());
@@ -133,7 +133,7 @@ public class AnswerTest {
     @Test
     public void getQuestionnaire() {
         Participant participant1 = new Participant("1234", "Doe");
-        Study study1 = new Study("Study1", 100);
+        Study study1 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "Q1");
         Answer answer1 = new Answer(participant1, questionnaire1);
         assertEquals(questionnaire1, answer1.getQuestionnaire());
@@ -142,7 +142,7 @@ public class AnswerTest {
     @Test
     public void getNumQuestions() {
         Participant participant1 = new Participant("1234", "Doe");
-        Study study1 = new Study("Study1", 100);
+        Study study1 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "Q1");
         Answer answer1 = new Answer(participant1, questionnaire1);
         assertEquals(0, answer1.getNumQuestions());
@@ -167,7 +167,7 @@ public class AnswerTest {
     @Test
     public void getAllVersions() {
         Participant participant1 = new Participant("1234", "Doe");
-        Study study1 = new Study("Study1", 100);
+        Study study1 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "Q1");
         Answer answer1 = new Answer(participant1, questionnaire1);
         assertEquals(0, answer1.getAllVersions().size());
@@ -187,7 +187,7 @@ public class AnswerTest {
     @Test
     public void testGetCurrentVersion() {
         Participant participant1 = new Participant("1234", "Doe");
-        Study study1 = new Study("Study1", 100);
+        Study study1 = new RandomizedStudy("Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "Q1");
         Answer answer1 = new Answer(participant1, questionnaire1);
         assertNull(answer1.getCurrentVersion());
@@ -200,4 +200,6 @@ public class AnswerTest {
         answer1.addNewVersion(versionedAnswer2);
         assertEquals(versionedAnswer2, answer1.getCurrentVersion());
     }
+
+
 }

@@ -1,6 +1,8 @@
 package use_cases.assign_questionnaire;
 
 
+import java.util.List;
+
 public interface AssignQuestionnaireInputBoundary {
 
 
@@ -18,7 +20,7 @@ public interface AssignQuestionnaireInputBoundary {
      * @param group             The group of participants.
      * @param studyID           The id of the study.
      */
-    void assignToGroup(int questionnaireID, String group, int studyID, int researcherId);
+    void assignToGroup(int questionnaireID, List<String> group, int studyID, int researcherId);
 
 
     /**
@@ -37,4 +39,14 @@ public interface AssignQuestionnaireInputBoundary {
      * @param studyId           The id of the study.
      */
     void assignEligibilityQuestionnaireToAll(int questionnaireId, int studyId, int researcherId);
+
+
+    /**
+     * Fetch the information of a participant to confirm the assignment.
+     * @param questionnaireId   The id of the questionnaire.
+     * @param studyId           The id of the study.
+     * @param participantId     The id of the participant.
+     * @param researcherId      The id of the researcher.
+     */
+    void fetchParticipantInfoConfirmation(int questionnaireId, int studyId, int participantId, int researcherId);
 }
