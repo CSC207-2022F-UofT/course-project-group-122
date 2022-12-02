@@ -61,11 +61,12 @@ public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoun
             if (user instanceof Researcher) {
                 return (Researcher) user;
             } else {
-                researcherEnrollerPresenter.invalidResearcherId(researcherId, "The user with the given id is not a " +
-                        "researcher.");
+                researcherEnrollerPresenter.invalidResearcherId(researcherId,
+                        "The user with the given id is not a researcher.");
             }
         } else {
-            researcherEnrollerPresenter.invalidResearcherId(researcherId, "The user with the given id does not exist.");
+            researcherEnrollerPresenter.invalidResearcherId(researcherId,
+                    "The user with the given id does not exist.");
         }
         throw new IllegalArgumentException("The researcher ID is invalid.");
     }

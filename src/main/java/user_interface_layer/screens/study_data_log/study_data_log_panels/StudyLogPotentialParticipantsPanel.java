@@ -16,14 +16,13 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
 
     public StudyLogPotentialParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        String[] potentialParticipantsTableHeader = {"ID", "Username", "Name", "Eligibility"};
+        String[] potentialParticipantsTableHeader = {"ID", "Name", "Eligibility"};
         SetTableModel setTableModel = new SetTableModel(potentialParticipantsTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
 
         java.util.List<Integer> keys = new ArrayList<>(data.getPotentialParticipants().keySet());
         List<String[]> values = new ArrayList<>(data.getPotentialParticipants().values());
-
         for (String[] row : values) {
             model.addRow(row);
         }
@@ -41,7 +40,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
             JTextField textField = new JTextField(10);
             JButton button = new JButton("Add");
             button.addActionListener(e1 -> {
-                String participantId = textField.getText();
+                String participantId = textField.getText().trim();
                 try {
                     int participantIdInt = Integer.parseInt(participantId);
                     controllerManager.fetchParticipant(participantIdInt, data.getStudyId());

@@ -20,11 +20,22 @@ public class PublishQuestionnaireInteractor implements PublishQuestionnaireInput
     Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireID, studyId);
     Study study = FetchId.getStudy(studyId);
         if (questionnaire == null) {
-            publishQuestionnairePresenter.invalidQuestionnaireId(questionnaireID, "The questionnaire with the given " +
+            publishQuestionnairePresenter.invalidQuestionnaire(questionnaireID, "The questionnaire with the given " +
                     "id does not exist.");
+        } else if (study.getEligibilityQuestionnaire() == questionnaire && study.getConsentForm() == null) {
+            publishQuestionnairePresenter.invalidQuestionnaire(questionnaireID, "The questionnaire with the given " +
+                    "id is the eligibility questionnaire for the study. A mandatory consent form has not been " +
+                    "created for the study. You must create a consent form before publishing the eligibility " +
+                    "questionnaire.");
         } else if (canBePublished(questionnaire, study)) {
-        questionnaire.publish();
-        publishQuestionnairePresenter.publishQuestionnaire(questionnaireID, studyId, researcherId);
+            questionnaire.publish();
+            if (study.getEligibilityQuestionnaire() == questionnaire) {
+                publishQuestionnairePresenter.assignToAllPotentialParticipants(questionnaireID, studyId, researcherId);
+            } else {
+                publishQuestionnairePresenter.publishQuestionnaire(questionnaireID, studyId, researcherId);
+            }
+        } else {
+            throw new IllegalStateException("The questionnaire with the given id cannot be published.");
         }
     }
 
@@ -37,20 +48,20 @@ public class PublishQuestionnaireInteractor implements PublishQuestionnaireInput
      */
     private boolean canBePublished(@NotNull Questionnaire questionnaire, @NotNull Study study) {
         if (questionnaire.getStudy() != study) {
-            publishQuestionnairePresenter.invalidQuestionnaireId(questionnaire.getId(), "The questionnaire is not " +
+            publishQuestionnairePresenter.invalidQuestionnaire(questionnaire.getId(), "The questionnaire is not " +
                     "associated with the study.");
             return false;
         } else if (questionnaire.isPublished()) {
-            publishQuestionnairePresenter.invalidQuestionnaireId(questionnaire.getId(), "The questionnaire is already " +
+            publishQuestionnairePresenter.invalidQuestionnaire(questionnaire.getId(), "The questionnaire is already " +
                     "published.");
             return false;
         } else if (questionnaire.getListOfQuestion().isEmpty()) {
-            publishQuestionnairePresenter.invalidQuestionnaireId(questionnaire.getId(), "The questionnaire has no " +
+            publishQuestionnairePresenter.invalidQuestionnaire(questionnaire.getId(), "The questionnaire has no " +
                     "questions.");
             return false;
         } else if (questionnaire.getVariableNames().size() != questionnaire.getListOfQuestion().size() ||
                 questionnaire.getVariableNames().size() != questionnaire.getNumOfQuestions()) {
-            publishQuestionnairePresenter.invalidQuestionnaireId(questionnaire.getId(), "The questionnaire has " +
+            publishQuestionnairePresenter.invalidQuestionnaire(questionnaire.getId(), "The questionnaire has " +
                     "inconsistent number of questions.");
             return false;
         } else {

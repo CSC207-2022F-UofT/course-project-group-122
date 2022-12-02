@@ -40,8 +40,8 @@ public class CreateStudyPresenter implements CreateStudyOutputBoundary {
     @Override
     public void presentStudyCreatedSuccessfully(int studyId, String studyName, int researcherId) {
         String successMessage = "Study " + studyId + " (" + studyName + ") has been created successfully.";
-        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
         fetchStudyLogController.fetchStudyLog(studyId, researcherId);
+        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
 

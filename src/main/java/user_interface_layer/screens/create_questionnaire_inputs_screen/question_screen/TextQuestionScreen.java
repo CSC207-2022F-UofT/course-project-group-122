@@ -7,13 +7,14 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TextQuestionScreen extends JFrame{
     private final JTextArea question = new JTextArea(5, 20);
     private final JTextField variable;
 
-    public TextQuestionScreen(List<QuestionModel> addedQuestions, DefaultTableModel model) {
+    public TextQuestionScreen(ArrayList<String> variables, List<QuestionModel> addedQuestions, DefaultTableModel model) {
         setTitle("Create Text Question");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -36,7 +37,11 @@ public class TextQuestionScreen extends JFrame{
         submitButton.addActionListener(e -> {
             if (question.getText().equals("") || variable.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");
-            } else {
+            } else if (variables.contains(variable.getText())) {
+                JOptionPane.showMessageDialog(null, "Variable already exists");
+            }
+            else {
+                variables.add(variable.getText());
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText());
                 model.addRow(new String[]{"Text",question.getText(), variable.getText(), ""});
                 addedQuestions.add(newQuestion);

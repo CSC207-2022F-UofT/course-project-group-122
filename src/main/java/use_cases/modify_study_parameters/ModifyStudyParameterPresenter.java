@@ -51,9 +51,9 @@ public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutput
      */
     @Override
     public void displaySuccessMessage(int studyId, String message, int researcherId) {
-        String successMessage = "Study: " + studyId + "\n" + message;
-        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
+        String successMessage = "<html>Study " + studyId + ":" + "<BR>" + message + "</html>";
         fetchStudyLogController.fetchStudyLog(studyId, researcherId);
+        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
 

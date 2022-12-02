@@ -23,5 +23,4 @@ public class ShowResearcherInfoScreen extends JFrame {
     SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
     }
 
-
 }

@@ -56,9 +56,9 @@ public class FetchStudyDataInteractor implements FetchStudyDataInputBoundary {
     public void fetchStudyData(int userId) {
         User user = FetchId.getUser(userId);
         if (user instanceof Researcher) {
-            fetchAllStudyData((Researcher) user);
+            fetchAllStudyData(userId);
         } else if (user instanceof Participant) {
-            fetchParticipantStudyData((Participant) user);
+            fetchParticipantStudyData(userId);
         } else {
             throw new IllegalArgumentException("User is not a researcher or a participant.");
         }
@@ -72,7 +72,8 @@ public class FetchStudyDataInteractor implements FetchStudyDataInputBoundary {
      * If the participant is part of a study, it will call the output boundary to display the study data to the
      * participant.
      */
-    private void fetchParticipantStudyData(Participant participant) {
+    private void fetchParticipantStudyData(int participantId) {
+        Participant participant = (Participant) FetchId.getUser(participantId);
         if (participantAssociatedWithStudy(participant)) {
             fetchStudyDataPresenter.displayStudyData(participant.getId());
         } else {
@@ -102,9 +103,10 @@ public class FetchStudyDataInteractor implements FetchStudyDataInputBoundary {
      * and package the information to send it to the output boundary.
      * This information will be displayed in the researcher's dashboard where all studies are listed.
      */
-    private void fetchAllStudyData(@NotNull Researcher user) {
-        List<Study> listOfStudies = user.getListStudies();
-        FetchStudyDataResponseModel response = new FetchStudyDataResponseModel(user, listOfStudies);
+    private void fetchAllStudyData(int researcherId) {
+        Researcher researcher = (Researcher) FetchId.getUser(researcherId);
+        List<Study> listOfStudies = researcher.getListStudies();
+        FetchStudyDataResponseModel response = new FetchStudyDataResponseModel(researcher, listOfStudies);
         fetchStudyDataPresenter.displayAllStudyData(response);
     }
 

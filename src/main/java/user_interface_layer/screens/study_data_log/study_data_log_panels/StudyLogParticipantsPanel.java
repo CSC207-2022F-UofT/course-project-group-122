@@ -14,7 +14,7 @@ import java.util.List;
 public class StudyLogParticipantsPanel extends JPanel {
     public StudyLogParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        String[] userTableHeader = {"ID", "Username", "Name"};
+        String[] userTableHeader = {"ID", "Name", "Status"};
         SetTableModel setTableModel = new SetTableModel(userTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();

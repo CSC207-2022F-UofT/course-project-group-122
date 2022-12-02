@@ -63,10 +63,4 @@ public class Researcher extends User implements java.io.Serializable{
         }
         return false;
     }
-
-    public void editAnswer(Study study, String newAnswer) {
-
-    }
-
-
 }

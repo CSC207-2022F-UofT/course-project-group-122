@@ -16,8 +16,21 @@ public class FetchId {
     private static UserPool userPool;
     private static StudyPool studyPool;
 
-    public FetchId(UserPool userPool, StudyPool studyPool) {
+
+    /**
+     * Set the user pool
+     * @param userPool  the user pool
+     */
+    public static void setUserPool(UserPool userPool) {
         FetchId.userPool = userPool;
+    }
+
+
+    /**
+     * Set the study pool
+     * @param studyPool the study pool
+     */
+    public static void setStudyPool(StudyPool studyPool) {
         FetchId.studyPool = studyPool;
     }
 

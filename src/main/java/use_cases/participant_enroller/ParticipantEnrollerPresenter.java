@@ -46,8 +46,8 @@ public class ParticipantEnrollerPresenter implements ParticipantEnrollerOutputBo
     @Override
     public void presentEnrollmentSuccess(int participantId, int groupNumber, int studyId, int userId) {
         String successMessage = "Participant " + participantId + " has been enrolled in group " + groupNumber + ".";
-        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
         fetchStudyLogController.fetchStudyLog(studyId, userId);
+        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
     /**
