@@ -50,9 +50,6 @@ import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingPresenter;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import use_cases.fetch_study_log.FetchStudyLogInteractor;
 import use_cases.fetch_study_log.FetchStudyLogPresenter;
-import use_cases.fetch_versioned_answer.FetchVersionedAnswerController;
-import use_cases.fetch_versioned_answer.FetchVersionedAnswerInteractor;
-import use_cases.fetch_versioned_answer.FetchVersionedAnswerPresenter;
 import use_cases.get_target_groups.GetTargetGroupsController;
 import use_cases.get_target_groups.GetTargetGroupsInteractor;
 import use_cases.get_target_groups.GetTargetGroupsPresenter;
@@ -69,9 +66,6 @@ import use_cases.participant_enroller.RandomGroupGeneratorManager;
 import use_cases.publish_questionnaire.PublishQuestionnaireController;
 import use_cases.publish_questionnaire.PublishQuestionnaireInteractor;
 import use_cases.publish_questionnaire.PublishQuestionnairePresenter;
-import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenController;
-import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenInteractor;
-import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenPresenter;
 import use_cases.remove_researcher.RemoveResearcherController;
 import use_cases.remove_researcher.RemoveResearcherInteractor;
 import use_cases.remove_researcher.RemoveResearcherPresenter;
@@ -119,8 +113,6 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-
-
         // Making the entity collections
         // TODO: to be serialized
         UserPool userPool = new UserPool(new HashMap<String, User>());
@@ -139,7 +131,8 @@ public class Main {
         AddPotentialParticipantPresenter addPotentialParticipantPresenter = new AddPotentialParticipantPresenter();
         addPotentialParticipantController.setAddPotentialParticipantInterator(addPotentialParticipantInteractor);
         addPotentialParticipantInteractor.setPresenter(addPotentialParticipantPresenter);
-
+        //TODO: inject general failure / success presenters
+        //TODO: inject fetch study log controller
 
         //TODO: answer_questionnaire_data_request use case
 
@@ -166,7 +159,7 @@ public class Main {
         CloseStudyPresenter closeStudyPresenter = new CloseStudyPresenter();
         closeStudyController.setCloseStudyInteractor(closeStudyInteractor);
         closeStudyInteractor.setCloseStudyPresenter(closeStudyPresenter);
-
+        //TODO: inject general failure / success presenters
 
         //TODO: create_questionnaire use case
 
@@ -176,7 +169,8 @@ public class Main {
         CreateStudyPresenter createStudyPresenter = new CreateStudyPresenter();
         createStudyController.setCreateStudyInteractor(createStudyInteractor);
         createStudyInteractor.setCreateStudyPresenter(createStudyPresenter);
-
+        //TODO: inject general failure / success presenters
+        //TODO: inject fetch_study_log_controller
 
         //TODO: edit_questionnaire use case
 
@@ -195,7 +189,8 @@ public class Main {
         EligibilityCheckerPresenter eligibilityCheckerPresenter = new EligibilityCheckerPresenter();
         eligibilityCheckerController.setEligibilityCheckerInteractor(eligibilityCheckerInteractor);
         eligibilityCheckerInteractor.setEligibilityCheckerPresenter(eligibilityCheckerPresenter);
-
+        //TODO: inject general failure / success presenters
+        //TODO: inject fetch_study_log_controller
 
         //fetch_participant_data use case
         FetchParticipantStudyDataController fetchParticipantStudyDataController = new FetchParticipantStudyDataController();
@@ -203,15 +198,9 @@ public class Main {
         FetchParticipantStudyDataPresenter fetchParticipantStudyDataPresenter = new FetchParticipantStudyDataPresenter();
         fetchParticipantStudyDataController.setFetchParticipantStudyDataInteractor(fetchParticipantStudyDataInteractor);
         fetchParticipantStudyDataInteractor.setFetchParticipantStudyDataPresenter(fetchParticipantStudyDataPresenter);
+        //TODO: inject participant home screen presenter
 
-
-        //FetchVersionedAnswer use case
-        FetchVersionedAnswerController fetchVersionedAnswerController = new FetchVersionedAnswerController();
-        FetchVersionedAnswerInteractor fetchVersionedAnswerInteractor = new FetchVersionedAnswerInteractor();
-        FetchVersionedAnswerPresenter fetchVersionedAnswerPresenter = new FetchVersionedAnswerPresenter();
-        fetchVersionedAnswerController.setFetchVersionedAnswerInputBoundary(fetchVersionedAnswerInteractor);
-        fetchVersionedAnswerInteractor.setFetchVersionedAnswerOutBoundary(fetchVersionedAnswerPresenter);
-
+        //TODO: fetch_questionnaire_versioned_answer use case
 
         // Fetch study data use case
         FetchStudyDataController fetchStudyDataController = new FetchStudyDataController();
@@ -219,6 +208,7 @@ public class Main {
         FetchStudyDataPresenter fetchStudyDataPresenter = new FetchStudyDataPresenter();
         fetchStudyDataController.setFetchStudyDataInteractor(fetchStudyDataInteractor);
         fetchStudyDataInteractor.setFetchStudyDataPresenter(fetchStudyDataPresenter);
+        //TODO: inject fetchParticipantStudyDataController, displayParticipantNoStudy, displayResearcherStudyData
 
         // fetch_study_log use case
         FetchStudyLogController fetchStudyLogController = new FetchStudyLogController();
@@ -226,21 +216,19 @@ public class Main {
         FetchStudyLogPresenter fetchStudyLogPresenter = new FetchStudyLogPresenter();
         fetchStudyLogController.setFetchStudyLogInteractor(fetchStudyLogInteractor);
         fetchStudyLogInteractor.setFetchStudyLogPresenter(fetchStudyLogPresenter);
+        //TODO: inject DisplayResearcherStudyLog
 
         //Modify study parameters use case
-        ModifyStudyParameterController modifyStudyParameterController = new ModifyStudyParameterController();
-        ModifyStudyParameterInteractor modifyStudyParameterInteractor = new ModifyStudyParameterInteractor();
-        ModifyStudyParameterPresenter modifyStudyParameterPresenter = new ModifyStudyParameterPresenter();
-        modifyStudyParameterController.setModifyStudyParameterInteractor(modifyStudyParameterInteractor);
-        modifyStudyParameterInteractor.setModifyStudyParameterPresenter(modifyStudyParameterPresenter);
+        ModifyStudyParameterController modifyStudyParametersController = new ModifyStudyParameterController();
+        ModifyStudyParameterInteractor modifyStudyParametersInteractor = new ModifyStudyParameterInteractor();
+        ModifyStudyParameterPresenter modifyStudyParametersPresenter = new ModifyStudyParameterPresenter();
+        modifyStudyParametersController.setModifyStudyParameterInteractor(modifyStudyParametersInteractor);
+        modifyStudyParametersInteractor.setModifyStudyParameterPresenter(modifyStudyParametersPresenter);
+        //TODO: inject general failure / success presenters
+        //TODO: inject show stratification variables presenter
+        //TODO: inject fetch study log controller
 
-        //answer_questionnaire use case
-        AnswerQuestionnaireController answerQuestionnaireController = new AnswerQuestionnaireController();
-        AnswerQuestionnaireInteractor answerQuestionnaireInteractor = new AnswerQuestionnaireInteractor();
-        AnswerQuestionnairePresenter answerQuestionnairePresenter = new AnswerQuestionnairePresenter();
-        answerQuestionnaireController.setAnswerQuestionnaireInteractor(answerQuestionnaireInteractor);
-        answerQuestionnaireInteractor.setAnswerQuestionnairePresenter(answerQuestionnairePresenter);
-
+        //TODO: participant_answer_questionnaire use case
 
         //Participant drop out use case
         ParticipantDropStudyController participantDropStudyController = new ParticipantDropStudyController();
@@ -248,6 +236,8 @@ public class Main {
         ParticipantDropStudyPresenter participantDropStudyPresenter = new ParticipantDropStudyPresenter();
         participantDropStudyController.setParticipantDropStudyInteractor(participantDropStudyInteractor);
         participantDropStudyInteractor.setParticipantDropStudyPresenter(participantDropStudyPresenter);
+        //TODO: inject general failure / success presenters
+        //TODO: inject fetchParticipantStudyDataController
 
         //Participant Enroller use case
         ParticipantEnrollerController participantEnrollerController = new ParticipantEnrollerController();
@@ -255,9 +245,13 @@ public class Main {
         ParticipantEnrollerPresenter participantEnrollerPresenter = new ParticipantEnrollerPresenter();
         participantEnrollerController.setParticipantEnrollerInteractor(participantEnrollerInteractor);
         participantEnrollerInteractor.setParticipantEnrollerPresenter(participantEnrollerPresenter);
+        //TODO: serialize this
         RandomGroupGeneratorManager randomGroupGeneratorManager = new RandomGroupGeneratorManager();
         participantEnrollerInteractor.setRandomGroupGeneratorManager(randomGroupGeneratorManager);
-
+        //TODO: inject general failure / success presenters
+        //TODO: inject the present_user_info presenter
+        //TODO: provide study id when enrolling a user (two enrollers)
+        //TODO: inject fetch study log controller
 
         //Publish questionnaire use case
         PublishQuestionnaireController publishQuestionnaireController = new PublishQuestionnaireController();
@@ -265,6 +259,7 @@ public class Main {
         PublishQuestionnairePresenter publishQuestionnairePresenter = new PublishQuestionnairePresenter();
         publishQuestionnaireController.setPublishQuestionnaireInteractor(publishQuestionnaireInteractor);
         publishQuestionnaireInteractor.setPublishQuestionnairePresenter(publishQuestionnairePresenter);
+        //TODO: inject general failure / success presenters
 
 
         // Fetch study data for editing use case
@@ -275,16 +270,9 @@ public class Main {
         fetchStudyDataForEditingInteractor.setFetchStudyDataForEditingPresenter(fetchStudyDataForEditingPresenter);
 
 
-
-
         //TODO: questionnaire_answer_data_request use case
 
-        //questionnaire_screen_data_request use case
-        FetchQuestionnaireScreenController fetchQuestionnaireScreenController = new FetchQuestionnaireScreenController();
-        FetchQuestionnaireScreenInteractor fetchQuestionnaireScreenInteractor = new FetchQuestionnaireScreenInteractor();
-        FetchQuestionnaireScreenPresenter fetchQuestionnaireScreenPresenter = new FetchQuestionnaireScreenPresenter();
-        fetchQuestionnaireScreenController.setFetchQuestionnaireScreenInteractor(fetchQuestionnaireScreenInteractor);
-        fetchQuestionnaireScreenInteractor.setFetchQuestionnaireScreenPresenter(fetchQuestionnaireScreenPresenter);
+        //TODO: questionnaire_screen_data_request use case
 
         //Remove Researcher use case
         RemoveResearcherController removeResearcherController = new RemoveResearcherController();
@@ -292,6 +280,8 @@ public class Main {
         RemoveResearcherPresenter removeResearcherPresenter = new RemoveResearcherPresenter();
         removeResearcherController.setRemoveResearcherInteractor(removeResearcherInteractor);
         removeResearcherInteractor.setRemoveResearcherPresenter(removeResearcherPresenter);
+        //TODO: inject general failure / success presenters
+        //TODO: inject fetch study log controller
 
         //TODO: researcher_edit_answer use case
 
@@ -301,6 +291,9 @@ public class Main {
         ResearcherEnrollerPresenter researcherEnrollerPresenter = new ResearcherEnrollerPresenter();
         researcherEnrollerController.setResearcherEnrollerInterator(researcherEnrollerInteractor);
         researcherEnrollerInteractor.setResearcherEnrollerPresenter(researcherEnrollerPresenter);
+        //TODO: researcher_edit_answer use case
+        //TODO: inject the present_user_info presenter
+        //TODO: inject the fetch study log controller
 
         //user_log_out
         UserLogOutController userLogOutController = new UserLogOutController();
@@ -308,7 +301,6 @@ public class Main {
         UserLogOutPresenter userLogOutPresenter = new UserLogOutPresenter();
         userLogOutController.setUserLogOutInteractor(userLogOutInteractor);
         userLogOutInteractor.setUserLogOutPresenter(userLogOutPresenter);
-
         //TODO: researcher_edit_answer use case
 
         //User login use case
@@ -317,7 +309,8 @@ public class Main {
         UserLoginPresenter userLoginPresenter = new UserLoginPresenter();
         userLoginController.setUserLoginInteractor(userLoginInteractor);
         userLoginInteractor.setUserLoginPresenter(userLoginPresenter);
-        userLoginInteractor.setUserPool(userPool);
+        //TODO: inject the present_user_info presenter
+        //TODO: inject the FetchStudyDataController
 
         //Get target groups use case
         GetTargetGroupsController getTargetGroupsController = new GetTargetGroupsController();
@@ -368,7 +361,6 @@ public class Main {
 
         // Screens
         //TODO: initialize the user register screen
-
 
 
         //Presenter Managers

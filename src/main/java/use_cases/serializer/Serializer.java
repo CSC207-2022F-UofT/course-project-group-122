@@ -7,7 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Serializer {
-
     public String basePath = new File("storage").getAbsolutePath();
 
     public Serializer(){}
