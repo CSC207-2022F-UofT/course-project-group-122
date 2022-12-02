@@ -18,9 +18,9 @@ import java.util.Map;
  * The builder that builds the result file.
  */
 public class ResultExtractionBuilder {
-    /**
-     * The fail message organized in a list.
-     */
+    public static final String fileSeperator = File.separator;
+
+ 
     private final ArrayList<String> failMessage = new ArrayList<>();
 
 
@@ -36,7 +36,7 @@ public class ResultExtractionBuilder {
      */
     public String createFolder(@NotNull Study study, String filepath){
         String folderName = study.getId() + "_" + study.getStudyName();
-        String folderPath = filepath + "\\" + folderName;
+        String folderPath = filepath + fileSeperator + folderName;
         File folder = new File(folderPath);
         verifyCreation(folder, folderName);
         return folderPath;
@@ -50,7 +50,7 @@ public class ResultExtractionBuilder {
     public void createFile(@NotNull Questionnaire questionnaire, String folderPath, Study study){
         if (questionnaire.isPublished()) {
             String fileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
-            String filePath = folderPath + "\\" + fileName;
+            String filePath = folderPath + fileSeperator + fileName;
             File questionnaireResult = new File(filePath);
             writeCSVFile(questionnaireResult, questionnaire, study);
             verifyCreation(questionnaireResult, fileName);
