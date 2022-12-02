@@ -16,7 +16,7 @@ public class Serializer {
     }
 
     public static void saveObject(@NotNull Object obj){
-        String filename = File.separator + getClassName(obj) + obj.hashCode() + ".ser";
+        String filename = File.separator + getClassName(obj) + ".ser";
         try(FileOutputStream fileOut = new FileOutputStream(BASEPATH.concat(filename));
             ObjectOutputStream output = new ObjectOutputStream(fileOut)){
             output.writeObject(obj);

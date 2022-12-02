@@ -1,6 +1,6 @@
 package use_cases.participant_enroller;
 
-import entities.Study;
+import entities.RandomizedStudy;
 
 public interface RandomGroupGenteratorFactoryInterface {
 
@@ -10,5 +10,5 @@ public interface RandomGroupGenteratorFactoryInterface {
      * @param study the study
      * @return  the RandomGroupGenerator object
      */
-    RandomGroupGenerator createRandomGroupGenerator(Study study);
+    RandomGroupGenerator createRandomGroupGenerator(RandomizedStudy study);
 }

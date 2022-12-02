@@ -1,6 +1,6 @@
 package use_cases.participant_enroller;
 
-import entities.Study;
+import entities.RandomizedStudy;
 import org.jetbrains.annotations.NotNull;
 
 public class RandomGroupGenteratorFactory implements RandomGroupGenteratorFactoryInterface {
@@ -12,10 +12,7 @@ public class RandomGroupGenteratorFactory implements RandomGroupGenteratorFactor
      * @return the RandomGroupGenerator object
      */
     @Override
-    public RandomGroupGenerator createRandomGroupGenerator(@NotNull Study study) {
-        if (study.getStudyType().equals("General")) {
-            throw new IllegalArgumentException("General study does not need randomization");
-        }
+    public RandomGroupGenerator createRandomGroupGenerator(@NotNull RandomizedStudy study) {
         switch (study.getRandomizationMethod()) {
             case "Simple":
                 return new SimpleRandomGroupGenerator(study);
