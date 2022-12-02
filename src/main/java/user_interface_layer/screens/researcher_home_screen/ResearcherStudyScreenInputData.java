@@ -1,7 +1,5 @@
 package user_interface_layer.screens.researcher_home_screen;
 
-import user_interface_layer.screens.ControllerManager;
-
 import java.util.Map;
 
 /*
@@ -23,13 +21,8 @@ public class ResearcherStudyScreenInputData {
     /*
      * The header of the table that displays the studies.
      */
-    private final String[] studiesTableHeader = {"ID", "Name", "Status"};
+    private final String[] studiesTableHeader = {"ID", "Name", "Status", "Type"};
 
-//    /*
-//     * The List of studies that the researcher is part of. This attribute is only used to pass a specific study to the controller.
-//     * It is not used to display the studies in the table.
-//     */
-//    private final List<Study> listStudies;
 
     /*
      * The List of studies that the researcher is part of organized as an array.

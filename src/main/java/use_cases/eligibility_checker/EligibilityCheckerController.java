@@ -1,7 +1,13 @@
 package use_cases.eligibility_checker;
 
+/**
+ * The controller that the screen calls on to check the eligibility of a participant.
+ */
 public class EligibilityCheckerController {
 
+    /**
+     * The interface that the use case implements and is called on by the controller.
+     */
     private EligibilityCheckerInputBoundary eligibilityCheckerInteractor;
 
     /**

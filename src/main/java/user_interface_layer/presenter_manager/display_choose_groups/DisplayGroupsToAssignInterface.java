@@ -7,6 +7,12 @@ import java.util.Map;
  * assign a questionnaire to.
  */
 public interface DisplayGroupsToAssignInterface {
+    /**
+     * @param targetGroups The list of groups that the questionnaire is targeted to.
+     * @param allStudyGroups The list of all groups in the study.
+     * @param studyId The id of the study.
+     * @param questionnaireId The id of the questionnaire.
+     */
     void presentGroupsToAssignScreen(Map<Integer, String> targetGroups, Map<Integer, String> allStudyGroups,
                                      int studyId, int questionnaireId);
 }

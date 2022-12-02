@@ -8,12 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The data structure class that the use case fetches and the presenter gives to the screen.
+ */
 public class ResearcherEditQuestionnaireScreenAnswersInputData {
 
     /*
      * The researcher ID.
      */
-    private int researcherID;
+    private final int researcherID;
 
     /*
      * The study ID.
@@ -39,7 +42,7 @@ public class ResearcherEditQuestionnaireScreenAnswersInputData {
      * The list of Panels that are used for the screen. Each panel is a question with a space to answer accordingly
      * to the type of question.
      */
-    private List<ResearchersQuestionPanel> questionsPanel = new ArrayList<>();
+    private final List<ResearchersQuestionPanel> questionsPanel = new ArrayList<>();
 
     /*
      * The map of questions and its type.
@@ -101,12 +104,19 @@ public class ResearcherEditQuestionnaireScreenAnswersInputData {
             String type = entry.getValue();
             switch (type) {
                 case "MC": {
-                    ResearchersQuestionPanel panel = builder.buildMCQuestionPanel(entry.getKey(), type, questionsVariable.get(entry.getKey()), questionsOptions.get(entry.getKey()), questionsAnswers.get(entry.getKey()));
+                    ResearchersQuestionPanel panel = builder.buildMCQuestionPanel(entry.getKey(),
+                            type, questionsVariable.get(entry.getKey()),
+                            questionsOptions.get(entry.getKey()),
+                            questionsAnswers.get(entry.getKey()));
                     questionsPanel.add((ResearchersQuestionPanel) panel.getQuestionPanel());
                     break;
                 }
                 case "Scale": {
-                    ResearchersQuestionPanel panel = builder.buildScaleQuestionPanel(entry.getKey(), type, questionsVariable.get(entry.getKey()), questionsOptions.get(entry.getKey()), questionsAnswers.get(entry.getKey()));
+                    ResearchersQuestionPanel panel = builder.buildScaleQuestionPanel(entry.getKey(),
+                            type,
+                            questionsVariable.get(entry.getKey()),
+                            questionsOptions.get(entry.getKey()),
+                            questionsAnswers.get(entry.getKey()));
                     questionsPanel.add((ResearchersQuestionPanel) panel.getQuestionPanel());
                     break;
                 }
@@ -166,7 +176,7 @@ public class ResearcherEditQuestionnaireScreenAnswersInputData {
     /*
      * The method that returns the map of questions and its type.
      */
-    public Map<String, String> getQuestionsTypes() {
+    public Map<String, String> getQuestioznsTypes() {
         return questionsTypes;
     }
 

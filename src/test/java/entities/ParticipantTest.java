@@ -55,8 +55,8 @@ public class ParticipantTest extends UserTest {
     }
 
 
-    Study study1 = new Study("title", 3);
-    Study study2 = new Study("title", 3);
+    Study study1 = new RandomizedStudy("title", 3);
+    Study study2 = new RandomizedStudy("title", 3);
 
     @Test
     public void setStudy() {

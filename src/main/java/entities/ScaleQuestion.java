@@ -1,12 +1,13 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A subclass of Question that allows User to answer a Question by choosing a level within a range.
  */
-public class ScaleQuestion extends Question implements java.io.Serializable{
+public class ScaleQuestion extends Question implements Serializable {
 
     /**
      * The specified range of this ScaleQuestion.
@@ -109,12 +110,9 @@ public class ScaleQuestion extends Question implements java.io.Serializable{
      */
     @Override
     public String getAnswerChoices() {
-        return bottomLabel + " - " + scale + " - " + topLabel;
+        return bottomLabel + "," + topLabel + "," + scaleRange ;
     }
 
-    public void setScaleRange(int scaleRange) {
-        this.scaleRange = scaleRange;
-    }
 
     public void setBottomLabel(String bottomLabel) {
         this.bottomLabel = bottomLabel;
@@ -122,5 +120,13 @@ public class ScaleQuestion extends Question implements java.io.Serializable{
 
     public void setTopLabel(String topLabel) {
         this.topLabel = topLabel;
+    }
+
+    public String getBottomLabel() {
+        return bottomLabel;
+    }
+
+    public String getTopLabel() {
+        return topLabel;
     }
 }

@@ -2,24 +2,34 @@ package user_interface_layer.screens.check_questionnaire_screen;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.questionnaire_screen_data_request.CheckQuestionnaireInputData;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetTableModel;
+import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.HashMap;
 
+/**
+ * The screen that shows the researcher the questionnaire.
+ */
 public class CheckQuestionnaireScreen extends JFrame {
 
-    public CheckQuestionnaireScreen(@NotNull CheckQuestionnaireInputData data) {
+    /**
+     * The constructor for the screen.
+     * @param data The data needed to display the screen.
+     * @param controllerManager The controller manager.
+     */
+    public CheckQuestionnaireScreen(@NotNull CheckQuestionnaireInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
-        JLabel headerLabel = new JLabel("Questionnaire ID: " + data.getQuestionnaireId(), SwingConstants.CENTER);
-        JLabel headerLabel2 = new JLabel("Questionnaire Name: " + data.getQuestionnaireName(), SwingConstants.CENTER);
+        JLabel headerLabel = new JLabel("Questionnaire ID: " + data.getQuestionnaireId(),
+                SwingConstants.CENTER);
+        JLabel headerLabel2 = new JLabel("Questionnaire Name: " + data.getQuestionnaireName(),
+                SwingConstants.CENTER);
         JScrollPane scrollPane = new JScrollPane();
         JTextArea descriptionTextArea = new JTextArea(5, 20);
         descriptionTextArea.setText(data.getQuestionnaireDescription());
@@ -32,7 +42,6 @@ public class CheckQuestionnaireScreen extends JFrame {
         headerPanel.add(headerLabel2);
         headerPanel.add(scrollPane);
 
-
         JScrollPane questionsScrollPane = new JScrollPane();
         SetTableModel tableModel = new SetTableModel(data.getQuestionsTableHeader());
         DefaultTableModel model = tableModel.getModel();
@@ -43,21 +52,22 @@ public class CheckQuestionnaireScreen extends JFrame {
             model.addRow(row);
         }
         questionsScrollPane.setViewportView(questionsTable);
+
+        JButton publishButton = new JButton("Publish");
+        publishButton.addActionListener(e ->
+                controllerManager.publishQuestionnaire(data.getQuestionnaireId(), data.getStudyId()));
+
+        JButton closeButton = new JButton("Close");
+        closeButton.addActionListener(e ->
+                controllerManager.closeQuestionnaire(data.getQuestionnaireId(), data.getStudyId()));
+
         add(headerPanel, BorderLayout.NORTH);
         add(questionsScrollPane, BorderLayout.CENTER);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(publishButton);
+        buttonPanel.add(closeButton);
+        add(buttonPanel, BorderLayout.SOUTH);
         pack();
-        SetScreenToCenter s = new SetScreenToCenter(this);
-
-
-    }
-
-    public static void main(String[] args) {
-        HashMap<String, String[]> existingQuestions = new HashMap<>();
-        existingQuestions.put("What is your name?", new String[]{"Text", "name", "John"});
-        existingQuestions.put("What is your age?", new String[]{"Scale", "age", "20"});
-        CheckQuestionnaireInputData data = new CheckQuestionnaireInputData(1, "Questionnaire 1", "This is a questionnaire", existingQuestions);
-        CheckQuestionnaireScreen screen = new CheckQuestionnaireScreen(data);
-        screen.setVisible(true);
-
+        SetScreenToCenter.setCenter(this);
     }
 }

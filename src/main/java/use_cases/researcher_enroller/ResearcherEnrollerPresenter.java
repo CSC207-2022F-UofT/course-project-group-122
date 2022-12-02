@@ -5,6 +5,9 @@ import user_interface_layer.presenter_manager.display_failure_message.DisplayFai
 import user_interface_layer.presenter_manager.display_researcher_info.DisplayResearcherInfoInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
+/**
+ * The presenter that the use case calls on.
+ */
 public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoundary {
 
     /**
@@ -63,9 +66,9 @@ public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoun
     @Override
     public void presentEnrollmentSuccess(int researcherId, String researcherName, int studyId, String studyName, int userId) {
         String messageToPresenter = "Researcher " + researcherName +
-                " has been enrolled in study (" + studyId + "( " + studyName;
-        displaySuccessMessage.presentGeneralSuccessMessage(messageToPresenter);
+                " has been enrolled in study (" + studyId + "): " + studyName;
         fetchStudyLogController.fetchStudyLog(studyId, userId);
+        displaySuccessMessage.presentGeneralSuccessMessage(messageToPresenter);
     }
 
 
@@ -98,7 +101,7 @@ public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoun
 
     /**
      * Sets the display researcher info interface.
-     * @param displayResearcherInfoInterface
+     * @param displayResearcherInfoInterface The display researcher info interface.
      */
     public void setDisplayResearcherInfoInterface(DisplayResearcherInfoInterface displayResearcherInfoInterface) {
         this.displayResearcherInfoInterface = displayResearcherInfoInterface;

@@ -1,5 +1,8 @@
 package use_cases.close_study;
 
+/**
+ * This the interface that the use case implements and the controller calls on.
+ */
 public interface CloseStudyInputBoundary {
 
     /**

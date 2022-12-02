@@ -4,6 +4,9 @@ import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
+/**
+ * The presenter class that the use case calls on to present the updated study data.
+ */
 public class ParticipantEnrollerPresenter implements ParticipantEnrollerOutputBoundary {
 
 
@@ -46,8 +49,8 @@ public class ParticipantEnrollerPresenter implements ParticipantEnrollerOutputBo
     @Override
     public void presentEnrollmentSuccess(int participantId, int groupNumber, int studyId, int userId) {
         String successMessage = "Participant " + participantId + " has been enrolled in group " + groupNumber + ".";
-        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
         fetchStudyLogController.fetchStudyLog(studyId, userId);
+        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
     /**

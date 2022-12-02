@@ -4,10 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Enumeration;
 
+/**
+ * The panel that contains the question and the answer for a scale question.
+ */
 public class ScaleQuestionPanelForResearchers extends JPanel implements ResearchersQuestionPanel {
+    /**
+     * The question's type.
+     */
     private final String type;
+    /**
+     * The question's variable.
+     */
     private final String variable;
+    /**
+     * The button group that contains the radio buttons that represent the possible answers.
+     */
     private final ButtonGroup buttonGroup = new ButtonGroup();
+    /**
+     * The question.
+     */
     private final String question;
 
     public ScaleQuestionPanelForResearchers(String question, String type, String variable, String bottomLabel, String topLabel, int scale, String answer) {
@@ -37,10 +52,11 @@ public class ScaleQuestionPanelForResearchers extends JPanel implements Research
         add(questionAnswerPanel, BorderLayout.NORTH);
         add(optionsScrollPanel, BorderLayout.CENTER);
         setBorder(BorderFactory.createLineBorder(Color.black));
-
-
     }
 
+    /**
+     * @return The question's answer.
+     */
     @Override
     public String getAnswer() {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
@@ -52,31 +68,36 @@ public class ScaleQuestionPanelForResearchers extends JPanel implements Research
         return "";
     }
 
+    /**
+     * @return The question's variable.
+     */
     @Override
     public String getVariable() {
         return variable;
     }
 
+    /**
+     * @return The question's panel.
+     */
     @Override
     public JPanel getQuestionPanel() {
         return this;
     }
 
+    /**
+     * @return The question's type.
+     */
     @Override
     public String getType() {
         return type;
     }
 
+    /**
+     * @return The question.
+     */
     @Override
     public String getQuestion() {
         return question;
     }
 
-//    public static void main(String[] args) {
-//        JFrame frame = new JFrame("ScaleQuestionPanelForResearchers");
-//        frame.setContentPane(new ScaleQuestionPanelForResearchers("Question", "Scale", "Variable", "Bottom", "Top", 5, "2").getQuestionPanel());
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.pack();
-//        frame.setVisible(true);
-//    }
 }

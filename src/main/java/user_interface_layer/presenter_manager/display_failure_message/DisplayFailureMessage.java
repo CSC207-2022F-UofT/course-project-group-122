@@ -7,9 +7,12 @@ import user_interface_layer.screens.GeneralFailureScreen;
  */
 public class DisplayFailureMessage implements DisplayFailureMessageInterface {
 
+    /**
+     * @param message The failure message to display.
+     */
     @Override
     public void presentFailureMessage(String message) {
-        GeneralFailureScreen screen = new GeneralFailureScreen(message);
+        new GeneralFailureScreen(message);
     }
 
 }

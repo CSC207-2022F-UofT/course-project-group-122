@@ -1,17 +1,25 @@
 package use_cases.edit_questionnaire_screen_data;
 
-import user_interface_layer.screens.ControllerManager;
+import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
+/**
+ * The data structure class that the use case needs to fetch the information for editing the questionnaire.
+ */
 public class EditQuestionnaireScreenInputData {
 
     /*
      * The study ID.
      */
     private final int studyID;
+
+    /**
+     * The questionnaire ID.
+     */
+    private final int researcherID;
 
     /*
      * The questionnaire ID.
@@ -28,73 +36,100 @@ public class EditQuestionnaireScreenInputData {
      */
     private final String questionnaireDescription;
 
-    /*
-     * The header for the question's table.
+    /**
+     * The list of the target groups of participants that the questionnaire is targeted to.
      */
-    private final String[] questionsTableHeader = {"Type", "Question", "Variable", "Options"};
-
-
-    private List<String> studyGroups;
+    private final List<String> studyGroups;
     /*
-     * The questions of the questionnaire.
-     * The key is the question. The value is an array with the question's type, variable and options.
-     * The options should be formatted as follows:
-     *     - For MC questions: comma separated and without spaces.
-     *     - For Scale questions: comma separated such like buttonLabel,topLabel,scale.
-     *     - For Text questions: empty string.
+     * The questions of the questionnaire, formatted in the QuestionModel class.
      */
-    private final Map<String, String[]> questions;
-
-
-
+    private final List<QuestionModel> questions;
 
     /*
+     * The list of variables corresponding to each question.
+     */
+    private final List<String> previousVariables = new ArrayList<>();
+
+    /**
      * The constructor of the class.
      * @param studyID The study ID.
      * @param questionnaireID The questionnaire ID.
+     * @param researcherID The researcher ID.
      * @param questionnaireName The questionnaire name.
      * @param questionnaireDescription The questionnaire description.
-     * @param questions The questions of the questionnaire. Map< "Variable" ; [type, description, options] >
-     * @param controllerManager The controller manager.
+     * @param studyGroups The list of the target groups of participants that the questionnaire is targeted to.
+     * @param questions The questions of the questionnaire, formatted in the QuestionModel class.
      */
     public EditQuestionnaireScreenInputData(int studyID,
                                             int questionnaireID,
+                                            int researcherID,
                                             String questionnaireName,
                                             String questionnaireDescription,
                                             List<String> studyGroups,
-                                            Map<String, String[]> questions) {
+                                            List<QuestionModel> questions) {
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
+        this.researcherID = researcherID;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
         this.studyGroups = studyGroups;
         this.questions = questions;
+        for (QuestionModel question : questions) {
+            previousVariables.add(question.getVariable());
+        }
+
     }
 
+    /**
+     * @return The study ID.
+     */
     public int getStudyID() {
         return studyID;
     }
 
+    /**
+     * @return The questionnaire ID.
+     */
     public int getQuestionnaireID() {
         return questionnaireID;
     }
+
+    /**
+     * @return The researcher ID.
+     */
+    public int getResearcherID() {return researcherID; }
+
+    /**
+     * @return The questionnaire name.
+     */
     public String getQuestionnaireName() {
         return questionnaireName;
     }
 
+    /**
+     * @return The questionnaire description.
+     */
     public String getQuestionnaireDescription() {
         return questionnaireDescription;
     }
 
-    public Map<String, String[]> getQuestions() {
+    /**
+     * @return The list of the target groups of participants that the questionnaire is targeted to.
+     */
+    public List<QuestionModel> getQuestions() {
         return questions;
     }
 
-    public String[] getQuestionsTableHeader() {
-        return questionsTableHeader;
+    /**
+     * @return The list of the target groups of participants that the questionnaire is targeted to.
+     */
+    public List<String> getPreviousVariables() {
+        return previousVariables;
     }
 
-
+    /**
+     * @return The list of the target groups of participants that the questionnaire is targeted to.
+     */
     public List<String> getStudyGroups() {
         return studyGroups;
     }

@@ -7,8 +7,10 @@ import user_interface_layer.presenter_manager.display_success_message.DisplaySuc
 
 import java.util.List;
 
+/**
+ * The presenter class that the use case calls on to present the study parameters.
+ */
 public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutputBoundary {
-
 
     /**
      * The display stratification interface.
@@ -51,9 +53,9 @@ public class ModifyStudyParameterPresenter implements ModifyStudyParameterOutput
      */
     @Override
     public void displaySuccessMessage(int studyId, String message, int researcherId) {
-        String successMessage = "Study: " + studyId + "\n" + message;
-        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
+        String successMessage = "<html>Study " + studyId + ":" + "<BR>" + message + "</html>";
         fetchStudyLogController.fetchStudyLog(studyId, researcherId);
+        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
 

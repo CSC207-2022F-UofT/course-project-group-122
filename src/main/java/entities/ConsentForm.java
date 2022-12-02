@@ -1,11 +1,13 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * The class representing a consent form. A consent form is a document that is used to obtain consent from a participant
  * to participate in a study. It contains information about the study, the risks and benefits of the study, and the
  * participant's rights.
  */
-public class ConsentForm implements java.io.Serializable{
+public class ConsentForm implements Serializable {
 
     /**
      * The study that this consent form is for.

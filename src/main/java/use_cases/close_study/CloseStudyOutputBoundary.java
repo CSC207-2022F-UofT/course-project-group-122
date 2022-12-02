@@ -2,6 +2,9 @@ package use_cases.close_study;
 
 import entities.Study;
 
+/**
+ * This the interface that the presenter implements and the use case calls on.
+ */
 public interface CloseStudyOutputBoundary {
 
     /**

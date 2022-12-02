@@ -2,6 +2,7 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ import java.util.List;
  *     Representation Invariant:
  *     <ul> <li> The variable names of all questions in a questionnaire must be unique </li>
  */
-public class Questionnaire implements java.io.Serializable{
+public class Questionnaire implements Serializable {
 
     /**
      * The current maximum ID of all the Questionnaires in the system. This is used to generate the next ID.
@@ -59,14 +60,6 @@ public class Questionnaire implements java.io.Serializable{
      */
     private String description;
 
-    /**
-     * The version of this Questionnaire. This is used to differentiate between different versions of the same
-     * Questionnaire. In particular, when a Questionnaire is edited, a new version of the Questionnaire is created.
-     * The version number is incremented by 1. The original version of the Questionnaire that is edited is not deleted,
-     * but it must be marked as closed. This function is up to the use case to ensure that the original version is
-     * closed. In short, a Questionnaire can be active (not closed) if and only if it is the current version.
-     */
-    private int version = 1;
 
     /**
      * The groups in the Study that this Questionnaire is part of, that can answer this Questionnaire. We will use an
@@ -99,7 +92,7 @@ public class Questionnaire implements java.io.Serializable{
      * The list of Questions in this Questionnaire. The questions are stored in the order that they are added. The order
      * of the questions is important, as it determines how the questions are displayed to the Participant User.
      */
-    private final List<Question> listOfQuestion = new ArrayList<>();
+    private List<Question> listOfQuestion = new ArrayList<>();
 
 
     /**
@@ -179,7 +172,6 @@ public class Questionnaire implements java.io.Serializable{
         this.study = study;
         this.title = title;
         this.description = description;
-        this.version = version;
         this.targetGroups = targetGroups;
     }
 
@@ -202,7 +194,6 @@ public class Questionnaire implements java.io.Serializable{
         this.study = study;
         this.title = title;
         this.description = description;
-        this.version = version;
     }
 
 
@@ -447,14 +438,6 @@ public class Questionnaire implements java.io.Serializable{
 
 
     /**
-     * @return the version of this Questionnaire.
-     */
-    public int getVersion() {
-        return version;
-    }
-
-
-    /**
      * Retrieve a Question from the list of Questions in this Questionnaire by its id.
      *
      * @param id    The id of the Question to be retrieved.
@@ -499,6 +482,14 @@ public class Questionnaire implements java.io.Serializable{
         return variableNames;
     }
 
+    public void setTargetGroups(List<String> targetGroups) {
+        this.targetGroups = targetGroups;
+    }
+
+    public void removeQuestions() {
+        this.listOfQuestion.clear();
+        this.numOfQuestion = 0;
+    }
 
     /**
      * Retrieve the study that this Questionnaire belongs to.

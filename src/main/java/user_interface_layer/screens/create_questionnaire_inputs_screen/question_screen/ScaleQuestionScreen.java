@@ -1,21 +1,45 @@
 package user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen;
 
-import user_interface_layer.screen_setters.SetLabelTextPanel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetLabelTextPanel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The screen for creating a scale choice question.
+ */
 public class ScaleQuestionScreen extends JFrame {
+    /**
+     * The text area for the question.
+     */
     private final JTextArea question = new JTextArea(5, 20);
+    /**
+     * The text field for the variable.
+     */
     private final JTextField variable;
+    /**
+     * The text field for the minimum label
+     */
     private final JTextField bottomLabel;
+    /**
+     * The text field for the maximum label
+     */
     private final JTextField topLabel;
 
-    public ScaleQuestionScreen(List<QuestionModel> addedQuestions, DefaultTableModel model, int scale){
+    /**
+     * The constructor of the class.
+     *
+     * @param variables      The list of variables.
+     * @param addedQuestions The list of questions that have been added.
+     * @param model         The table model.
+     * @param scale        The scale of the question.
+     */
+    public ScaleQuestionScreen(ArrayList<String> variables, List<QuestionModel> addedQuestions, DefaultTableModel model, int scale){
         setTitle("Create Scale Question");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -45,9 +69,13 @@ public class ScaleQuestionScreen extends JFrame {
         submitButton.addActionListener(e -> {
             if (question.getText().equals("") || variable.getText().equals("") || bottomLabel.getText().equals("") || topLabel.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");
-            } else {
+            } else if (variables.contains(variable.getText())) {
+                JOptionPane.showMessageDialog(null, "Variable already exists");
+            }
+            else {
+                variables.add(variable.getText());
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText(), bottomLabel.getText(), topLabel.getText(), scale);
-                model.addRow(new String[]{"Scale",question.getText(), variable.getText(), bottomLabel.getText()+ " - " + scale + " - "+ topLabel.getText()});
+                model.addRow(new String[]{newQuestion.getType(), newQuestion.getContent(), newQuestion.getVariable(), newQuestion.getOptions()});
                 addedQuestions.add(newQuestion);
                 this.dispose();
             }
@@ -61,15 +89,6 @@ public class ScaleQuestionScreen extends JFrame {
 
         add(panel);
         pack();
-        SetScreenToCenter s = new SetScreenToCenter(this);
-
+        SetScreenToCenter.setCenter(this);
     }
-//
-//    public static void main(String[] args) {
-//        List<QuestionModel> addedQuestions = new ArrayList<>();
-//        ScaleQuestionScreen t = new ScaleQuestionScreen(addedQuestions, 5);
-//        t.setVisible(true);
-//    }
-
-
 }

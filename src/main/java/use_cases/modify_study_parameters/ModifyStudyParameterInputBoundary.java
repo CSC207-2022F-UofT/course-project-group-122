@@ -1,5 +1,8 @@
 package use_cases.modify_study_parameters;
 
+/**
+ * The interface that the use case implements and the controller calls on.
+ */
 interface ModifyStudyParameterInputBoundary {
 
     /**
@@ -19,13 +22,6 @@ interface ModifyStudyParameterInputBoundary {
      * @param targetSize        The new target size of the study.
      */
     void modifyStudyBasicParameters(int studyId, String studyName, String studyDescription, int targetSize);
-
-    /**
-     * Modifies the type of the study.
-     * @param studyId   The ID of the study.
-     * @param studyType      The new type of the study.
-     */
-    void modifyStudyType(int studyId, String studyType);
 
 
     /**

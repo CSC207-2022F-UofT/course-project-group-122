@@ -2,10 +2,12 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+
 /**
  * A UserFactory that creates and returns User object.
  */
-public class UserFactory implements UserFactoryInterface, java.io.Serializable{
+public class UserFactory implements UserFactoryInterface, Serializable {
 
     /**
      * The create method that gets called with a specified type  when creating a User object.

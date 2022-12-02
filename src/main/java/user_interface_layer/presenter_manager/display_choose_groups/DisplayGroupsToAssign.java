@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_choose_groups;
 
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.choose_groups_to_assign.ChooseGroupToAssignScreen;
 
@@ -33,6 +33,6 @@ public class DisplayGroupsToAssign implements DisplayGroupsToAssignInterface {
                 controllerManager, studyId, questionnaireId);
 
         screenManager.setChooseGroupToAssignScreen(screen);
-        screenManager.updateCurrentScreen(screen);
+        screenManager.updateCurrentScreenNoDispose(screen);
     }
 }

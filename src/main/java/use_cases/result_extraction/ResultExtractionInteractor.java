@@ -1,18 +1,10 @@
 package use_cases.result_extraction;
 
-import com.opencsv.CSVWriter;
-import entities.Participant;
-import entities.Study;
 import entities.Questionnaire;
-import entities.VersionedAnswer;
-import org.jetbrains.annotations.NotNull;
+import entities.Study;
 import use_cases.fetch_id.FetchId;
 
-
-import java.util.*;
-import java.io.FileWriter;
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -30,6 +22,8 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
      * The presenter to send the output to.
      */
     private ResultExtractionOutputBoundary resultPullingAndExtractionPresenter;
+    
+    private ResultExtractionBuilder resultExtractionBuilder;
 
 
     /**
@@ -46,30 +40,27 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
      * @param studyID The ID of the study that the researcher want to export
      * @param filepath The file path to save the result folder
      */
-
     @Override
     public void resultPullingAndExtraction(int studyID, String filepath) {
         Study study = FetchId.getStudy(studyID);
-        ResultExtractionBuilder fBuilder = new ResultExtractionBuilder();
 
-        String folderPath = fBuilder.createFolder(study, filepath);
+        String folderPath = resultExtractionBuilder.createFolder(study, filepath);
 
         if (study.getEligibilityQuestionnaire() != null) {
             Questionnaire eliQuestionnaire = study.getEligibilityQuestionnaire();
-            fBuilder.createFile(eliQuestionnaire, folderPath, study);
+            resultExtractionBuilder.createFile(eliQuestionnaire, folderPath, study);
         }
 
         List<Questionnaire> listOfQuestionnaire = study.getQuestionnaires();
         if (!listOfQuestionnaire.isEmpty()) {
             for (Questionnaire questionnaire : study.getQuestionnaires()) {
-                fBuilder.createFile(questionnaire, folderPath, study);
+                resultExtractionBuilder.createFile(questionnaire, folderPath, study);
             }
         }
 
-
-
-        if (!fBuilder.getFailMessage().isEmpty()){
-            resultPullingAndExtractionPresenter.presentFailSave(studyID, filepath,fBuilder.getFailMessage());
+        if (!resultExtractionBuilder.getFailMessage().isEmpty()){
+            resultPullingAndExtractionPresenter.presentFailSave(studyID, filepath,
+                    resultExtractionBuilder.getFailMessage());
         }else{
             resultPullingAndExtractionPresenter.presentSuccessSave(studyID, filepath);
         }
@@ -81,6 +72,15 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
      */
     public void setResultExtractionPresenter(ResultExtractionOutputBoundary resultPullingAndExtractionPresenter){
         this.resultPullingAndExtractionPresenter = resultPullingAndExtractionPresenter;
+    }
+
+
+    /**
+     * Sets the builder of this class.
+     * @param resultExtractionBuilder   the builder of this class.
+     */
+    public void setResultExtractionBuilder(ResultExtractionBuilder resultExtractionBuilder){
+        this.resultExtractionBuilder = resultExtractionBuilder;
     }
 
 

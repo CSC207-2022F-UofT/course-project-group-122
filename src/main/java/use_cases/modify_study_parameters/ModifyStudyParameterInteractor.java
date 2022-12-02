@@ -1,6 +1,8 @@
 package use_cases.modify_study_parameters;
 
+import entities.GeneralStudy;
 import entities.Questionnaire;
+import entities.RandomizedStudy;
 import entities.Study;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -8,8 +10,14 @@ import use_cases.fetch_id.FetchId;
 
 import java.util.List;
 
+/**
+ * This is the use case that modifies the parameters of a study.
+ */
 public class ModifyStudyParameterInteractor implements ModifyStudyParameterInputBoundary {
 
+    /**
+     * The interface that the use case calls on to present the result of the modification.
+     */
     private ModifyStudyParameterOutputBoundary modifyStudyParameterPresenter;
 
 
@@ -26,9 +34,10 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         Questionnaire eligibilityQuestionnaire = study.getEligibilityQuestionnaire();
         if (eligibilityQuestionnaire == null) {
             modifyStudyParameterPresenter.displayFailureMessage("The study does not have an eligibility " +
-                    "questionnaire. Please add one before adding stratification variables.");
+                    "questionnaire. Please add one before selecting the stratification variable. " +
+                    "You can do so by clicking on the 'Add Questionnaire' button.");
         }
-        assert eligibilityQuestionnaire != null;
+        assert eligibilityQuestionnaire != null && !eligibilityQuestionnaire.getVariableNames().isEmpty();
         List<String> vaiableNames = eligibilityQuestionnaire.getVariableNames();
         modifyStudyParameterPresenter.displayPotentialStratificationVariables(studyID, vaiableNames);
     }
@@ -53,24 +62,6 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
 
 
     /**
-     * Modifies the type of the study.
-     * If the study originally has only 1 group, reset the group number to 2.
-     *
-     * @param studyId   The ID of the study.
-     * @param studyType The new type of the study.
-     */
-    @Override
-    public void modifyStudyType(int studyId, String studyType) {
-        Study study = FetchId.getStudy(studyId);
-        assert canModifyStudyParameters(study);
-        study.setStudyType(studyType);
-        if (study.getNumGroups() == 1) {
-            study.resetGroups(2);
-        }
-    }
-
-
-    /**
      * Modifies the randomization method of the study.
      *
      * @param studyId             The ID of the study.
@@ -80,13 +71,15 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
     public void modifyStudyRandomization(int studyId, String randomizationMethod, int researcherId) {
         Study study = FetchId.getStudy(studyId);
         assert canModifyStudyParameters(study);
-        if (study.getStudyType().equals("General")) {
+        if (study instanceof GeneralStudy) {
             modifyStudyParameterPresenter.displayFailureMessage("The study is a general study. " +
                     "It does not have a randomization method.");
         }
-        study.setRandomizationMethod(randomizationMethod);
+        assert study instanceof RandomizedStudy;
+        ((RandomizedStudy) study).setRandomizationMethod(randomizationMethod);
         modifyStudyParameterPresenter.displaySuccessMessage(studyId,
-                "The randomization method of the study has been modified.", researcherId);
+                "The randomization method of the study has been modified." +
+                " The randomization method is: " + randomizationMethod, researcherId);
     }
 
 
@@ -100,17 +93,19 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
     public void modifyStudyStratification(int studyId, String stratificationVariable, int researcherId) {
         Study study = FetchId.getStudy(studyId);
         assert canModifyStudyParameters(study);
-        if (study.getStudyType().equals("General")) {
+        if (study instanceof GeneralStudy) {
             modifyStudyParameterPresenter.displayFailureMessage("The study is a general study. " +
                     "It does not have a randomization method.");
-        } else if (!study.getRandomizationMethod().equals("Stratified")) {
+        } else if (study instanceof RandomizedStudy &&
+                !((RandomizedStudy) study).getRandomizationMethod().equals("Stratified")) {
             modifyStudyParameterPresenter.displayFailureMessage("The study is not a stratified study. " +
                     "It does not have a stratification variable.");
         } else if (! validStratificationVariable(study, stratificationVariable)) {
             modifyStudyParameterPresenter.displayFailureMessage("The stratification variable is not a variable in " +
                     "the eligibility questionnaire. Please check your selection.");
         }
-        study.setStratificationMethod(stratificationVariable);
+        assert study instanceof RandomizedStudy;
+        ((RandomizedStudy) study).setStratificationMethod(stratificationVariable);
         modifyStudyParameterPresenter.displaySuccessMessage(studyId,
                 "The stratification variables of the study have been modified.", researcherId);
     }
@@ -182,19 +177,6 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         return true;
     }
 
-
-    /**
-     * Building the names of the groups.
-     * @param groupNames    The names of the groups.
-     * @return              The names of the groups in a string.
-     */
-    private @NotNull String buildNames(String @NotNull [] groupNames) {
-        StringBuilder names = new StringBuilder();
-        for (String name : groupNames) {
-            names.append(name).append(", ");
-        }
-        return names.toString();
-    }
 
     /**
      * Check if the study parameters can be modified.

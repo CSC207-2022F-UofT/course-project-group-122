@@ -67,19 +67,19 @@ public class ResearcherTest extends UserTest {
 
     @Test
     public void listStudiesContains() {
-        Study study1 = new Study("study1", 3);
+        Study study1 = new RandomizedStudy("study1", 3);
         assertFalse(researcher1.listStudiesContains(study1));
     }
 
 
     @Test
     public void addToListStudies() {
-        Study study2 = new Study("study1", 3);
+        Study study2 = new RandomizedStudy("study1", 3);
         assertFalse(researcher2.listStudiesContains(study2));
         assertTrue(researcher2.addToListStudies(study2));
         assertTrue(researcher2.listStudiesContains(study2));
         assertFalse(researcher2.addToListStudies(study2));
-        Study study3 = new Study("study2", 3);
+        Study study3 = new RandomizedStudy("study2", 3);
         assertFalse(researcher2.listStudiesContains(study3));
         assertTrue(researcher2.addToListStudies(study3));
         assertTrue(researcher2.listStudiesContains(study3));
@@ -89,12 +89,12 @@ public class ResearcherTest extends UserTest {
 
     @Test
     public void removeFromListStudies() {
-        Study study3 = new Study("study1", 3);
+        Study study3 = new RandomizedStudy("study1", 3);
         assertFalse(researcher3.listStudiesContains(study3));
         assertTrue(researcher3.addToListStudies(study3));
         assertTrue(researcher3.listStudiesContains(study3));
         assertFalse(researcher3.addToListStudies(study3));
-        Study study4 = new Study("study2", 3);
+        Study study4 = new RandomizedStudy("study2", 3);
         assertFalse(researcher3.listStudiesContains(study4));
         assertTrue(researcher3.addToListStudies(study4));
         assertTrue(researcher3.listStudiesContains(study4));

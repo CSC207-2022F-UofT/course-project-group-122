@@ -8,8 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is the use case that gets all target groups of a questionnaire.
+ */
 public class GetTargetGroupsInteractor implements GetTargetGroupsInputBoundary {
 
+    /**
+     * The interface that the use case calls on to present the target groups.
+     */
     private GetTargetGroupsOutputBoundary getTargetGroupsPresenter;
 
     /**

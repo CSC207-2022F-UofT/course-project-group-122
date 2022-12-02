@@ -1,5 +1,8 @@
 package use_cases.publish_questionnaire;
 
+/**
+ * The interface that the  use case implements and the controller calls on.
+ */
 public interface PublishQuestionnaireInputBoundary {
 
     /**

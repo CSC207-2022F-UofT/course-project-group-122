@@ -6,43 +6,13 @@ import use_cases.fetch_id.FetchId;
 
 import java.util.List;
 
+/**
+ * The use case that fetches the data of a participant in a study.
+ */
 public class FetchParticipantStudyDataInteractor implements FetchParticipantStudyDataInputBoundary {
 
     private FetchParticipantStudyDataOutputBoundary fetchParticipantStudyDataPresenter;
 
-    /**
-     * Fetches the study data for a participant.
-     * Precondition: the participant is associated with a study.
-     *
-     * @param participant The participant to fetch the study data for.
-     */
-    @Override
-    public void fetchParticipantStudyData(@NotNull Participant participant, User user) {
-        Study study = participant.getStudy();
-        String studyStatus = getStudyStatus(study);
-        int group = participant.getGroup();
-        String participantStatus = getStatus(participant);
-        Questionnaire eligibilityQuestionnaire = participant.getEligibilityQuestionnaire();
-        List<Questionnaire> assignedQuestionnaires = participant.getAssignedQuestionnaires();
-        List<Questionnaire> completedQuestionnaires = participant.getCompletedQuestionnaires();
-        String eligibilityQuestionnaireAnswerStatus = getEligibilityQuestionnaireAnswerStatus(participant);
-        List<Answer> questionnaireAnswers = participant.getQuestionnaireAnswers();
-        FetchParticipantStudyDataResponseModel responseModel = new FetchParticipantStudyDataResponseModel(participant,
-                user);
-        responseModel.setStudyData(study, studyStatus, group, participantStatus);
-        responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire, eligibilityQuestionnaireAnswerStatus,
-                participant);
-
-        responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers, participant);
-        if (user instanceof Participant) {
-            fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
-                    "Participant");
-        } else {
-            fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
-                    "Researcher");
-        }
-
-    }
 
     /**
      * Fetches the study data for a participant.
@@ -62,7 +32,30 @@ public class FetchParticipantStudyDataInteractor implements FetchParticipantStud
     public void fetchParticipantStudyData(int participantId, int userId) {
         Participant participant = (Participant) FetchId.getUser(participantId);
         User user = FetchId.getUser(userId);
-        fetchParticipantStudyData(participant, user);
+        Study study = participant.getStudy();
+        String studyStatus = getStudyStatus(study);
+        int group = participant.getGroup();
+        String participantStatus = getStatus(participant);
+        Questionnaire eligibilityQuestionnaire = participant.getEligibilityQuestionnaire();
+        List<Questionnaire> assignedQuestionnaires = participant.getAssignedQuestionnaires();
+        List<Questionnaire> completedQuestionnaires = participant.getCompletedQuestionnaires();
+        String eligibilityQuestionnaireAnswerStatus = getEligibilityQuestionnaireAnswerStatus(participant);
+        List<Answer> questionnaireAnswers = participant.getQuestionnaireAnswers();
+        FetchParticipantStudyDataResponseModel responseModel = new FetchParticipantStudyDataResponseModel(participant,
+                user);
+        responseModel.setStudyData(study, studyStatus, group, participantStatus);
+        if (eligibilityQuestionnaire != null) {
+            responseModel.setEligibilityQuestionnaireData(eligibilityQuestionnaire,
+                    eligibilityQuestionnaireAnswerStatus, participant);
+        }
+        responseModel.setQuestionnaireData(assignedQuestionnaires, completedQuestionnaires, questionnaireAnswers, participant);
+        if (user instanceof Participant) {
+            fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
+                    "Participant");
+        } else {
+            fetchParticipantStudyDataPresenter.displayParticipantStudyData(responseModel, user.getId(),
+                    "Researcher");
+        }
     }
 
 

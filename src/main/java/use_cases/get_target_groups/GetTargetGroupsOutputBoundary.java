@@ -2,6 +2,9 @@ package use_cases.get_target_groups;
 
 import java.util.Map;
 
+/**
+ * The interface that the use case calls on to present the target groups.
+ */
 public interface GetTargetGroupsOutputBoundary {
 
     /**

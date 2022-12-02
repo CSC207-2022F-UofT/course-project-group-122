@@ -1,7 +1,13 @@
 package use_cases.participant_enroller;
 
+/**
+ * The class that the screen calls on to enroll a participant in a study.
+ */
 public class ParticipantEnrollerController {
 
+    /**
+     * The interactor for the use case.
+     */
     private ParticipantEnrollerInputBoundary participantEnrollerInteractor;
 
     /**

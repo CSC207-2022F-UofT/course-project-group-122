@@ -1,9 +1,11 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * A user class.
  */
-public class User implements java.io.Serializable{
+public class User implements Serializable {
     protected static int currId = 0;
     /**
      * The identifier of this user.

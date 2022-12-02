@@ -2,6 +2,7 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
  * participant and questionnaire.
  * It composes the VersionedAnswer class, which contains each version of the same answers to a same questionnaire.
  */
-public class Answer implements java.io.Serializable{
+public class Answer implements Serializable {
 
 
     /**
