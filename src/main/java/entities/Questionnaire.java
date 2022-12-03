@@ -35,11 +35,6 @@ import java.util.List;
 public class Questionnaire implements Serializable {
 
     /**
-     * The current maximum ID of all the Questionnaires in the system. This is used to generate the next ID.
-     */
-    private static int currID = 0;
-
-    /**
      * The id of this Questionnaire. This is unique across the entire system.
      */
     private final int id;
@@ -116,8 +111,7 @@ public class Questionnaire implements Serializable {
      *                     be empty.
      */
     public Questionnaire(Study study, String title, String description, List<String> targetGroups) {
-        currID++;
-        this.id = currID;
+        this.id = IDManager.newQuestionnaireId();
         this.study = study;
         this.title = title;
         this.description = description;
@@ -138,8 +132,7 @@ public class Questionnaire implements Serializable {
      *                    Questionnaire.
      */
     public Questionnaire(Study study, String title, String description) {
-        currID++;
-        this.id = currID;
+        this.id = IDManager.newQuestionnaireId();
         this.study = study;
         this.title = title;
         this.description = description;
@@ -167,8 +160,7 @@ public class Questionnaire implements Serializable {
      *                     be empty.
      */
     public Questionnaire(Study study, String title, String description, int version, List<String> targetGroups) {
-        currID++;
-        this.id = currID;
+        this.id = IDManager.newQuestionnaireId();
         this.study = study;
         this.title = title;
         this.description = description;
@@ -189,8 +181,7 @@ public class Questionnaire implements Serializable {
      *                    Questionnaire.
      */
     public Questionnaire(Study study, String title, String description, int version) {
-        currID++;
-        this.id = currID;
+        this.id = IDManager.newQuestionnaireId();
         this.study = study;
         this.title = title;
         this.description = description;

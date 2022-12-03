@@ -6,7 +6,7 @@ import java.io.Serializable;
  * A user class.
  */
 public class User implements Serializable {
-    protected static int currId = 0;
+
     /**
      * The identifier of this user.
      */
@@ -30,8 +30,7 @@ public class User implements Serializable {
     public User(String username, String name) {
         this.username = username;
         this.name = name;
-        currId ++;
-        this.id = currId;
+        this.id = IDManager.newUserId();
     }
 
     /**

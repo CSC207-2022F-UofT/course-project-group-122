@@ -1,8 +1,10 @@
 package use_cases.user_log_out;
 
-import data_access.SaveApplicationState;
+import entities.IDManager;
+import use_cases.data_access.SaveApplicationState;
 import entities.StudyPool;
 import entities.UserPool;
+import use_cases.data_access.SaveApplicationStateGateway;
 import use_cases.participant_enroller.RandomGroupGeneratorManager;
 
 /**
@@ -35,14 +37,22 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
     /**
      * The user log out gateway
      */
-    private UserLogOutGateway userLogOutGateway;
+    private SaveApplicationStateGateway saveApplicationState;
+
+
+    /**
+     * The IDManager
+     */
+    private IDManager idManager;
+
+
 
     /**
      * Log out the user and save the current state of data
      */
     @Override
     public void logOut() {
-        userLogOutGateway.saveData(userPool, studyPool, randomGroupGeneratorManager);
+        saveApplicationState.saveData(userPool, studyPool, randomGroupGeneratorManager, idManager);
         userLogOutPresenter.logOut();
     }
 
@@ -60,8 +70,8 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
      * Set the gateway for this interactor
      * @param gateway the gateway for this interactor
      */
-    public void setUserLogOutGateway(SaveApplicationState gateway) {
-        this.userLogOutGateway = gateway;
+    public void setSaveApplicationState(SaveApplicationState gateway) {
+        this.saveApplicationState = gateway;
     }
 
 
@@ -76,5 +86,14 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
         this.userPool = userPool;
         this.studyPool = studyPool;
         this.randomGroupGeneratorManager = randomGroupGeneratorManager;
+    }
+
+
+    /**
+     * Set the IDManager
+     * @param idManager the IDManager
+     */
+    public void setIDManager(IDManager idManager) {
+        this.idManager = idManager;
     }
 }

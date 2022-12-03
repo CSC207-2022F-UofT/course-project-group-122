@@ -15,12 +15,6 @@ import java.util.Map;
  */
 public class VersionedAnswer implements Serializable {
 
-
-    /**
-     * The current maximum ID of all the VersionedAnswers in the system. This is used to generate the next ID.
-     */
-    private static int currID;
-
     /**
      * The id of the versioned answer. This is unique across the entire system, regardless of the study, questionnaire,
      * or participant.
@@ -73,8 +67,7 @@ public class VersionedAnswer implements Serializable {
      * @param answer        The ID of the Answer that the VersionedAnswer is a part of.
      */
     public VersionedAnswer(int version, User modifier, Map<String, String> answerContent, Answer answer) {
-        currID++;
-        this.id = currID;
+        this.id = IDManager.newVersionedAnswerId();
         this.version = version;
         this.answers = answerContent;
         this.modifier = modifier;
@@ -98,8 +91,7 @@ public class VersionedAnswer implements Serializable {
      */
     public VersionedAnswer(int version, User modifier, Map<String, String> answerContent, Answer answer,
                            String reasonForModification) {
-        currID++;
-        this.id = currID;
+        this.id = IDManager.newVersionedAnswerId();
         this.version = version;
         this.answers = answerContent;
         this.modifier = modifier;

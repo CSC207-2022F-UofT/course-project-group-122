@@ -1,7 +1,6 @@
 package main;
 
-import data_access.SaveApplicationState;
-import data_access.Serializer;
+import entities.IDManager;
 import entities.StudyPool;
 import entities.UserPool;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
@@ -31,6 +30,8 @@ import use_cases.create_questionnaire.CreateQuestionnairePresenter;
 import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyInteractor;
 import use_cases.create_study.CreateStudyPresenter;
+import use_cases.data_access.SaveApplicationState;
+import use_cases.data_access.Serializer;
 import use_cases.edit_questionnaire.EditQuestionnaireController;
 import use_cases.edit_questionnaire.EditQuestionnaireInteractor;
 import use_cases.edit_questionnaire.EditQuestionnairePresenter;
@@ -145,10 +146,16 @@ public class Main {
      */
     private static RandomGroupGeneratorManager randomGroupGeneratorManager;
 
+    /**
+     * The IDManager of the application
+     */
+     private static IDManager idManager;
+
 
 
     public static void main(String[] args) throws IOException {
 
+        // Create a storage directory if it does not exist
         String cwd = System. getProperty("user.dir");
         String path = cwd + File.separator + "storage";
         Files.createDirectories(Paths.get(path));
@@ -158,8 +165,8 @@ public class Main {
         // Making the entity collections
         // Retrieve the user pool, study pool, and the random group generator manager from the database
         List<Object> objs = Serializer.getAll();
-        // If the database is empty, create new user pool, study pool, and random group generator manager
-        // Else, retrieve the user pool, study pool, and random group generator manager from the database
+        // If the database is empty, create new user pool, study pool, random group generator manager, and ID manager
+        // Else, retrieve the user pool, study pool, random group generator manager, and ID manager from the database
         if (!objs.isEmpty()) {
             for (Object obj : objs) {
                 switch (obj.getClass().getSimpleName()) {
@@ -172,6 +179,9 @@ public class Main {
                     case "RandomGroupGeneratorManager":
                         randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
                         break;
+                    case "IDManager":
+                        idManager = (IDManager) obj;
+                        break;
                     default:
                         break;
                 }
@@ -180,11 +190,12 @@ public class Main {
             userPool = new UserPool(new HashMap<>());
             studyPool = new StudyPool(new HashMap<>());
             randomGroupGeneratorManager = new RandomGroupGeneratorManager();
+            idManager = new IDManager(0);
         }
-
-        userPool = new UserPool(new HashMap<>());
-        studyPool = new StudyPool(new HashMap<>());
-        randomGroupGeneratorManager = new RandomGroupGeneratorManager();
+//
+//        userPool = new UserPool(new HashMap<>());
+//        studyPool = new StudyPool(new HashMap<>());
+//        randomGroupGeneratorManager = new RandomGroupGeneratorManager();
 
 
         // Making the use cases by initializing them with the controllers,
@@ -375,6 +386,7 @@ public class Main {
         userLoginController.setUserLoginInteractor(userLoginInteractor);
         userLoginInteractor.setUserLoginPresenter(userLoginPresenter);
         userLoginInteractor.setUserPool(userPool);
+        userLoginInteractor.setIDManager(idManager);
 
         //Get target groups use case
         GetTargetGroupsController getTargetGroupsController = new GetTargetGroupsController();
@@ -534,7 +546,8 @@ public class Main {
         userLogOutPresenter.setDisplayRegisterInterface(presenterManagerDisplayRegister);
         userLogOutPresenter.setControllerManager(controllerManager);
         userLogOutInteractor.setEntityCollections(userPool, studyPool, randomGroupGeneratorManager);
-        userLogOutInteractor.setUserLogOutGateway(saveApplicationState);
+        userLogOutInteractor.setSaveApplicationState(saveApplicationState);
+        userLogOutInteractor.setIDManager(idManager);
 
         userLoginPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         userLoginPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);

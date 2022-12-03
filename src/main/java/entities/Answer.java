@@ -23,11 +23,6 @@ public class Answer implements Serializable {
     private final int id;
 
     /**
-    The current maximum ID of all the Answers in the system. This is used to generate the next ID.
-     */
-    private static int currID;
-
-    /**
     The participant which this answer belongs to.
      */
     private final Participant participant;
@@ -63,8 +58,7 @@ public class Answer implements Serializable {
      * @param firstVersionAnswer The first version of the answers to the questionnaire.
      */
     public Answer(Participant participant, @NotNull Questionnaire questionnaire, VersionedAnswer firstVersionAnswer) {
-        currID++;
-        this.id = currID;
+        this.id = IDManager.newAnswerId();
         this.participant = participant;
         this.questionnaire = questionnaire;
         this.numQuestions = questionnaire.getNumOfQuestions();
@@ -82,8 +76,7 @@ public class Answer implements Serializable {
      * @param questionnaire The questionnaire which this answer belongs to.
      */
     public Answer(Participant participant, @NotNull Questionnaire questionnaire) {
-        currID++;
-        this.id = currID;
+        this.id = IDManager.newAnswerId();
         this.participant = participant;
         this.questionnaire = questionnaire;
         this.numQuestions = questionnaire.getNumOfQuestions();

@@ -1,8 +1,10 @@
 package use_cases.user_login;
 
+import entities.IDManager;
 import entities.User;
 import entities.UserFactory;
 import entities.UserPool;
+import use_cases.data_access.SaveApplicationStateGateway;
 
 /**
  * The class that logs in the user.
@@ -18,10 +20,24 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
      */
     private final UserFactory userFactory = new UserFactory();
 
+
     /**
      * The user pool.
      */
     private UserPool userPool;
+
+
+    /**
+     * The IDManager
+     */
+    private IDManager idManager;
+
+
+    /**
+     * The gateway that saves the state of the application.
+     */
+    private SaveApplicationStateGateway saveApplicationState;
+
 
     /**
      * Sign in a user with the given credentials.
@@ -39,6 +55,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         } else {
             User newUser = userFactory.create(userType, username, name);
             userPool.addUser(newUser);
+            saveApplicationState.saveData(userPool, idManager);
             userLoginPresenter.onUserSignUpSuccess(newUser.getId(), newUser.getName(), newUser.getUsername(), userType);
         }
     }
@@ -107,6 +124,15 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
      */
     public void setUserLoginPresenter(UserLoginOutputBoundary userLoginPresenter) {
         this.userLoginPresenter = userLoginPresenter;
+    }
+
+
+    /**
+     * Set the IDManager to be used by this interactor.
+     * @param idManager The IDManager to be used by this interactor.
+     */
+    public void setIDManager(IDManager idManager) {
+        this.idManager = idManager;
     }
 
 }
