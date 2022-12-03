@@ -17,7 +17,8 @@ public class CheckQuestionnaireScreen extends JFrame {
 
     /**
      * The constructor for the screen.
-     * @param data The data needed to display the screen.
+     *
+     * @param data              The data needed to display the screen.
      * @param controllerManager The controller manager.
      */
     public CheckQuestionnaireScreen(@NotNull CheckQuestionnaireInputData data, ControllerManager controllerManager) {
@@ -54,12 +55,18 @@ public class CheckQuestionnaireScreen extends JFrame {
         questionsScrollPane.setViewportView(questionsTable);
 
         JButton publishButton = new JButton("Publish");
-        publishButton.addActionListener(e ->
-                controllerManager.publishQuestionnaire(data.getQuestionnaireId(), data.getStudyId()));
+        publishButton.addActionListener(e -> {
+            controllerManager.publishQuestionnaire(data.getQuestionnaireId(), data.getStudyId());
+            dispose();
+        });
+
 
         JButton closeButton = new JButton("Close");
-        closeButton.addActionListener(e ->
-                controllerManager.closeQuestionnaire(data.getQuestionnaireId(), data.getStudyId()));
+        closeButton.addActionListener(e -> {
+            controllerManager.closeQuestionnaire(data.getQuestionnaireId(), data.getStudyId());
+            dispose();
+        });
+
 
         add(headerPanel, BorderLayout.NORTH);
         add(questionsScrollPane, BorderLayout.CENTER);

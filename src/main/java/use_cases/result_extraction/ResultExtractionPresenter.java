@@ -60,6 +60,9 @@ public class ResultExtractionPresenter implements ResultExtractionOutputBoundary
         displayFailureMessageInterface.presentFailureMessage(message);
 
     }
+    public void presentFailSave(String message){
+        displayFailureMessageInterface.presentFailureMessage(message);
+    }
 
 
     /**

@@ -18,9 +18,9 @@ public class GeneralFailureScreen {
         frame.setSize(500, 400);
         JLabel label = new JLabel(FailureMessage, SwingConstants.CENTER);
         frame.add(label);
-        Timer timer = new Timer(5000, e -> frame.dispose());
-        timer.setRepeats(false);
-        timer.start();
+//        Timer timer = new Timer(5000, e -> frame.dispose());
+//        timer.setRepeats(false);
+//        timer.start();
         frame.setVisible(true);
         SetScreenToCenter.setCenter(frame);
     }

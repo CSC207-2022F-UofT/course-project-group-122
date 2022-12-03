@@ -21,9 +21,9 @@ public class GeneralSuccessScreen {
         successFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         successFrame.setSize(500, 400);
         SetScreenToCenter.setCenter(successFrame);
-        Timer timer = new Timer(5000, e -> successFrame.dispose());
-        timer.setRepeats(false);
-        timer.start();
+//        Timer timer = new Timer(5000, e -> successFrame.dispose());
+//        timer.setRepeats(false);
+//        timer.start();
         successFrame.setVisible(true);
         successFrame.setVisible(true);
     }

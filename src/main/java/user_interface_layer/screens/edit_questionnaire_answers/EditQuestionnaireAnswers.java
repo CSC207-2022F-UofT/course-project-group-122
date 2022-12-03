@@ -82,6 +82,7 @@ public class EditQuestionnaireAnswers extends JFrame {
             }
             if (answers.size() == questionPanels.size() && !reasonForModification.getText().equals("")) {
                 controllerManager.researcherEditAnswer(data.getResearcherID(),data.getParticipantID(), data.getAnswerId(), data.getStudyID(),answers, reasonForModification.getText());
+                dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Please answer all questions");
             }
