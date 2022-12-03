@@ -205,6 +205,9 @@ public class Main {
         FetchId.setStudyPool(studyPool);
         FetchId.setUserPool(userPool);
 
+        // Data access
+        SaveApplicationState saveApplicationState = new SaveApplicationState();
+
         // Add potential participants use case
         AddPotentialParticipantController addPotentialParticipantController = new AddPotentialParticipantController();
         AddPotentialParticipantInteractor addPotentialParticipantInteractor = new AddPotentialParticipantInteractor();
@@ -387,6 +390,7 @@ public class Main {
         userLoginInteractor.setUserLoginPresenter(userLoginPresenter);
         userLoginInteractor.setUserPool(userPool);
         userLoginInteractor.setIDManager(idManager);
+        userLoginInteractor.setSaveApplicationState(saveApplicationState);
 
         //Get target groups use case
         GetTargetGroupsController getTargetGroupsController = new GetTargetGroupsController();
@@ -437,9 +441,6 @@ public class Main {
         FetchLatestAnswerDataRequestPresenter fetchLatestAnswerDataRequestPresenter = new FetchLatestAnswerDataRequestPresenter();
         fetchLatestAnswerDataRequestController.setInputBoundary(fetchLatestAnswerDataRequestInteractor);
         fetchLatestAnswerDataRequestInteractor.setPresenter(fetchLatestAnswerDataRequestPresenter);
-
-        // Data Access
-        SaveApplicationState saveApplicationState = new SaveApplicationState();
 
 
         //Controller Manager and Screen Manager
@@ -593,7 +594,6 @@ public class Main {
 
         fetchEditQuestionnaireDataPresenter.setDisplayEditQuestionnaireInterface(presenterManagerDisplayEditQuestionnaire);
         fetchEditQuestionnaireDataPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
-
 
         fetchStudyDataForEditingPresenter.setDisplayEditStudy(presenterManagerDisplayEditStudyData);
         fetchStudyDataForEditingPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);

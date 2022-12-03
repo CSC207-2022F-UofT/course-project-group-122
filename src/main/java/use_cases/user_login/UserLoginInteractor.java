@@ -135,4 +135,12 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         this.idManager = idManager;
     }
 
+
+    /**
+     * Set the gateway that saves the state of the application.
+     * @param saveApplicationState The gateway that saves the state of the application.
+     */
+    public void setSaveApplicationState(SaveApplicationStateGateway saveApplicationState) {
+        this.saveApplicationState = saveApplicationState;
+    }
 }
