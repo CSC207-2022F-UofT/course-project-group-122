@@ -37,7 +37,7 @@ public class AllVersionsScreen extends JFrame {
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select an answer to check.");
             } else {
-                int answerID = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
+                int answerID = data.getAnswerId();
                 int version = Integer.parseInt((String) model.getValueAt(selectedRow, 1));
                 controllerManager.fetchVersionedAnswer(data.getStudyId(),data.getParticipantID(),data.getQuestionnaireID(),answerID,version);
             }

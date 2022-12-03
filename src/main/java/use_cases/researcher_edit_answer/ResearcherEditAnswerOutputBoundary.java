@@ -1,7 +1,7 @@
 package use_cases.researcher_edit_answer;
 
 public interface ResearcherEditAnswerOutputBoundary {
+    void presentAnswerEditedSuccessfully(int researcherID, int participantID, int studyId, int answerID);
 
-
-    void presentAnswerEditedSuccessfully(int answerID, int researcherID);
+    void presentDisplayFailureMessage(String message);
 }

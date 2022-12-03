@@ -29,7 +29,7 @@ public class EditQuestionnaireAnswers extends JFrame {
         JPanel header = new JPanel();
         header.setLayout(new BorderLayout());
 
-        JLabel questionnaireNameLabel = new JLabel(data.getQuestionnaireID() + ": " + data.getQuestionnaireName(), SwingConstants.CENTER);
+        JLabel questionnaireNameLabel = new JLabel(data.getAnswerId() + ": " + data.getQuestionnaireName(), SwingConstants.CENTER);
 
         JScrollPane descriptionScrollPanel = new JScrollPane();
         JTextArea descriptionArea = new JTextArea();
@@ -72,6 +72,7 @@ public class EditQuestionnaireAnswers extends JFrame {
         submitButton.addActionListener(e -> {
             HashMap<String, String> answers = new HashMap<>();
             for (ResearchersQuestionPanel questionPanel : questionPanels) {
+                System.out.println(questionPanel.getAnswer());
                 if (questionPanel.getAnswer().equals("")) {
                     JOptionPane.showMessageDialog(null, "Please answer all questions");
                     break;
@@ -79,8 +80,8 @@ public class EditQuestionnaireAnswers extends JFrame {
                     answers.put(questionPanel.getVariable(), questionPanel.getAnswer());
                 }
             }
-            if (answers.size() == questionPanels.size()) {
-//                controllerManager.researcherEditAnswerRequest(data.getResearcherID(), data.getQuestionnaireID(), data.getStudyID(),answers, reasonForModification.getText());
+            if (answers.size() == questionPanels.size() && !reasonForModification.getText().equals("")) {
+                controllerManager.researcherEditAnswer(data.getResearcherID(),data.getParticipantID(), data.getAnswerId(), data.getStudyID(),answers, reasonForModification.getText());
             }else{
                 JOptionPane.showMessageDialog(null, "Please answer all questions");
             }

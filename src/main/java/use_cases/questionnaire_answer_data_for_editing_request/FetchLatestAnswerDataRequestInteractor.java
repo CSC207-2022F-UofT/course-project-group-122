@@ -42,8 +42,9 @@ public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswer
                 ResearcherEditQuestionnaireScreenAnswersInputData data =
                         new ResearcherEditQuestionnaireScreenAnswersInputData(
                                 researcherId,
+                                participantId,
                                 studyId,
-                                questionnaireID,
+                                answer.getId(),
                                 questionnaire.getTitle(),
                                 questionnaire.getDescription(),
                                 answerData);

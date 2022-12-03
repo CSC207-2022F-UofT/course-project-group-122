@@ -46,7 +46,7 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         QuestionnaireTabPane.addTab("Completed Questionnaires", completedQuestionnairePanel);
 
         add(QuestionnaireTabPane, BorderLayout.SOUTH);
-        setSize(600, 600);
+        setSize(600, 700);
         SetScreenToCenter.setCenter(this);
     }
 }

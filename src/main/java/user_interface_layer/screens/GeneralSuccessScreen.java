@@ -18,10 +18,13 @@ public class GeneralSuccessScreen {
         successFrame.setTitle("Success");
         JLabel successLabel = new JLabel(SuccessMessage, SwingConstants.CENTER);
         successFrame.add(successLabel, BorderLayout.CENTER);
-        successFrame.setSize(600, 400);
         successFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         successFrame.setSize(500, 400);
         SetScreenToCenter.setCenter(successFrame);
+        Timer timer = new Timer(5000, e -> successFrame.dispose());
+        timer.setRepeats(false);
+        timer.start();
+        successFrame.setVisible(true);
         successFrame.setVisible(true);
     }
     }

@@ -25,6 +25,8 @@ public class AllVersionsInputData {
     /*
      * The data of the answers such that [id][version number][name of person modifying][time of modification][reason for modification]
      */
+
+    private final int answerId;
     private final List<String[]> answer;
 
     /*
@@ -33,10 +35,12 @@ public class AllVersionsInputData {
     public AllVersionsInputData(int studyId,
                                 int participantID,
                                 int questionnaireID,
+                                int answerId,
                                 List<String[]> answer) {
         this.studyId = studyId;
         this.participantID = participantID;
         this.questionnaireID = questionnaireID;
+        this.answerId = answerId;
         this.answer = answer;
     }
 
@@ -60,6 +64,8 @@ public class AllVersionsInputData {
     public int getQuestionnaireID() {
         return questionnaireID;
     }
+
+    public int getAnswerId() {return answerId; }
 
     /*
      * Returns the data of the answers.
