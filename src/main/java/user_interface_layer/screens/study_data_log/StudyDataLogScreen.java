@@ -57,6 +57,7 @@ public class StudyDataLogScreen extends JFrame {
         downloadDataButton.setText("Download Data");
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem allData = new JMenuItem("All Data (coming soon!)");
+        allData.setEnabled(false);
         JMenuItem currentData = new JMenuItem("Current Data");
         allData.addActionListener(e -> {
 //                    This is where the download all data will be implemented
