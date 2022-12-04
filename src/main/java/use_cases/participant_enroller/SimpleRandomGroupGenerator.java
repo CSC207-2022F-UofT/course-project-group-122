@@ -4,6 +4,7 @@ import entities.Participant;
 import entities.Study;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -11,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * This class is responsible for generating simple random groups for a randomized study.
  */
-public class SimpleRandomGroupGenerator implements RandomGroupGenerator {
+public class SimpleRandomGroupGenerator implements RandomGroupGenerator, Serializable {
 
     /**
      * The study to generate random groups for.

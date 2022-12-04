@@ -5,6 +5,7 @@ import entities.Study;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +13,7 @@ import java.util.Random;
 /**
  * This class is responsible for generating random groups for a randomized study.
  */
-public class BlockRandomGroupGenerator implements RandomGroupGenerator {
+public class BlockRandomGroupGenerator implements RandomGroupGenerator, Serializable {
 
     /**
      * The factor used to determine the size of the block. The block size is the number of participants in each block.

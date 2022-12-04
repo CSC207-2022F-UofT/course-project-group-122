@@ -56,10 +56,11 @@ public class StudyDataLogScreen extends JFrame {
         JButton downloadDataButton = new JButton("Download Data");
         downloadDataButton.setText("Download Data");
         JPopupMenu popupMenu = new JPopupMenu();
-        JMenuItem allData = new JMenuItem("All Data");
+        JMenuItem allData = new JMenuItem("All Data (coming soon!");
         JMenuItem currentData = new JMenuItem("Current Data");
         allData.addActionListener(e -> {
-//                    controllerManager.downloadDataButtonActionPerformed("All Data", data.getStudyId());
+//                    This is where the download all data will be implemented
+//                    Left for future implementations
         });
         currentData.addActionListener(e -> {
             JFileChooser jFileChooser = new JFileChooser();

@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -20,7 +21,7 @@ import java.util.stream.IntStream;
  * example, if there are 3 groups, the stratum size is 6. The participants are evenly distributed into the strata
  * using block randomization. The participants in each stratum are then randomly assigned to a group.
  */
-public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
+public class StratifiedRandomGroupGenerator implements RandomGroupGenerator, Serializable {
 
     /**
      * The number of groups in the study.

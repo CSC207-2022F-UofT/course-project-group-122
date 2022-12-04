@@ -166,31 +166,37 @@ public class Main {
         List<Object> objs = Serializer.getAll();
         // If the database is empty, create new user pool, study pool, random group generator manager, and ID manager
         // Else, retrieve the user pool, study pool, and random group generator manager from the database
-        if (!objs.isEmpty()) {
-            for (Object obj : objs) {
-                switch (obj.getClass().getSimpleName()) {
-                    case "UserPool":
-                        userPool = (UserPool) obj;
-                        break;
-                    case "StudyPool":
-                        studyPool = (StudyPool) obj;
-                        break;
-                    case "RandomGroupGeneratorManager":
-                        randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
-                        break;
-                    case "IDManager":
-                        idManager = (IDManager) obj;
-                        break;
-                    default:
-                        break;
-                }
+        for (Object obj : objs) {
+            switch (obj.getClass().getSimpleName()) {
+                case "UserPool":
+                    userPool = (UserPool) obj;
+                    break;
+                case "StudyPool":
+                    studyPool = (StudyPool) obj;
+                    break;
+                case "RandomGroupGeneratorManager":
+                    randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
+                    break;
+                case "IDManager":
+                    idManager = (IDManager) obj;
+                    break;
+                default:
+                    break;
             }
-        } else {
+        }
+        if (userPool == null) {
             userPool = new UserPool(new HashMap<>());
+        }
+        if (studyPool == null) {
             studyPool = new StudyPool(new HashMap<>());
+        }
+        if (randomGroupGeneratorManager == null) {
             randomGroupGeneratorManager = new RandomGroupGeneratorManager();
+        }
+        if (idManager == null) {
             idManager = new IDManager();
         }
+
 
 //        userPool = new UserPool(new HashMap<>());
 //        studyPool = new StudyPool(new HashMap<>());
