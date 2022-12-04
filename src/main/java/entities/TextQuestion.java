@@ -15,8 +15,8 @@ public class TextQuestion extends Question implements Serializable {
      * @param variableName       Keyword that describes the content of this Question
      * @param content           What is being asked the participants.
      */
-    public TextQuestion(Questionnaire questionnaire, String variableName, String content) {
-        super(questionnaire, variableName, content);
+    public TextQuestion(int id, Questionnaire questionnaire, String variableName, String content) {
+        super(id, questionnaire, variableName, content);
     }
 
 

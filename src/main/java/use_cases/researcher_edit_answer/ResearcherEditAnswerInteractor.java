@@ -1,23 +1,36 @@
 package use_cases.researcher_edit_answer;
 
-import entities.Questionnaire;
 import entities.Answer;
+import entities.IDManager;
 import entities.Researcher;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
-import use_cases.questionnaire_answer_data_for_editing_request.FetchLatestAnswerDataRequestOutputBoundary;
-
-import java.util.HashMap;
 
 public class ResearcherEditAnswerInteractor implements ResearcherEditAnswerInputBoundary{
-    ResearcherEditAnswerOutputBoundary researcherEditAnswerOutputBoundary;
+
+    /**
+     * The output boundary to call
+     */
+    private ResearcherEditAnswerOutputBoundary researcherEditAnswerOutputBoundary;
+
+    /**
+     * The id manager
+     */
+    private IDManager idManager;
+
+
+    /**
+     * Edit the answer of a questionnaire
+     * @param data the input data with the new answers
+     */
     @Override
     public void editAnswer(@NotNull ResearcherEditAnswerRequestModel data) {
         try {
             Answer ans = FetchId.getAnswer(data.getAnswerID(), data.getParticipantID());
             Researcher uModifier = (Researcher) FetchId.getUser(data.getResearcherID());
             assert ans != null;
-            ans.modifyAnswer(data.getAnswers(), uModifier, data.getReason());
+            int newVersionedId = idManager.newVersionedAnswerId();
+            ans.modifyAnswer(newVersionedId, data.getAnswers(), uModifier, data.getReason());
         }catch (Exception e){
             researcherEditAnswerOutputBoundary.presentDisplayFailureMessage(e.getMessage());
         }
@@ -28,7 +41,20 @@ public class ResearcherEditAnswerInteractor implements ResearcherEditAnswerInput
                 data.getAnswerID());
     }
 
+    /**
+     * Set the presenter
+     * @param researcherEditAnswerOutputBoundary    the output boundary
+     */
     public void setResearcherEditAnswerOutputBoundary(ResearcherEditAnswerOutputBoundary researcherEditAnswerOutputBoundary) {
         this.researcherEditAnswerOutputBoundary = researcherEditAnswerOutputBoundary;
+    }
+
+
+    /**
+     * Set the id manager
+     * @param idManager     the id manager
+     */
+    public void setIdManager(IDManager idManager) {
+        this.idManager = idManager;
     }
 }

@@ -1,10 +1,9 @@
 package use_cases.create_questionnaire;
 
-import entities.*;
+import entities.IDManager;
+import entities.Questionnaire;
+import entities.Study;
 import org.jetbrains.annotations.NotNull;
-import use_cases.edit_questionnaire.EditQuestionnaireInputBoundary;
-import use_cases.edit_questionnaire.EditQuestionnaireOutputBoundary;
-import use_cases.edit_questionnaire.EditQuestionnaireRequestModel;
 import use_cases.fetch_id.FetchId;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
@@ -18,6 +17,12 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
      * The output boundary for the create questionnaire use case, that the presenter implements.
      */
     private CreateQuestionnaireOutputBoundary creationOutputBoundary;
+
+
+    /**
+     * The IDManager that manages all the IDs of all the entities.
+     */
+    private IDManager idManager;
 
     /**
      * The use case that creates a questionnaire.
@@ -51,12 +56,12 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
     }
 
     @NotNull
-    private static Questionnaire createQuestionnaireHelper(CreateQuestionnaireRequestModel data, Study study) {
+    private Questionnaire createQuestionnaireHelper(@NotNull CreateQuestionnaireRequestModel data, Study study) {
         List<String> groupNum = CreateTargetGroups.createTargetGroups(data.getGroups(), study);
-        Questionnaire questionnaire = new Questionnaire(study,
+        Questionnaire questionnaire = new Questionnaire(idManager.newQuestionnaireId(), study,
                 data.getQuestionnaireName(), data.getQuestionnaireDescription(), groupNum);
         for (QuestionModel questionData : data.getQuestions()) {
-            CreateQuestion.createQuestion(questionnaire, questionData);
+            CreateQuestion.createQuestion(idManager.newQuestionId(), questionnaire, questionData);
         }
         return questionnaire;
     }
@@ -70,6 +75,15 @@ public class CreateQuestionnaireInteractor implements CreateQuestionnaireInputBo
         this.creationOutputBoundary = outputBoundary;
     }
 
+
+    /**
+     * Sets the IDManager that manages all the IDs of all the entities.
+     *
+     * @param idManager The IDManager that manages all the IDs of all the entities.
+     */
+    public void setIdManager(IDManager idManager) {
+        this.idManager = idManager;
+    }
 }
 
 

@@ -38,8 +38,8 @@ public abstract class Question implements Serializable {
      * @param variableName    Keyword that describes the content of this Question
      * @param content         What is being asked the participants.
      */
-    public Question(Questionnaire questionnaire, String variableName, String content) {
-        this.id = IDManager.newQuestionId();
+    protected Question(int id, Questionnaire questionnaire, String variableName, String content) {
+        this.id = id;
         this.variableName = variableName;
         this.content = content;
         this.questionnaire = questionnaire;

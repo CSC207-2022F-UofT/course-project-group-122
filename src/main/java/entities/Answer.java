@@ -55,28 +55,9 @@ public class Answer implements Serializable {
      * This constructor is called once and only once for each participant and questionnaire.
      * @param participant The participant which this answer belongs to.
      * @param questionnaire The questionnaire which this answer belongs to.
-     * @param firstVersionAnswer The first version of the answers to the questionnaire.
      */
-    public Answer(Participant participant, @NotNull Questionnaire questionnaire, VersionedAnswer firstVersionAnswer) {
-        this.id = IDManager.newAnswerId();
-        this.participant = participant;
-        this.questionnaire = questionnaire;
-        this.numQuestions = questionnaire.getNumOfQuestions();
-        this.currentVersion = firstVersionAnswer;
-        this.allVersions.add(firstVersionAnswer);
-    }
-
-
-    /**
-     * Constructor for the Answer class.
-     * This constructor is used to create a new answer to a questionnaire for a particular participant.
-     * This constructor is used when the participant first answers the questionnaire.
-     * This constructor is called once and only once for each participant and questionnaire.
-     * @param participant The participant which this answer belongs to.
-     * @param questionnaire The questionnaire which this answer belongs to.
-     */
-    public Answer(Participant participant, @NotNull Questionnaire questionnaire) {
-        this.id = IDManager.newAnswerId();
+    public Answer(int id, Participant participant, @NotNull Questionnaire questionnaire) {
+        this.id = id;
         this.participant = participant;
         this.questionnaire = questionnaire;
         this.numQuestions = questionnaire.getNumOfQuestions();
@@ -101,8 +82,8 @@ public class Answer implements Serializable {
      * @param modifier                  The user who is modifying the answers.
      * @param reasonForModification     The reason for the modification of the answers.
      */
-    public void modifyAnswer(Map<String, String> newAnswers, User modifier, String reasonForModification) {
-        VersionedAnswer newVersion = this.currentVersion.modify(newAnswers, modifier, reasonForModification);
+    public void modifyAnswer(int newVersionedId, Map<String, String> newAnswers, User modifier, String reasonForModification) {
+        VersionedAnswer newVersion = this.currentVersion.modify(newVersionedId, newAnswers, modifier, reasonForModification);
         this.currentVersion = newVersion;
         this.allVersions.add(newVersion);
     }

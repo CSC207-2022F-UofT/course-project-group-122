@@ -53,7 +53,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         } else if (! isUsernameAvailable(username)) {
             userLoginPresenter.onUserSignUpFailure("Username already taken.");
         } else {
-            User newUser = userFactory.create(userType, username, name);
+            User newUser = userFactory.create(idManager.newUserId(), userType, username, name);
             userPool.addUser(newUser);
             saveApplicationState.saveData(userPool, idManager);
             userLoginPresenter.onUserSignUpSuccess(newUser.getId(), newUser.getName(), newUser.getUsername(), userType);

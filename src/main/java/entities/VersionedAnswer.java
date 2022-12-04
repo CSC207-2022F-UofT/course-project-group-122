@@ -66,8 +66,8 @@ public class VersionedAnswer implements Serializable {
      * @param answerContent The actual answer contents to the questionnaire.
      * @param answer        The ID of the Answer that the VersionedAnswer is a part of.
      */
-    public VersionedAnswer(int version, User modifier, Map<String, String> answerContent, Answer answer) {
-        this.id = IDManager.newVersionedAnswerId();
+    public VersionedAnswer(int id, int version, User modifier, Map<String, String> answerContent, Answer answer) {
+        this.id = id;
         this.version = version;
         this.answers = answerContent;
         this.modifier = modifier;
@@ -89,9 +89,9 @@ public class VersionedAnswer implements Serializable {
      * @param answerContent The actual answer contents to the questionnaire.
      * @param answer        The ID of the Answer that the VersionedAnswer is a part of.
      */
-    public VersionedAnswer(int version, User modifier, Map<String, String> answerContent, Answer answer,
+    public VersionedAnswer(int id, int version, User modifier, Map<String, String> answerContent, Answer answer,
                            String reasonForModification) {
-        this.id = IDManager.newVersionedAnswerId();
+        this.id = id;
         this.version = version;
         this.answers = answerContent;
         this.modifier = modifier;
@@ -174,16 +174,6 @@ public class VersionedAnswer implements Serializable {
 
 
     /**
-     * Sets the reason for the modification of the answers this versioned answer belongs to.
-     *
-     * @param reasonForModification the reason for the modification of the answers this versioned answer belongs to.
-     */
-    public void setReasonForModification(String reasonForModification) {
-        this.reasonForModification = reasonForModification;
-    }
-
-
-    /**
      * Modify the answer contents of the VersionedAnswer. This is used when a researcher modifies the answers of a
      * participant. This method is used to create a new version of the answers. The new version of the answers is
      * stored in a new VersionedAnswer object. The new VersionedAnswer object is then added to the Answer object.
@@ -200,9 +190,9 @@ public class VersionedAnswer implements Serializable {
      * @param reasonForModification The reason for the modification of the answers this versioned answer belongs to.
      * @return The new VersionedAnswer object.
      */
-    public VersionedAnswer modify(Map<String, String> newAnswers, User modifier, String reasonForModification) {
+    public VersionedAnswer modify(int newId, Map<String, String> newAnswers, User modifier, String reasonForModification) {
         if (this.answer.getCurrentVersion() == this) {
-            return new VersionedAnswer(this.version + 1, modifier, newAnswers, this.answer,
+            return new VersionedAnswer(newId, this.version + 1, modifier, newAnswers, this.answer,
                     reasonForModification);
         } else {
             throw new IllegalArgumentException("This versioned answer is not the current version of the answers.");

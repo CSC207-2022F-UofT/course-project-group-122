@@ -64,8 +64,8 @@ public abstract class Study implements Serializable {
      * @param targetStudySize The target study size. What is the number of participants the researchers of this study
      *                        want to achieve?
      */
-    protected Study(String studyName, int targetStudySize) {
-        this.id = IDManager.newStudyId();
+    protected Study(int id, String studyName, int targetStudySize) {
+        this.id = id;
         this.studyName = studyName;
         this.targetStudySize = targetStudySize;
     }
