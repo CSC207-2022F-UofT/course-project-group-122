@@ -180,10 +180,11 @@ public class FetchStudyLogResponseModel {
      * @return The participant information.
      */
     private String @NotNull [] compileParticipantInformation(@NotNull Participant user) {
-        String[] information = new String[3];
+        String[] information = new String[4];
         information[0] = String.valueOf(user.getId());
         information[1] = user.getName();
         information[2] = getStatus(user);
+        information[3] = Integer.toString(user.getGroup());
         return information;
     }
 

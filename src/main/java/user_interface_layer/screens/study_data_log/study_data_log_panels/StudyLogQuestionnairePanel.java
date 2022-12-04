@@ -63,7 +63,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check");
             } else {
-                int questionnaireId = keys.get(selectedRow);
+                int questionnaireId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
                 controllerManager.researcherQuestionnaireScreenRequest(
                         data.getResearcherId(), data.getStudyId(), questionnaireId);
             }
@@ -86,7 +86,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
                     JOptionPane.showMessageDialog(null,
                             "Cannot edit a published or closed questionnaire");
                 } else {
-                    int questionnaireId = keys.get(selectedRow);
+                    int questionnaireId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
                     controllerManager.researcherEditQuestionnaireScreenRequest(data.getResearcherId(),
                             data.getStudyId(), questionnaireId);
                 }
@@ -111,7 +111,7 @@ public class StudyLogQuestionnairePanel extends JPanel {
                         try {
                             int participant = Integer.parseInt(participantId);
                             int selectedRow = table.getSelectedRow();
-                            int questionnaireId = keys.get(selectedRow);
+                            int questionnaireId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
                             controllerManager.fetchParticipantInfoConfirmation(questionnaireId, data.getStudyId(),
                                     participant);
                             frame.dispose();
@@ -130,14 +130,14 @@ public class StudyLogQuestionnairePanel extends JPanel {
         // Assign to group
         group.addActionListener(e->{
             int selectedRow = table.getSelectedRow();
-            int questionnaireId = keys.get(selectedRow);
+            int questionnaireId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
                             controllerManager.fetchStudyGroups(questionnaireId, data.getStudyId());
         });
 
         // Assign to all
         all.addActionListener(e->{
             int selectedRow = table.getSelectedRow();
-            int questionnaireId = keys.get(selectedRow);
+            int questionnaireId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
             controllerManager.assignQuestionnaireToAll(questionnaireId, data.getStudyId());
         });
 
