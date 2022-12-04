@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -122,16 +123,19 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
             JButton enrollButton = new JButton("Enroll");
             enrollButton.addActionListener(evn -> {
                 String selectedGroup = "";
-                for (Component component : chooseGroupsPanel.getComponents()) {
-                        if (((JRadioButton)component).isSelected()) {
-                            selectedGroup = ((JRadioButton)component).getText();
-                        }
+                for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
+                    AbstractButton button = buttons.nextElement();
+                    if (button.isSelected()) {
+                        selectedGroup = button.getText().split("\\.")[0];
                     }
+                }
                 if (selectedGroup.equals("")){
                     JOptionPane.showMessageDialog(null, "Please select a group to enroll the participant in");
                 } else {
                     int participantId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
-                    controllerManager.enrollGeneralParticipantRequest(participantId, data.getStudyId(), selectedGroup, data.getResearcherId());
+                    int selectedGroupNum = Integer.parseInt(selectedGroup);
+                    System.out.println(selectedGroupNum);
+                    controllerManager.enrollGeneralParticipantRequest(participantId, data.getStudyId(), selectedGroupNum, data.getResearcherId());
                 }
 
             });
