@@ -80,7 +80,8 @@ public class AddPotentialParticipantInteractor implements AddPotentialParticipan
      * @param study         The study with the eligibility questionnaire to.
      */
     private void assignEligibilityQuestions(@NotNull Participant participant, @NotNull Study study) {
-        if (study.getEligibilityQuestionnaire() != null && participant.getEligibilityQuestionnaire() == null) {
+        if (study.getEligibilityQuestionnaire() != null && participant.getEligibilityQuestionnaire() == null
+        && study.getEligibilityQuestionnaire().isPublished()) {
             participant.setEligibilityQuestionnaire(study.getEligibilityQuestionnaire());
         }
     }
