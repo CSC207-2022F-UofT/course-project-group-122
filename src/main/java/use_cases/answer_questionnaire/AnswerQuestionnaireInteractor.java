@@ -37,6 +37,10 @@ public class AnswerQuestionnaireInteractor implements AnswerQuestionnaireInputBo
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
         User modifier = FetchId.getUser(modifierId);
         Participant participant = (Participant) FetchId.getUser(participantId);
+        if (participant.getCompletedQuestionnaires().contains(questionnaire)) {
+            answerQuestionnairePresenter.presentAnswerQuestionnaireFailure(
+                    "Participant has already completed this questionnaire.");
+        }
         Study study = FetchId.getStudy(studyId);
         assert questionnaire != study.getEligibilityQuestionnaire();
         Answer newAnswer = answer(questionnaire, participant, modifier, study, answers, numQuestions);
@@ -66,6 +70,10 @@ public class AnswerQuestionnaireInteractor implements AnswerQuestionnaireInputBo
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
         User modifier = FetchId.getUser(modifierId);
         Participant participant = (Participant) FetchId.getUser(participantId);
+        if (participant.hasCompletedEligibilityQuestionnaire()) {
+            answerQuestionnairePresenter.presentAnswerQuestionnaireFailure(
+                    "Participant has already completed eligibility questionnaire.");
+        }
         Study study = FetchId.getStudy(studyId);
         assert Objects.equals(questionnaire, study.getEligibilityQuestionnaire());
         Answer newAnswer = answer(questionnaire, participant, modifier, study, answers, numQuestions);
