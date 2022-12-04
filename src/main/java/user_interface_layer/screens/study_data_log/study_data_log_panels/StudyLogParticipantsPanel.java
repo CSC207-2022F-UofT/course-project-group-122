@@ -22,7 +22,7 @@ public class StudyLogParticipantsPanel extends JPanel {
      */
     public StudyLogParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        String[] userTableHeader = {"ID", "Name", "Status"};
+        String[] userTableHeader = {"ID", "Name", "Status", "Group"};
         SetTableModel setTableModel = new SetTableModel(userTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();

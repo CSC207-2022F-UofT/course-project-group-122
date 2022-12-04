@@ -24,7 +24,10 @@ public class ShowResearcherInfoScreen extends JFrame {
     setLayout(new BorderLayout());
     JLabel participantTag = new JLabel(researcherName+ " (" + researcherId +") ");
     JButton enroll = new JButton("Add");
-    enroll.addActionListener(e-> controllerManager.addResearcherToStudyRequest(researcherId, studyId));
+    enroll.addActionListener(e-> {
+        controllerManager.addResearcherToStudyRequest(researcherId, studyId);
+        dispose();
+    });
     add(participantTag, BorderLayout.CENTER);
     add(enroll, BorderLayout.SOUTH);
     pack();

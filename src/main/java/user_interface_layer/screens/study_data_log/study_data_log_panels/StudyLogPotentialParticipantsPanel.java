@@ -24,7 +24,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
      */
     public StudyLogPotentialParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        String[] potentialParticipantsTableHeader = {"ID", "Name", "Eligibility"};
+        String[] potentialParticipantsTableHeader = {"ID", "Name", "Eligibility", "Group"};
         SetTableModel setTableModel = new SetTableModel(potentialParticipantsTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();

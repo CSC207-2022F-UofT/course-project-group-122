@@ -44,7 +44,7 @@ public class ResultExtractionBuilder {
      * @param folderPath The file path to save the result folder
      * @param study The study that the researcher want to export
      */
-    public void createFile(@NotNull Questionnaire questionnaire, String folderPath, Study study){
+    public void createFile(@NotNull Questionnaire questionnaire, String folderPath, Study study) throws IOException {
         if (questionnaire.isPublished()) {
             String fileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
             String filePath = folderPath + fileSeperator + fileName;
@@ -83,22 +83,21 @@ public class ResultExtractionBuilder {
      * @param questionnaire The questionnaire that the researcher want to export
      * @param study The study that the researcher want to export
      */
-    private void writeCSVFile(File questionnaireResult, Questionnaire questionnaire, @NotNull Study study){
-        try {
+    private void writeCSVFile(File questionnaireResult, Questionnaire questionnaire, @NotNull Study study) throws IOException {
+
             FileWriter exportFile = new FileWriter(questionnaireResult);
             CSVWriter writer = new CSVWriter(exportFile);
             List<String[]> result1 = new ArrayList<>();
             result1.add(firstLine(questionnaire));
             for (Participant par2 : study.getParticipants()) {
-                if (par2.hasCompletedEligibilityQuestionnaire() && par2.getQuestionnaireAnswer(questionnaire) != null) {
-                        result1.add(restLine(par2, questionnaire));
+                if (study.getEligibilityQuestionnaire().equals(questionnaire) && par2.hasCompletedEligibilityQuestionnaire()){
+                    result1.add(restEligibilityLine(par2, questionnaire));
+                } else if (par2.hasCompletedEligibilityQuestionnaire() && par2.getQuestionnaireAnswer(questionnaire) != null) {
+                    result1.add(restLine(par2, questionnaire));
                 }
             }
             writer.writeAll(result1);
             writer.close();
-        } catch (IOException err) {
-            err.printStackTrace();
-        }
     }
 
     /**
@@ -150,5 +149,23 @@ public class ResultExtractionBuilder {
         return oneLine.toArray(new String[0]);
     }
 
+    private String @NotNull [] restEligibilityLine(@NotNull Participant par1, Questionnaire questionnaire1){
+        ArrayList<String> oneLine = new ArrayList<>();
+        oneLine.add(par1.getName());
+        oneLine.add(Integer.toString(par1.getId()));
+        oneLine.add(Integer.toString(par1.getGroup()));
+        VersionedAnswer par1Answer = par1.getEligibilityQuestionnaireAnswer().getCurrentVersion();
+        String modifierName = par1Answer.getModifier().getName();
+        Map<String, String> currAnswer = par1Answer.getAnswer();
+        oneLine.add(modifierName);
+        oneLine.add(par1Answer.getReasonForModification());
+        oneLine.add(par1Answer.getTimeOfModification());
+        for (String variable: questionnaire1.getVariableNames()){
+            if (currAnswer.containsKey(variable)) {
+                oneLine.add(currAnswer.get(variable));
+            }
+        }
+        return oneLine.toArray(new String[0]);
+    }
 
 }
