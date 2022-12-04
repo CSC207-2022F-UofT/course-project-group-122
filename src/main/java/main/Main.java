@@ -392,6 +392,7 @@ public class Main {
         userLoginInteractor.setUserLoginPresenter(userLoginPresenter);
         userLoginInteractor.setUserPool(userPool);
         userLoginInteractor.setSaveApplicationState(saveApplicationState);
+        userLoginInteractor.setIDManager(idManager);
 
         //Get target groups use case
         GetTargetGroupsController getTargetGroupsController = new GetTargetGroupsController();

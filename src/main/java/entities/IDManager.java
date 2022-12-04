@@ -1,9 +1,11 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * This class is used to manage all the IDs of all the entities.
  */
-public class IDManager {
+public class IDManager implements Serializable {
 
     /**
      * The current maximum ID of all the users.
