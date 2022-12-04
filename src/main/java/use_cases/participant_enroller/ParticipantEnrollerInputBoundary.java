@@ -38,7 +38,7 @@ public interface ParticipantEnrollerInputBoundary {
      *
      * @param participantId   The participant to enroll.
      * @param studyId         The study to enroll the participant in.
-     * @param groupName       The group name to enroll the participant in.
+     * @param group           The group number to enroll the participant in.
      */
-    void enroll(int participantId, int studyId, String groupName, int userId);
+    void enroll(int participantId, int studyId, int group, int userId);
 }

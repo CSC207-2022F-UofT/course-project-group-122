@@ -126,7 +126,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
                     AbstractButton button = buttons.nextElement();
                     if (button.isSelected()) {
-                        selectedGroup = button.getText().split("\\.")[0];
+                        selectedGroup = button.getText().split(":")[0];
                     }
                 }
                 if (selectedGroup.equals("")){
@@ -135,7 +135,9 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                     int participantId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
                     int selectedGroupNum = Integer.parseInt(selectedGroup);
                     System.out.println(selectedGroupNum);
-                    controllerManager.enrollGeneralParticipantRequest(participantId, data.getStudyId(), selectedGroupNum, data.getResearcherId());
+                    controllerManager.enrollGeneralParticipantRequest(participantId, data.getStudyId(),
+                            selectedGroupNum, data.getResearcherId());
+                    chooseGroupsFrame.dispose();
                 }
 
             });

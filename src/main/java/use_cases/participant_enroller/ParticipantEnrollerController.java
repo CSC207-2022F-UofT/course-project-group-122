@@ -25,11 +25,11 @@ public class ParticipantEnrollerController {
      * Enrolls a participant in a study, where the study is a general study
      * @param participantId the participant's id
      * @param studyId       the study's id
-     * @param groupName     the group name
+     * @param group         the group number
      * @param userId        the user's id
      */
-    public void enrollGeneralParticipant(int participantId, int studyId, String groupName, int userId) {
-        participantEnrollerInteractor.enroll(participantId, studyId, groupName, userId);
+    public void enrollGeneralParticipant(int participantId, int studyId, int group, int userId) {
+        participantEnrollerInteractor.enroll(participantId, studyId, group, userId);
     }
 
 

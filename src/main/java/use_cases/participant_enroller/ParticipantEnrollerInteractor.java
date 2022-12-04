@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -74,14 +73,13 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      *
      * @param participantId The participant to enroll.
      * @param studyId       The study to enroll the participant in.
-     * @param groupName     he group name to enroll the participant in.
+     * @param group         the group name to enroll the participant in.
      */
     @Override
-    public void enroll(int participantId, int studyId, String groupName, int userId) {
+    public void enroll(int participantId, int studyId, int group, int userId) {
         Participant participant = checkParticipantIdIsValid(participantId);
         Study study = FetchId.getStudy(studyId);
         assert study instanceof GeneralStudy;
-        int group = getGroupNumGivenName(study, groupName);
         if (enrollParticipant(participant, study, group)) {
             assignQuestionnaires(participant, study);
             participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup(), studyId, userId);
@@ -250,23 +248,6 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             participantEnrollerPresenter.displayParticipantIdDoesNotExist(participantId);
         }
         throw new IllegalArgumentException("The participant ID is invalid.");
-    }
-
-
-    /**
-     * Returns the number of the group given the group name
-     * @param study     The study to get the group number of.
-     * @param GroupName The name of the group to get the number of.
-     * @return          The number of the group.
-     */
-    private int getGroupNumGivenName(@NotNull Study study, String GroupName) {
-        Map<Integer, String> matchedGroups = study.getMatchedGroupNames();
-        for (Map.Entry<Integer, String> entry : matchedGroups.entrySet()) {
-            if (entry.getValue().equals(GroupName)) {
-                return entry.getKey();
-            }
-        }
-        throw new IllegalArgumentException("The group name is invalid.");
     }
 
 

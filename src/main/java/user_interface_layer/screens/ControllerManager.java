@@ -261,8 +261,8 @@ public class ControllerManager {
         participantEnrollerController.enrollRandomizedParticipant(participantId, studyId, researcherId);
     }
 
-    public void enrollGeneralParticipantRequest(int participantId, int studyId, String groupName, int researcherId) {
-        participantEnrollerController.enrollGeneralParticipant(participantId, studyId, groupName, researcherId);
+    public void enrollGeneralParticipantRequest(int participantId, int studyId, int group, int researcherId) {
+        participantEnrollerController.enrollGeneralParticipant(participantId, studyId, group, researcherId);
     }
 
 
