@@ -34,7 +34,7 @@ public class TextQuestionPanelForResearchers extends JPanel implements Researche
      */
     public TextQuestionPanelForResearchers(String question, String type, String variable, String option, String answer) {
         this.type = type;
-        this.variable = variable + " (" + option + ")";
+        this.variable = variable;
         this.question = question;
         this.answerArea.setText(answer);
 
@@ -65,9 +65,6 @@ public class TextQuestionPanelForResearchers extends JPanel implements Researche
      */
     @Override
     public String getAnswer() {
-        if (answerArea.getText().isEmpty()) {
-            return "";
-        }
         return answerArea.getText();
     }
 

@@ -65,6 +65,7 @@ public class StudyDataLogScreen extends JFrame {
             JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             jFileChooser.showSaveDialog(null);
+            System.out.println(jFileChooser.getSelectedFile().getPath());
             String filePath = (jFileChooser.getSelectedFile()).getAbsolutePath();
             controllerManager.downloadData(data.getStudyId(), filePath);
         });

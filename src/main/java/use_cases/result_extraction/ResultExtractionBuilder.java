@@ -36,10 +36,7 @@ public class ResultExtractionBuilder {
      */
     public String createFolder(@NotNull Study study, String filepath){
         String folderName = study.getId() + "_" + study.getStudyName();
-        String folderPath = filepath + fileSeperator + folderName;
-        File folder = new File(folderPath);
-        verifyCreation(folder, folderName);
-        return folderPath;
+        return filepath + fileSeperator + folderName;
     }
 
     /**
@@ -52,6 +49,10 @@ public class ResultExtractionBuilder {
             String fileName = questionnaire.getId() + "_" + questionnaire.getTitle() + ".csv";
             String filePath = folderPath + fileSeperator + fileName;
             File questionnaireResult = new File(filePath);
+            if (questionnaireResult.exists()){
+                questionnaireResult.delete();
+            }
+            questionnaireResult.getParentFile().mkdirs();
             writeCSVFile(questionnaireResult, questionnaire, study);
             verifyCreation(questionnaireResult, fileName);
         }
@@ -89,8 +90,8 @@ public class ResultExtractionBuilder {
             List<String[]> result1 = new ArrayList<>();
             result1.add(firstLine(questionnaire));
             for (Participant par2 : study.getParticipants()) {
-                if (par2.hasCompletedEligibilityQuestionnaire()) {
-                    result1.add(restLine(par2, questionnaire));
+                if (par2.hasCompletedEligibilityQuestionnaire() && par2.getQuestionnaireAnswer(questionnaire) != null) {
+                        result1.add(restLine(par2, questionnaire));
                 }
             }
             writer.writeAll(result1);

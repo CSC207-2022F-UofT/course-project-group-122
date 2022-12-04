@@ -25,10 +25,11 @@ public class SetQuestionnaireVersionedAnswerDriver {
     public void checkQuestionnaireVersionedAnswerDriver(int studyId,
                                                         int participantID,
                                                         int questionnaireID,
+                                                        int answerId,
                                                         @NotNull List<String[]> answers,
                                                         @NotNull ScreenManager screenManager,
                                                         ControllerManager controllerManager) {
-        AllVersionsInputData data = new AllVersionsInputData(studyId, participantID, questionnaireID, answers);
+        AllVersionsInputData data = new AllVersionsInputData(studyId, participantID, questionnaireID,answerId, answers);
         AllVersionsScreen screen = new AllVersionsScreen(data, controllerManager);
         screenManager.setQuestionnaireVersionedAnswerScreen(screen);
     }

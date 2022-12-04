@@ -42,28 +42,33 @@ public class ResultExtractionInteractor implements ResultExtractionInputBoundary
      */
     @Override
     public void resultPullingAndExtraction(int studyID, String filepath) {
-        Study study = FetchId.getStudy(studyID);
+        try{
+            Study study = FetchId.getStudy(studyID);
 
-        String folderPath = resultExtractionBuilder.createFolder(study, filepath);
+            String studyFolderPath = resultExtractionBuilder.createFolder(study, filepath);
 
-        if (study.getEligibilityQuestionnaire() != null) {
-            Questionnaire eliQuestionnaire = study.getEligibilityQuestionnaire();
-            resultExtractionBuilder.createFile(eliQuestionnaire, folderPath, study);
-        }
-
-        List<Questionnaire> listOfQuestionnaire = study.getQuestionnaires();
-        if (!listOfQuestionnaire.isEmpty()) {
-            for (Questionnaire questionnaire : study.getQuestionnaires()) {
-                resultExtractionBuilder.createFile(questionnaire, folderPath, study);
+            if (study.getEligibilityQuestionnaire() != null) {
+                Questionnaire eliQuestionnaire = study.getEligibilityQuestionnaire();
+                resultExtractionBuilder.createFile(eliQuestionnaire, studyFolderPath, study);
             }
+
+            List<Questionnaire> listOfQuestionnaire = study.getQuestionnaires();
+            if (!listOfQuestionnaire.isEmpty()) {
+                for (Questionnaire questionnaire : study.getQuestionnaires()) {
+                    resultExtractionBuilder.createFile(questionnaire, studyFolderPath, study);
+                }
+            }
+            resultPullingAndExtractionPresenter.presentSuccessSave(studyID, filepath);
+        }catch (Exception e){
+            resultPullingAndExtractionPresenter.presentFailSave(e.getMessage());
         }
 
-        if (!resultExtractionBuilder.getFailMessage().isEmpty()){
-            resultPullingAndExtractionPresenter.presentFailSave(studyID, filepath,
-                    resultExtractionBuilder.getFailMessage());
-        }else{
-            resultPullingAndExtractionPresenter.presentSuccessSave(studyID, filepath);
-        }
+//        if (!resultExtractionBuilder.getFailMessage().isEmpty()){
+//            resultPullingAndExtractionPresenter.presentFailSave(studyID, filepath,
+//                    resultExtractionBuilder.getFailMessage());
+//        }else{
+//            resultPullingAndExtractionPresenter.presentSuccessSave(studyID, filepath);
+//        }
     }
 
     /**

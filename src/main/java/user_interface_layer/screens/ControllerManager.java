@@ -33,6 +33,7 @@ import use_cases.publish_questionnaire.PublishQuestionnaireController;
 import use_cases.questionnaire_answer_data_for_editing_request.FetchLatestAnswerDataRequestController;
 import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenController;
 import use_cases.remove_researcher.RemoveResearcherController;
+import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.result_extraction.ResultExtractionController;
 import use_cases.user_log_out.UserLogOutController;
@@ -42,6 +43,7 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 import user_interface_layer.screens.screen_drivers.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +72,6 @@ public class ControllerManager {
     UserLogOutController userLogOutController;
     ResearcherEnrollerController researcherEnrollerController;
     RemoveResearcherController removeResearcherController;
-//    QuestionnaireAnswerDataRequestForEditingController questionnaireAnswerDataRequestForEditingController;
     PublishQuestionnaireController publishQuestionnaireController;
     ParticipantEnrollerController participantEnrollerController;
     ParticipantDropStudyController participantDropStudyController;
@@ -97,8 +98,8 @@ public class ControllerManager {
     private FetchConsentFormController fetchConsentFormController;
     private CreateConsentFormController createConsentFormController;
     private SetUpConsentFormCreationScreenDriver consentFormCreationScreenDriver;
-
     private EditQuestionnaireController editQuestionnaireController;
+    private ResearcherEditAnswerController researcherEditAnswerController;
 
 
     public ControllerManager(ScreenManager screenManager) {
@@ -205,15 +206,12 @@ public class ControllerManager {
     }
 
     public void checkQuestionnaireVersionedAnswer(int studyId, int participantId, int questionnaireID,
+                                                  int answerId,
                                                   @NotNull List<String[]> answers) {
-        for (String[] answer : answers) {
-            int answerID = Integer.parseInt(answer[0]);
-            int version = Integer.parseInt(answer[1]);
-            System.out.println("Checking answer " + answerID + " version " + version);
-        }
         setQuestionnaireVersionedAnswerDriver.checkQuestionnaireVersionedAnswerDriver(studyId,
                 participantId,
                 questionnaireID,
+                answerId,
                 answers,
                 screenManager,
                 this);
@@ -358,8 +356,9 @@ public class ControllerManager {
     public void editQuestionnaireAnswerDataRequest(int researcherId, int studyId, int participantId, int questionnaireID) {
         fetchLatestAnswerDataRequestController.fetchQuestionnaireAnswerData(researcherId, studyId, participantId, questionnaireID);
     }
-
-
+    public void researcherEditAnswer(int researcherID, int participantId, int answerId, int studyID, HashMap<String, String> answers, String reasonForModification) {
+        researcherEditAnswerController.researcherEditAnswerRequest(researcherID,participantId, answerId, studyID, answers, reasonForModification);
+    }
 
 
 
@@ -521,6 +520,7 @@ public class ControllerManager {
         this.editQuestionnaireController = editQuestionnaireController;
     }
 
-
-
+    public void setResearcherEditAnswerController(ResearcherEditAnswerController researcherEditAnswerController) {
+        this.researcherEditAnswerController = researcherEditAnswerController;
+    }
 }
