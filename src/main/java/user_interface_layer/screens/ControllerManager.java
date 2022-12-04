@@ -257,9 +257,14 @@ public class ControllerManager {
 
     }
 
-    public void enrollParticipantRequest(int participantId, int studyId, int researcherId) {
-        participantEnrollerController.enrollParticipant(participantId, studyId, researcherId);
+    public void enrollRandomizedParticipantRequest(int participantId, int studyId, int researcherId) {
+        participantEnrollerController.enrollRandomizedParticipant(participantId, studyId, researcherId);
     }
+
+    public void enrollGeneralParticipantRequest(int participantId, int studyId, String groupName, int researcherId) {
+        participantEnrollerController.enrollGeneralParticipant(participantId, studyId, groupName, researcherId);
+    }
+
 
     public void fetchParticipant(int participantIdInt, int studyId) {
         addPotentialParticipantController.fetchParticipantInfo(participantIdInt, studyId);

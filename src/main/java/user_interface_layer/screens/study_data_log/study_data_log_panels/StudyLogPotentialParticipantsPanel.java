@@ -24,7 +24,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
      */
     public StudyLogPotentialParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        String[] potentialParticipantsTableHeader = {"ID", "Name", "Eligibility", "Group"};
+        String[] potentialParticipantsTableHeader = {"ID", "Name", "Eligibility"};
         SetTableModel setTableModel = new SetTableModel(potentialParticipantsTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
@@ -83,7 +83,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to enroll");
             } else {
                 int participantId = keys.get(selectedRow);
-                controllerManager.enrollParticipantRequest(participantId, data.getStudyId(), data.getResearcherId());
+                controllerManager.enrollRandomizedParticipantRequest(participantId, data.getStudyId(), data.getResearcherId());
             }
         });
 
