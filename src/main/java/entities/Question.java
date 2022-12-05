@@ -75,7 +75,7 @@ public abstract class Question implements Serializable {
     /**
      * @param variableName Set the new description for this Question.
      */
-    public void setDescription(String variableName) {
+    public void setVariableName(String variableName) {
         this.variableName = variableName;
     }
 
