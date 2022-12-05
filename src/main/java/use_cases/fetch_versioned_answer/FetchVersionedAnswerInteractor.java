@@ -34,6 +34,8 @@ public class FetchVersionedAnswerInteractor implements FetchVersionedAnswerInput
             Answer answer = FetchId.getAnswer(answerID, participantId);
             if (answer == null) {
                 throw new Exception("Answer does not exist");
+            }else if (answer.getQuestionnaire().getId() != questionnaireID) {
+                throw new Exception("Answer does not belong to this questionnaire");
             }
             Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireID, studyId);
             assert questionnaire != null;

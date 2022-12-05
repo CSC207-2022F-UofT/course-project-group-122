@@ -1,8 +1,6 @@
 package main;
 
-import entities.IDManager;
-import entities.StudyPool;
-import entities.UserPool;
+import entities.*;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.add_potential_participant.AddPotentialParticipantInteractor;
 import use_cases.add_potential_participant.AddPotentialParticipantPresenter;
@@ -101,7 +99,7 @@ import use_cases.user_log_out.UserLogOutPresenter;
 import use_cases.user_login.UserLoginController;
 import use_cases.user_login.UserLoginInteractor;
 import use_cases.user_login.UserLoginPresenter;
-import user_interface_layer.ScreenManager;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.presenter_manager.display_choose_groups.DisplayGroupsToAssign;
 import user_interface_layer.presenter_manager.display_consent_form.DisplayConsentForm;
 import user_interface_layer.presenter_manager.display_edit_questionnaire.DisplayEditQuestionnaire;
@@ -197,10 +195,11 @@ public class Main {
             idManager = new IDManager();
         }
 
-
+//
 //        userPool = new UserPool(new HashMap<>());
 //        studyPool = new StudyPool(new HashMap<>());
 //        randomGroupGeneratorManager = new RandomGroupGeneratorManager();
+//        idManager = new IDManager();
 
 
         // Making the use cases by initializing them with the controllers,
@@ -685,8 +684,8 @@ public class Main {
         screenManager.setCurrentScreen(userRegisterScreen);
         userRegisterScreen.setVisible(true);
 
-
-        // TODO: must be removed if debugging is finished
+//
+//         TODO: must be removed if debugging is finished
 //         Setups for debugging purposes
 //        userLoginController.signup("pone", "Participant", "ParticipantOne");
 //        userLoginController.signup("ptwo", "Participant", "ParticipantTwo");

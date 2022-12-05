@@ -21,7 +21,6 @@ public class QuestionsPanelBuilder {
     public ParticipantsQuestionPanel buildMCQuestionPanel(String question, String type, String variable, String options){
         String[] optionsList = options.split(",");
         return new MCQuestionPanel(question, type, variable, optionsList);
-
     }
 
     /**

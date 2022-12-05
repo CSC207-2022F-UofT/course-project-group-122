@@ -66,15 +66,19 @@ public class AnswerQuestionnaireInteractor implements AnswerQuestionnaireInputBo
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
         User modifier = FetchId.getUser(modifierId);
         Participant participant = (Participant) FetchId.getUser(participantId);
-        Study study = FetchId.getStudy(studyId);
-        assert Objects.equals(questionnaire, study.getEligibilityQuestionnaire());
-        Answer newAnswer = answer(questionnaire, participant, modifier, study, answers, numQuestions);
-        assert newAnswer != null;
-        VersionedAnswer newVersionedAnswer = newAnswer.getCurrentVersion();
-        participant.setEligibilityQuestionnaireAnswer(newAnswer);
-        String time  = newVersionedAnswer.getTimeOfModification();
-        answerQuestionnairePresenter.presentAnswerQuestionnaireSuccess(participantId, modifierId,
-                questionnaireId, time);
+        if (participant.hasCompletedEligibilityQuestionnaire()) {
+            answerQuestionnairePresenter.presentAnswerQuestionnaireFailure("Participant has already completed the eligibility questionnaire");
+        } else {
+            Study study = FetchId.getStudy(studyId);
+            assert Objects.equals(questionnaire, study.getEligibilityQuestionnaire());
+            Answer newAnswer = answer(questionnaire, participant, modifier, study, answers, numQuestions);
+            assert newAnswer != null;
+            VersionedAnswer newVersionedAnswer = newAnswer.getCurrentVersion();
+            participant.setEligibilityQuestionnaireAnswer(newAnswer);
+            String time  = newVersionedAnswer.getTimeOfModification();
+            answerQuestionnairePresenter.presentAnswerQuestionnaireSuccess(participantId, modifierId,
+                    questionnaireId, time);
+        }
     }
 
 
