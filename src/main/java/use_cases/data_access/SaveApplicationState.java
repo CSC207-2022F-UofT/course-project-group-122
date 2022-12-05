@@ -12,6 +12,15 @@ import java.util.ArrayList;
 
 public class SaveApplicationState implements SaveApplicationStateGateway {
 
+    /**
+     * helper method for creating the Arraylist for container.
+     * @param uP A UserPool
+     * @param sP A StudyPool
+     * @param rGGM An RandomGroupGeneratorManager
+     * @param idManager An IDManager
+     * @return an ArrayList containing all those objects.
+     */
+
     private @NotNull ArrayList<Object> pack(UserPool uP, StudyPool sP, RandomGroupGeneratorManager rGGM, IDManager idManager){
         ArrayList<Object> packedStuff = new ArrayList<>();
         packedStuff.add(uP);
@@ -20,6 +29,13 @@ public class SaveApplicationState implements SaveApplicationStateGateway {
         packedStuff.add(idManager);
         return packedStuff;
     }
+
+    /**
+     * helper method for creating the Arraylist for container.
+     * @param uP A UserPool
+     * @param idManager An IDManager
+     * @return an ArrayList containing all those objects.
+     */
 
     private @NotNull ArrayList<Object> pack(UserPool uP, IDManager idManager){
         ArrayList<Object> packedStuff = new ArrayList<>();
