@@ -2,14 +2,13 @@ package use_cases.participant_enroller;
 
 import entities.Study;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * The manager for the random group generators
  */
-public class RandomGroupGeneratorManager implements Serializable {
+public class RandomGroupGeneratorManager implements java.io.Serializable{
 
     /**
      * The map of study to random group generators.

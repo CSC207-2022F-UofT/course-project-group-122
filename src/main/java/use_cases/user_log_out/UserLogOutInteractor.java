@@ -27,6 +27,12 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
      */
     private RandomGroupGeneratorManager randomGroupGeneratorManager;
 
+    /**
+     * The IDManager
+     */
+
+    private IDManager idManager;
+
 
     /**
      * The user log out output boundary
@@ -37,22 +43,14 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
     /**
      * The user log out gateway
      */
-    private SaveApplicationStateGateway saveApplicationState;
-
-
-    /**
-     * The IDManager
-     */
-    private IDManager idManager;
-
-
+    private SaveApplicationStateGateway saveApplicationStateGateway;
 
     /**
      * Log out the user and save the current state of data
      */
     @Override
     public void logOut() {
-        saveApplicationState.saveData(userPool, studyPool, randomGroupGeneratorManager, idManager);
+        saveApplicationStateGateway.saveData(userPool, studyPool, randomGroupGeneratorManager, idManager);
         userLogOutPresenter.logOut();
     }
 
@@ -70,8 +68,8 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
      * Set the gateway for this interactor
      * @param gateway the gateway for this interactor
      */
-    public void setSaveApplicationState(SaveApplicationState gateway) {
-        this.saveApplicationState = gateway;
+    public void setUserLogOutGateway(SaveApplicationState gateway) {
+        this.saveApplicationStateGateway = gateway;
     }
 
 
@@ -86,14 +84,5 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
         this.userPool = userPool;
         this.studyPool = studyPool;
         this.randomGroupGeneratorManager = randomGroupGeneratorManager;
-    }
-
-
-    /**
-     * Set the IDManager
-     * @param idManager the IDManager
-     */
-    public void setIDManager(IDManager idManager) {
-        this.idManager = idManager;
     }
 }

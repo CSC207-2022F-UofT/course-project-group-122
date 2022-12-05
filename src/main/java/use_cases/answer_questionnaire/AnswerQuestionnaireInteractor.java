@@ -10,15 +10,7 @@ import java.util.Objects;
 
 public class AnswerQuestionnaireInteractor implements AnswerQuestionnaireInputBoundary {
 
-    /**
-     * The presenter which this interactor uses to output the response.
-     */
     private AnswerQuestionnaireOutputBoundary answerQuestionnairePresenter;
-
-    /**
-     * The ID manager which this interactor uses to fetch the IDs of the entities.
-     */
-    private IDManager idManager;
 
 
     /**
@@ -37,10 +29,6 @@ public class AnswerQuestionnaireInteractor implements AnswerQuestionnaireInputBo
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
         User modifier = FetchId.getUser(modifierId);
         Participant participant = (Participant) FetchId.getUser(participantId);
-        if (participant.getCompletedQuestionnaires().contains(questionnaire)) {
-            answerQuestionnairePresenter.presentAnswerQuestionnaireFailure(
-                    "Participant has already completed this questionnaire.");
-        }
         Study study = FetchId.getStudy(studyId);
         assert questionnaire != study.getEligibilityQuestionnaire();
         Answer newAnswer = answer(questionnaire, participant, modifier, study, answers, numQuestions);
@@ -70,10 +58,6 @@ public class AnswerQuestionnaireInteractor implements AnswerQuestionnaireInputBo
         Questionnaire questionnaire = FetchId.getQuestionnaire(questionnaireId, studyId);
         User modifier = FetchId.getUser(modifierId);
         Participant participant = (Participant) FetchId.getUser(participantId);
-        if (participant.hasCompletedEligibilityQuestionnaire()) {
-            answerQuestionnairePresenter.presentAnswerQuestionnaireFailure(
-                    "Participant has already completed eligibility questionnaire.");
-        }
         Study study = FetchId.getStudy(studyId);
         assert Objects.equals(questionnaire, study.getEligibilityQuestionnaire());
         Answer newAnswer = answer(questionnaire, participant, modifier, study, answers, numQuestions);
@@ -105,10 +89,8 @@ public class AnswerQuestionnaireInteractor implements AnswerQuestionnaireInputBo
         } else if (! checkAnswers(questionnaire, answers, numQuestions)) {
             answerQuestionnairePresenter.presentAnswerQuestionnaireFailure("The answers were not valid.");
         } else {
-            int newAnswerId = idManager.newAnswerId();
-            Answer newAnswer = new Answer(newAnswerId, participant, questionnaire);
-            int newVersionedAnswerId = idManager.newVersionedAnswerId();
-            VersionedAnswer newVersionedAnswer = new VersionedAnswer(newVersionedAnswerId, 1, user, answers, newAnswer);
+            Answer newAnswer = new Answer(participant, questionnaire);
+            VersionedAnswer newVersionedAnswer = new VersionedAnswer(1, user, answers, newAnswer);
             newAnswer.addNewVersion(newVersionedAnswer);
             return newAnswer;
         }
@@ -142,15 +124,6 @@ public class AnswerQuestionnaireInteractor implements AnswerQuestionnaireInputBo
      */
     public void setAnswerQuestionnairePresenter(AnswerQuestionnaireOutputBoundary answerQuestionnairePresenter) {
         this.answerQuestionnairePresenter = answerQuestionnairePresenter;
-    }
-
-
-    /**
-     * Set the ID manager for this interactor.
-     * @param idManager The ID manager.
-     */
-    public void setIdManager(IDManager idManager) {
-        this.idManager = idManager;
     }
 
 

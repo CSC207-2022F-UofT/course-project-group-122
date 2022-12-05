@@ -18,6 +18,11 @@ import java.util.Map;
 public abstract class Study implements Serializable {
 
     /**
+     * Current study ID
+     */
+    private static int currID = 0;
+
+    /**
      * The ID of the study
      */
     private final int id;
@@ -64,8 +69,10 @@ public abstract class Study implements Serializable {
      * @param targetStudySize The target study size. What is the number of participants the researchers of this study
      *                        want to achieve?
      */
-    protected Study(int id, String studyName, int targetStudySize) {
-        this.id = id;
+    protected Study(String studyName, int targetStudySize) {
+        // update the current ID
+        currID++;
+        this.id = currID;
         this.studyName = studyName;
         this.targetStudySize = targetStudySize;
     }

@@ -1,11 +1,32 @@
 package use_cases.data_access;
 
+import entities.Container;
 import entities.IDManager;
 import entities.StudyPool;
 import entities.UserPool;
+import org.jetbrains.annotations.NotNull;
 import use_cases.participant_enroller.RandomGroupGeneratorManager;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class SaveApplicationState implements SaveApplicationStateGateway {
+
+    private @NotNull ArrayList<Object> pack(UserPool uP, StudyPool sP, RandomGroupGeneratorManager rGGM, IDManager idManager){
+        ArrayList<Object> packedStuff = new ArrayList<>();
+        packedStuff.add(uP);
+        packedStuff.add(sP);
+        packedStuff.add(rGGM);
+        packedStuff.add(idManager);
+        return packedStuff;
+    }
+
+    private @NotNull ArrayList<Object> pack(UserPool uP, IDManager idManager){
+        ArrayList<Object> packedStuff = new ArrayList<>();
+        packedStuff.add(uP);
+        packedStuff.add(idManager);
+        return packedStuff;
+    }
 
 
     /**
@@ -16,10 +37,8 @@ public class SaveApplicationState implements SaveApplicationStateGateway {
      * @param idManager the IDManager
      */
     public void saveData(UserPool uP, StudyPool sP, RandomGroupGeneratorManager rGGM, IDManager idManager){
-        Serializer.saveObject(uP);
-        Serializer.saveObject(sP);
-        Serializer.saveObject(rGGM);
-        Serializer.saveObject(idManager);
+        Container c = new Container(pack(uP, sP, rGGM, idManager));
+        Serializer.saveObject(c);
     }
 
     /**
@@ -30,7 +49,7 @@ public class SaveApplicationState implements SaveApplicationStateGateway {
      */
     @Override
     public void saveData(UserPool uP, IDManager idManager) {
-        Serializer.saveObject(uP);
-        Serializer.saveObject(idManager);
+        Container c = new Container(pack(uP, idManager));
+        Serializer.saveObject(c);
     }
 }

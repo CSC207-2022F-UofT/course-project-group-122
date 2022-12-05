@@ -8,6 +8,11 @@ import java.io.Serializable;
 public abstract class Question implements Serializable {
 
     /**
+     * The current maximum ID of all the Questions in the system. This is used to generate the next ID.
+     */
+    protected static int currID = 0;
+
+    /**
      * The id of this Question. This is unique across the entire system.
      */
     private final int id;
@@ -38,8 +43,9 @@ public abstract class Question implements Serializable {
      * @param variableName    Keyword that describes the content of this Question
      * @param content         What is being asked the participants.
      */
-    protected Question(int id, Questionnaire questionnaire, String variableName, String content) {
-        this.id = id;
+    public Question(Questionnaire questionnaire, String variableName, String content) {
+        currID++;
+        this.id = currID;
         this.variableName = variableName;
         this.content = content;
         this.questionnaire = questionnaire;

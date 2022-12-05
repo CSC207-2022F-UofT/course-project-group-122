@@ -14,12 +14,12 @@ public class StudyFactory implements StudyFactoryInterface {
      * @return the new study
      */
     @Override
-    public Study createStudy(int id, @NotNull String studyType, String studyName, int targetSize) {
+    public Study createStudy(@NotNull String studyType, String studyName, int targetSize) {
         switch (studyType) {
             case "Randomized":
-                return new RandomizedStudy(id, studyName, targetSize);
+                return new RandomizedStudy(studyName, targetSize);
             case "General":
-                return new GeneralStudy(id, studyName, targetSize);
+                return new GeneralStudy(studyName, targetSize);
             default:
                 return null;
         }

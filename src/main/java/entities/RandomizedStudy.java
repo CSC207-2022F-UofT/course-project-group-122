@@ -47,8 +47,8 @@ public class RandomizedStudy extends Study implements Serializable, Randomizable
      * @param targetStudySize The target study size. What is the number of participants the researchers of this study
      *                        want to achieve?
      */
-    public RandomizedStudy(int id, String studyName, int targetStudySize) {
-        super(id, studyName, targetStudySize);
+    public RandomizedStudy(String studyName, int targetStudySize) {
+        super(studyName, targetStudySize);
     }
 
 
