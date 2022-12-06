@@ -3,11 +3,11 @@ package user_interface_layer.screens.user_answer_questionnaires_screen.questions
 /**
  * The builder of the questions panel.
  */
-public class QuestionsPanelBuilder {
+public class CreateQuestionsPanel {
     /**
      * The constructor of the builder.
      */
-    public QuestionsPanelBuilder() {
+    public CreateQuestionsPanel() {
     }
 
     /**
