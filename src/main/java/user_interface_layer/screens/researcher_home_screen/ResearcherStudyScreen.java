@@ -46,7 +46,6 @@ public class ResearcherStudyScreen extends JFrame {
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.LINE_AXIS));
         framePanel.setLayout(new BorderLayout());
         headerPanel.setLayout(new GridLayout(2, 1));
-        userPanel.setBackground(new Color(204, 204, 204, 0));
         userPanel.setLayout(new FlowLayout(java.awt.FlowLayout.RIGHT));
 
         userLabel.setText(data.getResearcherName()+" ("+ data.getResearchID()+")");
@@ -81,7 +80,7 @@ public class ResearcherStudyScreen extends JFrame {
 
         framePanel.add(jScrollPane1,BorderLayout.CENTER);
 
-        southPanel.setBackground(new Color(204, 204, 204, 0));
+
         selectStudyButton.setText("Select Study");
         selectStudyButton.addActionListener(
                 e-> {

@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_stratification;
 
-import user_interface_layer.ScreenManager;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.choose_stratification_variable.ChooseStratificationScreen;
 
