@@ -2,12 +2,10 @@ package use_cases.answer_questionnaire_data_request;
 
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 import user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel.ParticipantsQuestionPanel;
-import user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel.QuestionsPanelBuilder;
+import user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel.CreateQuestionsPanel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /*
  * This class is used to pass data to the ParticipantAnswerQuestionnairePanel
@@ -86,7 +84,7 @@ public class FetchQuestionnaireDataForAnswerResponseModel {
      * Creates the questions panels for the screen.
      */
     private void createQuestionsPanels(){
-        QuestionsPanelBuilder builder = new QuestionsPanelBuilder();
+        CreateQuestionsPanel builder = new CreateQuestionsPanel();
         for (QuestionModel model : questionsModel) {
             String type = model.getType();
             switch (type) {

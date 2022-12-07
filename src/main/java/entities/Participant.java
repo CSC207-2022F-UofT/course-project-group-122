@@ -59,8 +59,8 @@ public class Participant extends User implements Serializable {
      * @param username    the username of this Participant.
      * @param name        the name of this Participant.
      */
-    public Participant(String username, String name) {
-        super(username, name);
+    public Participant(int id, String username, String name) {
+        super(id, username, name);
         this.dataManager = new ParticipantDataManager(this);
     }
 

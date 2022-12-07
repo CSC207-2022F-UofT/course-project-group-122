@@ -56,21 +56,25 @@ public class StudyDataLogScreen extends JFrame {
         JButton downloadDataButton = new JButton("Download Data");
         downloadDataButton.setText("Download Data");
         JPopupMenu popupMenu = new JPopupMenu();
-        JMenuItem allData = new JMenuItem("All Data");
+        JMenuItem allData = new JMenuItem("All Data (coming soon!)");
+        allData.setEnabled(false);
         JMenuItem currentData = new JMenuItem("Current Data");
         allData.addActionListener(e -> {
-//                    controllerManager.downloadDataButtonActionPerformed("All Data", data.getStudyId());
+//                    This is where the download all data will be implemented
+//                    Left for future implementations
         });
         currentData.addActionListener(e -> {
             JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             jFileChooser.showSaveDialog(null);
+            System.out.println(jFileChooser.getSelectedFile().getPath());
             String filePath = (jFileChooser.getSelectedFile()).getAbsolutePath();
             controllerManager.downloadData(data.getStudyId(), filePath);
         });
         popupMenu.add(allData);
         popupMenu.add(currentData);
         downloadDataButton.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent evt) {
                 popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
             }
@@ -96,6 +100,7 @@ public class StudyDataLogScreen extends JFrame {
         popupMenu2.add(closeStudy);
         popupMenu2.add(openStudy);
         closeStudyButton.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent evt) {
                 popupMenu2.show(evt.getComponent(), evt.getX(), evt.getY());
             }
@@ -111,6 +116,7 @@ public class StudyDataLogScreen extends JFrame {
         popupMenu3.add(createConsentForm);
         popupMenu3.add(reviewConsentFrom);
         consentFormButton.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent evt) {
                 popupMenu3.show(evt.getComponent(), evt.getX(), evt.getY());
             }
@@ -118,23 +124,23 @@ public class StudyDataLogScreen extends JFrame {
         backPanel.add(consentFormButton);
 
 
-        JTabbedPane StudyLogTabPane = new JTabbedPane();
+        JTabbedPane studyLogTabPane = new JTabbedPane();
 
 
         researchersPanel = new StudyLogResearcherPanel(data, controllerManager);
-        StudyLogTabPane.addTab("Researchers", researchersPanel);
+        studyLogTabPane.addTab("Researchers", researchersPanel);
 
         potentialParticipantsPanel = new StudyLogPotentialParticipantsPanel(data, controllerManager);
-        StudyLogTabPane.addTab("Potential Participants", potentialParticipantsPanel);
+        studyLogTabPane.addTab("Potential Participants", potentialParticipantsPanel);
 
         participantsPanel = new StudyLogParticipantsPanel(data, controllerManager);
-        StudyLogTabPane.addTab("Participants", participantsPanel);
+        studyLogTabPane.addTab("Participants", participantsPanel);
 
         questionnairesPanel = new StudyLogQuestionnairePanel(data, controllerManager);
-        StudyLogTabPane.addTab("Questionnaires", questionnairesPanel);
+        studyLogTabPane.addTab("Questionnaires", questionnairesPanel);
 
         groupsPanel = new StudyLogGroupsPanel(data, controllerManager);
-        StudyLogTabPane.addTab("Groups", groupsPanel);
+        studyLogTabPane.addTab("Groups", groupsPanel);
 
 
         JPanel studyLogMainPanel = new JPanel();
@@ -144,14 +150,14 @@ public class StudyDataLogScreen extends JFrame {
                 participantScreenMainLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(participantScreenMainLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(StudyLogTabPane)
+                                .addComponent(studyLogTabPane)
                                 .addContainerGap())
         );
         participantScreenMainLayout.setVerticalGroup(
                 participantScreenMainLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(GroupLayout.Alignment.TRAILING, participantScreenMainLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(StudyLogTabPane, GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                                .addComponent(studyLogTabPane, GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                                 .addContainerGap())
         );
 

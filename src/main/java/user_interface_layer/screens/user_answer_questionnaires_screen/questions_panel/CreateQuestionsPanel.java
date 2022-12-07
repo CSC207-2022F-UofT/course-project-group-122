@@ -3,11 +3,11 @@ package user_interface_layer.screens.user_answer_questionnaires_screen.questions
 /**
  * The builder of the questions panel.
  */
-public class QuestionsPanelBuilder {
+public class CreateQuestionsPanel {
     /**
      * The constructor of the builder.
      */
-    public QuestionsPanelBuilder() {
+    public CreateQuestionsPanel() {
     }
 
     /**
@@ -21,7 +21,6 @@ public class QuestionsPanelBuilder {
     public ParticipantsQuestionPanel buildMCQuestionPanel(String question, String type, String variable, String options){
         String[] optionsList = options.split(",");
         return new MCQuestionPanel(question, type, variable, optionsList);
-
     }
 
     /**

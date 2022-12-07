@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_participant_no_study;
 
-import user_interface_layer.ScreenManager;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_no_study_screen.ParticipantNoStudyScreen;
 

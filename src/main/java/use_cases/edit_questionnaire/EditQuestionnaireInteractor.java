@@ -1,5 +1,6 @@
 package use_cases.edit_questionnaire;
 
+import entities.IDManager;
 import entities.Questionnaire;
 import entities.Study;
 import use_cases.create_questionnaire.CreateQuestion;
@@ -17,6 +18,11 @@ public class EditQuestionnaireInteractor implements EditQuestionnaireInputBounda
      * The presenter that the use case calls on.
      */
     private EditQuestionnaireOutputBoundary editOutputBoundary;
+
+    /**
+     * The ID manager that the use case calls on.
+     */
+    private IDManager idManager;
 
     /**
      * The use case that the use case calls on.
@@ -37,7 +43,7 @@ public class EditQuestionnaireInteractor implements EditQuestionnaireInputBounda
             questionnaire.setTargetGroups(groupNum);
             questionnaire.removeQuestions();
             for (QuestionModel questionData : data.getQuestions()) {
-                CreateQuestion.createQuestion(questionnaire, questionData);
+                CreateQuestion.createQuestion(idManager.newQuestionId(), questionnaire, questionData);
             }
         } catch (Exception e) {
             editOutputBoundary.presentFailureScreen(e.getMessage());
@@ -50,5 +56,12 @@ public class EditQuestionnaireInteractor implements EditQuestionnaireInputBounda
      */
     public void setEditOutputBoundary(EditQuestionnaireOutputBoundary editOutputBoundary) {
         this.editOutputBoundary = editOutputBoundary;
+    }
+
+    /**
+     * @param idManager The ID manager that the use case calls on.
+     */
+    public void setIdManager(IDManager idManager) {
+        this.idManager = idManager;
     }
 }

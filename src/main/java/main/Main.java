@@ -1,6 +1,5 @@
 package main;
 
-import data_access.SaveApplicationState;
 import entities.*;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.add_potential_participant.AddPotentialParticipantInteractor;
@@ -29,7 +28,8 @@ import use_cases.create_questionnaire.CreateQuestionnairePresenter;
 import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyInteractor;
 import use_cases.create_study.CreateStudyPresenter;
-import use_cases.create_study.CreateStudyRequestModel;
+import use_cases.data_access.SaveApplicationState;
+import use_cases.data_access.Serializer;
 import use_cases.edit_questionnaire.EditQuestionnaireController;
 import use_cases.edit_questionnaire.EditQuestionnaireInteractor;
 import use_cases.edit_questionnaire.EditQuestionnairePresenter;
@@ -83,6 +83,9 @@ import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenPrese
 import use_cases.remove_researcher.RemoveResearcherController;
 import use_cases.remove_researcher.RemoveResearcherInteractor;
 import use_cases.remove_researcher.RemoveResearcherPresenter;
+import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
+import use_cases.researcher_edit_answer.ResearcherEditAnswerInteractor;
+import use_cases.researcher_edit_answer.ResearcherEditAnswerPresenter;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.researcher_enroller.ResearcherEnrollerInteractor;
 import use_cases.researcher_enroller.ResearcherEnrollerPresenter;
@@ -96,6 +99,7 @@ import use_cases.user_log_out.UserLogOutPresenter;
 import use_cases.user_login.UserLoginController;
 import use_cases.user_login.UserLoginInteractor;
 import use_cases.user_login.UserLoginPresenter;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.presenter_manager.display_choose_groups.DisplayGroupsToAssign;
 import user_interface_layer.presenter_manager.display_consent_form.DisplayConsentForm;
 import user_interface_layer.presenter_manager.display_edit_questionnaire.DisplayEditQuestionnaire;
@@ -114,7 +118,6 @@ import user_interface_layer.presenter_manager.display_screen_for_editing_answers
 import user_interface_layer.presenter_manager.display_stratification.DisplayStratification;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessage;
 import user_interface_layer.presenter_manager.display_versioned_answer.DisplayVersionedAnswer;
-import user_interface_layer.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.screen_drivers.*;
@@ -123,10 +126,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class Main {
@@ -146,6 +147,8 @@ public class Main {
      */
     private static RandomGroupGeneratorManager randomGroupGeneratorManager;
 
+    private static IDManager idManager;
+
 
 
     public static void main(String[] args) throws IOException {
@@ -157,35 +160,46 @@ public class Main {
 
 
         // Making the entity collections
-        // Retrieve the user pool, study pool, and the random group generator manager from the database
-//        List<Object> objs = Serializer.getAll();
-//        // If the database is empty, create new user pool, study pool, and random group generator manager
-//        // Else, retrieve the user pool, study pool, and random group generator manager from the database
-//        if (!objs.isEmpty()) {
-//            for (Object obj : objs) {
-//                switch (obj.getClass().getSimpleName()) {
-//                    case "UserPool":
-//                        userPool = (UserPool) obj;
-//                        break;
-//                    case "StudyPool":
-//                        studyPool = (StudyPool) obj;
-//                        break;
-//                    case "RandomGroupGeneratorManager":
-//                        randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        } else {
-//            userPool = new UserPool(new HashMap<>());
-//            studyPool = new StudyPool(new HashMap<>());
-//            randomGroupGeneratorManager = new RandomGroupGeneratorManager();
-//        }
+        // Retrieve the user pool, study pool, the random group generator manager, and the ID manager from the database
+        List<Object> objs = Serializer.getAll();
+        // If the database is empty, create new user pool, study pool, random group generator manager, and ID manager
+        // Else, retrieve the user pool, study pool, and random group generator manager from the database
+        for (Object obj : objs) {
+            switch (obj.getClass().getSimpleName()) {
+                case "UserPool":
+                    userPool = (UserPool) obj;
+                    break;
+                case "StudyPool":
+                    studyPool = (StudyPool) obj;
+                    break;
+                case "RandomGroupGeneratorManager":
+                    randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
+                    break;
+                case "IDManager":
+                    idManager = (IDManager) obj;
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (userPool == null) {
+            userPool = new UserPool(new HashMap<>());
+        }
+        if (studyPool == null) {
+            studyPool = new StudyPool(new HashMap<>());
+        }
+        if (randomGroupGeneratorManager == null) {
+            randomGroupGeneratorManager = new RandomGroupGeneratorManager();
+        }
+        if (idManager == null) {
+            idManager = new IDManager();
+        }
 
-        userPool = new UserPool(new HashMap<>());
-        studyPool = new StudyPool(new HashMap<>());
-        randomGroupGeneratorManager = new RandomGroupGeneratorManager();
+//
+//        userPool = new UserPool(new HashMap<>());
+//        studyPool = new StudyPool(new HashMap<>());
+//        randomGroupGeneratorManager = new RandomGroupGeneratorManager();
+//        idManager = new IDManager();
 
 
         // Making the use cases by initializing them with the controllers,
@@ -194,6 +208,9 @@ public class Main {
         //Helper classes
         FetchId.setStudyPool(studyPool);
         FetchId.setUserPool(userPool);
+
+        // Data access
+        SaveApplicationState saveApplicationState = new SaveApplicationState();
 
         // Add potential participants use case
         AddPotentialParticipantController addPotentialParticipantController = new AddPotentialParticipantController();
@@ -245,6 +262,7 @@ public class Main {
         CreateStudyPresenter createStudyPresenter = new CreateStudyPresenter();
         createStudyController.setCreateStudyInteractor(createStudyInteractor);
         createStudyInteractor.setCreateStudyPresenter(createStudyPresenter);
+        createStudyInteractor.setIdManager(idManager);
 
 
         FetchEditQuestionnaireDataController fetchEditQuestionnaireDataController = new FetchEditQuestionnaireDataController();
@@ -305,6 +323,7 @@ public class Main {
         AnswerQuestionnairePresenter answerQuestionnairePresenter = new AnswerQuestionnairePresenter();
         answerQuestionnaireController.setAnswerQuestionnaireInteractor(answerQuestionnaireInteractor);
         answerQuestionnaireInteractor.setAnswerQuestionnairePresenter(answerQuestionnairePresenter);
+        answerQuestionnaireInteractor.setIdManager(idManager);
 
 
         //Participant drop out use case
@@ -366,8 +385,9 @@ public class Main {
         UserLogOutPresenter userLogOutPresenter = new UserLogOutPresenter();
         userLogOutController.setUserLogOutInteractor(userLogOutInteractor);
         userLogOutInteractor.setUserLogOutPresenter(userLogOutPresenter);
-
-        //TODO: researcher_edit_answer use case
+        userLogOutInteractor.setSaveApplicationState(saveApplicationState);
+        userLogOutInteractor.setEntityCollections(userPool, studyPool, randomGroupGeneratorManager);
+        userLogOutInteractor.setIDManager(idManager);
 
         //User login use case
         UserLoginController userLoginController = new UserLoginController();
@@ -376,6 +396,8 @@ public class Main {
         userLoginController.setUserLoginInteractor(userLoginInteractor);
         userLoginInteractor.setUserLoginPresenter(userLoginPresenter);
         userLoginInteractor.setUserPool(userPool);
+        userLoginInteractor.setSaveApplicationState(saveApplicationState);
+        userLoginInteractor.setIDManager(idManager);
 
         //Get target groups use case
         GetTargetGroupsController getTargetGroupsController = new GetTargetGroupsController();
@@ -395,7 +417,8 @@ public class Main {
         editQuestionnaireController.setInputBoundary(editQuestionnaireInteractor);
         createQuestionnaireInteractor.setCreationOutputBoundary(createQuestionnairePresenter);
         editQuestionnaireInteractor.setEditOutputBoundary(editQuestionnairePresenter);
-
+        createQuestionnaireInteractor.setIdManager(idManager);
+        editQuestionnaireInteractor.setIdManager(idManager);
 
 
         //ResultExtraction use case
@@ -427,8 +450,13 @@ public class Main {
         fetchLatestAnswerDataRequestController.setInputBoundary(fetchLatestAnswerDataRequestInteractor);
         fetchLatestAnswerDataRequestInteractor.setPresenter(fetchLatestAnswerDataRequestPresenter);
 
-        // Data Access
-        SaveApplicationState saveApplicationState = new SaveApplicationState();
+        // Edit Questionnaire's versioned Answer use case
+        ResearcherEditAnswerController editQuestionnaireVersionedAnswerController = new ResearcherEditAnswerController();
+        ResearcherEditAnswerInteractor editQuestionnaireVersionedAnswerInteractor = new ResearcherEditAnswerInteractor();
+        ResearcherEditAnswerPresenter editQuestionnaireVersionedAnswerPresenter = new ResearcherEditAnswerPresenter();
+        editQuestionnaireVersionedAnswerController.setResearcherEditAnswerInputBoundary(editQuestionnaireVersionedAnswerInteractor);
+        editQuestionnaireVersionedAnswerInteractor.setResearcherEditAnswerOutputBoundary(editQuestionnaireVersionedAnswerPresenter);
+        editQuestionnaireVersionedAnswerInteractor.setIdManager(idManager);
 
 
         //Controller Manager and Screen Manager
@@ -534,8 +562,6 @@ public class Main {
         userLogOutPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         userLogOutPresenter.setDisplayRegisterInterface(presenterManagerDisplayRegister);
         userLogOutPresenter.setControllerManager(controllerManager);
-        userLogOutInteractor.setEntityCollections(userPool, studyPool, randomGroupGeneratorManager);
-        userLogOutInteractor.setUserLogOutGateway(saveApplicationState);
 
         userLoginPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         userLoginPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
@@ -596,6 +622,11 @@ public class Main {
         fetchLatestAnswerDataRequestPresenter.setDisplayEditAnswersInterface(presenterDisplayEditAnswersInterface);
         fetchLatestAnswerDataRequestPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
 
+        editQuestionnaireVersionedAnswerPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+        editQuestionnaireVersionedAnswerPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
+        editQuestionnaireVersionedAnswerPresenter.setFetchStudyLogController(fetchStudyLogController);
+        editQuestionnaireVersionedAnswerPresenter.setFetchParticipantStudyDataController(fetchParticipantStudyDataController);
+
 
         // Inject controllers to controller manager
         controllerManager.setAddPotentialParticipantController(addPotentialParticipantController);
@@ -628,6 +659,7 @@ public class Main {
         controllerManager.setAnswerQuestionnaireController(answerQuestionnaireController);
         controllerManager.setFetchVersionedAnswerDataController(fetchVersionedAnswerController);
         controllerManager.setFetchLatestAnswerDataRequestController(fetchLatestAnswerDataRequestController);
+        controllerManager.setResearcherEditAnswerController(editQuestionnaireVersionedAnswerController);
 
 
         SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
@@ -652,101 +684,96 @@ public class Main {
         screenManager.setCurrentScreen(userRegisterScreen);
         userRegisterScreen.setVisible(true);
 
-
-        // The serializer object
-
-
-
-
-        // TODO: must be removed if debugging is finished
-        // Setups for debugging purposes
-        userLoginController.signup("pone", "Participant", "ParticipantOne");
-        userLoginController.signup("ptwo", "Participant", "ParticipantTwo");
-        userLoginController.signup("pthree", "Participant", "ParticipantThree");
-        userLoginController.signup("pfour", "Participant", "ParticipantFour");
-        userLoginController.signup("pfive", "Participant", "ParticipantFive");
-        userLoginController.signup("rone", "Researcher", "ResearcherOne");
-        userLoginController.signup("rtwo", "Researcher", "ResearcherTwo");
-        userLoginController.signup("rthree", "Researcher", "ResearcherThree");
-        userLoginController.signup("rfour", "Researcher", "ResearcherFour");
-        userLoginController.signup("rfive", "Researcher", "ResearcherFive");
-
-        userLoginController.login("rone");
-
-        CreateStudyRequestModel study1 = new CreateStudyRequestModel(6, "Study1", "Description1");
-        study1.setStudyTargetSize(66);
-        study1.setStudyType("General");
-        study1.setNumGroups(1);
-        study1.setGroupNames(new String[]{"Group1"});
-
-        CreateStudyRequestModel study2 = new CreateStudyRequestModel(6, "Study2", "Description2");
-        study2.setStudyTargetSize(66);
-        study2.setStudyType("Randomized");
-        study2.setNumGroups(2);
-        study2.setGroupNames(new String[]{"Group1", "Group2"});
-
-        createStudyController.createStudy(study1);
-        createStudyController.createStudy(study2);
-
-        Researcher testr = (Researcher) FetchId.getUser(6);
-        if (testr != null) {
-            System.out.println("testr is not null");
-        } else {
-            System.out.println("testr is null");
-        }
-        Study testStudy = FetchId.getStudy(1);
-        if (testStudy != null) {
-            System.out.println("testStudy is not null");
-        } else {
-            System.out.println("testStudy is null");
-        }
-
-        Questionnaire eligibilityq = new Questionnaire(FetchId.getStudy(2), "eligibility questionnaire", "eligibility questionnaire description");
-        List<String> group1 = new ArrayList<>();
-        group1.add("1");
-        List<String> group2 = new ArrayList<>();
-        group2.add("1");
-        group2.add("2");
-        Questionnaire questionnaire1 = new Questionnaire(FetchId.getStudy(2), "questionnaire1", "questionnaire1 description", group1);
-        Questionnaire questionnaire2 = new Questionnaire(FetchId.getStudy(2), "questionnaire2", "questionnaire2 description", group2);
-        Questionnaire questionnaire3 = new Questionnaire(FetchId.getStudy(2), "questionnaire3", "questionnaire3 description", group2);
-
-        Study study = FetchId.getStudy(2);
-        study.setEligibilityQuestionnaire(eligibilityq);
-        study.addQuestionnaire(questionnaire1);
-        study.addQuestionnaire(questionnaire2);
-        study.addQuestionnaire(questionnaire3);
-
-        eligibilityq.addQuestion(new TextQuestion(eligibilityq, "name","What is your name?"));
-        eligibilityq.publish();
-
-        questionnaire1.addQuestion(new TextQuestion(questionnaire1, "name", "What is your name?"));
-        questionnaire1.addQuestion(new TextQuestion(questionnaire1,  "age", "What is your age?"));
-        questionnaire1.publish();
-        questionnaire2.addQuestion(new TextQuestion(questionnaire2, "name", "What is your name?"));
-        questionnaire2.publish();
-        questionnaire3.addQuestion(new TextQuestion(questionnaire3, "name", "What is your name?"));
-
-        study.addPotentialParticipant((Participant) FetchId.getUser(1));
-        study.addPotentialParticipant((Participant) FetchId.getUser(2));
-
-        ((Participant) FetchId.getUser(1)).setStudy(study);
-        ((Participant) FetchId.getUser(2)).setStudy(study);
-
-
-        ((Participant) FetchId.getUser(1)).setEligibilityQuestionnaire(eligibilityq);
-        ((Participant) FetchId.getUser(1)).assignQuestionnaire(questionnaire1);
-        ((Participant) FetchId.getUser(1)).assignQuestionnaire(questionnaire2);
-
-        Participant p1 = (Participant) FetchId.getUser(1);
-        Answer answer = new Answer(p1, eligibilityq);
-        Map<String, String> eAnswer = new HashMap<>();
-        eAnswer.put("What is your name?", "participantOne");
-        VersionedAnswer versionedAnswer = new VersionedAnswer(1, p1, eAnswer, answer);
-        answer.addNewVersion(versionedAnswer);
-        p1.setEligibilityQuestionnaireAnswer(answer);
-
-        fetchStudyLogController.fetchStudyLog(2, 6);
+//
+//         TODO: must be removed if debugging is finished
+//         Setups for debugging purposes
+//        userLoginController.signup("pone", "Participant", "ParticipantOne");
+//        userLoginController.signup("ptwo", "Participant", "ParticipantTwo");
+//        userLoginController.signup("pthree", "Participant", "ParticipantThree");
+//        userLoginController.signup("pfour", "Participant", "ParticipantFour");
+//        userLoginController.signup("pfive", "Participant", "ParticipantFive");
+//        userLoginController.signup("rone", "Researcher", "ResearcherOne");
+//        userLoginController.signup("rtwo", "Researcher", "ResearcherTwo");
+//        userLoginController.signup("rthree", "Researcher", "ResearcherThree");
+//        userLoginController.signup("rfour", "Researcher", "ResearcherFour");
+//        userLoginController.signup("rfive", "Researcher", "ResearcherFive");
+//
+//        userLoginController.login("rone");
+//
+//        CreateStudyRequestModel study1 = new CreateStudyRequestModel(6, "Study1", "Description1");
+//        study1.setStudyTargetSize(66);
+//        study1.setStudyType("General");
+//        study1.setNumGroups(1);
+//        study1.setGroupNames(new String[]{"Group1"});
+//
+//        CreateStudyRequestModel study2 = new CreateStudyRequestModel(6, "Study2", "Description2");
+//        study2.setStudyTargetSize(66);
+//        study2.setStudyType("Randomized");
+//        study2.setNumGroups(2);
+//        study2.setGroupNames(new String[]{"Group1", "Group2"});
+//
+//        createStudyController.createStudy(study1);
+//        createStudyController.createStudy(study2);
+//
+//        Researcher testr = (Researcher) FetchId.getUser(6);
+//        if (testr != null) {
+//            System.out.println("testr is not null");
+//        } else {
+//            System.out.println("testr is null");
+//        }
+//        Study testStudy = FetchId.getStudy(1);
+//        if (testStudy != null) {
+//            System.out.println("testStudy is not null");
+//        } else {
+//            System.out.println("testStudy is null");
+//        }
+//
+//        Questionnaire eligibilityq = new Questionnaire(FetchId.getStudy(2), "eligibility questionnaire", "eligibility questionnaire description");
+//        List<String> group1 = new ArrayList<>();
+//        group1.add("1");
+//        List<String> group2 = new ArrayList<>();
+//        group2.add("1");
+//        group2.add("2");
+//        Questionnaire questionnaire1 = new Questionnaire(FetchId.getStudy(2), "questionnaire1", "questionnaire1 description", group1);
+//        Questionnaire questionnaire2 = new Questionnaire(FetchId.getStudy(2), "questionnaire2", "questionnaire2 description", group2);
+//        Questionnaire questionnaire3 = new Questionnaire(FetchId.getStudy(2), "questionnaire3", "questionnaire3 description", group2);
+//
+//        Study study = FetchId.getStudy(2);
+//        study.setEligibilityQuestionnaire(eligibilityq);
+//        study.addQuestionnaire(questionnaire1);
+//        study.addQuestionnaire(questionnaire2);
+//        study.addQuestionnaire(questionnaire3);
+//
+//        eligibilityq.addQuestion(new TextQuestion(eligibilityq, "name","What is your name?"));
+//        eligibilityq.publish();
+//
+//        questionnaire1.addQuestion(new TextQuestion(questionnaire1, "name", "What is your name?"));
+//        questionnaire1.addQuestion(new TextQuestion(questionnaire1,  "age", "What is your age?"));
+//        questionnaire1.publish();
+//        questionnaire2.addQuestion(new TextQuestion(questionnaire2, "name", "What is your name?"));
+//        questionnaire2.publish();
+//        questionnaire3.addQuestion(new TextQuestion(questionnaire3, "name", "What is your name?"));
+//
+//        study.addPotentialParticipant((Participant) FetchId.getUser(1));
+//        study.addPotentialParticipant((Participant) FetchId.getUser(2));
+//
+//        ((Participant) FetchId.getUser(1)).setStudy(study);
+//        ((Participant) FetchId.getUser(2)).setStudy(study);
+//
+//
+//        ((Participant) FetchId.getUser(1)).setEligibilityQuestionnaire(eligibilityq);
+//        ((Participant) FetchId.getUser(1)).assignQuestionnaire(questionnaire1);
+//        ((Participant) FetchId.getUser(1)).assignQuestionnaire(questionnaire2);
+//
+//        Participant p1 = (Participant) FetchId.getUser(1);
+//        Answer answer = new Answer(p1, eligibilityq);
+//        Map<String, String> eAnswer = new HashMap<>();
+//        eAnswer.put("What is your name?", "participantOne");
+//        VersionedAnswer versionedAnswer = new VersionedAnswer(1, p1, eAnswer, answer);
+//        answer.addNewVersion(versionedAnswer);
+//        p1.setEligibilityQuestionnaireAnswer(answer);
+//
+//        fetchStudyLogController.fetchStudyLog(2, 6);
     }
 }
 

@@ -2,7 +2,7 @@ package user_interface_layer.presenter_manager.display_screen_for_answering_ques
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerResponseModel;
-import user_interface_layer.ScreenManager;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.user_answer_questionnaires_screen.UserAnswerQuestionnairesScreen;
 

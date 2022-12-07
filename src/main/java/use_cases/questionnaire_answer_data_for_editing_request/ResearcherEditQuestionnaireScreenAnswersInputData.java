@@ -18,15 +18,17 @@ public class ResearcherEditQuestionnaireScreenAnswersInputData {
      */
     private final int researcherID;
 
+    private final int participantID;
+
     /*
      * The study ID.
      */
     private final int studyID;
 
     /*
-     * The questionnaire ID.
+     * The answer's ID.
      */
-    private final int questionnaireID;
+    private final int answerId;
 
     /*
      * The name of the questionnaire.
@@ -75,14 +77,16 @@ public class ResearcherEditQuestionnaireScreenAnswersInputData {
      */
 
     public ResearcherEditQuestionnaireScreenAnswersInputData(int researcherID,
+                                                             int participantId,
                                                              int studyID,
-                                                             int questionnaireID,
+                                                             int answerId,
                                                              String questionnaireName,
                                                              String questionnaireDescription,
                                                              Map<String, String[]> questionsInformation) {
         this.researcherID = researcherID;
+        this.participantID = participantId;
         this.studyID = studyID;
-        this.questionnaireID = questionnaireID;
+        this.answerId = answerId;
         this.questionnaireName = questionnaireName;
         this.questionnaireDescription = questionnaireDescription;
 
@@ -148,8 +152,8 @@ public class ResearcherEditQuestionnaireScreenAnswersInputData {
     /*
      * The method that returns the questionnaire ID.
      */
-    public int getQuestionnaireID() {
-        return questionnaireID;
+    public int getAnswerId() {
+        return answerId;
     }
 
     /*
@@ -164,6 +168,13 @@ public class ResearcherEditQuestionnaireScreenAnswersInputData {
      */
     public String getQuestionnaireDescription() {
         return questionnaireDescription;
+    }
+
+    /**
+     * @return the participant's id.
+     */
+    public int getParticipantID() {
+        return participantID;
     }
 
     /*

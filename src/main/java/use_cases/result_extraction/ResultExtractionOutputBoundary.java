@@ -23,5 +23,7 @@ public interface ResultExtractionOutputBoundary {
      */
     void presentFailSave(int StudyID, String filepath, ArrayList<String> failList);
 
+    void presentFailSave(String message);
+
 
 }

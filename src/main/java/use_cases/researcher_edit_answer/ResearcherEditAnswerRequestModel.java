@@ -7,15 +7,17 @@ public class ResearcherEditAnswerRequestModel {
     private int researcherID;
     private int answerID;
     private int participantID;
+    private final int studyID;
     private HashMap<String, String> answers;
 
     private String reason;
 
-    public ResearcherEditAnswerRequestModel(int researcherID, int answerID, int participantID,
-                                            HashMap<String, String> answers, String reason){
+    public ResearcherEditAnswerRequestModel(int researcherID, int participantID, int answerID, int studyId,
+                                            HashMap<String, String> answers, String reason) {
         this.researcherID = researcherID;
         this.answerID = answerID;
         this.participantID = participantID;
+        this.studyID = studyId;
         this.answers = answers;
         this.reason = reason;
     }
@@ -43,6 +45,7 @@ public class ResearcherEditAnswerRequestModel {
     public HashMap<String, String> getAnswers() {
         return answers;
     }
+
     public int getResearcherID() {
         return researcherID;
     }
@@ -57,5 +60,9 @@ public class ResearcherEditAnswerRequestModel {
 
     public String getReason() {
         return reason;
+    }
+
+    public int getStudyID() {
+        return studyID;
     }
 }

@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -82,8 +83,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to enroll");
             } else {
-                int participantId = keys.get(selectedRow);
-                controllerManager.enrollParticipantRequest(participantId, data.getStudyId(), data.getResearcherId());
+               enrollParticipant(data, controllerManager,table, selectedRow);
             }
         });
 
@@ -104,6 +104,49 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
         buttonPanel.add(Check);
         buttonPanel.add(enrollParticipantButton);
         add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    private static void enrollParticipant(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager, JTable table, int selectedRow) {
+        if (data.getStudyType().equals("Randomized")) {
+            int participantId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
+            controllerManager.enrollRandomizedParticipantRequest(participantId, data.getStudyId(), data.getResearcherId());
+        } else {
+            JFrame chooseGroupsFrame = new JFrame("Enroll Participant");
+            JPanel chooseGroupsPanel = new JPanel();
+            chooseGroupsPanel.setLayout(new BoxLayout(chooseGroupsPanel, BoxLayout.Y_AXIS));
+            ButtonGroup buttonGroup = new ButtonGroup();
+            for (String group : data.getGroupAssignments()) {
+                JRadioButton radioButton = new JRadioButton(group);
+                buttonGroup.add(radioButton);
+                chooseGroupsPanel.add(radioButton);
+            }
+            JButton enrollButton = new JButton("Enroll");
+            enrollButton.addActionListener(evn -> {
+                String selectedGroup = "";
+                for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
+                    AbstractButton button = buttons.nextElement();
+                    if (button.isSelected()) {
+                        selectedGroup = button.getText().split(":")[0];
+                    }
+                }
+                if (selectedGroup.equals("")){
+                    JOptionPane.showMessageDialog(null, "Please select a group to enroll the participant in");
+                } else {
+                    int participantId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
+                    int selectedGroupNum = Integer.parseInt(selectedGroup);
+                    System.out.println(selectedGroupNum);
+                    controllerManager.enrollGeneralParticipantRequest(participantId, data.getStudyId(),
+                            selectedGroupNum, data.getResearcherId());
+                    chooseGroupsFrame.dispose();
+                }
+
+            });
+            chooseGroupsPanel.add(enrollButton);
+            chooseGroupsFrame.add(chooseGroupsPanel);
+            chooseGroupsFrame.pack();
+            SetScreenToCenter.setCenter(chooseGroupsFrame);
+            chooseGroupsFrame.setVisible(true);
+        }
     }
 
 }

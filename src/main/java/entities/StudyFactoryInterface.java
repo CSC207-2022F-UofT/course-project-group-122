@@ -11,6 +11,6 @@ public interface StudyFactoryInterface {
      *
      * @return  the new study
      */
-    Study createStudy(String studyType, String studyName, int targetSize);
+    Study createStudy(int id, String studyType, String studyName, int targetSize);
 
 }

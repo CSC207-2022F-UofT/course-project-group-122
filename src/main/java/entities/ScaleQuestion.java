@@ -41,9 +41,9 @@ public class ScaleQuestion extends Question implements Serializable {
      * @param content           What is being asked the participants.
      * @param scaleRange        The specified range of this ScaleQuestion.
      */
-    public ScaleQuestion(Questionnaire questionnaire, String variableName, String content, int scaleRange,
+    public ScaleQuestion(int id, Questionnaire questionnaire, String variableName, String content, int scaleRange,
                          String bottomLabel, String topLabel) {
-        super(questionnaire, variableName, content);
+        super(id, questionnaire, variableName, content);
         this.scaleRange = scaleRange;
         this.bottomLabel = bottomLabel;
         this.topLabel = topLabel;
@@ -59,8 +59,8 @@ public class ScaleQuestion extends Question implements Serializable {
      * @param variableName      Keyword that describes the content of this Question
      * @param content           What is being asked the participants.
      */
-    public ScaleQuestion(Questionnaire questionnaire, String variableName, String content) {
-        super(questionnaire, variableName, content);
+    public ScaleQuestion(int id, Questionnaire questionnaire, String variableName, String content) {
+        super(id, questionnaire, variableName, content);
     }
 
 

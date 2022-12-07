@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_participant_info;
 
-import user_interface_layer.ScreenManager;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.show_participant_info.ShowParticipantInfoForQAssignment;
 import user_interface_layer.screens.show_participant_info.ShowParticipantInfoScreen;

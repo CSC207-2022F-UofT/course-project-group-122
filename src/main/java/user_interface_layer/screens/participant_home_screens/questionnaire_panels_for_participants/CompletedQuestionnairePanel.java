@@ -46,7 +46,7 @@ public class CompletedQuestionnairePanel extends JPanel {
             } else {
                 int questionnaireId = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
                 controllerManager.checkQuestionnaireVersionedAnswer(data.getStudyId(), data.getParticipantId(),
-                        questionnaireId, data.getCompletedQuestionnaireAnswerHistory().get(questionnaireId));
+                        questionnaireId,data.getQuestionnaireAnswers().get(selectedRow), data.getCompletedQuestionnaireAnswerHistory().get(questionnaireId));
                 System.out.println(data.getCompletedQuestionnaireAnswerHistory().size());
             }
         });

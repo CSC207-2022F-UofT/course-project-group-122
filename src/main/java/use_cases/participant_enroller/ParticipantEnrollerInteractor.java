@@ -73,12 +73,13 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      *
      * @param participantId The participant to enroll.
      * @param studyId       The study to enroll the participant in.
-     * @param group         The group number to enroll the participant in.
+     * @param group         the group name to enroll the participant in.
      */
     @Override
     public void enroll(int participantId, int studyId, int group, int userId) {
         Participant participant = checkParticipantIdIsValid(participantId);
         Study study = FetchId.getStudy(studyId);
+        assert study instanceof GeneralStudy;
         if (enrollParticipant(participant, study, group)) {
             assignQuestionnaires(participant, study);
             participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup(), studyId, userId);

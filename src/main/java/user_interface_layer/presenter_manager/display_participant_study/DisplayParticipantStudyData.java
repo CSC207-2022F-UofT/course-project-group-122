@@ -2,7 +2,7 @@ package user_interface_layer.presenter_manager.display_participant_study;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataResponseModel;
-import user_interface_layer.ScreenManager;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.participant_home_screens.ParticipantHomeScreen;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantInputData;

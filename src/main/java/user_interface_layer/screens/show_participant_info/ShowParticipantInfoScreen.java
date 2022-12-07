@@ -22,8 +22,11 @@ public class ShowParticipantInfoScreen extends JFrame {
     setLayout(new BorderLayout());
     JLabel participantTag = new JLabel(name + " (" + participantId+") ");
     JButton enroll = new JButton("Add");
-    enroll.addActionListener(e-> controllerManager.addPotentialParticipantToStudyRequest(
-            participantId, studyId));
+    enroll.addActionListener(e-> {
+        controllerManager.addPotentialParticipantToStudyRequest(
+                participantId, studyId);
+        dispose();
+    });
     add(participantTag, BorderLayout.CENTER);
     add(enroll, BorderLayout.SOUTH);
     pack();

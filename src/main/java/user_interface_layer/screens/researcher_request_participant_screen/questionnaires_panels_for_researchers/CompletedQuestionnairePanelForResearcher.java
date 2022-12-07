@@ -41,8 +41,11 @@ public class CompletedQuestionnairePanelForResearcher extends JPanel {
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select a questionnaire to check.");
             } else {
-                int questionnaireID = keys.get(selectedRow);
-                controllerManager.checkQuestionnaireVersionedAnswer(data.getStudyId(), data.getParticipantId(), questionnaireID, data.getCompletedQuestionnaireAnswerHistory().get(questionnaireID));
+                int questionnaireID = Integer.parseInt(model.getValueAt(selectedRow, 0).toString());
+                controllerManager.checkQuestionnaireVersionedAnswer(data.getStudyId(),
+                        data.getParticipantId(),
+                        questionnaireID, data.getQuestionnaireAnswers().get(selectedRow),
+                        data.getCompletedQuestionnaireAnswerHistory().get(questionnaireID));
             }
         });
 
