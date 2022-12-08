@@ -34,25 +34,13 @@ public class MultipleChoiceQuestion extends Question implements Serializable {
 
 
     /**
-     * Checks if index is in the length of the list of choices for this MultipleChoiceQuestion.
-     *
-     * @param index     The index to be checked.
-     * @return true if the index is in the length of the list of choices.
-     */
-    private boolean isInChoices(int index) {
-        return index >= 0 && index < this.choices.size();
-    }
-
-    /**
      * Adds a choice into the list of choices for this MultipleChoiceQuestion.
      *
      * @param choice    The choice to be added.
-     * @return true if choice was successfully added into the list of choices.
      */
-    public boolean addChoice(String choice) {
+    public void addChoice(String choice) {
         this.numOfChoices++;
         this.choices.add(choice);
-        return true;
     }
 
 
@@ -91,16 +79,6 @@ public class MultipleChoiceQuestion extends Question implements Serializable {
     @Override
     public String getAnswerChoices() {
         StringBuilder answerChoices = new StringBuilder();
-//        answerChoices.append("<html>");
-//        for (int i = 0; i < this.choices.size(); i++) {
-//            if (i != 0) {
-//                answerChoices.append("<BR>");
-//            }
-//            answerChoices.append(i + 1).append(". ").append(this.choices.get(i));
-//        }
-//        answerChoices.append("</html>");
-//        return answerChoices.toString();
-
         for (int i = 0; i < this.choices.size(); i++) {
             if (i != 0) {
                 answerChoices.append(",");

@@ -76,14 +76,11 @@ public class Participant extends User implements Serializable {
      *              considered to be associated with the study if the participant is considered as a potentially
      *              eligible participant. The associated study can be changed if and only if the participant is not
      *              enrolled. If the participant is enrolled, the associated study cannot be changed.
-     * @return true if the study has been set for a participant, false otherwise.
      */
-    public boolean setStudy(Study study) {
+    public void setStudy(Study study) {
         if (!this.enrolled) {
             this.study = study;
-            return true;
         }
-        return false;
     }
 
 
