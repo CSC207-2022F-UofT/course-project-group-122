@@ -92,7 +92,8 @@ by pressing the `x` button on the screen.
 ### Login and Register
 The registration process is simple. The user will be prompted to enter a username and the name of the user. The user
 will then need to choose the type of the account. Pressing each button in the type selection will directly register the
-user if the username is not taken. Using the `x` button will direct the user back to the login screen.
+user if the username is not taken. A valid username is a string that contains only alphanumeric characters and is case
+sensitive. However, we do not post strong restrictions on the username. Using the `x` button will direct the user back to the login screen.
 <p>
 The login process is simple. The user will be prompted to enter a username. That's it! If the username is valid, the
 user will be logged in. If the username is invalid, the user will be prompted to enter a valid username. The system will
