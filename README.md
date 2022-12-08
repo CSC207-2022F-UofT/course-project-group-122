@@ -135,6 +135,44 @@ researcher in the study can reopen the study by pressing the `reopen study` butt
 a researcher can remove other researchers from the study by pressing the `remove researcher` button.
 
 ### Questionnaire Management
+There are several functionalities that are available to the researcher in the questionnaire management panel.
+
+#### Create Questionnaire
+The researcher can create a new questionnaire by pressing the `add questionnaire` button. The researcher will be
+prompted to enter the name of the questionnaire and its description. Here, the researcher can add an arbitrary number
+of questions to the questionnaire. The researcher can add a question by pressing the `add question` button. The system
+currently supports three types of questions: text, scale and multiple choice. The researcher can select the type of the 
+question by pressing the corresponding button. Regardless of the type of the question, the researcher will be prompted
+to enter the question content and the variable name. The variable name is used to identify the question in the data
+export. The variable name must be unique within the questionnaire.
+- Text: The question creation screen for text question is a simple text field.
+- Scale: The question creation screen for scale question is a bit more complicated. The researcher will be prompted
+to enter `scale range`, which will generate the scale from `0` to `scale range - 1`.
+- Multiple Choice: The researcher will be prompted to enter the `number of choices`. The researcher can then enter
+the choices one by one. The answer to the multiple choice question will be the index of the choice (starting from 1),
+i.e. the first choice will be `1`, the second choice will be `2`, and so on.
+
+A question can be removed by pressing the `delete question` button. 
+
+Upon finishing adding the questions, the researcher can press the `create questionnaire` button to create a `general
+questionnaire`, which can be assigned to enrolled participants. The researcher can also create a eligibility 
+questionnaire by pressing the `create eligibility questionnaire` that is used to determine the eligibility of the
+potential participants.
+
+#### Modify Questionnaire
+The researcher can modify the questionnaire by pressing the `edit questionnaire` button. The researcher can modify 
+the name and the description of the questionnaire, as well as the questions. Previously added questions can be
+removed by pressing the `delete previous question` button. The researcher can also add new questions by pressing the
+`add question` button. These newly added questions will be appended to the end of the questionnaire, and can be deleted
+without being saved to the questionnaire by pressing the `delete question` button. The researcher can save the changes
+by pressing the `save questionnaire` button.
+
+#### Publish Questionnaire
+Upon the creation of a questionnaire, the questionnaire will be in the `draft` state. This is identified by the status
+of `unpublished` in the questionnaire list. To check the content of the questionnaire, the researcher can select the
+questionnaire and press the `check questionnaire` button, or the `check eligibility questionnaire` button for the 
+eligibility questionnaire. At this point, the 
+
 
 
 ### Participant Management
