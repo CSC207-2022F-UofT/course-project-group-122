@@ -11,7 +11,7 @@ our implementation, the system can be divided into two main components:
 Image credit: https://www.castoredc.com/
 
 
-## User and Study Management
+### User and Study Management
 The users of the system are researchers and participants. Researchers can create studies, and participants can
 participate in studies. The system allows researchers to create studies, and participants to participate in studies.
 Each user has a unique username. This is used for user to login to the system. However, the username is considered
@@ -43,7 +43,7 @@ However, to ensure the stability of the data and ensure that the system keeps tr
 system does not allow the deletion of a study or the deletion of an account. This is to ensure that the system is
 consistent with the ICH Good Clinical Practice (GCP) guidelines.
 
-## Data Collection
+### Data Collection
 Everything after login is considered a study activity. They are performed once a specified study is selected.
 <p>
 The EDC system allows researchers to create and manage activities. An activity is a collection of questions that are
@@ -72,7 +72,7 @@ all the changes that are made to the answers, and to ensure that the system is c
 Image credit: https://www.castoredc.com/
 
 
-## Data Export and Persistence
+### Data Export and Persistence
 The EDC system allows researchers to export the data collected from the participants. The data can be exported in
 the csv format for further analysis. The data can be exported by the researcher at any time. The exported data is specific
 to the study that is selected, and all current versions of the answers are exported. One csv file is generated for each
@@ -81,6 +81,40 @@ questionnaire. The csv file contains the answers of all participants who have co
 Persistence is achieved by storing the data using serialization. The data is stored in the form of a binary file. The
 entire system data (as in all the entities and random group generators) is stored in a single file.
 
+
+## Getting Started
+### Run the Main!
+The main class is the entry point of the EDC system. The main class is located in the `Main` class in the `main` package.
+The main class is responsible for initializing the system, and starting the system. Upon starting the system, a screen
+will be displayed to the user to choose to login in or to register. The user can also choose to exit the system simply
+by pressing the `x` button on the screen.
+
+### Login and Register
+The registration process is simple. The user will be prompted to enter a username and the name of the user. The user
+will then need to choose the type of the account. Pressing each button in the type selection will directly register the
+user if the username is not taken. Using the `x` button will direct the user back to the login screen.
+<p>
+The login process is simple. The user will be prompted to enter a username. That's it! If the username is valid, the
+user will be logged in. If the username is invalid, the user will be prompted to enter a valid username. The system will
+automatically check the user type and direct the user to the appropriate screen. If the user is a researcher, the user
+will be directed to the researcher screen that lists all the studies that the user is enrolled to. If the user is a
+participant, the user will be directed to the participant screen that lists all the questionnaires that are assigned to
+the user if the participant is associated with a study (enrolled, or as a potential participant). If the user is not
+associated with a study, the user will be directed to a screen indicating their non-enrollment status.
+
+### Study Management
+
+
+### Questionnaire Management
+
+
+### Participant Management
+
+
+### Answer Management
+
+
+### Data Export
 
 
 
