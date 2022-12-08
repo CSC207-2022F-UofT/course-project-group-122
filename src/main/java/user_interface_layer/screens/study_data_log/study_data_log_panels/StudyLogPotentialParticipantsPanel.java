@@ -134,7 +134,6 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 } else {
                     int participantId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
                     int selectedGroupNum = Integer.parseInt(selectedGroup);
-                    System.out.println(selectedGroupNum);
                     controllerManager.enrollGeneralParticipantRequest(participantId, data.getStudyId(),
                             selectedGroupNum, data.getResearcherId());
                     chooseGroupsFrame.dispose();

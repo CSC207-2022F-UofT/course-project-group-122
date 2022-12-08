@@ -4,7 +4,6 @@ import entities.*;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,14 +37,8 @@ public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswer
                 VersionedAnswer currVersionedAnswer = answer.getCurrentVersion();
                 assert questionnaire != null;
                 List<Question> questionList = questionnaire.getListOfQuestion();
-                for (Question question : questionList) {
-                    System.out.println(question.getContent() + question.getVariableName());
-                }
                 Map<String, String> variableAnswer = currVersionedAnswer.getAnswer();
                 Map<String, String[]> answerData = createAnswerData(questionList, variableAnswer);
-                for (Map.Entry<String, String[]> entry : answerData.entrySet()) {
-                    System.out.println(entry.getKey() + " " + Arrays.toString(entry.getValue()));
-                }
                 ResearcherEditQuestionnaireScreenAnswersInputData data =
                         new ResearcherEditQuestionnaireScreenAnswersInputData(
                                 researcherId,
@@ -77,7 +70,6 @@ public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswer
             String answerText = variableAnswer.get(variable);
             String[] answerDataArray = {question.getQuestionType(), variable, question.getAnswerChoices(), answerText};
             answerData.put(question.getContent(), answerDataArray);
-            System.out.println(question.getContent() + " " + question.getQuestionType() + " " + variable + " " + question.getAnswerChoices() + " " + answerText);
         }
         return answerData;
     }

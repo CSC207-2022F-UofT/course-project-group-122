@@ -72,7 +72,6 @@ public class EditQuestionnaireAnswers extends JFrame {
         submitButton.addActionListener(e -> {
             HashMap<String, String> answers = new HashMap<>();
             for (ResearchersQuestionPanel questionPanel : questionPanels) {
-                System.out.println(questionPanel.getAnswer());
                 if (questionPanel.getAnswer().equals("")) {
                     JOptionPane.showMessageDialog(null, "Please answer all questions");
                     break;

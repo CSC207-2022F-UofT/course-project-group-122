@@ -28,7 +28,6 @@ public class FetchParticipantStudyDataPresenter implements FetchParticipantStudy
     public void displayParticipantStudyData(FetchParticipantStudyDataResponseModel response, int userId,
                                             String userType) {
 
-        System.out.println(response.getCompletedQuestionnaireAnswerHistory().values().size());
         if (Objects.equals(userType, "Participant")) {
             displayParticipantStudyData.presentParticipantHomeScreenForParticipant(response);
         } else if (Objects.equals(userType, "Researcher")) {

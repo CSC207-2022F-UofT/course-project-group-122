@@ -170,9 +170,6 @@ public class CreateStudyInputScreen extends JFrame {
             JButton confirmGroupNamesButton = new JButton("Confirm Group Names");
             confirmGroupNamesButton.addActionListener(e -> {
                 this.groupNames = groupNames.stream().map(JTextField::getText).collect(Collectors.toList());
-                for (String s : this.groupNames) {
-                    System.out.println(s);
-                }
                 askGroupNamesScreen.dispose();
 
             });
