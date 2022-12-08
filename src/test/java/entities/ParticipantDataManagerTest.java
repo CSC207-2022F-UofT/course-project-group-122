@@ -29,9 +29,11 @@ public class ParticipantDataManagerTest {
 
     Study study1 = new RandomizedStudy(1, "title", 3);
 
-    Questionnaire questionnaireEligibility = new Questionnaire(1, study1, "title", "description", group1);
-    Questionnaire questionnaire2 = new Questionnaire(2, study1, "title", "description", 1);
-    Questionnaire questionnaire3 = new Questionnaire(3, study1, "title", "description", 1);
+    List<String> groups = new ArrayList<>();
+    groups.add("1");
+    Questionnaire questionnaireEligibility = new Questionnaire(1, study1, "title", "description", groups);
+    Questionnaire questionnaire2 = new Questionnaire(2, study1, "title", "description", groups);
+    Questionnaire questionnaire3 = new Questionnaire(3, study1, "title", "description", groups);
 
     @Test
     public void setEligibilityQuestionnaire() {
