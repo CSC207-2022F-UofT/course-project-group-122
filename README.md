@@ -18,7 +18,7 @@ Each user has a unique username. This is used for user to login to the system. H
 private information and is not displayed to other users. Instead, each user has a unique identifier that is used to
 identify the user in the system. This identifier is displayed to other users, and it is used in the system to identify
 and retrieve information about the user.
-<p>
+
 The EDC system allows researchers to create and manage studies. A study is a collection of activities that are
 associated with a particular research project. A study can be created by a researcher, and then shared with other
 researchers. A study can be shared with other researchers by adding them as collaborators (enroll additional 
@@ -28,7 +28,7 @@ to specify the study attributes, such as the study name, description, and the ty
 can modify all study attributes, except for the study type, at any time before the first enrollment of a participant. A
 study can be closed by the researcher at any time. Once a study is closed, they study is archived and no longer
 available for enrollment. A study can be reopened by the researcher at any time at the researcher's discretion.
-<p>
+
 The EDC system allows participants to participate in studies. A participant can participate in only one study. It means
 that a participant account can be enrolled to only one study. However, an actual participant user can participate in
 multiple studies by creating multiple participant accounts. A participant can be added to a study by a researcher as a
@@ -38,7 +38,7 @@ process is determined by the study type. For a general study, a potential partic
 the researcher specify the group that the participant is enrolled to. For a randomized study, a potential participant
 can be enrolled to a study where the system randomly assigns the participant to a group following a specified
 randomization scheme.
-<p>
+
 However, to ensure the stability of the data and ensure that the system keeps tracks all aspects of the study, the
 system does not allow the deletion of a study or the deletion of an account. This is to ensure that the system is
 consistent with the ICH Good Clinical Practice (GCP) guidelines.
@@ -57,7 +57,7 @@ scale question has a scale ranging from 0 to a user-specified value. Once a ques
 considered complete. At this time, the researchers can modify the questionnaire by adding or removing questions. A 
 questionnaire is final when it is published. Once a questionnaire is published, it cannot be modified, and it can be
 assigned to a participant.
-<p>
+
 The EDC system allows participants to complete questionnaires. A participant can see the list of questionnaires that
 are assigned to them. A participant can complete a questionnaire by answering all of the questions in the questionnaire.
 Once a questionnaire is completed, it is submitted to the system. The system will then record the answers as well as
@@ -77,7 +77,7 @@ The EDC system allows researchers to export the data collected from the particip
 the csv format for further analysis. The data can be exported by the researcher at any time. The exported data is specific
 to the study that is selected, and all current versions of the answers are exported. One csv file is generated for each
 questionnaire. The csv file contains the answers of all participants who have completed the questionnaire.
-<p>
+
 Persistence is achieved by storing the data using serialization. The data is stored in the form of a binary file. The
 entire system data (as in all the entities and random group generators) is stored in a single file.
 
@@ -92,10 +92,10 @@ by pressing the `x` button on the screen.
 ### Login and Register
 The registration process is simple. The user will be prompted to enter a username and the name of the user. The user
 will then need to choose the type of the account. Pressing each button in the type selection will directly register the
-user if the username is not taken. A valid username is a string that contains only alphanumeric characters and is case
-sensitive. However, we do not post strong restrictions on the username. Using the `cancel` button will direct the user 
+user if the username is not taken. A valid username is a string that contains only alphanumeric characters and is 
+case-sensitive. However, we do not post strong restrictions on the username. Using the `cancel` button will direct the user 
 back to the login screen.
-<p>
+
 The login process is simple. The user will be prompted to enter a username. That's it! If the username is valid, the
 user will be logged in. If the username is invalid, the user will be prompted to enter a valid username. The system will
 automatically check the user type and direct the user to the appropriate screen. If the user is a researcher, the user
@@ -105,7 +105,34 @@ the user if the participant is associated with a study (enrolled, or as a potent
 associated with a study, the user will be directed to a screen indicating their non-enrollment status. 
 
 ### Study Management
+After logging in, the researcher will be directed to the study management screen. The study management screen lists
+all the studies that the researcher is enrolled to. The researcher can select a study to view the details of the study.
+The researcher can also create a new study by pressing the `create study` button. The researcher can also modify the
+study by pressing the `modify study` button upon a study selection. In the study modification screen, the researcher
+can modify the study attributes, such as the study name, description, the target number of participants, and the 
+grouping scheme. However, the type of the study cannot be modified. The attributes of the study can be modified only
+before the enrollment of the first participant.
 
+Upon the selection of a existing study, or the creation of a new study, the researcher will be directed to the study log
+screen. The study log screen lists all the information related to the study. This includes, in separate panels, the
+list of all researchers, the list of all participants, the list of all potential participants, the list of all 
+questionnaires, as well as the grouping scheme. Most of the features in this screen are self-explanatory. The
+grouping scheme panel is a bit more complicated. The grouping scheme panel lists all the groups that are created
+by the grouping scheme. Depending on the type of the study, the grouping scheme panel will display different
+information. For a general study, the grouping scheme panel will display the list of groups that are created by the
+grouping scheme. There is no additional functionality embedded. For a randomized study, the grouping scheme panel
+also includes the button to `select randomization strategy`. The researcher can select a randomization strategy
+from the list of available strategies, before the enrollment of the first participant. If the strategy is 'stratified
+randomization', another button will be displayed to `select stratification criteria`. The researcher can select a
+a stratification variable from the scale or multiple choice questions in the eligibility questionnaire. However, the 
+system do not enforce the type of question associated with this variable, so it is up to the researcher to ensure that
+the variable is a scale or multiple choice question. Again, this can only be done before the enrollment of the first
+participant. The information about the randomization strategy and the stratification criteria will be displayed in the
+panel.
+
+The researcher can close the study by pressing the `close study` button. Closing a study will archive the study. A
+researcher in the study can reopen the study by pressing the `reopen study` button at their own discretion. Additionally,
+a researcher can remove other researchers from the study by pressing the `remove researcher` button.
 
 ### Questionnaire Management
 
