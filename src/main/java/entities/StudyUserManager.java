@@ -218,20 +218,6 @@ public class StudyUserManager implements Serializable {
         return new ArrayList<>(this.researchers);
     }
 
-    /**
-     * Add a list of researchers to the existing list of researchers in the study.
-     * Return false if the added list is empty.
-     *
-     * @param researcherList a list of researchers to be added.
-     * @return whether the addition is successful.
-     */
-    protected boolean addResearchers(@NotNull List<Researcher> researcherList) {
-        if (!researcherList.isEmpty()) {
-            this.researchers.addAll(researcherList);
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Add a researcher to the existing list of researchers in the study.

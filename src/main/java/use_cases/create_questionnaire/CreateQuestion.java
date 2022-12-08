@@ -4,7 +4,6 @@ import entities.*;
 import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CreateQuestion {
@@ -30,7 +29,7 @@ public class CreateQuestion {
             assert question != null;
             ((ScaleQuestion) question).setBottomLabel(options.get(0));
             ((ScaleQuestion) question).setTopLabel(options.get(1));
-            ((ScaleQuestion) question).modifyScaleRange(Integer.parseInt(options.get(2)));
+            ((ScaleQuestion) question).setScaleRange(Integer.parseInt(options.get(2)));
             System.out.println(options.get(2));
 
         }
