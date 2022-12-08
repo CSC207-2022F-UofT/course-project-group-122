@@ -7,7 +7,7 @@ our implementation, the system can be divided into two main components:
 - User and Study Management
 - Data Collection
 - Data Export and Persistence
-![](images/edc_intro.png)
+![](images/intro/edc_intro.png)
 Image credit: https://www.castoredc.com/
 
 
@@ -68,7 +68,7 @@ the answers of a questionnaire if the participant made a mistake. However, this 
 (version) of the answer. A reason for modification must be detailed. This is to ensure that the system keeps track of 
 all the changes that are made to the answers, and to ensure that the system is consistent with the ICH GCP guidelines.
 
-![](images/data_collection.png)
+![](images/intro/data_collection.png)
 Image credit: https://www.castoredc.com/
 
 
@@ -93,7 +93,8 @@ by pressing the `x` button on the screen.
 The registration process is simple. The user will be prompted to enter a username and the name of the user. The user
 will then need to choose the type of the account. Pressing each button in the type selection will directly register the
 user if the username is not taken. A valid username is a string that contains only alphanumeric characters and is case
-sensitive. However, we do not post strong restrictions on the username. Using the `x` button will direct the user back to the login screen.
+sensitive. However, we do not post strong restrictions on the username. Using the `cancel` button will direct the user 
+back to the login screen.
 <p>
 The login process is simple. The user will be prompted to enter a username. That's it! If the username is valid, the
 user will be logged in. If the username is invalid, the user will be prompted to enter a valid username. The system will
@@ -101,7 +102,7 @@ automatically check the user type and direct the user to the appropriate screen.
 will be directed to the researcher screen that lists all the studies that the user is enrolled to. If the user is a
 participant, the user will be directed to the participant screen that lists all the questionnaires that are assigned to
 the user if the participant is associated with a study (enrolled, or as a potential participant). If the user is not
-associated with a study, the user will be directed to a screen indicating their non-enrollment status.
+associated with a study, the user will be directed to a screen indicating their non-enrollment status. 
 
 ### Study Management
 
