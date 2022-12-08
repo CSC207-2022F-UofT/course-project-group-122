@@ -4,21 +4,16 @@ import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ConsentFormTest {
 
     Study study;
     ConsentForm consentForm;
 
-    @Test
-    public void getStudy(){
-        assertEquals(consentForm.getStudy(), study);
-    }
-
     @BeforeEach
     public void setUp(){
-        Study study1 = new RandomizedStudy("TestObj0.1",10);
+        Study study1 = new RandomizedStudy(1, "TestObj0.1",10);
         study1.setStudyDescription("hhh");
         String description = study1.getStudyDescription();
         String riskAndBenefits = "You can get 1, but you lose 0";
@@ -31,6 +26,11 @@ public class ConsentFormTest {
     @AfterEach
     public void tearDown(){
 
+    }
+
+    @Test
+    public void getStudy(){
+        assertEquals(consentForm.getStudy(), study);
     }
 
 

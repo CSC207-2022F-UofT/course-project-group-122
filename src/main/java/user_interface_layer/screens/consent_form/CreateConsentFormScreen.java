@@ -3,7 +3,7 @@ package user_interface_layer.screens.consent_form;
 import use_cases.create_consent_form.CreateConsentFormRequestModel;
 import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.GeneralFailureScreen;
+import user_interface_layer.screens.message_screens.GeneralFailureScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class CreateConsentFormScreen extends JFrame {
      */
     public CreateConsentFormScreen(int studyId, int researcherId, ControllerManager controllerManager) {
         super("Create Consent Form Screen");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JTextArea studyDescription = new JTextArea(3, 20);
         JPanel studyDescriptionInputPanel = new JPanel();

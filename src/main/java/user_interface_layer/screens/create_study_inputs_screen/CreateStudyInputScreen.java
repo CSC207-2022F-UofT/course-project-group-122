@@ -3,7 +3,7 @@ package user_interface_layer.screens.create_study_inputs_screen;
 import user_interface_layer.screen_helper_classes.SetLabelTextPanel;
 import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.GeneralFailureScreen;
+import user_interface_layer.screens.message_screens.GeneralFailureScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,11 +20,11 @@ public class CreateStudyInputScreen extends JFrame {
     /**
      * The text field for the study type.
      */
-    String studyTypeInput = "";
+    private String studyTypeInput = "";
     /**
      * The list of group names for the study.
      */
-    List<String> groupNames;
+    private List<String> groupNames;
 
     /**
      * @param data The data to be passed to the next screen.

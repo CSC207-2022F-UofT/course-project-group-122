@@ -1,9 +1,7 @@
 package use_cases.user_login;
 
-import entities.IDManager;
-import entities.User;
-import entities.UserFactory;
-import entities.UserPool;
+import entities.*;
+import org.jetbrains.annotations.NotNull;
 import use_cases.data_access.SaveApplicationStateGateway;
 
 /**
@@ -11,10 +9,13 @@ import use_cases.data_access.SaveApplicationStateGateway;
  */
 public class UserLoginInteractor implements UserLoginInputBoundary {
 
+
     /**
      * The presenter that updates the screen of the use that logged in.
      */
     private UserLoginOutputBoundary userLoginPresenter;
+
+
     /**
      * A user factory instance that creates a user.
      */
@@ -31,6 +32,12 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
      * The IDManager
      */
     private IDManager idManager;
+
+
+    /**
+     * The container that stores all the objects in the system
+     */
+    private Container container;
 
 
     /**
@@ -55,10 +62,11 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         } else {
             User newUser = userFactory.create(idManager.newUserId(), userType, username, name);
             userPool.addUser(newUser);
-            saveApplicationState.saveData(userPool, idManager);
+            saveApplicationState.saveData(container);
             userLoginPresenter.onUserSignUpSuccess(newUser.getId(), newUser.getName(), newUser.getUsername(), userType);
         }
     }
+
 
     /**
      * Login a user with the given credentials.
@@ -73,8 +81,8 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         } else {
             userLoginPresenter.onUserLoginFailure("Username does not exist.");
         }
-
     }
+
 
     /**
      * Checks if the given username is valid.
@@ -110,15 +118,6 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
 
 
     /**
-     * Set the user pool to be used by this interactor.
-     * @param userPool  The user pool to be used by this interactor.
-     */
-    public void setUserPool(UserPool userPool) {
-        this.userPool = userPool;
-    }
-
-
-    /**
      * Set the presenter to be used by this interactor.
      * @param userLoginPresenter  The presenter to be used by this interactor.
      */
@@ -128,19 +127,21 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
 
 
     /**
-     * Set the IDManager to be used by this interactor.
-     * @param idManager The IDManager to be used by this interactor.
-     */
-    public void setIDManager(IDManager idManager) {
-        this.idManager = idManager;
-    }
-
-
-    /**
      * Set the gateway that saves the state of the application.
      * @param saveApplicationState The gateway that saves the state of the application.
      */
     public void setSaveApplicationState(SaveApplicationStateGateway saveApplicationState) {
         this.saveApplicationState = saveApplicationState;
+    }
+
+
+    /**
+     * Set the container that stores all the objects in the system.
+     * @param container The container that stores all the objects in the system.
+     */
+    public void setEntities(@NotNull Container container) {
+        this.container = container;
+        this.userPool = container.getUserPool();
+        this.idManager = container.getIdManager();
     }
 }

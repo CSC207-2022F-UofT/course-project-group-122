@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_failure_message;
 
-import user_interface_layer.screens.GeneralFailureScreen;
+import user_interface_layer.screens.message_screens.GeneralFailureScreen;
 
 /**
  * The class that displays the failure message screen.
