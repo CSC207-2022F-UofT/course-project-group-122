@@ -1,4 +1,4 @@
-package user_interface_layer.screens;
+package user_interface_layer.screens.message_screens;
 
 import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 
@@ -10,20 +10,18 @@ import java.awt.*;
  */
 public class GeneralSuccessScreen {
     /**
-     * @param SuccessMessage The message that is displayed.
+     * @param successMessage The message that is displayed.
      */
-    public GeneralSuccessScreen(String SuccessMessage) {
+    public GeneralSuccessScreen(String successMessage) {
+        String message = "<html><p>" + successMessage + "</p></html>";
         JFrame successFrame = new JFrame();
         successFrame.setLayout(new BorderLayout());
         successFrame.setTitle("Success");
-        JLabel successLabel = new JLabel(SuccessMessage, SwingConstants.CENTER);
+        JLabel successLabel = new JLabel(message, SwingConstants.CENTER);
         successFrame.add(successLabel, BorderLayout.CENTER);
-        successFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        successFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         successFrame.setSize(500, 400);
         SetScreenToCenter.setCenter(successFrame);
-//        Timer timer = new Timer(5000, e -> successFrame.dispose());
-//        timer.setRepeats(false);
-//        timer.start();
         successFrame.setVisible(true);
         successFrame.setVisible(true);
     }

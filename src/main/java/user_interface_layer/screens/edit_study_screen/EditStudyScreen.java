@@ -6,7 +6,7 @@ import use_cases.modify_study_parameters.ModifyStudyParameterRequestModel;
 import user_interface_layer.screen_helper_classes.SetLabelTextPanel;
 import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.GeneralFailureScreen;
+import user_interface_layer.screens.message_screens.GeneralFailureScreen;
 
 import javax.swing.*;
 import java.awt.*;

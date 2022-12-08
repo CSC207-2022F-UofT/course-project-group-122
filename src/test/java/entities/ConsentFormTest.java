@@ -18,7 +18,7 @@ public class ConsentFormTest {
 
     @BeforeEach
     public void setUp(){
-        Study study1 = new RandomizedStudy("TestObj0.1",10);
+        Study study1 = new RandomizedStudy(1, "TestObj0.1",10);
         study1.setStudyDescription("hhh");
         String description = study1.getStudyDescription();
         String riskAndBenefits = "You can get 1, but you lose 0";

@@ -1,31 +1,14 @@
 package use_cases.user_log_out;
 
-import entities.IDManager;
+import entities.Container;
+import org.jetbrains.annotations.NotNull;
 import use_cases.data_access.SaveApplicationState;
-import entities.StudyPool;
-import entities.UserPool;
 import use_cases.data_access.SaveApplicationStateGateway;
-import use_cases.participant_enroller.RandomGroupGeneratorManager;
 
 /**
  * The class that logs out the user.
  */
 public class UserLogOutInteractor implements UserLogOutInputBoundary{
-
-    /**
-     * The UserPool
-     */
-    private UserPool userPool;
-
-    /**
-     * The StudyPool
-     */
-    private StudyPool studyPool;
-
-    /**
-     * The RandomGroupGeneratorManager
-     */
-    private RandomGroupGeneratorManager randomGroupGeneratorManager;
 
 
     /**
@@ -41,9 +24,9 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
 
 
     /**
-     * The IDManager
+     * The container that stores all the data in the system
      */
-    private IDManager idManager;
+    private Container container;
 
 
 
@@ -52,7 +35,7 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
      */
     @Override
     public void logOut() {
-        saveApplicationState.saveData(userPool, studyPool, randomGroupGeneratorManager, idManager);
+        saveApplicationState.saveData(container);
         userLogOutPresenter.logOut();
     }
 
@@ -77,23 +60,9 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
 
     /**
      * Set the entity collections
-     * @param userPool                          the UserPool
-     * @param studyPool                         the StudyPool
-     * @param randomGroupGeneratorManager       the RandomGroupGeneratorManager
+     * @param container the container that stores all the data in the system
      */
-    public void setEntityCollections(UserPool userPool, StudyPool studyPool,
-                                     RandomGroupGeneratorManager randomGroupGeneratorManager){
-        this.userPool = userPool;
-        this.studyPool = studyPool;
-        this.randomGroupGeneratorManager = randomGroupGeneratorManager;
-    }
-
-
-    /**
-     * Set the IDManager
-     * @param idManager the IDManager
-     */
-    public void setIDManager(IDManager idManager) {
-        this.idManager = idManager;
+    public void setEntityCollections(@NotNull Container container){
+        this.container = container;
     }
 }

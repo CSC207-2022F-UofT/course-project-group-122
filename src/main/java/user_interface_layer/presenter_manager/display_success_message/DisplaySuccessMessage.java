@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_success_message;
 
-import user_interface_layer.screens.GeneralSuccessScreen;
+import user_interface_layer.screens.message_screens.GeneralSuccessScreen;
 
 /**
  * The class that displays a success message.
