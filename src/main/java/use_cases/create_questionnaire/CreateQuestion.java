@@ -7,7 +7,7 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 import java.util.List;
 
 /**
- * A helper class for the create questionnaire use case.
+ * A helper class for the creation questionnaire use case.
  */
 public class CreateQuestion {
 

@@ -6,6 +6,9 @@ import entities.Researcher;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that edits an answer.
+ */
 public class ResearcherEditAnswerInteractor implements ResearcherEditAnswerInputBoundary{
 
     /**

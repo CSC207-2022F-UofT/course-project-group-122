@@ -91,10 +91,6 @@ public class CreateQuestionnaireRequestModel {
         return questionnaireDescription;
     }
 
-    public int getNumOfQuestions() {
-        return numOfQuestions;
-    }
-
     /**
      * @return The list of target groups.
      */

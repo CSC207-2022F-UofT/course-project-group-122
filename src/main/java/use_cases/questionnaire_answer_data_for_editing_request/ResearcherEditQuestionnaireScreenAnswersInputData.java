@@ -184,33 +184,5 @@ public class ResearcherEditQuestionnaireScreenAnswersInputData {
         return questionsPanel;
     }
 
-    /*
-     * The method that returns the map of questions and its type.
-     */
-    public Map<String, String> getQuestioznsTypes() {
-        return questionsTypes;
-    }
-
-    /*
-     * The method that returns the map of questions and its variable.
-     */
-    public Map<String, String> getQuestionsVariable() {
-        return questionsVariable;
-    }
-
-    /*
-     * The method that returns the map of questions and its options.
-     */
-    public Map<String, String> getQuestionsOptions() {
-        return questionsOptions;
-    }
-
-    /*
-     * The method that returns the map of questions and its answers.
-     */
-    public Map<String, String> getQuestionsAnswers() {
-        return questionsAnswers;
-    }
-
 }
 

@@ -32,6 +32,7 @@ public class CloseStudyPresenter implements CloseStudyOutputBoundary {
     public void displayMessage(@NotNull Study study, String message, int researcherId) {
         String displayMessage = "Study " + "(" + study.getId() + ") " + study.getStudyName() + ":\n" + message;
         fetchStudyLogController.fetchStudyLog(study.getId(), researcherId);
+        displaySuccessMessage.presentGeneralSuccessMessage(displayMessage);
     }
 
     /**

@@ -5,7 +5,6 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /*
  * This class is used to pass data to the CheckQuestionnaireScreen.
@@ -102,7 +101,7 @@ public class CheckQuestionnaireInputData {
 
     /**
      * Returns the study id.
-     * @return
+     * @return The study id.
      */
     public int getStudyId() {
         return studyId;

@@ -3,6 +3,9 @@ package use_cases.fetch_study_data_for_editing;
 import entities.Study;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that fetches the study data for editing
+ */
 public class FetchStudyDataForEditingInteractor implements FetchStudyDataForEditingInputBoundary {
 
 

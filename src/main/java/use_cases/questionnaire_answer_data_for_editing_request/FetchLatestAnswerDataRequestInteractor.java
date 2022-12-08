@@ -4,6 +4,7 @@ import entities.*;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +43,8 @@ public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswer
                 }
                 Map<String, String> variableAnswer = currVersionedAnswer.getAnswer();
                 Map<String, String[]> answerData = createAnswerData(questionList, variableAnswer);
-                for (Map.Entry entry : answerData.entrySet()) {
-                    System.out.println(entry.getKey() + " " + entry.getValue());
+                for (Map.Entry<String, String[]> entry : answerData.entrySet()) {
+                    System.out.println(entry.getKey() + " " + Arrays.toString(entry.getValue()));
                 }
                 ResearcherEditQuestionnaireScreenAnswersInputData data =
                         new ResearcherEditQuestionnaireScreenAnswersInputData(

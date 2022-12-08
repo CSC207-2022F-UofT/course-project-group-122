@@ -1,8 +1,15 @@
 package use_cases.fetch_study_data_for_editing;
 
+
+/**
+ * The controller that the screen calls through the controller manager to fetch the study data for editing.
+ */
 public class FetchStudyDataForEditingController {
 
 
+    /**
+     * The interface that the use case implements and the controller calls on.
+     */
     FetchStudyDataForEditingInputBoundary fetchStudyDataForEditingInputBoundary;
 
 

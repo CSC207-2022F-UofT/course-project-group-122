@@ -2,8 +2,6 @@ package use_cases.data_access;
 
 import entities.Container;
 
-;
-
 /**
  * The interface that the class that saves the state of the application implements.
  */
