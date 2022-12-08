@@ -187,6 +187,9 @@ that the questionnaire can no longer be modified and can be assigned to the part
 questionnaire can be closed by pressing the `close questionnaire` button. This means that the questionnaire will be
 no longer available for assignment or answering.
 
+Before an eligibility questionnaire is published, the researcher must create a consent form. The consent form will be
+displayed to the potential participants before they answer the eligibility questionnaire.
+
 ![](images/screens_for_displays/questionnaire_managment.png)
 
 #### Assign Questionnaire
@@ -197,63 +200,63 @@ the study, or a `group` of participants. The researcher can also specify a certa
 the participant.
 
 ### Participant Management
+The researcher can manage the participants in the two panels: `participants` and `potential participants`. The
+participants panel lists all the participants that are enrolled in the study. The researcher can select a participant
+to view the details of the participant. The potential participants panel lists all the potential participants that
+have not been enrolled in the study. The researcher can select a potential participant to check the eligibility of
+the potential participant. The participant enrollment process is as follows:
 
+1. _**Add a potential participant**_ by pressing the `add potential participant` button. The researcher will be prompted to
+enter the `ID` of the potential participant. The `ID` must indicate a participant that is not already associated with
+a study. The system will check the `ID` and respond with the name of the potential participant. The researcher can
+then press the `add` button to add the potential participant to the study. If the study has an already published
+eligibility questionnaire, all added potential participants will be automatically assigned the eligibility questionnaire.
+Otherwise, when the researcher publishes the eligibility questionnaire, all added potential participants will be
+also assigned the eligibility questionnaire.
+
+2. _**Check the eligibility**_ of the potential participant by pressing the `check potential participant` button. This
+will allow the researcher to check the answers to the eligibility questionnaire. Then, the researcher can press the
+`make eligible` button to make the potential participant eligible if they determine that the potential participant 
+satisfies the eligibility criteria.
+
+3. _**Enroll the participant**_ by pressing the `enroll participant` button. This will enroll the participant in the 
+study only for the potential participants that are eligible. In a general study, the researcher can assign the
+group to the participant, in which the group were defined previously when the study is created. In a randomized
+study, the group will be assigned automatically by an embedded algorithm that is based on the randomization
+strategy and the stratification criteria.
+
+![](images/screens_for_displays/potentialParticipantManagement.png)
 
 ### Answer Management
+A participant can answer the assigned questionnaires by pressing the `answer questionnaire` button in the `assigned
+questionnaires` panel. The participant will be prompted to answer the questions in the questionnaire. The participant is
+not allowed to skip a question. They can answer the questionnaire once and only once. Upon answering the questionnaire,
+the questionnaire will be automatically move to the `completed questionnaires` panel, where the participant can view
+the answers to the questionnaire.
 
+A researcher can view the answers to the questionnaire by first selecting a participant where they press the
+`check participant` button. The researcher can then select the questionnaire to view the answers to the questionnaire by
+pressing the `check answers` button. The researcher also has the authority to answer the questionnaire on behalf of
+the participant by pressing the `answer questionnaire` button in the `assigned questionnaires` panel. If the researcher
+believes that the participant has answered the questionnaire incorrectly, the researcher can press the `modify answers`
+button to modify the answers to the questionnaire. However, the researcher must specify the reason for modifying the
+answers. This will generate a new version of the answers on top of the previous version. Here, we store each version
+in the `VersionedAnswer` object, where the `Answer` object is a collection of `VersionedAnswer` objects. Each `Answer`
+object is associated corresponds to a `Questionnaire` and a `Participant`. Both the researchers and the participants
+can view the history of the answers. The `VersionedAnswer` keeps track of the `version` of the answer, the `reason` for
+modifying the answer, the `timestamp` of the modification, as well as the user who made the modification (including the
+initial answer).
+
+![](images/screens_for_displays/answer_managment.png)
 
 ### Data Export
+All the data collected in the study can be exported by pressing the `download data` button. The researcher will be able
+to download the data in the `csv` format. Currently, our system only supports the export the current data, i.e., these
+are the most current `version` of the answers. The researcher will be able to choose a directory to save the data. In 
+there, all existing `answers` to each questionnaire for all participants will be saved in a separate `csv` file. The 
+column headers will be the specified variable names of the questions. The text answers will be saved as its original
+text, while the multiple choice answers will be saved as the `ID` of the selected choices, which is a number from `1` to
+`the number of choice`. The scale answers will be saved as the number of the selected scale range.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Project Template
-
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
-
-## Checklist For Your Project
-- [ ] Verify the correct settings for your project repository
-- [ ] Set up Github Projects
-- [ ] Create the implementation plan using issues and Github Projects
-- [ ] Create development branches for your features
-- [ ] Use pull requests to merge finished features into main branch
-- [ ] Conduct code reviews
-
-**If your team has trouble with any of these steps, please ask on Piazza. For example, with how GitHub Classroom works, your team *may* not have permissions to do some of the first few steps, in which case we'll post alternative instructions as needed.**
-
-## Workflow Documents
-
-* Github Workflow: Please refer to the workflow that was introduced in the first lab. You should follow this when working on your code. The following document provides additional details too.
-
-* [Project Planning and Development Guide](project_plan_dev.md): This document helps you to understand how to create and maintain a project plan for your class project. **This document helps you to complete the Implementation Plan Milestone.**
-
-## Gradle Project
-Import this project into your Intellij editor. It should automatically recognise this as a gradle repository.
-The starter code was built using SDK version 11.0.1. Ensure that you are using this version for this project. (You can, of course, change the SDK version as per your requirement if your team has all agreed to use a different version)
-
-You have been provided with two starter files for demonstration: HelloWorld and HelloWorldTest.
-
-You will find HelloWorld in `src/main/java/tutorial` directory. Right click on the HelloWorld file and click on `Run HelloWorld.main()`.
-This should run the program and print on your console.
-
-You will find HelloWorldTest in `src/test/java/tutorial` directory. Right click on the HelloWorldTest file and click on `Run HelloWorldTest`.
-All tests should pass. Your team can remove this sample of how testing works once you start adding your project code to the repo.
-
-Moving forward, we expect you to maintain this project structure. You *should* use Gradle as the build environment, but it is fine if your team prefers to use something else -- just remove the gradle files and push your preferred project setup. Assuming you stick with Gradle, your source code should go into `src/main/java` (you can keep creating more subdirectories as per your project requirement). Every source class can auto-generate a test file for you. For example, open HelloWorld.java file and click on the `HelloWorld` variable as shown in the image below. You should see an option `Generate` and on clicking this your should see an option `Test`. Clicking on this will generate a JUnit test file for `HelloWorld` class. This was used to generate the `HelloWorldTest`.
-
-You can create another simple class and try generating a test for this class.
+![](images/screens_for_displays/data_extraction.png)
+![](images/screens_for_displays/data_extraction_csv.png)
