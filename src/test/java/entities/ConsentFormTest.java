@@ -4,17 +4,12 @@ import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ConsentFormTest {
 
     Study study;
     ConsentForm consentForm;
-
-    @Test
-    public void getStudy(){
-        assertEquals(consentForm.getStudy(), study);
-    }
 
     @BeforeEach
     public void setUp(){
@@ -31,6 +26,11 @@ public class ConsentFormTest {
     @AfterEach
     public void tearDown(){
 
+    }
+
+    @Test
+    public void getStudy(){
+        assertEquals(consentForm.getStudy(), study);
     }
 
 

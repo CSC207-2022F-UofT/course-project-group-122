@@ -105,20 +105,19 @@ public class AnswerTest {
         Study study1 = new RandomizedStudy(2, "Study1", 100);
         Questionnaire questionnaire1 = new Questionnaire(14, study1, "Q1", "Q1");
         Answer answer1 = new Answer(3, participant1, questionnaire1);
-        int currentId = answer1.getId();
         Participant participant2 = new Participant(4, "1234", "Doe");
         Questionnaire questionnaire2 = new Questionnaire(5, study1, "Q1", "Q1");
         Answer answer2 = new Answer(6, participant2, questionnaire2);
-        assertEquals(currentId + 1, answer2.getId());
+        assertEquals(6, answer2.getId());
         Participant participant3 = new Participant(7, "1234", "Doe");
         Questionnaire questionnaire3 = new Questionnaire(8, study1, "Q1", "Q1");
         Answer answer3 = new Answer(9, participant3, questionnaire3);
-        assertEquals(currentId + 2, answer3.getId());
+        assertEquals(9, answer3.getId());
         Participant participant4 = new Participant(10, "1234", "Doe");
         Study study2 = new RandomizedStudy(22, "Study1", 100);
         Questionnaire questionnaire4 = new Questionnaire(12, study2, "Q1", "Q1");
         Answer answer4 = new Answer(13, participant4, questionnaire4);
-        assertEquals(currentId + 3, answer4.getId());
+        assertEquals(13, answer4.getId());
     }
 
     @Test
