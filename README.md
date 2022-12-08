@@ -89,12 +89,16 @@ The main class is responsible for initializing the system, and starting the syst
 will be displayed to the user to choose to login in or to register. The user can also choose to exit the system simply
 by pressing the `x` button on the screen.
 
+![](images/screens_for_displays/register_screen.png)
+
 ### Login and Register
 The registration process is simple. The user will be prompted to enter a username and the name of the user. The user
 will then need to choose the type of the account. Pressing each button in the type selection will directly register the
 user if the username is not taken. A valid username is a string that contains only alphanumeric characters and is 
 case-sensitive. However, we do not post strong restrictions on the username. Using the `cancel` button will direct the user 
 back to the login screen.
+
+![](images/screens_for_displays/signup.png)
 
 The login process is simple. The user will be prompted to enter a username. That's it! If the username is valid, the
 user will be logged in. If the username is invalid, the user will be prompted to enter a valid username. The system will
@@ -104,6 +108,8 @@ participant, the user will be directed to the participant screen that lists all 
 the user if the participant is associated with a study (enrolled, or as a potential participant). If the user is not
 associated with a study, the user will be directed to a screen indicating their non-enrollment status. 
 
+![](images/screens_for_displays/login.png)
+
 ### Study Management
 After logging in, the researcher will be directed to the study management screen. The study management screen lists
 all the studies that the researcher is enrolled to. The researcher can select a study to view the details of the study.
@@ -112,6 +118,8 @@ study by pressing the `modify study` button upon a study selection. In the study
 can modify the study attributes, such as the study name, description, the target number of participants, and the 
 grouping scheme. However, the type of the study cannot be modified. The attributes of the study can be modified only
 before the enrollment of the first participant.
+
+![](images/screens_for_displays/studymanagement_screen.png)
 
 Upon the selection of a existing study, or the creation of a new study, the researcher will be directed to the study log
 screen. The study log screen lists all the information related to the study. This includes, in separate panels, the
@@ -159,6 +167,8 @@ questionnaire`, which can be assigned to enrolled participants. The researcher c
 questionnaire by pressing the `create eligibility questionnaire` that is used to determine the eligibility of the
 potential participants.
 
+![](images/screens_for_displays/create_questionnaire_screen.png)
+
 #### Modify Questionnaire
 The researcher can modify the questionnaire by pressing the `edit questionnaire` button. The researcher can modify 
 the name and the description of the questionnaire, as well as the questions. Previously added questions can be
@@ -171,9 +181,20 @@ by pressing the `save questionnaire` button.
 Upon the creation of a questionnaire, the questionnaire will be in the `draft` state. This is identified by the status
 of `unpublished` in the questionnaire list. To check the content of the questionnaire, the researcher can select the
 questionnaire and press the `check questionnaire` button, or the `check eligibility questionnaire` button for the 
-eligibility questionnaire. At this point, the 
+eligibility questionnaire. At this point, the researcher can publish the questionnaire by pressing the `publish
+questionnaire` button. The questionnaire will be published and the status will be changed to `published`. This means
+that the questionnaire can no longer be modified and can be assigned to the participants. Once published, the
+questionnaire can be closed by pressing the `close questionnaire` button. This means that the questionnaire will be
+no longer available for assignment or answering.
 
+![](images/screens_for_displays/questionnaire_managment.png)
 
+#### Assign Questionnaire
+After publishing the questionnaire, the researcher can assign the questionnaire to the participants. The researcher
+can assign the questionnaire to the participants by pressing the `assign questionnaire` button. The researcher will
+be prompted to select the participants to whom the questionnaire will be assigned. These can be `all` participants in
+the study, or a `group` of participants. The researcher can also specify a certain participant by entering the `ID` of
+the participant.
 
 ### Participant Management
 
