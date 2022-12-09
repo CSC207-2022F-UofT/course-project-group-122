@@ -281,6 +281,12 @@ There are some warnings in the IntelliJ IDE. We have gone over the entire reposi
 we have fixed all the warnings that we can fix. However, there are some warnings that we cannot fix, or, we believe
 that these warnings are not important/valid. We do not things these remaining warnings will affect the functionality.
 
+### Pull Requests
+We have created a pull request for each of the milestones. Newly submitted pull requests after Milestone 4 primarily
+address the issues identified from Milestone 4, bugging to ensure that the system is stable and functional, as well
+as testing. We have improved our description of the pull requests, and we have also more thoroughly checked the 
+pull requests by performing code review. However, many of the problems 
+
 ### Testing
 We have tried to test all the functionalities of the system. However, we have not been able to test all the 
 functionalities. In particular, we have ensured that the entity classes are tested, which provide the basic
