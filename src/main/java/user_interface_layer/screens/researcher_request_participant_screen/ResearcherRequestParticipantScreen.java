@@ -17,7 +17,7 @@ public class ResearcherRequestParticipantScreen extends JFrame {
 
     public ResearcherRequestParticipantScreen(@NotNull ResearcherRequestParticipantInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -35,17 +35,17 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         centerPanel.add(groupNumberLabel);
         add(centerPanel, BorderLayout.CENTER);
 
-        JTabbedPane QuestionnaireTabPane = new JTabbedPane();
+        JTabbedPane questionnaireTabPane = new JTabbedPane();
         eligibilityQuestionnairePanel = new EligibilityQuestionnairePanelForResearcher(data, controllerManager);
-        QuestionnaireTabPane.addTab("Eligibility Questionnaire", eligibilityQuestionnairePanel);
+        questionnaireTabPane.addTab("Eligibility Questionnaire", eligibilityQuestionnairePanel);
 
         assignedQuestionnairePanel = new AssignedQuestionnairePanelForResearcher(data, controllerManager);
-        QuestionnaireTabPane.addTab("Assigned Questionnaires", assignedQuestionnairePanel);
+        questionnaireTabPane.addTab("Assigned Questionnaires", assignedQuestionnairePanel);
 
         completedQuestionnairePanel = new CompletedQuestionnairePanelForResearcher(data ,controllerManager);
-        QuestionnaireTabPane.addTab("Completed Questionnaires", completedQuestionnairePanel);
+        questionnaireTabPane.addTab("Completed Questionnaires", completedQuestionnairePanel);
 
-        add(QuestionnaireTabPane, BorderLayout.SOUTH);
+        add(questionnaireTabPane, BorderLayout.SOUTH);
         setSize(600, 700);
         SetScreenToCenter.setCenter(this);
     }

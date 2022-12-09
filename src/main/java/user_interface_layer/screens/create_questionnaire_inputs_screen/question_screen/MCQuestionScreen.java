@@ -28,9 +28,9 @@ public class MCQuestionScreen extends JFrame {
      */
     private List<String> options;
 
-    public MCQuestionScreen(ArrayList<String> variables, List<QuestionModel> addedQuestions, DefaultTableModel model, int numOfOptions) {
+    public MCQuestionScreen(List<String> variables, List<QuestionModel> addedQuestions, DefaultTableModel model, int numOfOptions) {
         setTitle("Create MCQuestion");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -49,16 +49,16 @@ public class MCQuestionScreen extends JFrame {
 
         JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
-        List<JTextField> options = new ArrayList<>();
+        List<JTextField> mcOptions = new ArrayList<>();
         for (int i = 0; i < numOfOptions; i++) {
             JTextField option = new JTextField(50);
-            options.add(option);
+            mcOptions.add(option);
             optionsPanel.add(new SetLabelTextPanel(new JLabel("Option " + (i + 1) + ": "), option));
         }
 
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> {
-            List<String> stringOptions = options.stream().map(JTextField::getText).collect(Collectors.toList());
+            List<String> stringOptions = mcOptions.stream().map(JTextField::getText).collect(Collectors.toList());
 
             if (question.getText().equals("") || variable.getText().equals("") || stringOptions.contains("")) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");

@@ -18,13 +18,12 @@ public class AllVersionsScreen extends JFrame {
      * @param controllerManager The controller manager.
      */
     public AllVersionsScreen(@NotNull AllVersionsInputData data, ControllerManager controllerManager) {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Questionnaire Versioned Answers");
 
         SetTableModel setTableModel = new SetTableModel(data.getAnswerTableHeader());
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
-        assert data.getAnswer() != null;
         for (String[] answerData : data.getAnswer()) {
             model.addRow(answerData);
         }

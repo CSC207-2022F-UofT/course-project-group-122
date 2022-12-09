@@ -11,10 +11,12 @@ public class TextQuestionPanelForResearchers extends JPanel implements Researche
      * The text area that contains the answer.
      */
     private final JTextArea answerArea = new JTextArea(3, 20);
+
     /**
      * The question's type.
      */
     private final String type;
+
     /**
      * The question's variable.
      */
@@ -24,6 +26,7 @@ public class TextQuestionPanelForResearchers extends JPanel implements Researche
      * The question.
      */
     private final String question;
+
 
     /**
      * @param question The question.

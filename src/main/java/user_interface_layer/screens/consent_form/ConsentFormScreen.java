@@ -19,7 +19,7 @@ public class ConsentFormScreen extends JFrame {
      */
     public ConsentFormScreen(@NotNull FetchConsentFormResponseModel responseModel, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

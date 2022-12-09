@@ -30,22 +30,22 @@ public class EditQuestionnaireScreen extends JFrame {
     /**
      * The list of questions that need to be added.
      */
-    List<QuestionModel> addedQuestions = new ArrayList<>();
+    private final List<QuestionModel> addedQuestions = new ArrayList<>();
     /**
      * The list of study groups.
      */
-    List<JRadioButton> studyGroups = new ArrayList<>();
+    private final List<JRadioButton> studyGroups = new ArrayList<>();
 
     /**
      * The list of variables.
      */
-    ArrayList<String> variables;
+    private final ArrayList<String> variables;
 
     /**
      * @param data The data for the screen.
      * @param controllerManager The controller manager.
      */
-    public EditQuestionnaireScreen(EditQuestionnaireScreenInputData data, ControllerManager controllerManager) {
+    public EditQuestionnaireScreen(@NotNull EditQuestionnaireScreenInputData data, ControllerManager controllerManager) {
         this.variables = (ArrayList<String>) data.getPreviousVariables();
         existingQuestions = data.getQuestions();
 
@@ -119,6 +119,7 @@ public class EditQuestionnaireScreen extends JFrame {
         addQuestionMenu.add(addScaleQuestion);
         addQuestionMenu.add(addMCQuestion);
         addQuestionButton.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent evt) {
                 addQuestionMenu.show(evt.getComponent(), evt.getX(), evt.getY());
             }
@@ -127,7 +128,7 @@ public class EditQuestionnaireScreen extends JFrame {
             JFrame mcNumOfChoices = new JFrame();
             mcNumOfChoices.setLayout(new BorderLayout());
             mcNumOfChoices.setTitle("Number of Choices");
-            mcNumOfChoices.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            mcNumOfChoices.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             JTextField numOfChoices = new JTextField(10);
             JButton continueButton = new JButton("Continue");
             continueButton.addActionListener(e1 -> {
@@ -155,7 +156,7 @@ public class EditQuestionnaireScreen extends JFrame {
             JFrame numOfScale = new JFrame();
             numOfScale.setLayout(new BorderLayout());
             numOfScale.setTitle("Number of Choices");
-            numOfScale.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            numOfScale.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             JTextField numOfChoices = new JTextField(10);
             JButton continueButton = new JButton("Continue");
             continueButton.addActionListener(e1 -> {
@@ -200,7 +201,7 @@ public class EditQuestionnaireScreen extends JFrame {
 
         JButton deleteQuestionButton = new JButton("Delete Question");
         deleteQuestionButton.addActionListener(e -> {
-            if (addedQuestions.size() == 0) {
+            if (addedQuestions.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "There are no questions to delete");
             } else {
                 int row = questionsTable.getSelectedRow();
@@ -232,7 +233,7 @@ public class EditQuestionnaireScreen extends JFrame {
         add(inputsPanel, BorderLayout.CENTER);
         add(createQuestionnaireButton, BorderLayout.SOUTH);
         setTitle("Edit Questionnaire");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         pack();
         SetScreenToCenter.setCenter(this);
     }

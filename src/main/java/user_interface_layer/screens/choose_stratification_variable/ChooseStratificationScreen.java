@@ -22,7 +22,7 @@ public class ChooseStratificationScreen extends JFrame {
      */
     public ChooseStratificationScreen(int studyId, @NotNull List<String> stratificationVariables,
                                       ControllerManager controllerManager) throws HeadlessException {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         JLabel label = new JLabel("Choose Stratification Variable", SwingConstants.CENTER);
 
         JScrollPane scrollPane = new JScrollPane();

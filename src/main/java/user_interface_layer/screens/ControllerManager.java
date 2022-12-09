@@ -101,45 +101,72 @@ public class ControllerManager {
     private EditQuestionnaireController editQuestionnaireController;
     private ResearcherEditAnswerController researcherEditAnswerController;
 
-
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
     }
 
+    /**
+     * request the login screen to be displayed
+     */
     public void requestLogInScreen() {
         logInScreenDriver.requestLogInScreen(screenManager, this);
     }
 
+    /**
+     * request the sign up screen to be displayed
+     */
     public void requestSignUpScreen() {
         signUpScreenDriver.requestSignUpScreen(screenManager, this);
     }
 
+    /**
+     * request the register screen to be displayed
+     */
     public void requestRegisterScreen() {
         registerScreenDriver.requestRegisterScreen(screenManager, this);
     }
 
+    /**
+     * request the user creation screen to be displayed
+     */
     public void requestCreateUser(String typeOfUser, String username, String name) {
         userLoginController.signup(username, typeOfUser, name);
     }
 
+    /**
+     * set the current user id
+     */
     public void setCurrentUserId(int currentUserId) {
         this.currentUserId = currentUserId;
     }
 
+    /**
+     * login the user
+     */
     public void requestLogInUser(String username) {
         userLoginController.login(username);
     }
 
+    /**
+     * fetch the versioned answer data for the questionnaire
+     *
+     */
     public void fetchVersionedAnswer(int studyId, int participantId, int questionnaireID, int answerID, int version) {
         fetchVersionedAnswerDataController.fetchVersionedAnswer(studyId, participantId, questionnaireID, answerID, version);
     }
 
+
+    /**
+     * request the questionnaire data
+     */
     public void questionnaireRequestDataForAnswering(int modifier, int participantId1, int studyId, int questionnaireId) {
         fetchQuestionnaireDataForAnswerController.questionnaireRequestData(modifier, participantId1, studyId,
                 questionnaireId, AnswerQuestionnaireController.QUESTIONNAIRE);
     }
 
     /**
+     * answer the questionnaire
+     *
      * @param modifier          the id of the user that is requesting the data
      * @param participantID     the id of the participant that the data is being requested for
      * @param questionnaireID   the id of the questionnaire that the data is being requested for
@@ -156,6 +183,9 @@ public class ControllerManager {
     }
 
 
+    /**
+     * answer the eligibility questionnaire
+     */
     public void answerEligibilityQuestionnaire(int modifier,int participantID, int questionnaireID, int studyID,
                                                Map<String, String> answers) {
         AnswerQuestionnaireRequestModel requestModel = new AnswerQuestionnaireRequestModel(questionnaireID,
@@ -165,21 +195,41 @@ public class ControllerManager {
     }
 
 
+    /**
+     * modify the study parameters
+     */
     public void modifyStudyParameters(@NotNull ModifyStudyParameterRequestModel requestModel) {
         requestModel.setResearcherId(currentUserId);
         modifyStudyParameterController.modifyStudyParameters(requestModel);
     }
 
 
+    /**
+     * set the stratification parameters
+     */
     public void setStratificationVariableRequest(int studyId, String stratificationVariable) {
         modifyStudyParameterController.modifyStudyStratification(studyId, stratificationVariable, currentUserId);
     }
 
 
+    /**
+     * get the potential stratification variables
+     */
     public void fetchStratificationVariables(int studyId) {
         modifyStudyParameterController.checkPotentialStratificationVariables(studyId);
     }
 
+    /**
+     * create questionnaire
+     * @param type              the type of questionnaire
+     * @param studyID           the id of the study that the questionnaire is being created for
+     * @param researcherID      the id of the researcher that is creating the questionnaire
+     * @param questionnaireName the name of the questionnaire
+     * @param description       the description of the questionnaire
+     * @param groups            the target groups of the questionnaire
+     * @param numQuestions      the number of questions in the questionnaire
+     * @param addedQuestions    the questions in the questionnaire
+     */
     public void createQuestionnaireController(String type, int studyID, int researcherID, String questionnaireName,
                                               String description, List<String> groups, int numQuestions,
                                               List<QuestionModel> addedQuestions) {
@@ -188,6 +238,10 @@ public class ControllerManager {
         createQuestionnaireController.createQuestionnaire(requestModel);
     }
 
+
+    /**
+     * request the study data for editing
+     */
     public void createStudyController(int researcherID, String studyName, String description, int studySize,
                                       String studyType, int groupNum, String[] groupNamesArray) {
         CreateStudyRequestModel requestModel = new CreateStudyRequestModel(researcherID, studyName, description);

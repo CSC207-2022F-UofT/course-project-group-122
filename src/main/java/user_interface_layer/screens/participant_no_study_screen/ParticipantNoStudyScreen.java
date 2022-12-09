@@ -18,7 +18,7 @@ public class ParticipantNoStudyScreen extends JFrame {
      * @param controllerManager The controller manager that handles the actions of the buttons
      */
     public ParticipantNoStudyScreen(int participantId, String participantName, ControllerManager controllerManager) {
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         JPanel header = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel userIDLabel = new JLabel(participantName + " (" + participantId + ")");

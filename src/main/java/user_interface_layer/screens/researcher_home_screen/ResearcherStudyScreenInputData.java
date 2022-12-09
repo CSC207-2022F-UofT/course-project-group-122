@@ -27,7 +27,6 @@ public class ResearcherStudyScreenInputData {
     /*
      * The List of studies that the researcher is part of organized as an array.
      * This attribute is used to display the studies in the table.
-     * {studyID : [id][name][status]}
      */
     private final Map<Integer, String[]> studiesData;
 
