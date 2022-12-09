@@ -1,6 +1,6 @@
 package use_cases.researcher_edit_answer;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The controller that the screen calls though the controller manager to edit an answer.
@@ -22,10 +22,11 @@ public class ResearcherEditAnswerController {
      * @param answers The new answers to the questions.
      * @param reasonForModification The reason for the modification.
      */
-    public void researcherEditAnswerRequest(int researcherID, int participantId,  int answerId, int studyID, HashMap<String, String> answers, String reasonForModification) {
+    public void researcherEditAnswerRequest(int researcherID, int participantId,  int answerId, int studyID,
+                                            Map<String, String> answers, String reasonForModification) {
         ResearcherEditAnswerRequestModel researcherEditAnswerRequestModel =
                 new ResearcherEditAnswerRequestModel(
-                        researcherID,participantId, answerId, studyID, answers, reasonForModification);
+                        researcherID, participantId, answerId, studyID, answers, reasonForModification);
         researcherEditAnswerInputBoundary.editAnswer(researcherEditAnswerRequestModel);
     }
 

@@ -1,6 +1,6 @@
 package use_cases.researcher_edit_answer;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The request model for the use case.
@@ -15,7 +15,7 @@ public class ResearcherEditAnswerRequestModel {
     /**
      * The id of the answer to edit.
      */
-    private int answerID;
+    private final int answerID;
 
     /**
      * The id of the participant who answered the question.
@@ -30,12 +30,12 @@ public class ResearcherEditAnswerRequestModel {
     /**
      * The new answers to the questions.
      */
-    private HashMap<String, String> answers;
+    private Map<String, String> answers;
 
     /**
      * The reason for the modification.
      */
-    private String reason;
+    private final String reason;
 
     /**
      * The constructor for the request model.
@@ -47,7 +47,7 @@ public class ResearcherEditAnswerRequestModel {
      * @param reason The reason for the modification.
      */
     public ResearcherEditAnswerRequestModel(int researcherID, int participantID, int answerID, int studyId,
-                                            HashMap<String, String> answers, String reason) {
+                                            Map<String, String> answers, String reason) {
         this.researcherID = researcherID;
         this.answerID = answerID;
         this.participantID = participantID;
@@ -60,7 +60,7 @@ public class ResearcherEditAnswerRequestModel {
     /**
      * @param answers The new answers to the questions.
      */
-    public void setAnswers(HashMap<String, String> answers) {
+    public void setAnswers(Map<String, String> answers) {
         this.answers = answers;
     }
 
@@ -72,13 +72,6 @@ public class ResearcherEditAnswerRequestModel {
     }
 
     /**
-     * @param answerID The id of the answer to edit.
-     */
-    public void setAnswerID(int answerID) {
-        this.answerID = answerID;
-    }
-
-    /**
      * @param participantID The id of the participant who answered the question.
      */
     public void setParticipantID(int participantID) {
@@ -86,16 +79,9 @@ public class ResearcherEditAnswerRequestModel {
     }
 
     /**
-     * @param reason The reason for the modification.
-     */
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    /**
      * @return the answers.
      */
-    public HashMap<String, String> getAnswers() {
+    public Map<String, String> getAnswers() {
         return answers;
     }
 

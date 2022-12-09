@@ -42,8 +42,6 @@ import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 import user_interface_layer.screens.screen_drivers.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -252,13 +250,24 @@ public class ControllerManager {
         createStudyController.createStudy(requestModel);
     }
 
+    /**
+     * publish the questionnaire
+     */
     public void publishQuestionnaire(int questionnaireID, int studyID) {
         publishQuestionnaireController.publishQuestionnaire(questionnaireID, studyID, currentUserId);
     }
+
+    /**
+     * logout
+     */
     public void userLogOutController() {
         userLogOutController.logOut();
     }
 
+
+    /**
+     * check versioned answer
+     */
     public void checkQuestionnaireVersionedAnswer(int studyId, int participantId, int questionnaireID,
                                                   int answerId,
                                                   @NotNull List<String[]> answers) {
@@ -272,155 +281,288 @@ public class ControllerManager {
     }
 
 
+    /**
+     * Answer eligibility questionnaire
+     * @param userId            the id of the user that is answering the questionnaire
+     * @param participantId     the id of the participant that the questionnaire is being answered for
+     * @param questionnaireId   the id of the questionnaire that is being answered
+     * @param studyId           the id of the study that the questionnaire is being answered for
+     */
     public void answerEligibilityQuestionnaireRequestData(int userId, int participantId, int questionnaireId, int studyId) {
         fetchQuestionnaireDataForAnswerController.questionnaireRequestData(userId, participantId, studyId,
                 questionnaireId, AnswerQuestionnaireController.ELIGIBILITY_QUESTIONNAIRE);
     }
 
 
+    /**
+     * drop the study
+     */
     public void participantDropStudy(int participantId, int studyId) {
         participantDropStudyController.userDropStudyRequest(participantId, studyId);
     }
 
 
+    /**
+     * request the study data
+     */
     public void requestResearcherStudyLog(Integer studyId, int researchID) {
         fetchStudyLogController.fetchStudyLog(studyId, researchID);
     }
 
 
+    /**
+     * add potential participant
+     */
     public void addPotentialParticipantToStudyRequest(int participantId, int studyId) {
         addPotentialParticipantController.addPotentialParticipant(participantId, studyId, currentUserId);
     }
 
+    /**
+     * add researcher to study
+     *
+     * @param researcherId    the id of the researcher that is being added to the study
+     * @param studyId         the id of the study that the researcher is being added to
+     */
     public void addResearcherToStudyRequest(int researcherId, int studyId) {
         researcherEnrollerController.enrollResearcher(researcherId, studyId, currentUserId);
     }
 
+
+    /**
+     * set randomization strategy
+     */
     public void setRandomizationStrategyRequest(int studyId, String randomizationStrategy, int researcherId) {
         modifyStudyParameterController.modifyStudyRandomization(studyId, randomizationStrategy, researcherId);
     }
 
 
+    /**
+     * request the participant data
+     */
     public void researcherRequestParticipantScreenRequest(int researcherId, int participantId) {
         fetchParticipantStudyDataController.fetchParticipantStudyData(participantId,researcherId);
     }
 
 
+    /**
+     * make participant eligible
+     */
     public void makeParticipantEligibleRequest(int participantId, int studyId, int researcherId) {
         eligibilityCheckerController.makeEligibile(participantId, studyId, researcherId);
 
     }
 
+    /**
+     * enroll randomized participant
+     *
+     * @param participantId     the id of the participant that is being enrolled
+     * @param studyId           the id of the study that the participant is being enrolled to
+     * @param researcherId      the id of the researcher that is enrolling the participant
+     */
     public void enrollRandomizedParticipantRequest(int participantId, int studyId, int researcherId) {
         participantEnrollerController.enrollRandomizedParticipant(participantId, studyId, researcherId);
     }
 
+    /**
+     * enroll participant
+     * @param participantId     the id of the participant that is being enrolled
+     * @param studyId           the id of the study that the participant is being enrolled to
+     * @param group             the group that the participant is being enrolled to
+     * @param researcherId      the id of the researcher that is enrolling the participant
+     */
     public void enrollGeneralParticipantRequest(int participantId, int studyId, int group, int researcherId) {
         participantEnrollerController.enrollGeneralParticipant(participantId, studyId, group, researcherId);
     }
 
 
+    /**
+     * fetch the participant data
+     */
     public void fetchParticipant(int participantIdInt, int studyId) {
         addPotentialParticipantController.fetchParticipantInfo(participantIdInt, studyId);
     }
 
+    /**
+     * assign questionnaire to all participants
+     *
+     * @param questionnaireId       the id of the questionnaire that is being assigned
+     * @param studyId               the id of the study that the questionnaire is being assigned to
+     */
     public void assignQuestionnaireToAll(int questionnaireId, int studyId) {
         assignQuestionnaireController.assignQuestionnaireToAll(questionnaireId, studyId, currentUserId);
     }
 
+    /**
+     * researcher answer questionnaire
+     *
+     * @param researcherId      the id of the researcher that is answering the questionnaire
+     * @param studyId           the id of the study that the questionnaire is being answered for
+     * @param questionnaireId   the id of the questionnaire that is being answered
+     */
     public void researcherQuestionnaireScreenRequest(int researcherId, int studyId, int questionnaireId) {
         fetchQuestionnaireScreenController.fetchQuestionnaireData(researcherId, studyId, questionnaireId);
 
     }
 
+
+    /**
+     * create a new questionnaire
+     */
     public void researcherAddQuestionnaireScreenRequest(int researcherId, int studyId, List<String> groups) {
-        setUpQuestionnaireCreationScreenDriver.requestQuestionnaireCreationScreen(screenManager, this, researcherId, studyId, groups);
+        setUpQuestionnaireCreationScreenDriver.requestQuestionnaireCreationScreen(screenManager, this,
+                researcherId, studyId, groups);
     }
 
+    /**
+     * edit a questionnaire
+     */
     public void researcherEditQuestionnaireScreenRequest(int researcherId, int studyId, int questionnaireId) {
         editQuestionnaireScreenDataController.fetchQuestionnaireDataForEditing(researcherId, studyId, questionnaireId);
     }
 
+
+    /**
+     * assign questionnaire to a individual participant
+     */
     public void assignQuestionnaireToIndividual(int questionnaireId, int studyId, int participant) {
         assignQuestionnaireController.assignQuestionnaireToIndividual(questionnaireId, studyId, participant, currentUserId);
     }
 
+
+    /**
+     * fetch groups
+     */
     public void fetchStudyGroups(int questionnaireId, int studyId) {
         getTargetGroupsController.getTargetGroups(questionnaireId, studyId);
     }
 
+    /**
+     * remove a researcher from a study
+     */
     public void removeResearcherFromStudyRequest(int researcherId, int studyId, int researcherId1) {
         removeResearcherController.removeResearcherFromStudy(researcherId, studyId, researcherId1);
     }
+
+    /**
+     * fetch a researcher
+     * @param researcherIdInt   the id of the researcher that is being fetched
+     * @param studyId           the id of the study that the researcher is being fetched from
+     */
     public void fetchResearcher(int researcherIdInt, int studyId) {
         researcherEnrollerController.fetchResearcherInformation(researcherIdInt, studyId);
     }
 
+    /**
+     * create study model
+     */
     public void requestCreateStudyModel(int researchID) {
         studyCreationScreenDriver.requestStudyCreationScreen(screenManager, this, researchID);
     }
 
+    /**
+     * edit study model
+     */
     public void editStudyDataRequest(Integer studyId, int researchID) {
         fetchStudyDataForEditingController.editStudyRequest(studyId, researchID);
     }
 
+    /**
+     * download study data
+     */
     public void downloadData(int studyId, String filePath) {
         resultExtractionController.resultPullingAndExtraction(studyId, filePath);
     }
 
+    /**
+     * close questionnaire
+     */
     public void closeQuestionnaire(int questionnaireId, int studyId) {
         closeQuestionnaireController.closeQuestionnaire(questionnaireId, studyId, currentUserId);
     }
 
+    /**
+     * close study
+     */
     public void closeStudy(int studyId, int researcherId) {
         closeStudyController.closeStudy(studyId, researcherId);
     }
 
+    /**
+     * open study
+     */
     public void reopenStudy(int studyId, int researcherId) {
         closeStudyController.reopenStudy(studyId, researcherId);
     }
 
+    /**
+     * fetch consent form
+     */
     public void fetchConsentForm(int studyId, int eligibilityQuestionnaireId, int participantId) {
         fetchConsentFormController.fetchConsentForm(this.currentUserId, studyId, eligibilityQuestionnaireId, participantId);
     }
 
+    /**
+     * create consent form
+     */
     public void requestConsentFormCreation(int studyId) {
         consentFormCreationScreenDriver.requestConsentFormCreationScreen(screenManager, this,
                 currentUserId, studyId);
     }
 
+    /**
+     * create consent form
+     */
     public void createConsentForm(CreateConsentFormRequestModel requestModel) {
         createConsentFormController.createConsentForm(requestModel);
     }
 
+    /**
+     * edit questionnaire
+     */
     public void editQuestionnaire(int studyID, int questionnaireID, int researcherID, String text, String text1,
-                                  ArrayList<String> studyGroupNames, List<QuestionModel> addedQuestions) {
+                                  List<String> studyGroupNames, List<QuestionModel> addedQuestions) {
         EditQuestionnaireRequestModel editQuestionnaireRequestModel = new EditQuestionnaireRequestModel(
                 studyID, questionnaireID, researcherID, text, text1, studyGroupNames, addedQuestions);
         editQuestionnaireController.editQuestionnaire(editQuestionnaireRequestModel);
     }
 
+
+    /**
+     * review consent form
+     */
     public void reviewConsentForm(int studyId) {
         fetchConsentFormController.showConsentForm(currentUserId, studyId);
     }
 
+    /**
+     * fetch participant data
+     */
     public void fetchParticipantInfoConfirmation(int questionnaireId, int studyId, int participantId) {
         assignQuestionnaireController.fetchParticipantInfoConfirmation(questionnaireId, studyId, participantId,
                 currentUserId);
     }
 
+    /**
+     * assign questionnaire to a group
+     */
     public void assignQuestionnaireToGroups(int studyID, int questionnaireID, List<String> selectedGroups) {
         assignQuestionnaireController.assignQuestionnaireToGroups(questionnaireID, studyID, selectedGroups, currentUserId);
     }
+
+    /**
+     * edit questionnaire
+     */
     public void editQuestionnaireAnswerDataRequest(int researcherId, int studyId, int participantId, int questionnaireID) {
         fetchLatestAnswerDataRequestController.fetchQuestionnaireAnswerData(researcherId, studyId, participantId, questionnaireID);
     }
-    public void researcherEditAnswer(int researcherID, int participantId, int answerId, int studyID, HashMap<String, String> answers, String reasonForModification) {
+
+    /**
+     * edit answer
+     */
+    public void researcherEditAnswer(int researcherID, int participantId, int answerId, int studyID,
+                                     Map<String, String> answers, String reasonForModification) {
         researcherEditAnswerController.researcherEditAnswerRequest(researcherID,participantId, answerId, studyID, answers, reasonForModification);
     }
-
-
-
 
 
     public void setScreenManager(ScreenManager screenManager) {
