@@ -15,7 +15,6 @@ import user_interface_layer.presenter_manager.display_success_message.DisplaySuc
 import user_interface_layer.screens.ControllerManager;
 
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 public class ParticipantDropStudyTest {
 
