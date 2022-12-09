@@ -3,6 +3,7 @@ import entities.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -24,10 +25,12 @@ class ResultExtractionTest {
         testQuestionnaire2 = new Questionnaire(3, testStudy1, "t2", "d2");
         testParticipant1 = new Participant(4, "un1", "n1");
         testResearcher1 = new Researcher(5, "un2", "n2");
-        testPath1 = new File("")
+        testPath1 = new File("storage").getAbsolutePath();
 
     }
 
     @Test
-    void
+    void createFile (){
+
+    }
 }
