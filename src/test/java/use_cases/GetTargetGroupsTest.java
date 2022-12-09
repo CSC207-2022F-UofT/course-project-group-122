@@ -1,27 +1,33 @@
 package use_cases;
 
-import entities.IDManager;
-import entities.RandomizedStudy;
-import entities.Study;
-import entities.StudyPool;
-import org.junit.jupiter.api.Assertions;
+import entities.*;
+import org.apache.commons.collections4.Get;
 import org.junit.jupiter.api.Test;
-import use_cases.create_questionnaire.*;
+import org.junit.jupiter.api.Assertions;
+import use_cases.create_questionnaire.CreateQuestionnaireInteractor;
+import use_cases.create_questionnaire.CreateQuestionnairePresenter;
+import use_cases.create_questionnaire.CreateQuestionnaireRequestModel;
 import use_cases.fetch_id.FetchId;
 import use_cases.fetch_study_log.FetchStudyLogController;
+import use_cases.get_target_groups.GetTargetGroupsInteractor;
+import use_cases.get_target_groups.GetTargetGroupsPresenter;
+import user_interface_layer.presenter_manager.ScreenManager;
+import user_interface_layer.presenter_manager.display_choose_groups.DisplayGroupsToAssign;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessage;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessage;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
+import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CreateQuestionnaireTest {
-
+public class GetTargetGroupsTest {
 
     private CreateQuestionnaireInteractor createQuestionnaireInteractor;
+
+    private GetTargetGroupsInteractor getTargetGroupsInteractor;
 
 
     private ArrayList<String> setupGroups(){
@@ -66,9 +72,20 @@ public class CreateQuestionnaireTest {
 
     }
 
+    private void setupGetTargetGroups(){
+        GetTargetGroupsPresenter getTargetGroupsPresenter = new GetTargetGroupsPresenter();
+        getTargetGroupsInteractor = new GetTargetGroupsInteractor();
+        getTargetGroupsInteractor.setGetTargetGroupsPresenter(getTargetGroupsPresenter);
+        ScreenManager screenManager = new ScreenManager();
+        ControllerManager controllerManager = new ControllerManager(screenManager);
+        getTargetGroupsPresenter.setDisplayGroupsToAssignInterface(new DisplayGroupsToAssign(screenManager, controllerManager));
+    }
+
 
     @Test
-    public void createQuestionnaire() {
+    public void getTargetGroups() {
+        boolean finished = true;
+
         ArrayList<String> groups = setupGroups();
         ArrayList<QuestionModel> questions = setupQuestions();
         RandomizedStudy study = setupStudy();
@@ -76,6 +93,7 @@ public class CreateQuestionnaireTest {
         FetchId.setStudyPool(studyPool);
 
         setupCreateQuestionnaire();
+        setupGetTargetGroups();
 
 
         CreateQuestionnaireRequestModel inputData = new CreateQuestionnaireRequestModel(
@@ -84,7 +102,9 @@ public class CreateQuestionnaireTest {
 
         createQuestionnaireInteractor.createQuestionnaire(inputData);
 
-        Assertions.assertEquals(1, study.getQuestionnaires().size());
-        Assertions.assertEquals("this questionnaire", study.getQuestionnaires().get(0).getTitle());
+        getTargetGroupsInteractor.getTargetGroups(1, 1);
+
+        Assertions.assertTrue(finished);
+
     }
 }
