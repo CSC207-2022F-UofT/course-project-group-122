@@ -16,9 +16,9 @@ class StudyUserManagerTest {
 
     @BeforeEach
     void setup(){
-        testStudy1 = new GeneralStudy("a", 1);
-        testParticipant1 = new Participant("a", "b");
-        testResearcher1 = new Researcher("c", "d");
+        testStudy1 = new GeneralStudy(1, "a", 1);
+        testParticipant1 = new Participant(1, "a", "b");
+        testResearcher1 = new Researcher(1, "c", "d");
         testSUM1 = new StudyUserManager(testStudy1);
     }
     @Test
@@ -26,12 +26,6 @@ class StudyUserManagerTest {
         assertEquals(testStudy1, testSUM1.getStudy());
     }
 
-    @Test
-    void currentStudySize() {
-        int expectNum = 0;
-        assertEquals(expectNum, testSUM1.currentStudySize());
-
-    }
 
     @Test
     void getNumGroups() {
@@ -50,14 +44,17 @@ class StudyUserManagerTest {
     void resetGroups() {
         String[] expectList = {"group 1", "group 2"};
         int expectNum = 2;
-        assertTrue(testSUM1.resetGroups(expectNum,expectList));
+        testSUM1.resetGroups(expectNum, expectList);
+        assertEquals(expectNum, testSUM1.getNumGroups());
+        assertEquals(expectList, testSUM1.getGroupNames());
 
     }
 
     @Test
     void testResetGroups() {
         int expectNum = 2;
-        assertTrue(testSUM1.resetGroups(expectNum));
+        testSUM1.resetGroups(expectNum);
+        assertEquals(expectNum, testSUM1.getNumGroups());
     }
 
     @Test
@@ -68,7 +65,6 @@ class StudyUserManagerTest {
 
     @Test
     void addPotentialParticipant() {
-        assertTrue(testSUM1.addPotentialParticipant(testParticipant1));
         testSUM1.addPotentialParticipant(testParticipant1);
         for (Participant expectParticipant: testSUM1.getPotentialParticipants()){
             assertEquals(testParticipant1, expectParticipant);
@@ -76,27 +72,7 @@ class StudyUserManagerTest {
     }
 
     @Test
-    void removePotentialParticipant() {
-        testSUM1.addPotentialParticipant(testParticipant1);
-        testSUM1.removePotentialParticipant(testParticipant1);
-        ArrayList<Participant> expectList = new ArrayList<>();
-        assertEquals(expectList, testSUM1.getPotentialParticipants());
-
-    }
-
-
-    @Test
     void getParticipants() {
-        ArrayList<Participant> expectList = new ArrayList<>();
-        assertEquals(expectList, testSUM1.getParticipants());
-
-    }
-
-    @Test
-    void removeParticipant() {
-        testSUM1.addPotentialParticipant(testParticipant1);
-        testSUM1.addParticipant(testParticipant1);
-        testSUM1.removeParticipant(testParticipant1);
         ArrayList<Participant> expectList = new ArrayList<>();
         assertEquals(expectList, testSUM1.getParticipants());
 

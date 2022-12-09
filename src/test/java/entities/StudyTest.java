@@ -24,7 +24,6 @@ class StudyTest {
     private Questionnaire testQuestionnaire;
     private ConsentForm testConsentForm;
 
-    private static int testId = 0;
 
 
     @BeforeEach
@@ -32,12 +31,12 @@ class StudyTest {
         testStudyName = "covid";
         testStudyType = "General";
         testStudyTarget = 2;
-        testStudy = new StudyFactory().createStudy(testStudyType, testStudyName, testStudyTarget);
-        testParticipant = new Participant("H", "M");
-        testResearcher = new Researcher("M", "m");
-        testQuestionnaire = new Questionnaire(testStudy, "flu", "hey");
-        testConsentForm = new ConsentForm(testStudy);
-        testId ++;
+        testStudy = new StudyFactory().createStudy(1, testStudyType, testStudyName, testStudyTarget);
+        testParticipant = new Participant(1, "H", "M");
+        testResearcher = new Researcher(1, "M", "m");
+        testQuestionnaire = new Questionnaire(1, testStudy, "flu", "hey");
+        testConsentForm = new ConsentForm(testStudy, "1", "2", "3");
+
 
 
 
@@ -72,12 +71,6 @@ class StudyTest {
         testStudy.modifyTargetStudySize(expectNum);
         assertEquals(expectNum, testStudy.getTargetStudySize());
 
-    }
-
-    @Test
-    void getId() {
-        int expectNum = testId;
-        assertEquals(expectNum, testStudy.getId());
     }
 
     @Test
@@ -226,14 +219,6 @@ class StudyTest {
         testStudy.addQuestionnaire(testQuestionnaire);
         assertEquals(expectList, testStudy.getQuestionnaires());
 
-    }
-
-    @Test
-    void removeQuestionnaire() {
-        List<Questionnaire> expectList = new ArrayList<>();
-        testStudy.addQuestionnaire(testQuestionnaire);
-        testStudy.removeQuestionnaire(testQuestionnaire);
-        assertEquals(expectList, testStudy.getQuestionnaires());
     }
 
     @Test
