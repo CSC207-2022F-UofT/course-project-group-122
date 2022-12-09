@@ -21,7 +21,7 @@ public class FetchVersionedAnswerResponseModel {
     /**
      * The questions and its corresponding answers, in a list of String arrays.
      */
-    private List<String[]> versionedAnswers = new ArrayList<>(); //[Question] [Answer]
+    private final List<String[]> versionedAnswers; //[Question] [Answer]
 
     /**
      * The constructor of the class.

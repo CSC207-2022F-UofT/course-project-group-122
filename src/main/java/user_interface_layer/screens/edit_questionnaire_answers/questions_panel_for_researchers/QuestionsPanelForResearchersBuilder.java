@@ -1,14 +1,12 @@
 package user_interface_layer.screens.edit_questionnaire_answers.questions_panel_for_researchers;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The Builder class for building the panel that contains the questions and the answers for a questionnaire.
  */
 public class QuestionsPanelForResearchersBuilder {
-    /**
-     * The constructor of the class.
-     */
-    public QuestionsPanelForResearchersBuilder() {
-    }
+
 
     /**
      * Builds a panel for a multiple choice question.
@@ -19,7 +17,8 @@ public class QuestionsPanelForResearchersBuilder {
      * @param answer The answer of the question.
      * @return The panel that contains the question and the answer for a question.
      */
-    public ResearchersQuestionPanel buildMCQuestionPanel(String question, String type, String variable, String options, String answer){
+    public ResearchersQuestionPanel buildMCQuestionPanel(String question, String type, String variable,
+                                                         @NotNull String options, String answer){
         String[] optionsList = options.split(",");
         return new MCQuestionPanelForResearchers(question, type, variable, optionsList, answer);
 
@@ -34,7 +33,8 @@ public class QuestionsPanelForResearchersBuilder {
      * @param answer The answer of the question.
      * @return The panel that contains the question and the answer for a question.
      */
-    public ResearchersQuestionPanel buildScaleQuestionPanel(String question, String type, String variable, String options, String answer){
+    public ResearchersQuestionPanel buildScaleQuestionPanel(String question, String type, String variable,
+                                                            @NotNull String options, String answer){
         String[] optionsList= options.split(",");
         String bottomLabel = optionsList[0];
         String topLabel = optionsList[1];

@@ -7,7 +7,7 @@ public class AnswerQuestionnaireRequestModel {
     /**
      * The questionnaire ID.
      */
-    private int questionnaireId;
+    private final int questionnaireId;
 
 
     /**
@@ -24,19 +24,19 @@ public class AnswerQuestionnaireRequestModel {
     /**
      * The participant ID.
      */
-    private int participantId;
+    private final int participantId;
 
 
     /**
      * The modifier ID.
      */
-    private int modifierId;
+    private final int modifierId;
 
 
     /**
      * The study ID.
      */
-    private int studyId;
+    private final int studyId;
 
 
     /**

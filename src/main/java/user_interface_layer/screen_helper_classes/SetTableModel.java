@@ -1,5 +1,7 @@
 package user_interface_layer.screen_helper_classes;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -11,8 +13,8 @@ import java.awt.*;
  * A helper class that sets the table model.
  */
 public class SetTableModel {
-    public DefaultTableModel model;
-    public JTable table;
+    private final DefaultTableModel model;
+    private final JTable table;
 
     /**
      * Sets the table model for a table.
@@ -26,7 +28,6 @@ public class SetTableModel {
         headerTable.setBackground(Color.white);
         headerTable.setDefaultRenderer(new HeaderRenderer(table));
         table.setShowHorizontalLines(true);
-        //table.setEnabled(false);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
 
@@ -37,10 +38,10 @@ public class SetTableModel {
      */
     public static class HeaderRenderer implements TableCellRenderer {
         DefaultTableCellRenderer renderer;
-        public HeaderRenderer(JTable table) {
+        public HeaderRenderer(@NotNull JTable table) {
             renderer = (DefaultTableCellRenderer)
                     table.getTableHeader().getDefaultRenderer();
-            renderer.setHorizontalAlignment(JLabel.CENTER);
+            renderer.setHorizontalAlignment(SwingConstants.CENTER);
             renderer.setBackground(Color.lightGray);
         }
 

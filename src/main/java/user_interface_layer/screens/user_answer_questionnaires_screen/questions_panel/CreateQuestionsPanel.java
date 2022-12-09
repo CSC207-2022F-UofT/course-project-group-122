@@ -1,5 +1,7 @@
 package user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The builder of the questions panel.
  */
@@ -18,7 +20,7 @@ public class CreateQuestionsPanel {
      * @param options The options of the question.
      * @return The panel of the question.
      */
-    public ParticipantsQuestionPanel buildMCQuestionPanel(String question, String type, String variable, String options){
+    public ParticipantsQuestionPanel buildMCQuestionPanel(String question, String type, String variable, @NotNull String options){
         String[] optionsList = options.split(",");
         return new MCQuestionPanel(question, type, variable, optionsList);
     }
@@ -31,7 +33,7 @@ public class CreateQuestionsPanel {
      * @param options The options of the question.
      * @return The panel of the question.
      */
-    public ParticipantsQuestionPanel buildScaleQuestionPanel(String question, String type, String variable, String options){
+    public ParticipantsQuestionPanel buildScaleQuestionPanel(String question, String type, String variable, @NotNull String options){
         String[] optionsList= options.split(",");
         String bottomLabel = optionsList[0];
         String topLabel = optionsList[1];

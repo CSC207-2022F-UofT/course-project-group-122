@@ -1,5 +1,7 @@
 package user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Enumeration;
@@ -32,7 +34,7 @@ public class MCQuestionPanel extends JPanel implements ParticipantsQuestionPanel
      * @param variable The variable of the question.
      * @param options The options of the question.
      */
-    public MCQuestionPanel(String question, String type, String variable, String[] options) {
+    public MCQuestionPanel(String question, String type, String variable, String @NotNull [] options) {
         this.variable = variable;
         this.type = type;
         this.question = question;

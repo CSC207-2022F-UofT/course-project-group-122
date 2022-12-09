@@ -43,7 +43,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
         JButton addParticipantButton = new JButton("Add Potential Participant");
         addParticipantButton.addActionListener(e -> {
             JFrame frame = new JFrame("Add Potential Participant");
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
             JLabel label = new JLabel("Enter potential participant's Identifier", SwingConstants.CENTER);
             JTextField textField = new JTextField(10);
@@ -87,8 +87,8 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
             }
         });
 
-        JButton Check = new JButton("Check Potential Participant");
-        Check.addActionListener(e -> {
+        JButton check = new JButton("Check Potential Participant");
+        check.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select a potential participant to check");
@@ -101,7 +101,7 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(addParticipantButton);
         buttonPanel.add(makeEligibleParticipantButton);
-        buttonPanel.add(Check);
+        buttonPanel.add(check);
         buttonPanel.add(enrollParticipantButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
@@ -134,7 +134,6 @@ public class StudyLogPotentialParticipantsPanel extends JPanel {
                 } else {
                     int participantId = Integer.parseInt((String) table.getValueAt(selectedRow, 0));
                     int selectedGroupNum = Integer.parseInt(selectedGroup);
-                    System.out.println(selectedGroupNum);
                     controllerManager.enrollGeneralParticipantRequest(participantId, data.getStudyId(),
                             selectedGroupNum, data.getResearcherId());
                     chooseGroupsFrame.dispose();

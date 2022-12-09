@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
  */
 public class CreateStudyInputScreen extends JFrame {
 
+    public static final String RANDOMIZED = "Randomized";
+    public static final String GENERAL = "General";
     /**
      * The text field for the study type.
      */
@@ -32,7 +34,7 @@ public class CreateStudyInputScreen extends JFrame {
      */
     public CreateStudyInputScreen(CreateStudyInputInputData data, ControllerManager controllerManager) {
         super("Create Study Input Screen");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JTextField studyName = new JTextField(20);
         JPanel studyNameInputPanel = new SetLabelTextPanel(new JLabel("Study Name: ", SwingConstants.CENTER), studyName);
@@ -54,10 +56,10 @@ public class CreateStudyInputScreen extends JFrame {
         JPanel studyTypePanel = new JPanel();
         studyTypePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel studyTypeLabel = new JLabel("Study Type: ", SwingConstants.CENTER);
-        JButton randomizeButton = new JButton("Randomized");
-        randomizeButton.addActionListener(e -> this.studyTypeInput = "Randomized");
-        JButton generalButton = new JButton("General");
-        generalButton.addActionListener(e -> this.studyTypeInput = "General");
+        JButton randomizeButton = new JButton(RANDOMIZED);
+        randomizeButton.addActionListener(e -> this.studyTypeInput = RANDOMIZED);
+        JButton generalButton = new JButton(GENERAL);
+        generalButton.addActionListener(e -> this.studyTypeInput = GENERAL);
         studyTypePanel.add(studyTypeLabel);
         studyTypePanel.add(randomizeButton);
         studyTypePanel.add(generalButton);
@@ -136,14 +138,14 @@ public class CreateStudyInputScreen extends JFrame {
      * @param numOfGroups The number of groups.
      */
     private void askGroupNamesScreen(int numOfGroups) {
-        java.util.List<JTextField> groupNames = new ArrayList<>();
+        java.util.List<JTextField> studyGroupNames = new ArrayList<>();
         JFrame askGroupNamesScreen = new JFrame();
-        askGroupNamesScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        askGroupNamesScreen.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         askGroupNamesScreen.setLayout(new BoxLayout(askGroupNamesScreen.getContentPane(), BoxLayout.Y_AXIS));
-        if (studyTypeInput.equals("Randomized")) {
-            askForRandomizedGroupNames(numOfGroups, groupNames, askGroupNamesScreen);
-        } else if (studyTypeInput.equals("General")) {
-            askForGeneralGroupNames(numOfGroups, groupNames, askGroupNamesScreen);
+        if (studyTypeInput.equals(RANDOMIZED)) {
+            askForRandomizedGroupNames(numOfGroups, studyGroupNames, askGroupNamesScreen);
+        } else if (studyTypeInput.equals(GENERAL)) {
+            askForGeneralGroupNames(numOfGroups, studyGroupNames, askGroupNamesScreen);
         } else {
             JOptionPane.showMessageDialog(null, "Please select a study type");
         }
@@ -170,9 +172,6 @@ public class CreateStudyInputScreen extends JFrame {
             JButton confirmGroupNamesButton = new JButton("Confirm Group Names");
             confirmGroupNamesButton.addActionListener(e -> {
                 this.groupNames = groupNames.stream().map(JTextField::getText).collect(Collectors.toList());
-                for (String s : this.groupNames) {
-                    System.out.println(s);
-                }
                 askGroupNamesScreen.dispose();
 
             });

@@ -47,23 +47,9 @@ public class ResultExtractionPresenter implements ResultExtractionOutputBoundary
         displaySuccessMessageInterface.presentGeneralSuccessMessage(message);
     }
 
-    /**
-     * Presents the result extraction success.
-     * @param StudyID the ID of the given study.
-     * @param filepath the file path given by the researcher.
-     * @param failList the list collect failure message.
-     */
-    public void presentFailSave(int StudyID, String filepath, ArrayList<String> failList){
-        String message =  "The result of study " + StudyID + " has been saved to " + filepath + " incorrectly\n" +
-                presentSavingInfo(failList);
-
-        displayFailureMessageInterface.presentFailureMessage(message);
-
-    }
     public void presentFailSave(String message){
         displayFailureMessageInterface.presentFailureMessage(message);
     }
-
 
     /**
      * Sets the interface for presenting success message.

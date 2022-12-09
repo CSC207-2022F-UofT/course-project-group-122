@@ -339,15 +339,6 @@ public abstract class Study implements Serializable {
         this.studyQuestionnaireManager.addQuestionnaire(q);
     }
 
-    /**
-     * Remove a questionnaire from the list of questionnaires.
-     *
-     * @param q the questionnaire to be removed.
-     * @return whether the removal is successful.
-     */
-    public boolean removeQuestionnaire(Questionnaire q) {
-        return this.studyQuestionnaireManager.removeQuestionnaire(q);
-    }
 
     /**
      * Retrieve the consent form.

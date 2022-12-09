@@ -13,7 +13,7 @@ import java.awt.*;
 public class ConsentFormScreenForReview extends JFrame {
     public ConsentFormScreenForReview(@NotNull FetchConsentFormResponseModel responseModel) {
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

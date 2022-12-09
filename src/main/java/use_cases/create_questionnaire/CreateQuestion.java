@@ -7,7 +7,7 @@ import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionM
 import java.util.List;
 
 /**
- * A helper class for the create questionnaire use case.
+ * A helper class for the creation questionnaire use case.
  */
 public class CreateQuestion {
 
@@ -37,6 +37,7 @@ public class CreateQuestion {
             ((ScaleQuestion) question).setBottomLabel(options.get(0));
             ((ScaleQuestion) question).setTopLabel(options.get(1));
             ((ScaleQuestion) question).modifyScaleRange(Integer.parseInt(options.get(2)));
+
         }
         assert question != null;
         questionnaire.addQuestion(question);

@@ -8,7 +8,6 @@ import user_interface_layer.screens.ControllerManager;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * This class is the panel that displays the eligibility questionnaire for a participant

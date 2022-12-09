@@ -1,6 +1,9 @@
 package use_cases.fetch_study_data_for_editing;
 
 
+/**
+ * The interface that the presenter implements and the use case calls on.
+ */
 public interface FetchStudyDataForEditingOutputBoundary {
 
     /**

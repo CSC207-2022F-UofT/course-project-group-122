@@ -23,7 +23,7 @@ public class QuestionModel {
     /**
      * The list of choices if the question is a multiple choice question.
      */
-    private List<String> MCoptions = new ArrayList<>();
+    private List<String> mcOptions = new ArrayList<>();
 
     /**
      * The bottom label for the scale question.
@@ -53,13 +53,13 @@ public class QuestionModel {
      * The constructor of a multiple choice question model.
      * @param content The content of the question.
      * @param variable The variable of the question.
-     * @param MCoptions The list of choices for a multiple choice question.
+     * @param mcOptions The list of choices for a multiple choice question.
      */
-    public QuestionModel(String content, String variable, List<String> MCoptions){
+    public QuestionModel(String content, String variable, List<String> mcOptions){
         this.type = "MC";
         this.content = content;
         this.variable = variable;
-        this.MCoptions = MCoptions;
+        this.mcOptions = mcOptions;
     }
 
     /**
@@ -107,9 +107,9 @@ public class QuestionModel {
         switch (type) {
             case "MC":
                 StringBuilder options = new StringBuilder();
-                for (int i = 0; i < MCoptions.size(); i++) {
-                    options.append(MCoptions.get(i));
-                    if (i != MCoptions.size() - 1) {
+                for (int i = 0; i < mcOptions.size(); i++) {
+                    options.append(mcOptions.get(i));
+                    if (i != mcOptions.size() - 1) {
                         options.append(",");
                     }
                 }
@@ -118,7 +118,8 @@ public class QuestionModel {
                 return bottomLabel +"," + topLabel + ","+ scale;
             case "Text":
                 return "Free Text Entry";
+            default:
+                return "";
         }
-        return "";
     }
 }

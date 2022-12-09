@@ -1,5 +1,6 @@
 package user_interface_layer.screens.create_questionnaire_inputs_screen;
 
+import org.jetbrains.annotations.NotNull;
 import user_interface_layer.screen_helper_classes.SetLabelTextPanel;
 import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screen_helper_classes.SetTableModel;
@@ -21,7 +22,7 @@ public class CreateQuestionnaireInputsScreen extends JFrame {
     List<JRadioButton> studyGroups = new ArrayList<>();
     private final ArrayList<String> variables = new ArrayList<>();
 
-    public CreateQuestionnaireInputsScreen(CreateQuestionnaireInputsScreenInputData data, ControllerManager controllerManager) {
+    public CreateQuestionnaireInputsScreen(@NotNull CreateQuestionnaireInputsScreenInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         JTextField questionnaireName = new JTextField(30);
         JTextArea questionnaireDescription = new JTextArea(5, 20);

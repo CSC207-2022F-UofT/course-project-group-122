@@ -1,5 +1,6 @@
 package user_interface_layer.screens.edit_questionnaire_answers;
 
+import org.jetbrains.annotations.NotNull;
 import use_cases.questionnaire_answer_data_for_editing_request.ResearcherEditQuestionnaireScreenAnswersInputData;
 import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
@@ -20,7 +21,7 @@ public class EditQuestionnaireAnswers extends JFrame {
      * @param data The input data.
      * @param controllerManager The controller manager.
      */
-    public EditQuestionnaireAnswers(ResearcherEditQuestionnaireScreenAnswersInputData data, ControllerManager controllerManager) {
+    public EditQuestionnaireAnswers(@NotNull ResearcherEditQuestionnaireScreenAnswersInputData data, ControllerManager controllerManager) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setTitle("Edit Answer Questionnaire");
@@ -72,7 +73,6 @@ public class EditQuestionnaireAnswers extends JFrame {
         submitButton.addActionListener(e -> {
             HashMap<String, String> answers = new HashMap<>();
             for (ResearchersQuestionPanel questionPanel : questionPanels) {
-                System.out.println(questionPanel.getAnswer());
                 if (questionPanel.getAnswer().equals("")) {
                     JOptionPane.showMessageDialog(null, "Please answer all questions");
                     break;

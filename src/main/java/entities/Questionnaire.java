@@ -87,7 +87,7 @@ public class Questionnaire implements Serializable {
      * The list of Questions in this Questionnaire. The questions are stored in the order that they are added. The order
      * of the questions is important, as it determines how the questions are displayed to the Participant User.
      */
-    private List<Question> listOfQuestion = new ArrayList<>();
+    private final List<Question> listOfQuestion = new ArrayList<>();
 
 
     /**
@@ -144,18 +144,6 @@ public class Questionnaire implements Serializable {
             this.numOfQuestion++;
             this.listOfQuestion.add(question);
         }
-    }
-
-
-    /**
-     * Checks if index is in the length of the list of Questions in this Questionnaire.
-     *
-     * @param index The index to be checked.
-     * @return true if the index is in the length of the list of Questions.
-     */
-    public boolean isInListOfQuestion(int index) {
-        return index >= 0 && index < this.listOfQuestion.size();
-
     }
 
 
@@ -246,28 +234,22 @@ public class Questionnaire implements Serializable {
      * @param description The description to be set for this Questionnaire.
      *                    This description is shown to the Participant User when they are filling out the
      *                    Questionnaire.
-     * @return true if the description was successfully set.
+     *
      */
-    public boolean setDescription(String description) {
+    public void setDescription(String description) {
         if (!this.publishedStatus && !this.closedStatus) {
             this.description = description;
-            return true;
         }
-        return false;
     }
 
 
     /**
      * Publish this Questionnaire. Only allowed when the Questionnaire is not closed.
-     *
-     * @return true if the Questionnaire was successfully published.
      */
-    public boolean publish() {
+    public void publish() {
         if (!this.closedStatus) {
             this.publishedStatus = true;
-            return true;
         }
-        return false;
     }
 
 
@@ -276,14 +258,6 @@ public class Questionnaire implements Serializable {
      */
     public void close() {
         this.closedStatus = true;
-    }
-
-
-    /**
-     * Reactivate this Questionnaire.
-     */
-    public void reactivate() {
-        this.closedStatus = false;
     }
 
 

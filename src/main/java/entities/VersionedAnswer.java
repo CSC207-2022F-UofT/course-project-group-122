@@ -134,16 +134,6 @@ public class VersionedAnswer implements Serializable {
 
 
     /**
-     * Returns the answer object in which this VersionedAnswer is stored.
-     *
-     * @return the answer object in which this VersionedAnswer is stored.
-     */
-    public Answer getAnswerObject() {
-        return answer;
-    }
-
-
-    /**
      * Returns the user who created this particular version of VersionedAnswer.
      *
      * @return the user who created this particular version of VersionedAnswer.

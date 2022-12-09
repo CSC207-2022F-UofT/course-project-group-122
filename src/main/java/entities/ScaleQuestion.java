@@ -12,44 +12,22 @@ public class ScaleQuestion extends Question implements Serializable {
     /**
      * The specified range of this ScaleQuestion.
      */
-    public int scaleRange = 0;
+    private int scaleRange = 0;
 
     /**
      * The bottom label for the range of this ScaleQuestion.
      */
-    public String bottomLabel = "";
+    private String bottomLabel = "";
 
     /**
      * The top label for the range of this ScaleQuestion.
      */
-    public String topLabel = "";
+    private String topLabel = "";
 
     /**
      * A List of integer values in the range of this ScaleQuestion.
      */
     private final List<Integer> scale = new ArrayList<>();
-
-
-    /**
-     * The constructor for the ScaleQuestion class.
-     * This Constructor is overloaded. User specify the scaleRange when creating an instance of ScaleQuestion.
-     * <p>
-     * The scale of the question is defined from 0 to scaleRange - 1, where there are a total of scaleRange values.
-     *
-     * @param questionnaire     The questionnaire this question is part of.
-     * @param variableName      Keyword that describes the content of this Question
-     * @param content           What is being asked the participants.
-     * @param scaleRange        The specified range of this ScaleQuestion.
-     */
-    public ScaleQuestion(int id, Questionnaire questionnaire, String variableName, String content, int scaleRange,
-                         String bottomLabel, String topLabel) {
-        super(id, questionnaire, variableName, content);
-        this.scaleRange = scaleRange;
-        this.bottomLabel = bottomLabel;
-        this.topLabel = topLabel;
-        this.modifyScaleRange(scaleRange);
-    }
-
 
     /**
      * The Constructor for the ScaleQuestion class.
@@ -68,17 +46,16 @@ public class ScaleQuestion extends Question implements Serializable {
      * Modify the scaleRange of this ScaleQuestion.
      *
      * @param newRange     The new scaleRange of this ScaleQuestion.
-     * @return true if the scaleRange was successfully modified.
      */
-    public boolean modifyScaleRange(int newRange) {
+
+    public void modifyScaleRange(int newRange) {
+
         if (newRange >= 0) {
             this.scaleRange = newRange;
             for (int i = 0; i < newRange; i++) {
                 this.scale.add(i);
             }
-            return true;
         }
-        return false;
     }
 
 

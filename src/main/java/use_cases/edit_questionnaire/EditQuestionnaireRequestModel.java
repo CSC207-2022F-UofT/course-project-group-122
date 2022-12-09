@@ -2,7 +2,6 @@ package use_cases.edit_questionnaire;
 
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +50,8 @@ public class EditQuestionnaireRequestModel {
      * @param questions The list of the questions that the questionnaire has, including the previous questions
      *                  and the new questions,
      */
-    public EditQuestionnaireRequestModel(int studyID, int questionnaireID, int researcherID, String questionnaireName, String questionnaireDescription, ArrayList<String> studyGroupNames, List<QuestionModel> questions) {
+    public EditQuestionnaireRequestModel(int studyID, int questionnaireID, int researcherID, String questionnaireName,
+                                         String questionnaireDescription, List<String> studyGroupNames, List<QuestionModel> questions) {
         this.studyID = studyID;
         this.questionnaireID = questionnaireID;
         this.researcherID = researcherID;

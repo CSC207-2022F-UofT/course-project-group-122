@@ -35,7 +35,7 @@ public class ParticipantHomeScreen extends JFrame {
      */
     public ParticipantHomeScreen(@NotNull FetchParticipantStudyDataResponseModel data, @NotNull ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 
         JPanel header = new JPanel(new GridLayout(2, 1));
@@ -43,8 +43,6 @@ public class ParticipantHomeScreen extends JFrame {
         JLabel userIDLabel = new JLabel(data.getParticipantName() + " (" + data.getParticipantId()+ ")");
         JButton logOutButton = new JButton("Log Out");
         logOutButton.addActionListener(e -> controllerManager.userLogOutController());
-
-        // JLabel message = new JLabel("You are enrolled in " + data.getStudyName(), SwingConstants.CENTER);
         topPanel.add(userIDLabel);
         topPanel.add(logOutButton);
         header.add(topPanel, BorderLayout.NORTH);
@@ -52,17 +50,17 @@ public class ParticipantHomeScreen extends JFrame {
         header.add(message, BorderLayout.CENTER);
         getContentPane().add(header, BorderLayout.PAGE_START);
 
-        JTabbedPane QuestionnaireTabPane = new JTabbedPane();
+        JTabbedPane questionnaireTabPane = new JTabbedPane();
 
 
         eligibilityQuestionnairePanel = new EligibilityQuestionnairePanel(data, controllerManager);
-        QuestionnaireTabPane.addTab("Eligibility Questionnaire", eligibilityQuestionnairePanel);
+        questionnaireTabPane.addTab("Eligibility Questionnaire", eligibilityQuestionnairePanel);
 
         assignedQuestionnairePanel = new AssignedQuestionnairePanel(data, controllerManager);
-        QuestionnaireTabPane.addTab("Assigned Questionnaires", assignedQuestionnairePanel);
+        questionnaireTabPane.addTab("Assigned Questionnaires", assignedQuestionnairePanel);
 
         completedQuestionnairePanel = new CompletedQuestionnairePanel(data, controllerManager);
-        QuestionnaireTabPane.addTab("Completed Questionnaires", completedQuestionnairePanel);
+        questionnaireTabPane.addTab("Completed Questionnaires", completedQuestionnairePanel);
 
 
         JPanel participantScreenMain = new JPanel();
@@ -72,14 +70,14 @@ public class ParticipantHomeScreen extends JFrame {
                 participantScreenMainLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(participantScreenMainLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(QuestionnaireTabPane)
+                                .addComponent(questionnaireTabPane)
                                 .addContainerGap())
         );
         participantScreenMainLayout.setVerticalGroup(
                 participantScreenMainLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(GroupLayout.Alignment.TRAILING, participantScreenMainLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(QuestionnaireTabPane, GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                                .addComponent(questionnaireTabPane, GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                                 .addContainerGap())
         );
         JButton dropOutButton = new JButton("Drop Out");

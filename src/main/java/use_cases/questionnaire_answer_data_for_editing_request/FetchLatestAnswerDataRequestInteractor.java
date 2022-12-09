@@ -37,14 +37,8 @@ public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswer
                 VersionedAnswer currVersionedAnswer = answer.getCurrentVersion();
                 assert questionnaire != null;
                 List<Question> questionList = questionnaire.getListOfQuestion();
-                for (Question question : questionList) {
-                    System.out.println(question.getContent() + question.getVariableName());
-                }
                 Map<String, String> variableAnswer = currVersionedAnswer.getAnswer();
                 Map<String, String[]> answerData = createAnswerData(questionList, variableAnswer);
-                for (Map.Entry entry : answerData.entrySet()) {
-                    System.out.println(entry.getKey() + " " + entry.getValue());
-                }
                 ResearcherEditQuestionnaireScreenAnswersInputData data =
                         new ResearcherEditQuestionnaireScreenAnswersInputData(
                                 researcherId,
@@ -76,7 +70,6 @@ public class FetchLatestAnswerDataRequestInteractor implements FetchLatestAnswer
             String answerText = variableAnswer.get(variable);
             String[] answerDataArray = {question.getQuestionType(), variable, question.getAnswerChoices(), answerText};
             answerData.put(question.getContent(), answerDataArray);
-            System.out.println(question.getContent() + " " + question.getQuestionType() + " " + variable + " " + question.getAnswerChoices() + " " + answerText);
         }
         return answerData;
     }

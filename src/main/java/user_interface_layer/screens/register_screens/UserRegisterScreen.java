@@ -19,7 +19,7 @@ public class UserRegisterScreen extends JFrame {
 
         setTitle("Register");
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
 

@@ -31,7 +31,7 @@ public class EditStudyScreen extends JFrame {
      */
     public EditStudyScreen(@NotNull FetchStudyDataForEditingResponseModel data, ControllerManager controllerManager) {
         super("Edit Study Input Screen");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JTextField studyName = new JTextField(data.getStudyName(),20);
         JPanel studyNameInputPanel = new SetLabelTextPanel(new JLabel("Study Name: ", SwingConstants.CENTER), studyName);
@@ -125,14 +125,14 @@ public class EditStudyScreen extends JFrame {
      * @param studyType The type of study.
      */
     private void askGroupNamesScreen(int numOfGroups, @NotNull String studyType) {
-        List<JTextField> groupNames = new ArrayList<>();
+        List<JTextField> studyGroupNames = new ArrayList<>();
         JFrame askGroupNamesScreen = new JFrame();
-        askGroupNamesScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        askGroupNamesScreen.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         askGroupNamesScreen.setLayout(new BoxLayout(askGroupNamesScreen.getContentPane(), BoxLayout.Y_AXIS));
         if (studyType.equals("Randomized")) {
-            askForRandomizedGroupNames(numOfGroups, groupNames, askGroupNamesScreen);
+            askForRandomizedGroupNames(numOfGroups, studyGroupNames, askGroupNamesScreen);
         } else if (studyType.equals("General")) {
-            askForGeneralGroupNames(numOfGroups, groupNames, askGroupNamesScreen);
+            askForGeneralGroupNames(numOfGroups, studyGroupNames, askGroupNamesScreen);
         } else {
             JOptionPane.showMessageDialog(null, "Please select a study type");
         }
