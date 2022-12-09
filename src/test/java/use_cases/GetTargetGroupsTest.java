@@ -56,6 +56,7 @@ public class GetTargetGroupsTest {
         return new StudyPool(pool);
     }
 
+
     private void setupCreateQuestionnaire(){
         createQuestionnaireInteractor = new CreateQuestionnaireInteractor();
         CreateQuestionnairePresenter createQuestionnairePresenter = new CreateQuestionnairePresenter();
