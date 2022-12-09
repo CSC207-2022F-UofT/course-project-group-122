@@ -1,5 +1,7 @@
 package user_interface_layer.screen_helper_classes;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,12 +14,12 @@ public class SetScreenToCenter {
     /**
      * Sets the screen to the center of the screen.
      */
-    public static Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    public static final Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 
     /**
      * @param screen The screen to set to the center of the screen.
      */
-    public static void setCenter(JFrame screen) {
+    public static void setCenter(@NotNull JFrame screen) {
 
         int xPoint = getPoint(dimension.getWidth(), screen.getWidth());
         int yPoint = getPoint(dimension.getHeight(), screen.getHeight());
@@ -40,7 +42,7 @@ public class SetScreenToCenter {
      * @param width  The width of the screen.
      * @param height The height of the screen.
      */
-    public SetScreenToCenter(JFrame screen, java.awt.LayoutManager layout, int width, int height) {
+    public SetScreenToCenter(@NotNull JFrame screen, java.awt.LayoutManager layout, int width, int height) {
         screen.setLayout(layout);
         screen.setSize(width, height);
 
@@ -55,7 +57,7 @@ public class SetScreenToCenter {
      * @param width  The width of the screen.
      * @param height The height of the screen.
      */
-    public SetScreenToCenter(JFrame screen, int width, int height) {
+    public SetScreenToCenter(@NotNull JFrame screen, int width, int height) {
         screen.setSize(width, height);
 
         int xPoint = getPoint(dimension.getWidth(), screen.getWidth());
