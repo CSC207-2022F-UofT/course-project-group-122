@@ -8,7 +8,7 @@ class GeneralStudyTest {
 
     @Test
     void getStudyType() {
-        Study generalStudy = new GeneralStudy("covid", 2);
+        Study generalStudy = new GeneralStudy(1, "covid", 2);
         String expectString = "General";
         assertEquals(expectString, generalStudy.getStudyType());
 

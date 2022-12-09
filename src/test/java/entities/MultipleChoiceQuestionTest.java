@@ -14,9 +14,9 @@ class MultipleChoiceQuestionTest {
 
     @BeforeEach
     void setUp() {
-        Study study1 = new StudyFactory().createStudy("General","TestObj0.1",10);
-        Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "D1");
-        testMcq1 = new MultipleChoiceQuestion(questionnaire1, "age", "what");
+        Study study1 = new StudyFactory().createStudy(1, "General","TestObj0.1",10);
+        Questionnaire questionnaire1 = new Questionnaire(1, study1, "Q1", "D1");
+        testMcq1 = new MultipleChoiceQuestion(1, questionnaire1, "age", "what");
     }
 
     @AfterEach
@@ -30,39 +30,6 @@ class MultipleChoiceQuestionTest {
         assertEquals(expectChoice, testMcq1.getChoices().get(0));
 
     }
-
-    @Test
-    void removeChoice() {
-        testMcq1.addChoice("0-5");
-        boolean actualBool = testMcq1.removeChoice(0);
-        assertTrue(actualBool);
-    }
-
-    @Test
-    void testRemoveChoice() {
-        testMcq1.addChoice("0-5");
-        boolean actualBool = testMcq1.removeChoice("0-5");
-        assertTrue(actualBool);
-    }
-
-    @Test
-    void rearrangeChoices() {
-        testMcq1.addChoice("0-5");
-        testMcq1.addChoice("5-10");
-        testMcq1.addChoice("10-20");
-        boolean actualBool = testMcq1.rearrangeChoices(0, 2);
-        assertTrue(actualBool);
-    }
-
-    @Test
-    void modifyChoice() {
-        testMcq1.addChoice("0-5");
-        testMcq1.addChoice("5-10");
-        boolean actualBool = testMcq1.modifyChoice(1, "5-8");
-        assertTrue(actualBool);
-
-    }
-
     @Test
     void getNumOfChoices() {
         testMcq1.addChoice("0-5");

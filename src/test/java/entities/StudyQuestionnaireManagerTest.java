@@ -18,9 +18,9 @@ class StudyQuestionnaireManagerTest {
 
     @BeforeEach
     void setup(){
-        testStudy1 = new GeneralStudy("a", 1);
-        testQuestionnaire1 = new Questionnaire(testStudy1, "b", "c");
-        testConsentForm1 = new ConsentForm(testStudy1);
+        testStudy1 = new GeneralStudy(1, "a", 1);
+        testQuestionnaire1 = new Questionnaire(1, testStudy1, "b", "c");
+        testConsentForm1 = new ConsentForm(testStudy1, "c", "d", "e");
         testSQM1 = new StudyQuestionnaireManager(testStudy1);
 
     }
@@ -60,23 +60,13 @@ class StudyQuestionnaireManagerTest {
     }
 
     @Test
-    void removeQuestionnaire() {
-        List<Questionnaire> testQuestionnaires1 = new ArrayList<>();
-        testSQM1.addQuestionnaire(testQuestionnaire1);
-        testSQM1.removeQuestionnaire(testQuestionnaire1);
-        assertEquals(testQuestionnaires1, testSQM1.getQuestionnaires());
-
-    }
-
-    @Test
     void getConsentForm() {
         assertNull(testSQM1.getConsentForm());
     }
 
     @Test
     void setConsentForm() {
-        ConsentForm expectConsentForm = new ConsentForm(testStudy1);
-        testSQM1.setConsentForm(expectConsentForm);
-        assertEquals(expectConsentForm, testSQM1.getConsentForm());
+        testSQM1.setConsentForm(testConsentForm1);
+        assertEquals(testConsentForm1, testSQM1.getConsentForm());
     }
 }

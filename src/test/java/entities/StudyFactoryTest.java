@@ -11,7 +11,7 @@ class StudyFactoryTest {
          String expectString1 = "h";
          String expectString2 = "General";
          int expectNum = 2;
-         Study testStudy = new StudyFactory().createStudy(expectString2, expectString1, expectNum);
+         Study testStudy = new StudyFactory().createStudy(1, expectString2, expectString1, expectNum);
          assertEquals(expectString2,testStudy.getStudyType());
          assertEquals(expectString1, testStudy.getStudyName());
          assertEquals(expectNum, testStudy.getTargetStudySize());

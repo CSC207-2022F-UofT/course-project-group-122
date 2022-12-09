@@ -13,9 +13,9 @@ class QuestionTest {
 
     @BeforeEach
     void setUp() {
-        Study study1 = new StudyFactory().createStudy("General", "TestObj0.1", 10);
-        testQuestionnaire1 = new Questionnaire(study1, "Q1", "D1");
-        testQuestion1 = new MultipleChoiceQuestion(testQuestionnaire1, "height", "what");
+        Study study1 = new StudyFactory().createStudy(1, "General", "TestObj0.1", 10);
+        testQuestionnaire1 = new Questionnaire(1, study1, "Q1", "D1");
+        testQuestion1 = new MultipleChoiceQuestion(1, testQuestionnaire1, "height", "what");
         currId ++;
 
     }

@@ -22,9 +22,9 @@ class StudyPoolTest {
 
     @BeforeEach
     void setup(){
-        testStudy1 = new GeneralStudy("a", 1);
-        testStudy2 = new GeneralStudy("b", 2);
-        testStudy3 = new RandomizedStudy("C", 3);
+        testStudy1 = new GeneralStudy(1, "a", 1);
+        testStudy2 = new GeneralStudy(1, "b", 2);
+        testStudy3 = new RandomizedStudy(1, "C", 3);
         testStudies1 = new HashMap<>();
         testStudies1.put(testStudy1.getId(), testStudy1);
         testStudies1.put(testStudy3.getId(), testStudy3);
@@ -38,42 +38,8 @@ class StudyPoolTest {
     }
 
     @Test
-    void studyExists() {
-        int expectNum1 = testStudy1.getId();
-        assertTrue(testStudyPool1.studyExists(expectNum1));
-        int expectNum2 = testStudy2.getId();
-        assertFalse(testStudyPool1.studyExists(expectNum2));
-    }
-
-    @Test
-    void checkStudyType() {
-        int expectNum1 = testStudy3.getId();
-        String expectString = testStudy3.getStudyType();
-        assertEquals(expectString, testStudyPool1.checkStudyType(expectNum1));
-    }
-
-    @Test
-    void addStudy() {
-        testStudyPool1.addStudy(testStudy2);
-        int expectNum1 = testStudy2.getId();
-        assertTrue(testStudyPool1.studyExists(expectNum1));
-    }
-
-    @Test
-    void removeStudy() {
-        testStudyPool1.addStudy(testStudy2);
-        int expectNum1 = testStudy2.getId();
-        testStudyPool1.removeStudy(testStudy2);
-        assertFalse(testStudyPool1.studyExists(expectNum1));
-
-    }
-
-    @Test
-    void testRemoveStudy() {
-        testStudyPool1.addStudy(testStudy2);
-        int expectNum1 = testStudy2.getId();
-        testStudyPool1.removeStudy(expectNum1);
-        assertFalse(testStudyPool1.studyExists(expectNum1));
+    void addStudy(){
+        testStudyPool1.addStudy(testStudy1);
 
     }
 

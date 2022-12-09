@@ -14,10 +14,9 @@ class ScaleQuestionTest {
 
     @BeforeEach
     void setUp() {
-        Study study1 = new StudyFactory().createStudy("General","TestObj0.1",10);
-        Questionnaire questionnaire1 = new Questionnaire(study1, "Q1", "D1");
-        testScaleQ1 = new ScaleQuestion(questionnaire1, "age", "what");
-        testScaleQ1.setScaleRange(100);
+        Study study1 = new StudyFactory().createStudy(1, "General","TestObj0.1",10);
+        Questionnaire questionnaire1 = new Questionnaire(1, study1, "Q1", "D1");
+        testScaleQ1 = new ScaleQuestion(1, questionnaire1, "age", "what");
         testScaleQ1.setBottomLabel("0");
         testScaleQ1.setTopLabel("100");
 
@@ -25,14 +24,6 @@ class ScaleQuestionTest {
 
     @AfterEach
     void tearDown() {
-    }
-
-    @Test
-    void modifyScaleRange() {
-        int expectNum = 200;
-        assertTrue(testScaleQ1.setScaleRange(expectNum));
-
-
     }
 
     @Test

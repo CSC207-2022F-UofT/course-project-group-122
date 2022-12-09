@@ -11,7 +11,7 @@ class RandomizedStudyTest {
 
     @BeforeEach
     void setUp() {
-        testRandomizedStudy1 = new RandomizedStudy("rsv", 2);
+        testRandomizedStudy1 = new RandomizedStudy(1, "rsv", 2);
 
     }
 
