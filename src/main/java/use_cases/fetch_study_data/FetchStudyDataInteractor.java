@@ -31,6 +31,9 @@ import java.util.List;
  */
 public class FetchStudyDataInteractor implements FetchStudyDataInputBoundary {
 
+    /**
+     * The output boundary that this use case calls on to send the study data.
+     */
     private FetchStudyDataOutputBoundary fetchStudyDataPresenter;
 
 

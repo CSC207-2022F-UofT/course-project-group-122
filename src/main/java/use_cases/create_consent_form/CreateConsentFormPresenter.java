@@ -4,19 +4,19 @@ import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessage;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessage;
 
+/**
+ * The presenter for the create consent form use case.
+ */
 public class CreateConsentFormPresenter implements CreateConsentFormOutputBoundary {
-
     /**
      * Display the success message.
      */
     private DisplaySuccessMessage displaySuccessMessage;
 
-
     /**
      * Display the failure message.
      */
     private DisplayFailureMessage displayFailureMessage;
-
 
     /**
      * Fetch study log controller.
@@ -46,7 +46,6 @@ public class CreateConsentFormPresenter implements CreateConsentFormOutputBounda
         displaySuccessMessage.presentGeneralSuccessMessage(message);
     }
 
-
     /**
      * Set the display success message.
      *
@@ -55,7 +54,6 @@ public class CreateConsentFormPresenter implements CreateConsentFormOutputBounda
     public void setDisplaySuccessMessage(DisplaySuccessMessage displaySuccessMessage) {
         this.displaySuccessMessage = displaySuccessMessage;
     }
-
 
     /**
      * Set the display failure message.
@@ -66,11 +64,10 @@ public class CreateConsentFormPresenter implements CreateConsentFormOutputBounda
         this.displayFailureMessage = displayFailureMessage;
     }
 
-
     /**
      * Set the fetch study log controller.
      *
-     * @param fetchStudyLogController   the fetch study log controller.
+     * @param fetchStudyLogController the fetch study log controller.
      */
     public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
         this.fetchStudyLogController = fetchStudyLogController;

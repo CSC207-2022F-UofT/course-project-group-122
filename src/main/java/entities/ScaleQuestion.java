@@ -12,17 +12,17 @@ public class ScaleQuestion extends Question implements Serializable {
     /**
      * The specified range of this ScaleQuestion.
      */
-    public int scaleRange = 0;
+    private int scaleRange = 0;
 
     /**
      * The bottom label for the range of this ScaleQuestion.
      */
-    public String bottomLabel = "";
+    private String bottomLabel = "";
 
     /**
      * The top label for the range of this ScaleQuestion.
      */
-    public String topLabel = "";
+    private String topLabel = "";
 
     /**
      * A List of integer values in the range of this ScaleQuestion.
@@ -37,8 +37,8 @@ public class ScaleQuestion extends Question implements Serializable {
      * @param variableName      Keyword that describes the content of this Question
      * @param content           What is being asked the participants.
      */
-    public ScaleQuestion(Questionnaire questionnaire, String variableName, String content) {
-        super(questionnaire, variableName, content);
+    public ScaleQuestion(int id, Questionnaire questionnaire, String variableName, String content) {
+        super(id, questionnaire, variableName, content);
     }
 
 
@@ -46,17 +46,16 @@ public class ScaleQuestion extends Question implements Serializable {
      * Modify the scaleRange of this ScaleQuestion.
      *
      * @param newRange     The new scaleRange of this ScaleQuestion.
-     * @return true if the scaleRange was successfully modified.
      */
-    public boolean setScaleRange(int newRange) {
+
+    public void modifyScaleRange(int newRange) {
+
         if (newRange >= 0) {
             this.scaleRange = newRange;
             for (int i = 0; i < newRange; i++) {
                 this.scale.add(i);
             }
-            return true;
         }
-        return false;
     }
 
 

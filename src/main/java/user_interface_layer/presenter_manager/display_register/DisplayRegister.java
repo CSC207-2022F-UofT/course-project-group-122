@@ -1,6 +1,6 @@
 package user_interface_layer.presenter_manager.display_register;
 
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 
@@ -9,22 +9,27 @@ import user_interface_layer.screens.register_screens.UserRegisterScreen;
  */
 public class DisplayRegister implements DisplayRegisterInterface {
 
+    /**
+     * The screen manager.
+     */
     ScreenManager screenManager;
 
+    /**
+     * The controller manager.
+     */
     ControllerManager controllerManager;
 
 
     /**
      * The constructor of the class.
      *
-     * @param screenManager         The screen manager.
-     * @param controllerManager     The controller manager.
+     * @param screenManager     The screen manager.
+     * @param controllerManager The controller manager.
      */
     public DisplayRegister(ScreenManager screenManager, ControllerManager controllerManager) {
         this.screenManager = screenManager;
         this.controllerManager = controllerManager;
     }
-
 
 
     /**

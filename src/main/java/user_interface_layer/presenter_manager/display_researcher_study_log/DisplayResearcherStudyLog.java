@@ -1,7 +1,7 @@
 package user_interface_layer.presenter_manager.display_researcher_study_log;
 
 import use_cases.fetch_study_log.FetchStudyLogResponseModel;
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.study_data_log.StudyDataLogScreen;
 
@@ -9,9 +9,14 @@ import user_interface_layer.screens.study_data_log.StudyDataLogScreen;
  * The class that displays information about a specific study/
  */
 public class DisplayResearcherStudyLog implements DisplayResearcherStudyLogInterface {
+    /**
+     * The screen manager.
+     */
     ScreenManager screenManager;
+    /**
+     * The controller manager.
+     */
     ControllerManager controllerManager;
-
 
     /**
      * The constructor of the class.
@@ -24,6 +29,9 @@ public class DisplayResearcherStudyLog implements DisplayResearcherStudyLogInter
         this.controllerManager = controllerManager;
     }
 
+    /**
+     * @param data The data needed to display the researcher study log screen.
+     */
     @Override
     public void presentResearcherStudyLogScreen(FetchStudyLogResponseModel data) {
         StudyDataLogScreen screen = new StudyDataLogScreen(data, controllerManager);

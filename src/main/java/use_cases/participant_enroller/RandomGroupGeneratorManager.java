@@ -2,19 +2,20 @@ package use_cases.participant_enroller;
 
 import entities.Study;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * The manager for the random group generators
  */
-public class RandomGroupGeneratorManager implements java.io.Serializable{
+public class RandomGroupGeneratorManager implements Serializable {
 
     /**
      * The map of study to random group generators.
      * The random group generators are used to generate random groups for participants. It is specific to each study.
      */
-    private Map<Study, RandomGroupGenerator> randomGroupGenerators = new HashMap<>();
+    private final Map<Study, RandomGroupGenerator> randomGroupGenerators = new HashMap<>();
 
     /**
      * Checks if the study has a random group generator.

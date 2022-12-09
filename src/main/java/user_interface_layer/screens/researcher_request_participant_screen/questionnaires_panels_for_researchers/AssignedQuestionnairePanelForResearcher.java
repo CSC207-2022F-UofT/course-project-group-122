@@ -1,7 +1,7 @@
 package user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers;
 
 import org.jetbrains.annotations.NotNull;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_request_participant_screen.ResearcherRequestParticipantInputData;
 
@@ -11,8 +11,16 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is the panel that displays the list of assigned questionnaires of a participant for a researcher
+ */
 public class AssignedQuestionnairePanelForResearcher extends JPanel {
 
+    /**
+     * Creates a panel that displays the list of assigned questionnaires of a participant for a researcher.
+     * @param data The data needed to display the list of assigned questionnaires
+     * @param controllerManager The controller manager that handles the actions of the buttons
+     */
 public AssignedQuestionnairePanelForResearcher(@NotNull ResearcherRequestParticipantInputData data, ControllerManager controllerManager) {
     setLayout(new BorderLayout());
     SetTableModel setTableModel = new SetTableModel(data.getQuestionnairesTableHeader());

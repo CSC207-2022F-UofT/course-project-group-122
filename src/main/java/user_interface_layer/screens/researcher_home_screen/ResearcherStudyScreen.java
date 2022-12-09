@@ -1,8 +1,8 @@
 package user_interface_layer.screens.researcher_home_screen;
 
-import user_interface_layer.screen_setters.ScreenManager;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screen_setters.SetTableModel;
+import org.jetbrains.annotations.NotNull;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
@@ -10,13 +10,23 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * This class is the screen that displays the list of studies for a researcher
+ */
 public class ResearcherStudyScreen extends JFrame {
 
+    /**
+     * The table that contains the list of studies
+     */
     private JTable studiesTable;
 
-    public ResearcherStudyScreen(ResearcherStudyScreenInputData data, ControllerManager controllerManager) {
+    /**
+     * This is the constructor for the ResearcherStudyScreen class
+     * @param data The data needed to display the list of studies
+     * @param controllerManager The controller manager that handles the actions of the buttons
+     */
+    public ResearcherStudyScreen(@NotNull ResearcherStudyScreenInputData data, ControllerManager controllerManager) {
 
         // Initialize the elements of the screen.
         JPanel framePanel = new JPanel();
@@ -33,11 +43,9 @@ public class ResearcherStudyScreen extends JFrame {
 
         // Set the properties of the screen and elements.
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        setBackground(new Color(255, 255, 255));
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.LINE_AXIS));
         framePanel.setLayout(new BorderLayout());
         headerPanel.setLayout(new GridLayout(2, 1));
-        userPanel.setBackground(new Color(204, 204, 204));
         userPanel.setLayout(new FlowLayout(java.awt.FlowLayout.RIGHT));
 
         userLabel.setText(data.getResearcherName()+" ("+ data.getResearchID()+")");
@@ -45,9 +53,7 @@ public class ResearcherStudyScreen extends JFrame {
 
         logOutButton.setText("Log Out");
         logOutButton.addActionListener(
-                e-> {
-                    controllerManager.userLogOutController();
-                });
+                e-> controllerManager.userLogOutController());
 
         userPanel.add(logOutButton);
         headerPanel.add(userPanel);
@@ -74,7 +80,7 @@ public class ResearcherStudyScreen extends JFrame {
 
         framePanel.add(jScrollPane1,BorderLayout.CENTER);
 
-        southPanel.setBackground(new Color(204, 204, 204));
+
         selectStudyButton.setText("Select Study");
         selectStudyButton.addActionListener(
                 e-> {
@@ -88,9 +94,7 @@ public class ResearcherStudyScreen extends JFrame {
         southPanel.add(selectStudyButton);
 
         createStudyButton.setText("Create Study");
-        createStudyButton.addActionListener(e -> {
-            controllerManager.requestCreateStudyModel(data.getResearchID());
-        });
+        createStudyButton.addActionListener(e -> controllerManager.requestCreateStudyModel(data.getResearchID()));
 
         JButton editStudyButton = new JButton("Edit Study");
         editStudyButton.addActionListener(e -> {
@@ -106,15 +110,7 @@ public class ResearcherStudyScreen extends JFrame {
         framePanel.add(southPanel, BorderLayout.PAGE_END);
         getContentPane().add(framePanel);
         pack();
-        SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
-
-    public static void main(String[] args) {
-        Map<Integer, String[]> test = Map.of(
-                1, new String[]{"1", "Depression from 207", "Open"}, 2, new String[]{"2", "I want to die Syndrome", "Closed"});
-        ResearcherStudyScreenInputData data = new ResearcherStudyScreenInputData(5, "My moooo", test);
-        new ResearcherStudyScreen(data,new ControllerManager(new ScreenManager())).setVisible(true);
-    }
-
 }
 

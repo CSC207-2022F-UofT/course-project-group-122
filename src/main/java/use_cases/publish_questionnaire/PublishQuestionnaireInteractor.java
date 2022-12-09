@@ -5,8 +5,14 @@ import entities.Study;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that publishes a questionnaire.
+ */
 public class PublishQuestionnaireInteractor implements PublishQuestionnaireInputBoundary {
 
+    /**
+     * The presenter that presents the result of publishing a questionnaire.
+     */
     private PublishQuestionnaireOutputBoundary publishQuestionnairePresenter;
 
     /**

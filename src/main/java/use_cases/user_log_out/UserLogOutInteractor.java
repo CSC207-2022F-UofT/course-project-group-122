@@ -1,26 +1,14 @@
 package use_cases.user_log_out;
 
-import data_access.SaveApplicationState;
-import entities.StudyPool;
-import entities.UserPool;
-import use_cases.participant_enroller.RandomGroupGeneratorManager;
+import entities.Container;
+import org.jetbrains.annotations.NotNull;
+import use_cases.data_access.SaveApplicationState;
+import use_cases.data_access.SaveApplicationStateGateway;
 
+/**
+ * The class that logs out the user.
+ */
 public class UserLogOutInteractor implements UserLogOutInputBoundary{
-
-    /**
-     * The UserPool
-     */
-    private UserPool userPool;
-
-    /**
-     * The StudyPool
-     */
-    private StudyPool studyPool;
-
-    /**
-     * The RandomGroupGeneratorManager
-     */
-    private RandomGroupGeneratorManager randomGroupGeneratorManager;
 
 
     /**
@@ -32,14 +20,22 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
     /**
      * The user log out gateway
      */
-    private UserLogOutGateway userLogOutGateway;
+    private SaveApplicationStateGateway saveApplicationState;
+
+
+    /**
+     * The container that stores all the data in the system
+     */
+    private Container container;
+
+
 
     /**
      * Log out the user and save the current state of data
      */
     @Override
     public void logOut() {
-        userLogOutGateway.saveData(userPool, studyPool, randomGroupGeneratorManager);
+        saveApplicationState.saveData(container);
         userLogOutPresenter.logOut();
     }
 
@@ -57,21 +53,16 @@ public class UserLogOutInteractor implements UserLogOutInputBoundary{
      * Set the gateway for this interactor
      * @param gateway the gateway for this interactor
      */
-    public void setUserLogOutGateway(SaveApplicationState gateway) {
-        this.userLogOutGateway = gateway;
+    public void setSaveApplicationState(SaveApplicationState gateway) {
+        this.saveApplicationState = gateway;
     }
 
 
     /**
      * Set the entity collections
-     * @param userPool                          the UserPool
-     * @param studyPool                         the StudyPool
-     * @param randomGroupGeneratorManager       the RandomGroupGeneratorManager
+     * @param container the container that stores all the data in the system
      */
-    public void setEntityCollections(UserPool userPool, StudyPool studyPool,
-                                     RandomGroupGeneratorManager randomGroupGeneratorManager){
-        this.userPool = userPool;
-        this.studyPool = studyPool;
-        this.randomGroupGeneratorManager = randomGroupGeneratorManager;
+    public void setEntityCollections(@NotNull Container container){
+        this.container = container;
     }
 }

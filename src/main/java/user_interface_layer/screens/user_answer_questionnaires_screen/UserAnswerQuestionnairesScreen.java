@@ -2,7 +2,7 @@ package user_interface_layer.screens.user_answer_questionnaires_screen;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerResponseModel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.user_answer_questionnaires_screen.questions_panel.ParticipantsQuestionPanel;
 
@@ -10,10 +10,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * The screen to answer a questionnaire.
+ */
 public class UserAnswerQuestionnairesScreen extends JFrame {
 
-    public UserAnswerQuestionnairesScreen(@NotNull FetchQuestionnaireDataForAnswerResponseModel data, ControllerManager controllerManager) {
+    /**
+     * Constant for the normal type of questionnaire.
+     */
+    public static final String QUESTIONNAIRE = "Questionnaire";
+
+    /**
+     * Constant for the eligibility type of questionnaire.
+     */
+    public static final String ELIGIBILITY_QUESTIONNAIRE = "Eligibility Questionnaire";
+
+    /**
+     * Creates the screen to answer a questionnaire.
+     * @param data The data to display.
+     * @param type The type of questionnaire.
+     * @param controllerManager The controller manager.
+     */
+    public UserAnswerQuestionnairesScreen(@NotNull FetchQuestionnaireDataForAnswerResponseModel data, String type,
+                                          ControllerManager controllerManager) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setTitle("Answer Questionnaire");
@@ -22,7 +43,8 @@ public class UserAnswerQuestionnairesScreen extends JFrame {
         JPanel header = new JPanel();
         header.setLayout(new BorderLayout());
 
-        JLabel questionnaireNameLabel = new JLabel(data.getQuestionnaireID() + ": " + data.getQuestionnaireName(), SwingConstants.CENTER);
+        JLabel questionnaireNameLabel = new JLabel(data.getQuestionnaireID() + ": " + data.getQuestionnaireName(),
+                SwingConstants.CENTER);
 
         JScrollPane descriptionScrollPanel = new JScrollPane();
         JTextArea descriptionArea = new JTextArea();
@@ -59,8 +81,13 @@ public class UserAnswerQuestionnairesScreen extends JFrame {
                     answers.put(questionPanel.getVariable(),questionPanel.getAnswer());
                 }
             }
-            controllerManager.answerQuestionnaire(data.getModifierId(), data.getParticipantID(),
-                    data.getQuestionnaireID(), data.getStudyID(), answers);
+            if (Objects.equals(type, ELIGIBILITY_QUESTIONNAIRE)) {
+                controllerManager.answerEligibilityQuestionnaire(data.getModifierId(), data.getParticipantID(),
+                        data.getQuestionnaireID(), data.getStudyID(), answers);
+            } else if (Objects.equals(type, QUESTIONNAIRE)) {
+                controllerManager.answerQuestionnaire(data.getModifierId(), data.getParticipantID(),
+                        data.getQuestionnaireID(), data.getStudyID(), answers);
+            }
             dispose();
 
         });
@@ -70,7 +97,7 @@ public class UserAnswerQuestionnairesScreen extends JFrame {
         add(questionsScrollPanel, BorderLayout.CENTER);
         add(submitPanel, BorderLayout.SOUTH);
         pack();
-        SetScreenToCenter s = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
 
 }

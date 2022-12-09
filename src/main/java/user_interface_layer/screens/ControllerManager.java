@@ -30,6 +30,7 @@ import use_cases.modify_study_parameters.ModifyStudyParameterRequestModel;
 import use_cases.participant_drop_study.ParticipantDropStudyController;
 import use_cases.participant_enroller.ParticipantEnrollerController;
 import use_cases.publish_questionnaire.PublishQuestionnaireController;
+import use_cases.questionnaire_answer_data_for_editing_request.FetchLatestAnswerDataRequestController;
 import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenController;
 import use_cases.remove_researcher.RemoveResearcherController;
 import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
@@ -37,19 +38,20 @@ import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.result_extraction.ResultExtractionController;
 import use_cases.user_log_out.UserLogOutController;
 import use_cases.user_login.UserLoginController;
-import user_interface_layer.screen_setters.ScreenManager;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 import user_interface_layer.screens.screen_drivers.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The class that manages all the calls to controllers from the user calls and inputs (buttons).
  * It contains an instance of each controller and the a single instance of this controller is injected to each of the screen.
  * The screen then calls on the controller through this class.
- *
+ * <p>
  * This class also calls other screens that need to be displayed, but do not need a controller to be called on.
  * Those are screen driver that are called on by some of the screens to display other screens.
  */
@@ -70,7 +72,6 @@ public class ControllerManager {
     UserLogOutController userLogOutController;
     ResearcherEnrollerController researcherEnrollerController;
     RemoveResearcherController removeResearcherController;
-//    QuestionnaireAnswerDataRequestForEditingController questionnaireAnswerDataRequestForEditingController;
     PublishQuestionnaireController publishQuestionnaireController;
     ParticipantEnrollerController participantEnrollerController;
     ParticipantDropStudyController participantDropStudyController;
@@ -81,8 +82,6 @@ public class ControllerManager {
     FetchVersionedAnswerController fetchVersionedAnswerDataController;
     FetchParticipantStudyDataController fetchParticipantStudyDataController;
     FetchEditQuestionnaireDataController editQuestionnaireScreenDataController;
-//    EditQuestionnaireController editQuestionnaireController;
-
     private FetchStudyDataForEditingController fetchStudyDataForEditingController;
     private ResultExtractionController resultExtractionController;
     private FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController;
@@ -92,54 +91,82 @@ public class ControllerManager {
     private AssignQuestionnaireController assignQuestionnaireController;
     private AnswerQuestionnaireController answerQuestionnaireController;
     private AddPotentialParticipantController addPotentialParticipantController;
-    private ResearcherEditAnswerController  researcherEditAnswerController;
+    private FetchLatestAnswerDataRequestController fetchLatestAnswerDataRequestController;
     private EligibilityCheckerController eligibilityCheckerController;
     private FetchQuestionnaireScreenController fetchQuestionnaireScreenController;
     private CloseQuestionnaireController closeQuestionnaireController;
     private FetchConsentFormController fetchConsentFormController;
     private CreateConsentFormController createConsentFormController;
     private SetUpConsentFormCreationScreenDriver consentFormCreationScreenDriver;
-
     private EditQuestionnaireController editQuestionnaireController;
-
+    private ResearcherEditAnswerController researcherEditAnswerController;
 
     public ControllerManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
     }
 
+    /**
+     * request the login screen to be displayed
+     */
     public void requestLogInScreen() {
         logInScreenDriver.requestLogInScreen(screenManager, this);
     }
 
+    /**
+     * request the sign up screen to be displayed
+     */
     public void requestSignUpScreen() {
         signUpScreenDriver.requestSignUpScreen(screenManager, this);
     }
 
+    /**
+     * request the register screen to be displayed
+     */
     public void requestRegisterScreen() {
         registerScreenDriver.requestRegisterScreen(screenManager, this);
     }
 
+    /**
+     * request the user creation screen to be displayed
+     */
     public void requestCreateUser(String typeOfUser, String username, String name) {
         userLoginController.signup(username, typeOfUser, name);
     }
 
+    /**
+     * set the current user id
+     */
     public void setCurrentUserId(int currentUserId) {
         this.currentUserId = currentUserId;
     }
 
+    /**
+     * login the user
+     */
     public void requestLogInUser(String username) {
         userLoginController.login(username);
     }
 
+    /**
+     * fetch the versioned answer data for the questionnaire
+     *
+     */
     public void fetchVersionedAnswer(int studyId, int participantId, int questionnaireID, int answerID, int version) {
         fetchVersionedAnswerDataController.fetchVersionedAnswer(studyId, participantId, questionnaireID, answerID, version);
     }
 
+
+    /**
+     * request the questionnaire data
+     */
     public void questionnaireRequestDataForAnswering(int modifier, int participantId1, int studyId, int questionnaireId) {
-        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(modifier, participantId1, studyId, questionnaireId);
+        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(modifier, participantId1, studyId,
+                questionnaireId, AnswerQuestionnaireController.QUESTIONNAIRE);
     }
 
     /**
+     * answer the questionnaire
+     *
      * @param modifier          the id of the user that is requesting the data
      * @param participantID     the id of the participant that the data is being requested for
      * @param questionnaireID   the id of the questionnaire that the data is being requested for
@@ -148,32 +175,73 @@ public class ControllerManager {
      *                  Key is the variable and value is the string answer.
      */
     public void answerQuestionnaire(int modifier,int participantID, int questionnaireID, int studyID,
-                                    HashMap<String, String> answers) {
+                                    Map<String, String> answers) {
         AnswerQuestionnaireRequestModel requestModel = new AnswerQuestionnaireRequestModel(questionnaireID,
                 participantID, modifier, studyID);
         requestModel.setAnswers(answers, answers.size());
-        answerQuestionnaireController.answerQuestionnaire(requestModel);
+        answerQuestionnaireController.answerQuestionnaire(requestModel, AnswerQuestionnaireController.QUESTIONNAIRE);
     }
 
 
+    /**
+     * answer the eligibility questionnaire
+     */
+    public void answerEligibilityQuestionnaire(int modifier,int participantID, int questionnaireID, int studyID,
+                                               Map<String, String> answers) {
+        AnswerQuestionnaireRequestModel requestModel = new AnswerQuestionnaireRequestModel(questionnaireID,
+                participantID, modifier, studyID);
+        requestModel.setAnswers(answers, answers.size());
+        answerQuestionnaireController.answerQuestionnaire(requestModel, AnswerQuestionnaireController.ELIGIBILITY_QUESTIONNAIRE);
+    }
+
+
+    /**
+     * modify the study parameters
+     */
     public void modifyStudyParameters(@NotNull ModifyStudyParameterRequestModel requestModel) {
         requestModel.setResearcherId(currentUserId);
         modifyStudyParameterController.modifyStudyParameters(requestModel);
     }
 
 
+    /**
+     * set the stratification parameters
+     */
     public void setStratificationVariableRequest(int studyId, String stratificationVariable) {
         modifyStudyParameterController.modifyStudyStratification(studyId, stratificationVariable, currentUserId);
     }
 
+
+    /**
+     * get the potential stratification variables
+     */
+    public void fetchStratificationVariables(int studyId) {
+        modifyStudyParameterController.checkPotentialStratificationVariables(studyId);
+    }
+
+    /**
+     * create questionnaire
+     * @param type              the type of questionnaire
+     * @param studyID           the id of the study that the questionnaire is being created for
+     * @param researcherID      the id of the researcher that is creating the questionnaire
+     * @param questionnaireName the name of the questionnaire
+     * @param description       the description of the questionnaire
+     * @param groups            the target groups of the questionnaire
+     * @param numQuestions      the number of questions in the questionnaire
+     * @param addedQuestions    the questions in the questionnaire
+     */
     public void createQuestionnaireController(String type, int studyID, int researcherID, String questionnaireName,
-                                              String description, ArrayList<String> groups, int numQuestions,
+                                              String description, List<String> groups, int numQuestions,
                                               List<QuestionModel> addedQuestions) {
         CreateQuestionnaireRequestModel requestModel = new CreateQuestionnaireRequestModel(type, studyID, researcherID,
                 questionnaireName, description, groups, numQuestions, addedQuestions);
         createQuestionnaireController.createQuestionnaire(requestModel);
     }
 
+
+    /**
+     * request the study data for editing
+     */
     public void createStudyController(int researcherID, String studyName, String description, int studySize,
                                       String studyType, int groupNum, String[] groupNamesArray) {
         CreateStudyRequestModel requestModel = new CreateStudyRequestModel(researcherID, studyName, description);
@@ -191,15 +259,13 @@ public class ControllerManager {
         userLogOutController.logOut();
     }
 
-    public void checkQuestionnaireVersionedAnswer(int studyId, int participantId, int questionnaireID, List<String[]> answers) {
-        for (String[] answer : answers) {
-            int answerID = Integer.parseInt(answer[0]);
-            int version = Integer.parseInt(answer[1]);
-            System.out.println("Checking answer " + answerID + " version " + version);
-        }
+    public void checkQuestionnaireVersionedAnswer(int studyId, int participantId, int questionnaireID,
+                                                  int answerId,
+                                                  @NotNull List<String[]> answers) {
         setQuestionnaireVersionedAnswerDriver.checkQuestionnaireVersionedAnswerDriver(studyId,
                 participantId,
                 questionnaireID,
+                answerId,
                 answers,
                 screenManager,
                 this);
@@ -207,7 +273,8 @@ public class ControllerManager {
 
 
     public void answerEligibilityQuestionnaireRequestData(int userId, int participantId, int questionnaireId, int studyId) {
-        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(userId, participantId, studyId, questionnaireId);
+        fetchQuestionnaireDataForAnswerController.questionnaireRequestData(userId, participantId, studyId,
+                questionnaireId, AnswerQuestionnaireController.ELIGIBILITY_QUESTIONNAIRE);
     }
 
 
@@ -229,12 +296,12 @@ public class ControllerManager {
         researcherEnrollerController.enrollResearcher(researcherId, studyId, currentUserId);
     }
 
-    public void setRandomizationStrategyRequest(int studyId, String simple, int researcherId) {
-        modifyStudyParameterController.modifyStudyStratification(studyId, simple, researcherId);
+    public void setRandomizationStrategyRequest(int studyId, String randomizationStrategy, int researcherId) {
+        modifyStudyParameterController.modifyStudyRandomization(studyId, randomizationStrategy, researcherId);
     }
 
 
-    public void researcherRequestParticipantScreenRequest(int researcherId, int participantId, int studyId) {
+    public void researcherRequestParticipantScreenRequest(int researcherId, int participantId) {
         fetchParticipantStudyDataController.fetchParticipantStudyData(participantId,researcherId);
     }
 
@@ -244,9 +311,14 @@ public class ControllerManager {
 
     }
 
-    public void enrollParticipantRequest(int participantId, int studyId, int researcherId) {
-        participantEnrollerController.enrollParticipant(participantId, studyId, researcherId);
+    public void enrollRandomizedParticipantRequest(int participantId, int studyId, int researcherId) {
+        participantEnrollerController.enrollRandomizedParticipant(participantId, studyId, researcherId);
     }
+
+    public void enrollGeneralParticipantRequest(int participantId, int studyId, int group, int researcherId) {
+        participantEnrollerController.enrollGeneralParticipant(participantId, studyId, group, researcherId);
+    }
+
 
     public void fetchParticipant(int participantIdInt, int studyId) {
         addPotentialParticipantController.fetchParticipantInfo(participantIdInt, studyId);
@@ -340,9 +412,12 @@ public class ControllerManager {
     public void assignQuestionnaireToGroups(int studyID, int questionnaireID, List<String> selectedGroups) {
         assignQuestionnaireController.assignQuestionnaireToGroups(questionnaireID, studyID, selectedGroups, currentUserId);
     }
-
-
-
+    public void editQuestionnaireAnswerDataRequest(int researcherId, int studyId, int participantId, int questionnaireID) {
+        fetchLatestAnswerDataRequestController.fetchQuestionnaireAnswerData(researcherId, studyId, participantId, questionnaireID);
+    }
+    public void researcherEditAnswer(int researcherID, int participantId, int answerId, int studyID, HashMap<String, String> answers, String reasonForModification) {
+        researcherEditAnswerController.researcherEditAnswerRequest(researcherID,participantId, answerId, studyID, answers, reasonForModification);
+    }
 
 
 
@@ -392,9 +467,9 @@ public class ControllerManager {
         this.removeResearcherController = removeResearcherController;
     }
 
-//    public void setQuestionnaireAnswerDataRequestForEditingController(QuestionnaireAnswerDataRequestForEditingController questionnaireAnswerDataRequestForEditingController) {
-//        this.questionnaireAnswerDataRequestForEditingController = questionnaireAnswerDataRequestForEditingController;
-//    }
+    public void setFetchLatestAnswerDataRequestController(FetchLatestAnswerDataRequestController fetchLatestAnswerDataRequestController) {
+        this.fetchLatestAnswerDataRequestController = fetchLatestAnswerDataRequestController;
+    }
 
     public void setPublishQuestionnaireController(PublishQuestionnaireController publishQuestionnaireController) {
         this.publishQuestionnaireController = publishQuestionnaireController;
@@ -432,18 +507,6 @@ public class ControllerManager {
         this.fetchParticipantStudyDataController = fetchParticipantStudyDataController;
     }
 
-//    public void setEditQuestionnaireScreenDataController(FetchEditQuestionnaireDataController editQuestionnaireScreenDataController) {
-//        this.editQuestionnaireScreenDataController = editQuestionnaireScreenDataController;
-//    }
-
-//    public void setEditQuestionnaireController(EditQuestionnaireController editQuestionnaireController) {
-//        this.editQuestionnaireController = editQuestionnaireController;
-//    }
-
-//    public void setQuestionnaireScreenDataRequestController(QuestionnaireScreenDataRequestController questionnaireScreenDataRequestController) {
-//        this.questionnaireScreenDataRequestController = questionnaireScreenDataRequestController;
-//    }
-
     public void setFetchStudyDataForEditingController(FetchStudyDataForEditingController fetchStudyDataForEditingController) {
         this.fetchStudyDataForEditingController = fetchStudyDataForEditingController;
     }
@@ -474,10 +537,6 @@ public class ControllerManager {
 
     public void setAddPotentialParticipantController(AddPotentialParticipantController addPotentialParticipantController) {
         this.addPotentialParticipantController = addPotentialParticipantController;
-    }
-
-    public void setResearcherEditAnswerController(ResearcherEditAnswerController researcherEditAnswerController) {
-        this.researcherEditAnswerController = researcherEditAnswerController;
     }
 
     public void setEligibilityCheckerController(EligibilityCheckerController eligibilityCheckerController) {
@@ -520,5 +579,7 @@ public class ControllerManager {
         this.editQuestionnaireController = editQuestionnaireController;
     }
 
-
+    public void setResearcherEditAnswerController(ResearcherEditAnswerController researcherEditAnswerController) {
+        this.researcherEditAnswerController = researcherEditAnswerController;
+    }
 }

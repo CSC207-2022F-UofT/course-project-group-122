@@ -35,11 +35,6 @@ import java.util.List;
 public class Questionnaire implements Serializable {
 
     /**
-     * The current maximum ID of all the Questionnaires in the system. This is used to generate the next ID.
-     */
-    private static int currID = 0;
-
-    /**
      * The id of this Questionnaire. This is unique across the entire system.
      */
     private final int id;
@@ -92,37 +87,7 @@ public class Questionnaire implements Serializable {
      * The list of Questions in this Questionnaire. The questions are stored in the order that they are added. The order
      * of the questions is important, as it determines how the questions are displayed to the Participant User.
      */
-    private List<Question> listOfQuestion = new ArrayList<>();
-
-
-    /**
-     * The Constructor for the Questionnaire class.
-     * This constructor is overloaded.
-     * Researcher Users specify the targetGroups when creating a Questionnaire object.
-     * This constructor is called when a Researcher User creates a new Questionnaire for a Study.
-     *
-     * @param study        The Study this Questionnaire is part of.
-     * @param title        The title of this Questionnaire.
-     * @param description  A description or instruction that the Researcher User specifies for this Questionnaire when
-     *                     creating it. This description is shown to the Participant User when they are filling out the
-     *                     Questionnaire.
-     * @param targetGroups The groups in the Study that this Questionnaire is part of, that can answer this
-     *                     Questionnaire. We will use an integer to represent the group ID. The targetGroups are
-     *                     specified by the Researcher User when creating the Questionnaire. The targetGroups are
-     *                     used to facilitate the assignment of Questionnaires to Participants. However, the researcher
-     *                     has the option to assign the Questionnaire to any Participant individually, regardless of
-     *                     their group. In this case, if a Questionnaire is designed to be assigned to a particular
-     *                     participant or some specific participants not according to the group, the targetGroups will
-     *                     be empty.
-     */
-    public Questionnaire(Study study, String title, String description, List<String> targetGroups) {
-        currID++;
-        this.id = currID;
-        this.study = study;
-        this.title = title;
-        this.description = description;
-        this.targetGroups = targetGroups;
-    }
+    private final List<Question> listOfQuestion = new ArrayList<>();
 
 
     /**
@@ -137,42 +102,11 @@ public class Questionnaire implements Serializable {
      *                    creating it. This description is shown to the Participant User when they are filling out the
      *                    Questionnaire.
      */
-    public Questionnaire(Study study, String title, String description) {
-        currID++;
-        this.id = currID;
+    public Questionnaire(int id, Study study, String title, String description) {
+        this.id = id;
         this.study = study;
         this.title = title;
         this.description = description;
-    }
-
-
-    /**
-     * The Constructor for the Questionnaire class.
-     * This constructor is overloaded.
-     * Researcher Users specify the targetGroups when creating a Questionnaire object.
-     * This constructor is called when a Researcher User modifies an existing Questionnaire.
-     *
-     * @param study        The Study this Questionnaire is part of.
-     * @param title        The title of this Questionnaire.
-     * @param description  A description or instruction that the Researcher User specifies for this Questionnaire when
-     *                     creating it. This description is shown to the Participant User when they are filling out the
-     *                     Questionnaire.
-     * @param targetGroups The groups in the Study that this Questionnaire is part of, that can answer this
-     *                     Questionnaire. We will use an integer to represent the group ID. The targetGroups are
-     *                     specified by the Researcher User when creating the Questionnaire. The targetGroups are
-     *                     used to facilitate the assignment of Questionnaires to Participants. However, the researcher
-     *                     has the option to assign the Questionnaire to any Participant individually, regardless of
-     *                     their group. In this case, if a Questionnaire is designed to be assigned to a particular
-     *                     participant or some specific participants not according to the group, the targetGroups will
-     *                     be empty.
-     */
-    public Questionnaire(Study study, String title, String description, int version, List<String> targetGroups) {
-        currID++;
-        this.id = currID;
-        this.study = study;
-        this.title = title;
-        this.description = description;
-        this.targetGroups = targetGroups;
     }
 
 
@@ -188,40 +122,12 @@ public class Questionnaire implements Serializable {
      *                    creating it. This description is shown to the Participant User when they are filling out the
      *                    Questionnaire.
      */
-    public Questionnaire(Study study, String title, String description, int version) {
-        currID++;
-        this.id = currID;
+    public Questionnaire(int id, Study study, String title, String description, List<String> targetGroups) {
+        this.id = id;
         this.study = study;
         this.title = title;
         this.description = description;
-    }
-
-
-    /**
-     * Add group in the list of targetGroups in this Questionnaire.
-     *
-     * @param groupID The group ID of the group to be added to the list of targetGroups.
-     * @return true if group was successfully added to the list of targetGroups for this Questionnaire.
-     */
-    public boolean addTargetGroups(String groupID) {
-        if (!this.targetGroups.contains(groupID)) {
-            return this.targetGroups.add(groupID);
-        }
-        return false;
-    }
-
-
-    /**
-     * Remove group from the list of targetGroups in this Questionnaire.
-     *
-     * @param groupID The group ID of the group to be removed from the list of targetGroups.
-     * @return true if group was successfully removed from the list of targetGroups for this Questionnaire.
-     */
-    public boolean removeTargetGroups(String groupID) {
-        if (this.targetGroups.contains(groupID)) {
-            return this.targetGroups.remove(groupID);
-        }
-        return false;
+        this.targetGroups = targetGroups;
     }
 
 
@@ -232,80 +138,12 @@ public class Questionnaire implements Serializable {
      * Add if the question is referring to the same questionnaire as one already in the list.
      *
      * @param question The Question to be added to the list of Questions.
-     * @return true if question was successfully added in the list of Questions in this Questionnaire.
      */
-    public boolean addQuestion(@NotNull Question question) {
-        if (!this.listOfQuestion.contains(question)) {
-            if (question.getQuestionnaire() == this) {
-                this.numOfQuestion++;
-                return this.listOfQuestion.add(question);
-            }
-            return false;
+    public void addQuestion(@NotNull Question question) {
+        if (!this.listOfQuestion.contains(question) && question.getQuestionnaire() == this) {
+            this.numOfQuestion++;
+            this.listOfQuestion.add(question);
         }
-        return false;
-    }
-
-
-    /**
-     * Checks if index is in the length of the list of Questions in this Questionnaire.
-     *
-     * @param index The index to be checked.
-     * @return true if the index is in the length of the list of Questions.
-     */
-    public boolean isInListOfQuestion(int index) {
-        return index >= 0 && index < this.listOfQuestion.size();
-
-    }
-
-
-    /**
-     * Remove question from the list of Questions in this Questionnaire.
-     * This method is overloaded.
-     *
-     * @param question The Question to be removed from the list of Questions.
-     * @return true if question was successfully removed from the list of Questions in this Questionnaire.
-     */
-    public boolean removeQuestion(Question question) {
-        if (this.listOfQuestion.contains(question)) {
-            this.listOfQuestion.remove(question);
-            this.numOfQuestion--;
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Removes the Question at index [index] from the list of Questions for this MultipleChoiceQuestion.
-     * This method overloaded.
-     *
-     * @param index The index of the Question to be removed from the list of Questions.
-     * @return true if Question at index was successfully removed from the list of Questions.
-     */
-    public boolean removeQuestion(int index) {
-        if (this.isInListOfQuestion(index)) {
-            this.listOfQuestion.remove(index);
-            this.numOfQuestion--;
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Rearrange the list of questions so that the question at index [indexToArranged] is inserted to index [index].
-     *
-     * @param indexToArrange The index of the question to be rearranged.
-     * @param index          The index to insert the question at.
-     * @return true if Question at index indexToArranged was successfully inserted at index.
-     */
-    public boolean rearrangeChoices(int indexToArrange, int index) {
-        if (this.isInListOfQuestion(indexToArrange) && this.isInListOfQuestion(index)) {
-            Question holdQuestion = this.listOfQuestion.remove(indexToArrange);
-            this.listOfQuestion.add(index, holdQuestion);
-            return true;
-        }
-        return false;
     }
 
 
@@ -396,28 +234,22 @@ public class Questionnaire implements Serializable {
      * @param description The description to be set for this Questionnaire.
      *                    This description is shown to the Participant User when they are filling out the
      *                    Questionnaire.
-     * @return true if the description was successfully set.
+     *
      */
-    public boolean setDescription(String description) {
+    public void setDescription(String description) {
         if (!this.publishedStatus && !this.closedStatus) {
             this.description = description;
-            return true;
         }
-        return false;
     }
 
 
     /**
      * Publish this Questionnaire. Only allowed when the Questionnaire is not closed.
-     *
-     * @return true if the Questionnaire was successfully published.
      */
-    public boolean publish() {
+    public void publish() {
         if (!this.closedStatus) {
             this.publishedStatus = true;
-            return true;
         }
-        return false;
     }
 
 
@@ -426,30 +258,6 @@ public class Questionnaire implements Serializable {
      */
     public void close() {
         this.closedStatus = true;
-    }
-
-
-    /**
-     * Reactivate this Questionnaire.
-     */
-    public void reactivate() {
-        this.closedStatus = false;
-    }
-
-
-    /**
-     * Retrieve a Question from the list of Questions in this Questionnaire by its id.
-     *
-     * @param id    The id of the Question to be retrieved.
-     * @return the Question with the provided id.
-     */
-    public Question getQuestionById(int id) {
-        for (Question question : this.listOfQuestion) {
-            if (question.getId() == id) {
-                return question;
-            }
-        }
-        return null;
     }
 
 

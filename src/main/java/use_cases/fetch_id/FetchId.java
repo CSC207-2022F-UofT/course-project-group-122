@@ -13,7 +13,14 @@ import java.util.List;
  */
 public class FetchId {
 
+    /**
+     * The user pool where all the users are stored.
+     */
     private static UserPool userPool;
+
+    /**
+     * The study pool where all the studies are stored.
+     */
     private static StudyPool studyPool;
 
 
@@ -124,7 +131,7 @@ public class FetchId {
                 return answer;
             }
         }
-        return null;
+        return participant.getEligibilityQuestionnaireAnswer();
     }
 
 
@@ -157,16 +164,5 @@ public class FetchId {
     public static int addStudy(Study study) {
         studyPool.addStudy(study);
         return study.getId();
-    }
-
-
-    /**
-     * Add the user to the user pool and return the id of the user.
-     * @param user  The user to be added.
-     * @return      The id of the user.
-     */
-    public static int addUser(User user) {
-        userPool.addUser(user);
-        return user.getId();
     }
 }

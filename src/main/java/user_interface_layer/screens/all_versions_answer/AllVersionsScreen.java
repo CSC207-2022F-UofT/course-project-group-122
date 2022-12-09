@@ -1,35 +1,32 @@
 package user_interface_layer.screens.all_versions_answer;
 
-import user_interface_layer.screen_setters.ScreenManager;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screen_setters.SetTableModel;
+import org.jetbrains.annotations.NotNull;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * The screen that shows all the versions of an answer.
  */
 public class AllVersionsScreen extends JFrame {
-    public AllVersionsScreen(AllVersionsInputData data, ControllerManager controllerManager) {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    /**
+     * @param data The data needed to display the screen.
+     * @param controllerManager The controller manager.
+     */
+    public AllVersionsScreen(@NotNull AllVersionsInputData data, ControllerManager controllerManager) {
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Questionnaire Versioned Answers");
 
         SetTableModel setTableModel = new SetTableModel(data.getAnswerTableHeader());
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
-
-        for (String[] answer : data.getAnswer()) {
-            System.out.println(answer);
-        }
-        assert data.getAnswer() != null;
         for (String[] answerData : data.getAnswer()) {
             model.addRow(answerData);
         }
-
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(table);
         
@@ -39,7 +36,7 @@ public class AllVersionsScreen extends JFrame {
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Please select an answer to check.");
             } else {
-                int answerID = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
+                int answerID = data.getAnswerId();
                 int version = Integer.parseInt((String) model.getValueAt(selectedRow, 1));
                 controllerManager.fetchVersionedAnswer(data.getStudyId(),data.getParticipantID(),data.getQuestionnaireID(),answerID,version);
             }
@@ -48,19 +45,7 @@ public class AllVersionsScreen extends JFrame {
         add(selectAnswerButton, BorderLayout.SOUTH);
         pack();
 
-        SetScreenToCenter s = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
 
-    public static void main(String[] args) {
-        ArrayList<String[]> answer = new ArrayList<>();
-        answer.add(new String[]{"32", "4", "Jannet", "2020-12-12", "Some Answer"});
-        answer.add(new String[]{"33", "5", "Jannet", "2020-12-12", "Some Answer"});
-        answer.add(new String[]{"34", "6", "Jannet", "2020-12-12", "Some Answer"});
-
-
-        AllVersionsInputData data = new AllVersionsInputData(44, 65, 76, answer);
-        AllVersionsScreen screen = new AllVersionsScreen(data, new ControllerManager(new ScreenManager()));
-        screen.setVisible(true);
-
-    }
 }

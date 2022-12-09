@@ -1,7 +1,7 @@
 package user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen;
 
-import user_interface_layer.screen_setters.SetLabelTextPanel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetLabelTextPanel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
 import javax.swing.*;
@@ -11,15 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The screen for creating a multiple choice question.
+ */
 public class MCQuestionScreen extends JFrame {
+    /**
+     * The text area for the question.
+     */
     private final JTextArea question = new JTextArea(5, 20);
+    /**
+     * The text field for the variable.
+     */
     private final JTextField variable;
+    /**
+     * The list of options.
+     */
     private List<String> options;
 
-
-    public MCQuestionScreen(ArrayList<String> variables, List<QuestionModel> addedQuestions, DefaultTableModel model, int numOfOptions) {
+    public MCQuestionScreen(List<String> variables, List<QuestionModel> addedQuestions, DefaultTableModel model, int numOfOptions) {
         setTitle("Create MCQuestion");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -38,16 +49,16 @@ public class MCQuestionScreen extends JFrame {
 
         JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
-        List<JTextField> options = new ArrayList<>();
+        List<JTextField> mcOptions = new ArrayList<>();
         for (int i = 0; i < numOfOptions; i++) {
             JTextField option = new JTextField(50);
-            options.add(option);
+            mcOptions.add(option);
             optionsPanel.add(new SetLabelTextPanel(new JLabel("Option " + (i + 1) + ": "), option));
         }
 
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> {
-            List<String> stringOptions = options.stream().map(JTextField::getText).collect(Collectors.toList());
+            List<String> stringOptions = mcOptions.stream().map(JTextField::getText).collect(Collectors.toList());
 
             if (question.getText().equals("") || variable.getText().equals("") || stringOptions.contains("")) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");
@@ -69,16 +80,8 @@ public class MCQuestionScreen extends JFrame {
         add(panel, BorderLayout.CENTER);
         add(submitButton, BorderLayout.SOUTH);
         pack();
-        SetScreenToCenter s = new SetScreenToCenter(this);
-
-
+        SetScreenToCenter.setCenter(this);
     }
 
-//    public static void main(String[] args) {
-//        List<QuestionModel> addedQuestions = new ArrayList<>();
-//        MCQuestionScreen mcQuestionScreen = new MCQuestionScreen(addedQuestions,3);
-//        mcQuestionScreen.setVisible(true);
-//
-//    }
 
 }

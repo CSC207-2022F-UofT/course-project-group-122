@@ -4,12 +4,35 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Enumeration;
 
+/**
+ * A panel for the scale question.
+ */
 public class ScaleQuestionPanel extends JPanel implements ParticipantsQuestionPanel {
+    /**
+     * The type of the question.
+     */
     private final String type;
+    /**
+     * The variable of the question.
+     */
     private final String variable;
+    /**
+     * The group of radio buttons that contain the options.
+     */
     private final ButtonGroup buttonGroup = new ButtonGroup();
+    /**
+     * The question.
+     */
     private final String question;
 
+    /**
+     * @param question The question.
+     * @param type   The type of the question.
+     * @param variable The variable of the question.
+     * @param bottomLabel The bottom label of the scale.
+     * @param topLabel The top label of the scale.
+     * @param scale The scale.
+     */
     public ScaleQuestionPanel(String question, String type, String variable, String bottomLabel, String topLabel, int scale) {
         this.variable = variable;
         this.type = type;
@@ -35,6 +58,9 @@ public class ScaleQuestionPanel extends JPanel implements ParticipantsQuestionPa
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
+    /**
+     * @return The answer of the question.
+     */
     @Override
     public String getAnswer() {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
@@ -46,21 +72,33 @@ public class ScaleQuestionPanel extends JPanel implements ParticipantsQuestionPa
         return "";
     }
 
+    /**
+     * @return The variable of the question.
+     */
     @Override
     public String getVariable() {
         return variable;
     }
 
+    /**
+     * @return The panel of the question.
+     */
     @Override
     public JPanel getQuestionPanel() {
         return this;
     }
 
+    /**
+     * @return The type of the question.
+     */
     @Override
     public String getType() {
         return type;
     }
 
+    /**
+     * @return The question.
+     */
     @Override
     public String getQuestion() {
         return question;

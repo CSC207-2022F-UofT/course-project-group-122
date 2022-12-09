@@ -1,7 +1,5 @@
 package user_interface_layer.screens.create_study_inputs_screen;
 
-import user_interface_layer.screens.ControllerManager;
-
 /*
  * The input data for the create study inputs screen.
  */

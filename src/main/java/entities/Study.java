@@ -18,11 +18,6 @@ import java.util.Map;
 public abstract class Study implements Serializable {
 
     /**
-     * Current study ID
-     */
-    private static int currID = 0;
-
-    /**
      * The ID of the study
      */
     private final int id;
@@ -69,10 +64,8 @@ public abstract class Study implements Serializable {
      * @param targetStudySize The target study size. What is the number of participants the researchers of this study
      *                        want to achieve?
      */
-    protected Study(String studyName, int targetStudySize) {
-        // update the current ID
-        currID++;
-        this.id = currID;
+    protected Study(int id, String studyName, int targetStudySize) {
+        this.id = id;
         this.studyName = studyName;
         this.targetStudySize = targetStudySize;
     }
@@ -346,15 +339,6 @@ public abstract class Study implements Serializable {
         this.studyQuestionnaireManager.addQuestionnaire(q);
     }
 
-    /**
-     * Remove a questionnaire from the list of questionnaires.
-     *
-     * @param q the questionnaire to be removed.
-     * @return whether the removal is successful.
-     */
-    public boolean removeQuestionnaire(Questionnaire q) {
-        return this.studyQuestionnaireManager.removeQuestionnaire(q);
-    }
 
     /**
      * Retrieve the consent form.

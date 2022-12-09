@@ -2,16 +2,18 @@ package user_interface_layer.screens.consent_form;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_consent_form.FetchConsentFormResponseModel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screens.ControllerManager;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The screen that shows the researcher the consent form.
+ */
 public class ConsentFormScreenForReview extends JFrame {
-    public ConsentFormScreenForReview(@NotNull FetchConsentFormResponseModel responseModel, ControllerManager controllerManager) {
+    public ConsentFormScreenForReview(@NotNull FetchConsentFormResponseModel responseModel) {
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -67,6 +69,6 @@ public class ConsentFormScreenForReview extends JFrame {
         add(panel, BorderLayout.NORTH);
 
         pack();
-        SetScreenToCenter setScreenToCenter = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
 }

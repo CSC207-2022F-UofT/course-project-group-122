@@ -3,6 +3,10 @@ package use_cases.fetch_consent_form;
 import user_interface_layer.presenter_manager.display_consent_form.DisplayConsentFormInterface;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 
+
+/**
+ * The presenter that the use calls on to present the data to the user.
+ */
 public class FetchConsentFormPresenter implements FetchConsentFormOutpuBoundary {
 
 
@@ -26,7 +30,6 @@ public class FetchConsentFormPresenter implements FetchConsentFormOutpuBoundary 
         displayConsentForm.displayConsentForm(responseModel);
     }
 
-
     /**
      * Present an error message to the user
      *
@@ -48,18 +51,18 @@ public class FetchConsentFormPresenter implements FetchConsentFormOutpuBoundary 
         displayConsentForm.showConsentFormContent(responseModel);
     }
 
-
     /**
      * Set the display consent form method
-     * @param displayConsentForm    The display consent form method
+     *
+     * @param displayConsentForm The display consent form method
      */
     public void setDisplayConsentForm(DisplayConsentFormInterface displayConsentForm) {
         this.displayConsentForm = displayConsentForm;
     }
 
-
     /**
      * Set the display failure message method
+     *
      * @param displayFailureMessage The display failure message method
      */
     public void setDisplayFailureMessage(DisplayFailureMessageInterface displayFailureMessage) {

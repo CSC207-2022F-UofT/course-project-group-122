@@ -1,14 +1,14 @@
 package use_cases.result_extraction;
 
 /**
- * This interface defines the input boundary for the ResultPullingAndExtraction use case.
+ * The Input Boundary for the researcher export study
+ * Defines the input interface for the result extraction use case.
  */
-
 public interface ResultExtractionInputBoundary {
-    /*
+    /**
      * This method pull and extract result of certain study to certain file directory
      * <p>
-     * All the result in a study will be packed as file, including:
+     * All the result in a study will be packed as files, including:
      * - the name of the participant
      * - the ID of the participant
      * - the group number of the participant
@@ -17,11 +17,12 @@ public interface ResultExtractionInputBoundary {
      * - the reason of modification
      * - the versioned answer
      * - the variable related to the versioned answer
-     * First, info above will be packed as a csv file named by the questionnaire
-     * Second, the csv files of questionnaires in a study will be packed as a folder named by the study
-     * Eventually, the file will be sent to the given directory by the user
-
-     * @param
+     * First, this use case will create a folder named by study in the given file path
+     * Second, the use case will create a csv file for each of the questionnaires within this study, and save in the study folder memtioned above
+     * Eventually, the use case will collect information above from questionnaire and write them into the csv file
+     *
+     * @param studyID The ID of the study that the researcher want to export
+     * @param filepath The file path to save the result folder
      */
 
     void resultPullingAndExtraction(int studyID, String filepath);

@@ -73,12 +73,13 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      *
      * @param participantId The participant to enroll.
      * @param studyId       The study to enroll the participant in.
-     * @param group         The group number to enroll the participant in.
+     * @param group         the group name to enroll the participant in.
      */
     @Override
     public void enroll(int participantId, int studyId, int group, int userId) {
         Participant participant = checkParticipantIdIsValid(participantId);
         Study study = FetchId.getStudy(studyId);
+        assert study instanceof GeneralStudy;
         if (enrollParticipant(participant, study, group)) {
             assignQuestionnaires(participant, study);
             participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup(), studyId, userId);
@@ -205,20 +206,10 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
         if (randomGroupGeneratorManager.studyGeneratorExists(study)) {
             return randomGroupGeneratorManager.getStudyGenerator(study);
         } else {
-            String type = study.getRandomizationMethod();
-            if (type.equals("Block")) {
-                RandomGroupGenerator generator = new BlockRandomGroupGenerator(study);
-                randomGroupGeneratorManager.addStudyGenerator(study, generator);
-                return generator;
-            } else if (type.equals("Stratified")) {
-                RandomGroupGenerator generator =  new StratifiedRandomGroupGenerator(study);
-                randomGroupGeneratorManager.addStudyGenerator(study, generator);
-                return generator;
-            } else {
-                RandomGroupGenerator generator =  new SimpleRandomGroupGenerator(study);
-                randomGroupGeneratorManager.addStudyGenerator(study, generator);
-                return generator;
-            }
+            RandomGroupGenteratorFactoryInterface randomGroupGeneratorFactory = new RandomGroupGenteratorFactory();
+            RandomGroupGenerator randomGroupGenerator = randomGroupGeneratorFactory.createRandomGroupGenerator(study);
+            randomGroupGeneratorManager.addStudyGenerator(study, randomGroupGenerator);
+            return randomGroupGenerator;
         }
     }
 

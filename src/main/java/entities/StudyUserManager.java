@@ -1,7 +1,5 @@
 package entities;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -58,15 +56,6 @@ public class StudyUserManager implements Serializable {
 
 
     /**
-     * The current number of participants in the study.
-     *
-     * @return the current number of participants in the study.
-     */
-    protected int currentStudySize() {
-        return participants.size();
-    }
-
-    /**
      * Return the number of groups in the study.
      *
      * @return the number of groups in the study.
@@ -96,15 +85,12 @@ public class StudyUserManager implements Serializable {
      *
      * @param numGroups  the number of groups
      * @param groupNames the name of the groups
-     * @return whether the change is successful
      */
-    protected boolean resetGroups(int numGroups, String[] groupNames) {
+    protected void resetGroups(int numGroups, String[] groupNames) {
         if (this.participants.isEmpty()) {
             this.numGroups = numGroups;
             this.groupNames = groupNames;
-            return true;
         }
-        return false;
     }
 
     /**
@@ -118,20 +104,17 @@ public class StudyUserManager implements Serializable {
      * maintained in the use case.
      *
      * @param numGroups the number of groups
-     * @return whether the change is successful
      */
-    protected boolean resetGroups(int numGroups) {
+    protected void resetGroups(int numGroups) {
         if (this.participants.isEmpty()) {
-            String[] groupNames = new String[numGroups];
+            String[] newGroupNames = new String[numGroups];
             for (int i = 0; i < numGroups; i++) {
                 int group = i + 1;
-                groupNames[i] = "Group " + group;
+                newGroupNames[i] = "Group " + group;
             }
             this.numGroups = numGroups;
-            this.groupNames = groupNames;
-            return true;
+            this.groupNames = newGroupNames;
         }
-        return false;
     }
 
     /**
@@ -143,30 +126,14 @@ public class StudyUserManager implements Serializable {
         return new ArrayList<>(this.potentialParticipants);
     }
 
-    /**
-     * Remove a potential participant from the list of potential participants.
-     *
-     * @param p the potential participant to be removed.
-     * @return whether the removal is successful.
-     */
-    protected boolean removePotentialParticipant(Participant p) {
-        if (this.potentialParticipants.contains(p)) {
-            return this.potentialParticipants.remove(p);
-        }
-        return false;
-    }
 
     /**
      * Add a potential participant from the list of potential participants.
      *
      * @param p the potential participant to be added.
-     * @return whether the addition is successful.
      */
-    protected boolean addPotentialParticipant(Participant p) {
-        if (!this.potentialParticipants.contains(p)) {
-            return this.potentialParticipants.add(p);
-        }
-        return false;
+    protected void addPotentialParticipant(Participant p) {
+            this.potentialParticipants.add(p);
     }
 
     /**
@@ -178,35 +145,18 @@ public class StudyUserManager implements Serializable {
         return new ArrayList<>(this.participants);
     }
 
-    /**
-     * Remove a participant from the list of eligible participants.
-     *
-     * @param p participant to be removed.
-     * @return whether the removal is successful.
-     */
-    protected boolean removeParticipant(Participant p) {
-        if (this.participants.contains(p)) {
-            return this.participants.remove(p);
-        }
-        return false;
-    }
 
     /**
      * Add participants from the list of eligible participants.
      * The participant must be in the list of potential participants.
      *
      * @param p participant to be added.
-     * @return whether the addition is successful.
      */
-    protected boolean addParticipant(Participant p) {
-        if (!this.participants.contains(p)) {
-            if (this.potentialParticipants.contains(p)) {
-                this.potentialParticipants.remove(p);
-                return this.participants.add(p);
-            }
-            return false;
+    protected void addParticipant(Participant p) {
+        if (!this.participants.contains(p) && this.potentialParticipants.contains(p)) {
+            this.potentialParticipants.remove(p);
+            this.participants.add(p);
         }
-        return false;
     }
 
     /**
@@ -223,24 +173,17 @@ public class StudyUserManager implements Serializable {
      * Add a researcher to the existing list of researchers in the study.
      *
      * @param researcher a researchers to be added.
-     * @return whether the addition is successful.
      */
-    public boolean addResearcher(Researcher researcher) {
-        return this.researchers.add(researcher);
+    public void addResearcher(Researcher researcher) {
+        this.researchers.add(researcher);
     }
 
     /**
      * Remove a researcher from the list of researchers in the study.
      *
      * @param researcher researcher to be removed.
-     * @return whether the removal is successful.
      */
-    protected boolean removeResearcher(Researcher researcher) {
-        if (this.researchers.contains(researcher)) {
-            return this.researchers.remove(researcher);
-        }
-        return false;
+    protected void removeResearcher(Researcher researcher) {
+        this.researchers.remove(researcher);
     }
-
-
 }

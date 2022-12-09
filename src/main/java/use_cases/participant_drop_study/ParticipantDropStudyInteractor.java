@@ -4,7 +4,13 @@ import entities.Participant;
 import entities.Study;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that drops a participant from a study.
+ */
 public class ParticipantDropStudyInteractor implements ParticipantDropStudyInputBoundary {
+    /**
+     * The output boundary for the use case, to call and update the screen.
+     */
     private ParticipantDropStudyOutputBoundary participantDropStudyPresenter;
 
 

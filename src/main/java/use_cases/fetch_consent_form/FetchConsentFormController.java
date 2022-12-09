@@ -1,7 +1,13 @@
 package use_cases.fetch_consent_form;
 
+/**
+ * The controller that the screen calls on to fetch the consent form.
+ */
 public class FetchConsentFormController {
 
+    /**
+     * The use case that the controller calls on to fetch the consent form.
+     */
     private FetchConsentFormInputBoundary fetchConsentFormInteractor;
 
 

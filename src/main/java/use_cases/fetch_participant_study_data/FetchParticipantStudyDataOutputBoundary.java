@@ -1,5 +1,8 @@
 package use_cases.fetch_participant_study_data;
 
+/**
+ * The interface that the presenter implements and the use case calls on.
+ */
 public interface FetchParticipantStudyDataOutputBoundary {
 
     /**

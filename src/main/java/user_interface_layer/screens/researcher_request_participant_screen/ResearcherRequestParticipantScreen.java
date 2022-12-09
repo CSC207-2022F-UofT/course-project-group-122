@@ -1,7 +1,7 @@
 package user_interface_layer.screens.researcher_request_participant_screen;
 
 import org.jetbrains.annotations.NotNull;
-import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.AssignedQuestionnairePanelForResearcher;
 import user_interface_layer.screens.researcher_request_participant_screen.questionnaires_panels_for_researchers.CompletedQuestionnairePanelForResearcher;
@@ -17,7 +17,7 @@ public class ResearcherRequestParticipantScreen extends JFrame {
 
     public ResearcherRequestParticipantScreen(@NotNull ResearcherRequestParticipantInputData data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel header = new JPanel(new GridLayout(2, 1));
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -35,23 +35,19 @@ public class ResearcherRequestParticipantScreen extends JFrame {
         centerPanel.add(groupNumberLabel);
         add(centerPanel, BorderLayout.CENTER);
 
-        JTabbedPane QuestionnaireTabPane = new JTabbedPane();
-        JPanel EligibilityQuestionnaire = new JPanel();
-        JPanel AssignedQuestionnaires = new JPanel();
-        JPanel completedQuestionnaire = new JPanel();
-
+        JTabbedPane questionnaireTabPane = new JTabbedPane();
         eligibilityQuestionnairePanel = new EligibilityQuestionnairePanelForResearcher(data, controllerManager);
-        QuestionnaireTabPane.addTab("Eligibility Questionnaire", eligibilityQuestionnairePanel);
+        questionnaireTabPane.addTab("Eligibility Questionnaire", eligibilityQuestionnairePanel);
 
         assignedQuestionnairePanel = new AssignedQuestionnairePanelForResearcher(data, controllerManager);
-        QuestionnaireTabPane.addTab("Assigned Questionnaires", assignedQuestionnairePanel);
+        questionnaireTabPane.addTab("Assigned Questionnaires", assignedQuestionnairePanel);
 
         completedQuestionnairePanel = new CompletedQuestionnairePanelForResearcher(data ,controllerManager);
-        QuestionnaireTabPane.addTab("Completed Questionnaires", completedQuestionnairePanel);
+        questionnaireTabPane.addTab("Completed Questionnaires", completedQuestionnairePanel);
 
-        add(QuestionnaireTabPane, BorderLayout.SOUTH);
-        pack();
-        SetScreenToCenter s = new SetScreenToCenter(this);
+        add(questionnaireTabPane, BorderLayout.SOUTH);
+        setSize(600, 700);
+        SetScreenToCenter.setCenter(this);
     }
 }
 

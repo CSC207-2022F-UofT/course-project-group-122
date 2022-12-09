@@ -5,6 +5,9 @@ import user_interface_layer.presenter_manager.display_failure_message.DisplayFai
 import user_interface_layer.presenter_manager.display_researcher_info.DisplayResearcherInfoInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
+/**
+ * The presenter that the use case calls on.
+ */
 public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoundary {
 
     /**
@@ -98,7 +101,7 @@ public class ResearcherEnrollerPresenter implements ResearcherEnrollerOutputBoun
 
     /**
      * Sets the display researcher info interface.
-     * @param displayResearcherInfoInterface
+     * @param displayResearcherInfoInterface The display researcher info interface.
      */
     public void setDisplayResearcherInfoInterface(DisplayResearcherInfoInterface displayResearcherInfoInterface) {
         this.displayResearcherInfoInterface = displayResearcherInfoInterface;

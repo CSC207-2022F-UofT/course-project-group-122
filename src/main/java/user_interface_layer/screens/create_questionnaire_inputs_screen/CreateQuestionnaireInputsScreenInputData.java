@@ -10,10 +10,15 @@ public class CreateQuestionnaireInputsScreenInputData {
      * The study ID.
      */
     private final int studyID;
+    /**
+     * The researcher ID.
+     */
     private final int researchID;
 
+    /**
+     * The list of groups in the study.
+     */
     private final List<String> studyGroups;
-
 
     /*
      * The constructor of the class.
@@ -31,10 +36,16 @@ public class CreateQuestionnaireInputsScreenInputData {
         return studyID;
     }
 
+    /**
+     * @return The list of groups in the study.
+     */
     public List<String> getStudyGroups() {
         return studyGroups;
     }
 
+    /**
+     * @return The researcher ID.
+     */
     public int getResearchID() {
         return researchID;
     }

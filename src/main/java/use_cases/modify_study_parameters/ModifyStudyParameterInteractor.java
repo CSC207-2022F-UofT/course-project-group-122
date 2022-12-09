@@ -10,8 +10,14 @@ import use_cases.fetch_id.FetchId;
 
 import java.util.List;
 
+/**
+ * This is the use case that modifies the parameters of a study.
+ */
 public class ModifyStudyParameterInteractor implements ModifyStudyParameterInputBoundary {
 
+    /**
+     * The interface that the use case calls on to present the result of the modification.
+     */
     private ModifyStudyParameterOutputBoundary modifyStudyParameterPresenter;
 
 
@@ -28,9 +34,10 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         Questionnaire eligibilityQuestionnaire = study.getEligibilityQuestionnaire();
         if (eligibilityQuestionnaire == null) {
             modifyStudyParameterPresenter.displayFailureMessage("The study does not have an eligibility " +
-                    "questionnaire. Please add one before adding stratification variables.");
+                    "questionnaire. Please add one before selecting the stratification variable. " +
+                    "You can do so by clicking on the 'Add Questionnaire' button.");
         }
-        assert eligibilityQuestionnaire != null;
+        assert eligibilityQuestionnaire != null && !eligibilityQuestionnaire.getVariableNames().isEmpty();
         List<String> vaiableNames = eligibilityQuestionnaire.getVariableNames();
         modifyStudyParameterPresenter.displayPotentialStratificationVariables(studyID, vaiableNames);
     }
@@ -71,7 +78,8 @@ public class ModifyStudyParameterInteractor implements ModifyStudyParameterInput
         assert study instanceof RandomizedStudy;
         ((RandomizedStudy) study).setRandomizationMethod(randomizationMethod);
         modifyStudyParameterPresenter.displaySuccessMessage(studyId,
-                "The randomization method of the study has been modified.", researcherId);
+                "The randomization method of the study has been modified." +
+                " The randomization method is: " + randomizationMethod, researcherId);
     }
 
 

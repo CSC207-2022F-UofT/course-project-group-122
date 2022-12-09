@@ -15,8 +15,8 @@ public class Researcher extends User implements Serializable {
      * @param username the username of this Researcher.
      * @param name     the name of this Researcher.
      */
-    public Researcher(String username, String name) {
-        super(username, name);
+    public Researcher(int id, String username, String name) {
+        super(id, username, name);
     }
 
     /**

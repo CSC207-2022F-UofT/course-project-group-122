@@ -1,4 +1,4 @@
-package data_access;
+package use_cases.data_access;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -11,12 +11,14 @@ public class Serializer {
 
     public static final String BASEPATH = new File("storage").getAbsolutePath();
 
+
     private static @NotNull String getClassName(@NotNull Object obj){
         return obj.getClass().getSimpleName();
     }
 
+
     public static void saveObject(@NotNull Object obj){
-        String filename = File.separator + getClassName(obj) + obj.hashCode() + ".ser";
+        String filename = File.separator + getClassName(obj) + ".ser";
         try(FileOutputStream fileOut = new FileOutputStream(BASEPATH.concat(filename));
             ObjectOutputStream output = new ObjectOutputStream(fileOut)){
             output.writeObject(obj);
@@ -41,6 +43,9 @@ public class Serializer {
         }
         return obj;
     }
+
+
+
     private static String[] getFileNameList(){
         File folder = new File(BASEPATH);
         return folder.list();

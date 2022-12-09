@@ -1,8 +1,6 @@
 package entities;
 
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.Serializable;
 import java.util.Map;
 
@@ -45,68 +43,12 @@ public class StudyPool implements Serializable {
 
 
     /**
-     * Check if the study with the given ID exists.
-     *
-     * @param studyID the ID of the study to be checked.
-     * @return true if the study exists, false otherwise.
-     */
-    public boolean studyExists(int studyID) {
-        return studies.containsKey(studyID);
-    }
-
-
-    /**
-     * Checks the type of the study with the given study ID.
-     *
-     * @param studyID the ID of the study to be checked.
-     * @return the type of the study if the given study ID exists, null otherwise.
-     */
-    public String checkStudyType(int studyID) {
-        if (this.studies.containsKey(studyID)) {
-            Study study = this.studies.get(studyID);
-            return study.getStudyType();
-        }
-        return null;
-    }
-
-
-    /**
      * Adds a study to the study pool.
      *
      * @param study the study to be added.
      */
     public void addStudy(Study study) {
         this.studies.put(study.getId(), study);
-    }
-
-
-    /**
-     * Removes a study from the study pool given the study ID.
-     *
-     * @param studyID the ID of the study to be removed.
-     * @return true if the study was removed successfully, false otherwise.
-     */
-    public boolean removeStudy(int studyID) {
-        if (this.studies.containsKey(studyID)) {
-            this.studies.remove(studyID);
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Removes a study from the study pool given the study object.
-     *
-     * @param study the study to be removed.
-     * @return true if the study was removed successfully, false otherwise.
-     */
-    public boolean removeStudy(@NotNull Study study) {
-        if (this.studies.containsKey(study.getId())) {
-            this.studies.remove(study.getId());
-            return true;
-        }
-        return false;
     }
 
 

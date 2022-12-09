@@ -78,27 +78,13 @@ public class StudyQuestionnaireManager implements Serializable {
      * Add a questionnaire to the list of questionnaires.
      *
      * @param q the questionnaire to be added.
-     * @return whether the addition is successful.
      */
-    protected boolean addQuestionnaire(Questionnaire q) {
+    protected void addQuestionnaire(Questionnaire q) {
         if (!this.questionnaires.contains(q)) {
-            return this.questionnaires.add(q);
+            this.questionnaires.add(q);
         }
-        return false;
     }
 
-    /**
-     * Remove a questionnaire from the list of questionnaires.
-     *
-     * @param q the questionnaire to be removed.
-     * @return whether the removal is successful.
-     */
-    protected boolean removeQuestionnaire(Questionnaire q) {
-        if (this.questionnaires.contains(q)) {
-            return this.questionnaires.remove(q);
-        }
-        return false;
-    }
 
     /**
      * Retrieve the consent form.

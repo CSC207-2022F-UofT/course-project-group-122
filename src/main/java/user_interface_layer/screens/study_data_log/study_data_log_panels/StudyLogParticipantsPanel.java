@@ -2,7 +2,7 @@ package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_study_log.FetchStudyLogResponseModel;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
@@ -11,10 +11,18 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to display the participants of a study.
+ */
 public class StudyLogParticipantsPanel extends JPanel {
+    /**
+     * Creates the panel to display the participants of a study.
+     * @param data The data to display.
+     * @param controllerManager The controller manager.
+     */
     public StudyLogParticipantsPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
-        String[] userTableHeader = {"ID", "Name", "Status"};
+        String[] userTableHeader = {"ID", "Name", "Status", "Group"};
         SetTableModel setTableModel = new SetTableModel(userTableHeader);
         DefaultTableModel model = setTableModel.getModel();
         JTable table = setTableModel.getTable();
@@ -37,8 +45,7 @@ public class StudyLogParticipantsPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a participant to check");
             } else {
                 int participantId = keys.get(selectedRow);
-                System.out.println(participantId);
-                controllerManager.researcherRequestParticipantScreenRequest(data.getResearcherId(),participantId,data.getStudyId());
+                controllerManager.researcherRequestParticipantScreenRequest(data.getResearcherId(),participantId);
             }
         });
 

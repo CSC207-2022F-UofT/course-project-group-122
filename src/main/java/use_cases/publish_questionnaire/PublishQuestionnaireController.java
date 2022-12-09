@@ -1,8 +1,13 @@
 package use_cases.publish_questionnaire;
 
+/**
+ * The class that the screen calls on to publish a questionnaire.
+ */
 public class PublishQuestionnaireController {
 
-
+    /**
+     * The use case that publishes a questionnaire.
+     */
     private PublishQuestionnaireInputBoundary publishQuestionnaireInteractor;
 
     /**

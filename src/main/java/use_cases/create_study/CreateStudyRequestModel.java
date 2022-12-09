@@ -5,17 +5,17 @@ public class CreateStudyRequestModel {
     /**
      * The id of the researcher who created the study.
      */
-    private int researcherId;
+    private final int researcherId;
 
     /**
      * The name of the study.
      */
-    private String studyName;
+    private final String studyName;
 
     /**
      * The description of the study.
      */
-    private String studyDescription;
+    private final String studyDescription;
 
     /**
      * The target number of participants for the study.

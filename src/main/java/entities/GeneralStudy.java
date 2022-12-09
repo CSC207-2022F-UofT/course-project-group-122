@@ -12,8 +12,8 @@ public class GeneralStudy extends Study implements Serializable {
      * @param targetStudySize The target study size. What is the number of participants the researchers of this study
      *                        want to achieve?
      */
-    public GeneralStudy(String studyName, int targetStudySize) {
-        super(studyName, targetStudySize);
+    public GeneralStudy(int id, String studyName, int targetStudySize) {
+        super(id, studyName, targetStudySize);
     }
 
     /**

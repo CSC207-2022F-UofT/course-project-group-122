@@ -4,6 +4,9 @@ import use_cases.fetch_participant_study_data.FetchParticipantStudyDataControlle
 import user_interface_layer.presenter_manager.display_participant_no_study.DisplayParticipantNoStudyInterface;
 import user_interface_layer.presenter_manager.display_researcher_study.DisplayResearcherStudyDataInterface;
 
+/**
+ * The presenter of the use case FetchStudyData that calls on the screen to display the study data.
+ */
 public class FetchStudyDataPresenter implements FetchStudyDataOutputBoundary {
 
     /**

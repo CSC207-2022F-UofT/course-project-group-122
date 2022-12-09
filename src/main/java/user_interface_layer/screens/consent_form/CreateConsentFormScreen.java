@@ -1,18 +1,26 @@
 package user_interface_layer.screens.consent_form;
 
 import use_cases.create_consent_form.CreateConsentFormRequestModel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.ControllerManager;
-import user_interface_layer.screens.GeneralFailureScreen;
+import user_interface_layer.screens.message_screens.GeneralFailureScreen;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This is the screen for creating a consent form.
+ */
 public class CreateConsentFormScreen extends JFrame {
 
+    /**
+     * @param studyId The study id.
+     * @param researcherId The researcher id.
+     * @param controllerManager The controller manager.
+     */
     public CreateConsentFormScreen(int studyId, int researcherId, ControllerManager controllerManager) {
         super("Create Consent Form Screen");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JTextArea studyDescription = new JTextArea(3, 20);
         JPanel studyDescriptionInputPanel = new JPanel();
@@ -62,7 +70,6 @@ public class CreateConsentFormScreen extends JFrame {
         });
         createConsentFormButtonPanel.add(createConsentFormButton);
 
-
         JPanel screenPanel = new JPanel();
         screenPanel.setLayout(new BoxLayout(screenPanel, BoxLayout.Y_AXIS));
         screenPanel.add(studyDescriptionInputPanel);
@@ -73,7 +80,7 @@ public class CreateConsentFormScreen extends JFrame {
         add(screenPanel, BorderLayout.CENTER);
 
         pack();
-        SetScreenToCenter s = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
 
 }

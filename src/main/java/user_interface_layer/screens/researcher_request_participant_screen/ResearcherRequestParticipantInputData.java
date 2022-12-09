@@ -1,7 +1,5 @@
 package user_interface_layer.screens.researcher_request_participant_screen;
 
-import user_interface_layer.screens.ControllerManager;
-
 import java.util.List;
 import java.util.Map;
 
