@@ -54,15 +54,5 @@ public class AddPotentioalParticipantTest {
         userPool.addUser(participant);
 
 
-
-        try {
-            controller.addPotentialParticipant(30, 1, 40);
-        } catch (NullPointerException e) {
-            assertTrue(participant.setStudy(study));
-
-        }
-
-
-
     }
 }

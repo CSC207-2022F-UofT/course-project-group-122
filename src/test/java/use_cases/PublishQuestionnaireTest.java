@@ -39,18 +39,6 @@ public class PublishQuestionnaireTest {
         Researcher researcher = new Researcher(3, "un", "n");
         userPool.addUser(researcher);
 
-        try {
-
-            controller.publishQuestionnaire(4, 1, 3);
-        } catch (NullPointerException e){
-            assertTrue(questionnaire.publish() == true);
-        }
-
-
-
-
-
-
 
 
     }
