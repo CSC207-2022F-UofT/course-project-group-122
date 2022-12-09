@@ -280,12 +280,20 @@ of exporting the current data is sufficient for the current state of the project
 There are some warnings in the IntelliJ IDE. We have gone over the entire repository to address the warning, and 
 we have fixed all the warnings that we can fix. However, there are some warnings that we cannot fix, or, we believe
 that these warnings are not important/valid. We do not things these remaining warnings will affect the functionality.
+Many test cases have warning about the Assert methods. We like to import them and call the methods directly, without
+using the `Assert` class. These warnings have been ignored.
 
 ### Pull Requests
 We have created a pull request for each of the milestones. Newly submitted pull requests after Milestone 4 primarily
 address the issues identified from Milestone 4, bugging to ensure that the system is stable and functional, as well
 as testing. We have improved our description of the pull requests, and we have also more thoroughly checked the 
-pull requests by performing code review. However, many of the problems 
+pull requests by performing code review. We have backtracked the pull requests to ensure that the pull requests
+have descriptions about what have been changed. 
+
+### Documentation
+Since Milestone 4, we have improved our documentation. We have now included the JavaDoc for all the classes and
+methods. As this file shows, we have improved the `README` file to include more details about the system, as well
+as additional notes about the repository.
 
 ### Testing
 We have tried to test all the functionalities of the system. However, we have not been able to test all the 
@@ -308,6 +316,29 @@ The following is the code coverage of the tests:
     other classes that use the `IDManager` class. In addition, its functionality is the same for all entities, and
     there is no need to test the functionality of the `IDManager` class for each entity class.  
 
- - Use Case Classes: %
+ - Use Case Classes:
 
     The following classes are not tested:
+   - `AddPotentialParticipant` use case
+   - `AddResearcher` use case
+   - `AnswerQuestionnaire` use case
+   - `AssignQuestionnaire` use case
+   - `CloseQuestionnaire` use case
+   - `CreateQuestionnaire` use case
+   - `CreateStudy` use case
+   - `CloseStudy` use case
+   - `CreateConsentForm` use case
+   - `EditQuestionnaire` use case
+   - `EligibilityChecker` use case
+   - `GetTargetGroup` use case
+   - `ModifyStudyParameters` use case
+   - `ParticipantDropStudy` use case
+   - `ParticipantEnroller` use case
+   - `PublishQuestionnaire` use case
+   - `EditAnswer` use case
+   - `ResultExtraction` use case
+
+   Additional use cases were mostly deal with fetching the information from the backend to the UI for display. These
+   use cases are not tested because they are not critical to the functionality of the system. The functionality of
+   the other use cases classes are not tested yet because the members responsible for testings have not been able to
+   complete these tests. These use case tests can be added in the future. They are identified as open issues.
