@@ -1,5 +1,8 @@
 package use_cases.user_login;
 
+/**
+ * The interface that the presenter that updates the screen implements.
+ */
 interface UserLoginOutputBoundary {
 
     /**

@@ -8,104 +8,116 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The response model from the FetchStudyLog to present the study log to the user.
+ */
 public class FetchStudyLogResponseModel {
 
     /**
      * The researcher ID.
      */
-    private int researcherId;
+    private final int researcherId;
 
     /**
      * The name of the researcher.
      */
-    private String researherName;
+    private final String researcherName;
 
     /**
      * The study ID.
      */
-    private int studyId;
+    private final int studyId;
 
     /**
      * The name of the study.
      */
-    private String studyName;
+    private final String studyName;
 
     /**
      * The description of the study.
      */
-    private String studyDescription;
+    private final String studyDescription;
 
     /**
      * The type of the study.
      */
-    private String studyType;
+    private final String studyType;
 
     /**
      * The randomization method of the study.
      */
-    private String RandomizationMethod;
+    private final String RandomizationMethod;
 
     /**
      * The stratification method of the study.
      */
-    private String stratetificationMethod;
+    private final String stratificationMethod;
 
     /**
      * The status of the study.
      */
-    private String studyStatus;
+    private final String studyStatus;
 
     /**
      * The id of the eligibility questionnaires.
      */
-    private int eligibilityQuestionnaireId;
+    private final int eligibilityQuestionnaireId;
 
     /**
      * The content of the eligibility questionnaire.
      */
-    private String[] eligibilityQuestionnaireContent;
+    private final String[] eligibilityQuestionnaireContent;
 
     /**
      * The content of all questionnaires.
      */
-    private Map<Integer, String[]> questionnaires;
+    private final Map<Integer, String[]> questionnaires;
 
     /**
      * The group names of the study.
      */
-    private String[] groupAssignments;
+    private final String[] groupAssignments;
 
     /**
      * The researchers in the study.
      */
-    private Map<Integer, String[]> researchers;
+    private final Map<Integer, String[]> researchers;
 
     /**
      * The potential participants in the study.
      */
-    private Map<Integer, String[]> potentialParticipants;
+    private final Map<Integer, String[]> potentialParticipants;
 
     /**
      * The participants in the study.
      */
-    private Map<Integer, String[]> enrolledParticipants;
+    private final Map<Integer, String[]> enrolledParticipants;
 
 
     /**
      * The constructor for the FetchStudyLogResponseModel.
-     * @param researcherId      The researcher ID.
-     * @param researherName     The name of the researcher.
-     * @param study             The study.
+     *
+     * @param researcherId   The researcher ID.
+     * @param researcherName The name of the researcher.
+     * @param study          The study.
      */
-    public FetchStudyLogResponseModel(int researcherId, String researherName, @NotNull Study study) {
+    public FetchStudyLogResponseModel(int researcherId, String researcherName, @NotNull Study study) {
         this.researcherId = researcherId;
-        this.researherName = researherName;
+        this.researcherName = researcherName;
         this.studyId = study.getId();
         this.studyName = study.getStudyName();
         this.studyDescription = study.getStudyDescription();
         this.studyType = study.getStudyType();
-        this.RandomizationMethod = study.getRandomizationMethod();
-        this.stratetificationMethod = study.getStratificationMethod();
+        if (study instanceof Randomizable) {
+            this.RandomizationMethod = ((Randomizable) study).getRandomizationMethod();
+        } else {
+            this.RandomizationMethod = null;
+        }
+        if (study instanceof Stratifiable) {
+            this.stratificationMethod = ((Stratifiable) study).getStratificationMethod();
+        } else {
+            this.stratificationMethod = null;
+        }
         this.studyStatus = fetchStatus(study);
         this.eligibilityQuestionnaireId = fetchEligibilityQuestionnaireId(study);
         this.eligibilityQuestionnaireContent = fetchEligibilityQuestionnaireContent(study);
@@ -117,16 +129,16 @@ public class FetchStudyLogResponseModel {
     }
 
 
-
     /**
      * Fetches participant information.
+     *
      * @param users The participants in the study.
      * @return The participant information.
      */
     private @NotNull Map<Integer, String[]> fetchParticipants(@NotNull List<Participant> users) {
         Map<Integer, String[]> userInfo = new HashMap<>();
         for (Participant user : users) {
-            userInfo.put(user.getId(), compileUserInformation(user));
+            userInfo.put(user.getId(), compileParticipantInformation(user));
         }
         return userInfo;
     }
@@ -134,13 +146,14 @@ public class FetchStudyLogResponseModel {
 
     /**
      * Fetches researcher information.
+     *
      * @param users The researchers in the study.
      * @return The researcher information.
      */
     private @NotNull Map<Integer, String[]> fetchResearcher(@NotNull List<Researcher> users) {
         Map<Integer, String[]> userInfo = new HashMap<>();
         for (Researcher user : users) {
-            userInfo.put(user.getId(), compileUserInformation(user));
+            userInfo.put(user.getId(), compileResearcherInformation(user));
         }
         return userInfo;
     }
@@ -148,10 +161,11 @@ public class FetchStudyLogResponseModel {
 
     /**
      * Compiles the researcher information.
-     * @param user        The researcher.
-     * @return            The researcher information.
+     *
+     * @param user The researcher.
+     * @return The researcher information.
      */
-    private String @NotNull [] compileUserInformation(@NotNull User user) {
+    private String @NotNull [] compileResearcherInformation(@NotNull Researcher user) {
         String[] information = new String[2];
         information[0] = String.valueOf(user.getId());
         information[1] = user.getName();
@@ -160,14 +174,31 @@ public class FetchStudyLogResponseModel {
 
 
     /**
+     * Compiles the participant information.
+     *
+     * @param user The participant.
+     * @return The participant information.
+     */
+    private String @NotNull [] compileParticipantInformation(@NotNull Participant user) {
+        String[] information = new String[4];
+        information[0] = String.valueOf(user.getId());
+        information[1] = user.getName();
+        information[2] = getStatus(user);
+        information[3] = Integer.toString(user.getGroup());
+        return information;
+    }
+
+
+    /**
      * Fet the group assignments of the study.
+     *
      * @param study The study.
-     * @return      The group assignments of the study.
+     * @return The group assignments of the study.
      */
     private String @NotNull [] fetchGroupAssignments(@NotNull Study study) {
         String[] groupAssignments = new String[study.getGroupNames().length];
         for (int i = 0; i < study.getGroupNames().length; i++) {
-            groupAssignments[i] = (i+1) + ": " + study.getGroupNames()[i];
+            groupAssignments[i] = (i + 1) + ": " + study.getGroupNames()[i];
 
         }
         return groupAssignments;
@@ -176,8 +207,9 @@ public class FetchStudyLogResponseModel {
 
     /**
      * Fetches the contents of all questionnaires.
+     *
      * @param study The study.
-     * @return      The contents of all questionnaires.
+     * @return The contents of all questionnaires.
      */
     private @NotNull Map<Integer, String[]> fetchQuestionnaires(@NotNull Study study) {
         List<Questionnaire> questionnaires = study.getQuestionnaires();
@@ -191,14 +223,14 @@ public class FetchStudyLogResponseModel {
 
     /**
      * Get the status of the study.
-     * @param study     The study.
-     * @return        The status of the study.
+     *
+     * @param study The study.
+     * @return The status of the study.
      */
     private @NotNull String fetchStatus(@NotNull Study study) {
         if (study.isActive()) {
             return "Active";
-        }
-        else {
+        } else {
             return "Closed";
         }
     }
@@ -206,8 +238,9 @@ public class FetchStudyLogResponseModel {
 
     /**
      * Get the elligibility questionnaire id.
-     * @param study    The study.
-     * @return       The elligibility questionnaire id.
+     *
+     * @param study The study.
+     * @return The elligibility questionnaire id.
      */
     private int fetchEligibilityQuestionnaireId(@NotNull Study study) {
         if (study.getEligibilityQuestionnaire() != null) {
@@ -219,8 +252,9 @@ public class FetchStudyLogResponseModel {
 
     /**
      * Get the content of the elligibility questionnaire.
-     * @param study    The study.
-     * @return       The content of the elligibility questionnaire.
+     *
+     * @param study The study.
+     * @return The content of the elligibility questionnaire.
      */
     private String @Nullable [] fetchEligibilityQuestionnaireContent(@NotNull Study study) {
         if (study.getEligibilityQuestionnaire() != null) {
@@ -229,16 +263,15 @@ public class FetchStudyLogResponseModel {
             content[1] = study.getEligibilityQuestionnaire().getTitle();
             if (study.getEligibilityQuestionnaire().isPublished()) {
                 content[2] = "Published";
-            }
-            else {
+            } else {
                 content[2] = "Unpublished";
             }
             if (study.getEligibilityQuestionnaire().isClosed()) {
                 content[3] = "Closed";
-            }
-            else {
+            } else {
                 content[3] = "Active";
             }
+            return content;
 
         }
         return null;
@@ -247,8 +280,9 @@ public class FetchStudyLogResponseModel {
 
     /**
      * Compile the content of the questionnaires.
-     * @param questionnaire   The questionnaire.
-     * @return            The content of the questionnaire.
+     *
+     * @param questionnaire The questionnaire.
+     * @return The content of the questionnaire.
      */
     private String @NotNull [] compileQuestionnaireContent(@NotNull Questionnaire questionnaire) {
         String[] content = new String[4];
@@ -256,80 +290,144 @@ public class FetchStudyLogResponseModel {
         content[1] = questionnaire.getTitle();
         if (questionnaire.isPublished()) {
             content[2] = "Published";
-        }
-        else {
+        } else {
             content[2] = "Unpublished";
         }
         if (questionnaire.isClosed()) {
             content[3] = "Closed";
-        }
-        else {
+        } else {
             content[3] = "Active";
         }
         return content;
     }
 
 
+    /**
+     * Returns the status of the participant.
+     *
+     * @param participant The participant to get the status of.
+     * @return The status of the participant. Either "potential", "eligible", "enrolled" or "dropped off".
+     */
+    private @NotNull String getStatus(@NotNull Participant participant) {
+        if (participant.isDroppedOff()) {
+            return "dropped off";
+        } else if (participant.isEnrolled()) {
+            return "enrolled";
+        } else if (participant.isEligible()) {
+            return "eligible";
+        } else {
+            return "potential";
+        }
+    }
+
+    /**
+     * @return The researcher id.
+     */
     public int getResearcherId() {
         return researcherId;
     }
 
-    public String getResearherName() {
-        return researherName;
+    /**
+     * @return The researcher name.
+     */
+    public String getResearcherName() {
+        return researcherName;
     }
 
+    /**
+     * @return The study id.
+     */
     public int getStudyId() {
         return studyId;
     }
 
+    /**
+     * @return The study name.
+     */
     public String getStudyName() {
         return studyName;
     }
 
+    /**
+     * @return The study description.
+     */
     public String getStudyDescription() {
         return studyDescription;
     }
 
+    /**
+     * @return The study type.
+     */
     public String getStudyType() {
         return studyType;
     }
 
+    /**
+     * @return The randomization method, if the study is randomized.
+     */
     public String getRandomizationMethod() {
         return RandomizationMethod;
     }
 
-    public String getStratetificationMethod() {
-        return stratetificationMethod;
+    /**
+     * @return The stratification method, if the study is stratified.
+     */
+    public String getStratificationMethod() {
+        return stratificationMethod;
     }
 
+    /**
+     * @return The status of the study.
+     */
     public String getStudyStatus() {
         return studyStatus;
     }
 
+    /**
+     * @return The eligibility questionnaire id.
+     */
     public int getEligibilityQuestionnaireId() {
         return eligibilityQuestionnaireId;
     }
 
+    /**
+     * @return The eligibility questionnaire content.
+     */
     public String[] getEligibilityQuestionnaireContent() {
         return eligibilityQuestionnaireContent;
     }
 
+    /**
+     * @return The questionnaire of the study.
+     */
     public Map<Integer, String[]> getQuestionnaires() {
         return questionnaires;
     }
 
+    /**
+     * @return The group assignments of the study.
+     */
     public String[] getGroupAssignments() {
         return groupAssignments;
     }
 
+    /**
+     * @return The researchers of the study.
+     */
     public Map<Integer, String[]> getResearchers() {
         return researchers;
     }
 
+    /**
+     * @return The potential participants of the study.
+     */
     public Map<Integer, String[]> getPotentialParticipants() {
         return potentialParticipants;
     }
 
+    /**
+     * @return The eligible participants of the study.
+     */
     public Map<Integer, String[]> getEnrolledParticipants() {
         return enrolledParticipants;
     }

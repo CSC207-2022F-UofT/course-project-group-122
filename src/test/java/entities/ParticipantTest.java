@@ -2,18 +2,19 @@ package entities;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
 public class ParticipantTest extends UserTest {
 
-    Participant participant1 = new Participant("username", "name");
-    Participant participant2 = new Participant("", "name");
-    Participant participant3 = new Participant("username", "");
-    Participant participant4 = new Participant("", "");
-    Researcher researcher = new Researcher("username", "name");
-    Participant participant5 = new Participant("username", "name");
+    Participant participant1 = new Participant(1, "username", "name");
+    Participant participant2 = new Participant(2, "", "name");
+    Participant participant3 = new Participant(3, "username", "");
+    Participant participant4 = new Participant(4, "", "");
+    Researcher researcher = new Researcher(5, "username", "name");
+    Participant participant5 = new Participant(6, "username", "name");
 
     @Test
     public void getId() {
@@ -55,8 +56,8 @@ public class ParticipantTest extends UserTest {
     }
 
 
-    Study study1 = new Study("title", 3);
-    Study study2 = new Study("title", 3);
+    Study study1 = new RandomizedStudy(1, "title", 3);
+    Study study2 = new RandomizedStudy(2, "title", 3);
 
     @Test
     public void setStudy() {
@@ -96,7 +97,7 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void makeEligible() {
-        Participant participant6 = new Participant("username", "name");
+        Participant participant6 = new Participant(7, "username", "name");
         assertFalse(participant6.isEligible());
         assertFalse(participant6.makeEligible());
         participant6.setStudy(study1);
@@ -116,7 +117,7 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void enroll() {
-        Participant participant7 = new Participant("username", "name");
+        Participant participant7 = new Participant(8, "username", "name");
         assertFalse(participant7.isEligible());
         assertFalse(participant7.isEnrolled());
         assertFalse(participant7.enroll());
@@ -139,7 +140,7 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void dropOff() {
-        Participant participant8 = new Participant("username", "name");
+        Participant participant8 = new Participant(9, "username", "name");
         assertFalse(participant8.isDroppedOff());
         assertFalse(participant8.dropOff());
         participant8.setStudy(study1);
@@ -160,13 +161,16 @@ public class ParticipantTest extends UserTest {
     }
 
 
-    Questionnaire questionnaireEligibility = new Questionnaire(study1, "title", "description", 1);
-    Questionnaire questionnaire2 = new Questionnaire(study1, "title", "description", 1);
-    Questionnaire questionnaire3 = new Questionnaire(study1, "title", "description", 1);
+    Questionnaire questionnaireEligibility = new Questionnaire(1, study1, "title", "description",
+            new ArrayList<>());
+    Questionnaire questionnaire2 = new Questionnaire(2, study1, "title", "description",
+            new ArrayList<>());
+    Questionnaire questionnaire3 = new Questionnaire(3, study1, "title", "description",
+            new ArrayList<>());
 
     @Test
     public void setEligibilityQuestionnaire() {
-        Participant participant9 = new Participant("username", "name");
+        Participant participant9 = new Participant(1, "username", "name");
         assertNull(participant9.getEligibilityQuestionnaire());
         participant9.setEligibilityQuestionnaire(questionnaireEligibility);
         assertEquals(questionnaireEligibility, participant9.getEligibilityQuestionnaire());
@@ -194,7 +198,7 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void assignQuestionnaire() {
-        Participant participant10 = new Participant("username", "name");
+        Participant participant10 = new Participant(1, "username", "name");
         assertEquals(0, participant10.getAssignedQuestionnaires().size());
         assertFalse(participant10.assignQuestionnaire(questionnaire2));
         participant10.setStudy(study1);
@@ -211,7 +215,7 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void completeQuestionnaire() {
-        Participant participant11 = new Participant("username", "name");
+        Participant participant11 = new Participant(1, "username", "name");
         assertEquals(0, participant11.getCompletedQuestionnaires().size());
         assertFalse(participant11.completeQuestionnaire(questionnaire2));
         participant11.setStudy(study1);
@@ -240,7 +244,7 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void getCurrEligibilityAnswerContent() {
-        Participant participant13 = new Participant("username", "name");
+        Participant participant13 = new Participant(1, "username", "name");
         assertThrows(NullPointerException.class, () -> {participant13.getCurrEligibilityAnswerContent();});
         participant13.setStudy(study1);
         assertThrows(NullPointerException.class, () -> {participant13.getCurrEligibilityAnswerContent();});
@@ -250,10 +254,10 @@ public class ParticipantTest extends UserTest {
         assertThrows(NullPointerException.class, () -> {participant13.getCurrEligibilityAnswerContent();});
         participant13.setEligibilityQuestionnaire(questionnaireEligibility);
         assertThrows(NullPointerException.class, () -> {participant13.getCurrEligibilityAnswerContent();});
-        Answer answer2 = new Answer(participant13, questionnaireEligibility);
+        Answer answer2 = new Answer(1, participant13, questionnaireEligibility);
         HashMap<String, String> answerContent2 = new HashMap<>();
         answerContent2.put("question1", "answer1");
-        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, participant13, answerContent2, answer2);
+        VersionedAnswer versionedAnswer2 = new VersionedAnswer(2, 1, participant13, answerContent2, answer2);
         answer2.addNewVersion(versionedAnswer2);
         participant13.setEligibilityQuestionnaireAnswer(answer2);
         assertEquals(answerContent2, participant13.getCurrEligibilityAnswerContent());
@@ -266,7 +270,7 @@ public class ParticipantTest extends UserTest {
         answerContent3.put("question3", "answer3");
         answerContent3.put("question4", "answer4");
         answerContent3.put("question5", "answer5");
-        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, participant13, answerContent3, answer2);
+        VersionedAnswer versionedAnswer3 = new VersionedAnswer(3, 2, participant13, answerContent3, answer2);
         answer2.addNewVersion(versionedAnswer3);
         assertEquals(3, participant13.getCurrEligibilityAnswerContent().size());
         assertEquals("answer3", participant13.getCurrEligibilityAnswerContent().get("question3"));
@@ -283,7 +287,7 @@ public class ParticipantTest extends UserTest {
         assertFalse(participant3.hasCompletedEligibilityQuestionnaire());
         assertFalse(participant4.hasCompletedEligibilityQuestionnaire());
 
-        Participant participant13 = new Participant("username", "name");
+        Participant participant13 = new Participant(4, "username", "name");
         assertFalse(participant13.hasCompletedEligibilityQuestionnaire());
         assertThrows(NullPointerException.class, () -> {participant13.getCurrEligibilityAnswerContent();});
         participant13.setStudy(study1);
@@ -294,10 +298,10 @@ public class ParticipantTest extends UserTest {
         assertThrows(NullPointerException.class, () -> {participant13.getCurrEligibilityAnswerContent();});
         participant13.setEligibilityQuestionnaire(questionnaireEligibility);
         assertThrows(NullPointerException.class, () -> {participant13.getCurrEligibilityAnswerContent();});
-        Answer answer2 = new Answer(participant13, questionnaireEligibility);
+        Answer answer2 = new Answer(5, participant13, questionnaireEligibility);
         HashMap<String, String> answerContent2 = new HashMap<>();
         answerContent2.put("question1", "answer1");
-        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, participant13, answerContent2, answer2);
+        VersionedAnswer versionedAnswer2 = new VersionedAnswer(6, 1, participant13, answerContent2, answer2);
         answer2.addNewVersion(versionedAnswer2);
         assertFalse(participant13.hasCompletedEligibilityQuestionnaire());
         participant13.setEligibilityQuestionnaireAnswer(answer2);
@@ -312,7 +316,7 @@ public class ParticipantTest extends UserTest {
         answerContent3.put("question3", "answer3");
         answerContent3.put("question4", "answer4");
         answerContent3.put("question5", "answer5");
-        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, participant13, answerContent3, answer2);
+        VersionedAnswer versionedAnswer3 = new VersionedAnswer(7, 2, participant13, answerContent3, answer2);
         answer2.addNewVersion(versionedAnswer3);
         assertEquals(3, participant13.getCurrEligibilityAnswerContent().size());
         assertEquals("answer3", participant13.getCurrEligibilityAnswerContent().get("question3"));
@@ -325,8 +329,8 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void setEligibilityQuestionnaireAnswer() {
-        Participant participant12 = new Participant("username", "name");
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
+        Participant participant12 = new Participant(1, "username", "name");
+        Answer answer1 = new Answer(2, participant12, questionnaireEligibility);
         assertNull(participant12.getEligibilityQuestionnaireAnswer());
         participant12.setEligibilityQuestionnaireAnswer(answer1);
         assertEquals(answer1, participant12.getEligibilityQuestionnaireAnswer());
@@ -335,11 +339,11 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void getQuestionnaireAnswers() {
-        Participant participant12 = new Participant("username", "name");
+        Participant participant12 = new Participant(2, "username", "name");
         assertEquals(0, participant12.getQuestionnaireAnswers().size());
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
-        Answer answer2 = new Answer(participant12, questionnaire2);
-        Answer answer3 = new Answer(participant12, questionnaire3);
+        Answer answer1 = new Answer(3, participant12, questionnaireEligibility);
+        Answer answer2 = new Answer(4, participant12, questionnaire2);
+        Answer answer3 = new Answer(5, participant12, questionnaire3);
         assertEquals(0, participant12.getQuestionnaireAnswers().size());
         participant12.setEligibilityQuestionnaireAnswer(answer1);
         assertEquals(0, participant12.getQuestionnaireAnswers().size());
@@ -364,14 +368,14 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void getQuestionnaireAnswer() {
-        Participant participant12 = new Participant("username", "name");
+        Participant participant12 = new Participant(6, "username", "name");
         assertNull(participant12.getQuestionnaireAnswer(questionnaireEligibility));
         assertNull(participant12.getQuestionnaireAnswer(questionnaire2));
         assertNull(participant12.getQuestionnaireAnswer(questionnaire3));
         assertEquals(0, participant12.getQuestionnaireAnswers().size());
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
-        Answer answer2 = new Answer(participant12, questionnaire2);
-        Answer answer3 = new Answer(participant12, questionnaire3);
+        Answer answer1 = new Answer(7, participant12, questionnaireEligibility);
+        Answer answer2 = new Answer(8, participant12, questionnaire2);
+        Answer answer3 = new Answer(9, participant12, questionnaire3);
         assertEquals(0, participant12.getQuestionnaireAnswers().size());
         participant12.setEligibilityQuestionnaireAnswer(answer1);
         assertEquals(0, participant12.getQuestionnaireAnswers().size());
@@ -404,10 +408,10 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void addAnswer() {
-        Participant participant12 = new Participant("username", "name");
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
-        Answer answer2 = new Answer(participant12, questionnaire2);
-        Answer answer3 = new Answer(participant12, questionnaire3);
+        Participant participant12 = new Participant(1, "username", "name");
+        Answer answer1 = new Answer(2, participant12, questionnaireEligibility);
+        Answer answer2 = new Answer(3, participant12, questionnaire2);
+        Answer answer3 = new Answer(4, participant12, questionnaire3);
         assertEquals(0, participant12.getQuestionnaireAnswers().size());
         assertFalse(participant12.addAnswer(answer2, questionnaire2));
         participant12.setEligibilityQuestionnaireAnswer(answer1);
@@ -439,10 +443,10 @@ public class ParticipantTest extends UserTest {
 
     @Test
     public void getCurrVersionQuestionnaireAnswer() {
-        Participant participant12 = new Participant("username", "name");
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
-        Answer answer2 = new Answer(participant12, questionnaire2);
-        Answer answer3 = new Answer(participant12, questionnaire3);
+        Participant participant12 = new Participant(4, "username", "name");
+        Answer answer1 = new Answer(4, participant12, questionnaireEligibility);
+        Answer answer2 = new Answer(2, participant12, questionnaire2);
+        Answer answer3 = new Answer(1, participant12, questionnaire3);
         assertEquals(0, participant12.getQuestionnaireAnswers().size());
         assertNull(participant12.getCurrVersionQuestionnaireAnswer(questionnaireEligibility));
         assertNull(participant12.getCurrVersionQuestionnaireAnswer(questionnaire2));
@@ -482,20 +486,20 @@ public class ParticipantTest extends UserTest {
         HashMap<String, String> answerContent2 = new HashMap<>();
         answerContent2.put("question1", "answer1");
         answerContent2.put("question2", "answer2");
-        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, participant12, answerContent2, answer2);
+        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, 1, participant12, answerContent2, answer2);
         answer2.addNewVersion(versionedAnswer2);
         assertEquals(versionedAnswer2, participant12.getCurrVersionQuestionnaireAnswer(questionnaire2));
         assertNull(participant12.getCurrVersionQuestionnaireAnswer(questionnaire3));
         HashMap<String, String> answerContent3 = new HashMap<>();
         answerContent3.put("question1", "answer1");
         answerContent3.put("question2", "answer2");
-        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, participant12, answerContent3, answer3);
+        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, 2, participant12, answerContent3, answer3);
         answer2.addNewVersion(versionedAnswer3);
         assertEquals(versionedAnswer3, participant12.getCurrVersionQuestionnaireAnswer(questionnaire2));
         assertNull(participant12.getCurrVersionQuestionnaireAnswer(questionnaire3));
         HashMap<String, String> answerContent4 = new HashMap<>();
         answerContent4.put("question1", "answer1");
-        VersionedAnswer versionedAnswer4 = new VersionedAnswer(1, participant12, answerContent4, answer3);
+        VersionedAnswer versionedAnswer4 = new VersionedAnswer(3, 1, participant12, answerContent4, answer3);
         answer3.addNewVersion(versionedAnswer4);
         assertEquals(versionedAnswer4, participant12.getCurrVersionQuestionnaireAnswer(questionnaire3));
     }

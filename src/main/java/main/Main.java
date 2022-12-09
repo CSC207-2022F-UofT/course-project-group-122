@@ -1,8 +1,8 @@
 package main;
 
-import entities.Study;
+import entities.Container;
+import entities.IDManager;
 import entities.StudyPool;
-import entities.User;
 import entities.UserPool;
 import use_cases.add_potential_participant.AddPotentialParticipantController;
 import use_cases.add_potential_participant.AddPotentialParticipantInteractor;
@@ -10,6 +10,9 @@ import use_cases.add_potential_participant.AddPotentialParticipantPresenter;
 import use_cases.answer_questionnaire.AnswerQuestionnaireController;
 import use_cases.answer_questionnaire.AnswerQuestionnaireInteractor;
 import use_cases.answer_questionnaire.AnswerQuestionnairePresenter;
+import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerController;
+import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerInteractor;
+import use_cases.answer_questionnaire_data_request.FetchQuestionnaireDataForAnswerPresenter;
 import use_cases.assign_questionnaire.AssignQuestionnaireController;
 import use_cases.assign_questionnaire.AssignQuestionnaireInteractor;
 import use_cases.assign_questionnaire.AssignQuestionnairePresenter;
@@ -19,15 +22,29 @@ import use_cases.close_questionnaire.CloseQuestionnairePresenter;
 import use_cases.close_study.CloseStudyController;
 import use_cases.close_study.CloseStudyInteractor;
 import use_cases.close_study.CloseStudyPresenter;
+import use_cases.create_consent_form.CreateConsentFormController;
+import use_cases.create_consent_form.CreateConsentFormInteractor;
+import use_cases.create_consent_form.CreateConsentFormPresenter;
 import use_cases.create_questionnaire.CreateQuestionnaireController;
 import use_cases.create_questionnaire.CreateQuestionnaireInteractor;
 import use_cases.create_questionnaire.CreateQuestionnairePresenter;
 import use_cases.create_study.CreateStudyController;
 import use_cases.create_study.CreateStudyInteractor;
 import use_cases.create_study.CreateStudyPresenter;
+import use_cases.data_access.SaveApplicationState;
+import use_cases.data_access.Serializer;
+import use_cases.edit_questionnaire.EditQuestionnaireController;
+import use_cases.edit_questionnaire.EditQuestionnaireInteractor;
+import use_cases.edit_questionnaire.EditQuestionnairePresenter;
+import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataController;
+import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataInteractor;
+import use_cases.edit_questionnaire_screen_data.FetchEditQuestionnaireDataPresenter;
 import use_cases.eligibility_checker.EligibilityCheckerController;
 import use_cases.eligibility_checker.EligibilityCheckerInteractor;
 import use_cases.eligibility_checker.EligibilityCheckerPresenter;
+import use_cases.fetch_consent_form.FetchConsentFormController;
+import use_cases.fetch_consent_form.FetchConsentFormInteractor;
+import use_cases.fetch_consent_form.FetchConsentFormPresenter;
 import use_cases.fetch_id.FetchId;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataController;
 import use_cases.fetch_participant_study_data.FetchParticipantStudyDataInteractor;
@@ -35,6 +52,9 @@ import use_cases.fetch_participant_study_data.FetchParticipantStudyDataPresenter
 import use_cases.fetch_study_data.FetchStudyDataController;
 import use_cases.fetch_study_data.FetchStudyDataInteractor;
 import use_cases.fetch_study_data.FetchStudyDataPresenter;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingController;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingInteractor;
+import use_cases.fetch_study_data_for_editing.FetchStudyDataForEditingPresenter;
 import use_cases.fetch_study_log.FetchStudyLogController;
 import use_cases.fetch_study_log.FetchStudyLogInteractor;
 import use_cases.fetch_study_log.FetchStudyLogPresenter;
@@ -57,15 +77,22 @@ import use_cases.participant_enroller.RandomGroupGeneratorManager;
 import use_cases.publish_questionnaire.PublishQuestionnaireController;
 import use_cases.publish_questionnaire.PublishQuestionnaireInteractor;
 import use_cases.publish_questionnaire.PublishQuestionnairePresenter;
+import use_cases.questionnaire_answer_data_for_editing_request.FetchLatestAnswerDataRequestController;
+import use_cases.questionnaire_answer_data_for_editing_request.FetchLatestAnswerDataRequestInteractor;
+import use_cases.questionnaire_answer_data_for_editing_request.FetchLatestAnswerDataRequestPresenter;
 import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenController;
 import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenInteractor;
 import use_cases.questionnaire_screen_data_request.FetchQuestionnaireScreenPresenter;
 import use_cases.remove_researcher.RemoveResearcherController;
 import use_cases.remove_researcher.RemoveResearcherInteractor;
 import use_cases.remove_researcher.RemoveResearcherPresenter;
+import use_cases.researcher_edit_answer.ResearcherEditAnswerController;
+import use_cases.researcher_edit_answer.ResearcherEditAnswerInteractor;
+import use_cases.researcher_edit_answer.ResearcherEditAnswerPresenter;
 import use_cases.researcher_enroller.ResearcherEnrollerController;
 import use_cases.researcher_enroller.ResearcherEnrollerInteractor;
 import use_cases.researcher_enroller.ResearcherEnrollerPresenter;
+import use_cases.result_extraction.ResultExtractionBuilder;
 import use_cases.result_extraction.ResultExtractionController;
 import use_cases.result_extraction.ResultExtractionInteractor;
 import use_cases.result_extraction.ResultExtractionPresenter;
@@ -75,7 +102,9 @@ import use_cases.user_log_out.UserLogOutPresenter;
 import use_cases.user_login.UserLoginController;
 import use_cases.user_login.UserLoginInteractor;
 import use_cases.user_login.UserLoginPresenter;
+import user_interface_layer.presenter_manager.ScreenManager;
 import user_interface_layer.presenter_manager.display_choose_groups.DisplayGroupsToAssign;
+import user_interface_layer.presenter_manager.display_consent_form.DisplayConsentForm;
 import user_interface_layer.presenter_manager.display_edit_questionnaire.DisplayEditQuestionnaire;
 import user_interface_layer.presenter_manager.display_edit_study.DisplayEditStudy;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessage;
@@ -92,29 +121,64 @@ import user_interface_layer.presenter_manager.display_screen_for_editing_answers
 import user_interface_layer.presenter_manager.display_stratification.DisplayStratification;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessage;
 import user_interface_layer.presenter_manager.display_versioned_answer.DisplayVersionedAnswer;
-import user_interface_layer.screen_setters.ScreenManager;
 import user_interface_layer.screens.ControllerManager;
 import user_interface_layer.screens.register_screens.UserRegisterScreen;
 import user_interface_layer.screens.screen_drivers.*;
 
-import java.util.HashMap;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 
 public class Main {
-    public static void main(String[] args) {
 
+
+    /**
+     * The container of all the objects in the system
+     */
+    private static Container container;
+
+
+
+    public static void main(String[] args) throws IOException {
+
+        // Make the storage directory if it does not exist
+        String cwd = System. getProperty("user.dir");
+        String path = cwd + File.separator + "storage";
+        Files.createDirectories(Paths.get(path));
 
 
         // Making the entity collections
-        // TODO: to be serialized
-        UserPool userPool = new UserPool(new HashMap<String, User>());
-        StudyPool studyPool = new StudyPool(new HashMap<Integer, Study>());
+        // Retrieve the user pool, study pool, the random group generator manager, and the ID manager from the database
+        List<Object> objs = Serializer.getAll();
+
+        // If the database is empty, create new user pool, study pool, random group generator manager, and ID manager
+        // Else, retrieve the user pool, study pool, and random group generator manager from the database
+        for (Object obj : objs) {
+            if (obj instanceof Container) {
+                container = (Container) obj;
+            }
+        }
+        if (container == null) {
+            container = new Container();
+        }
+        UserPool userPool = container.getUserPool();
+        StudyPool studyPool = container.getStudyPool();
+        RandomGroupGeneratorManager randomGroupGeneratorManager = container.getRandomGroupGeneratorManager();
+        IDManager idManager = container.getIdManager();
+
 
         // Making the use cases by initializing them with the controllers,
         // which automatically initializes the interactors
 
         //Helper classes
-        FetchId fetchId = new FetchId(userPool, studyPool);
+        FetchId.setStudyPool(studyPool);
+        FetchId.setUserPool(userPool);
+
+        // Data access
+        SaveApplicationState saveApplicationState = new SaveApplicationState();
 
         // Add potential participants use case
         AddPotentialParticipantController addPotentialParticipantController = new AddPotentialParticipantController();
@@ -124,7 +188,18 @@ public class Main {
         addPotentialParticipantInteractor.setPresenter(addPotentialParticipantPresenter);
 
 
-        //TODO: answer_questionnaire_data_request use case
+        //answer_questionnaire_data_request use case
+        FetchQuestionnaireDataForAnswerController fetchQuestionnaireDataForAnswerController =
+                new FetchQuestionnaireDataForAnswerController();
+        FetchQuestionnaireDataForAnswerInteractor fetchQuestionnaireDataForAnswerInteractor =
+                new FetchQuestionnaireDataForAnswerInteractor();
+        FetchQuestionnaireDataForAnswerPresenter fetchQuestionnaireDataForAnswerPresenter =
+                new FetchQuestionnaireDataForAnswerPresenter();
+        fetchQuestionnaireDataForAnswerController.setFetchQuestionnaireDataForAnsweringInputBoundary(
+                fetchQuestionnaireDataForAnswerInteractor);
+        fetchQuestionnaireDataForAnswerInteractor.setFetchQuestionnaireDataForAnswerOutputBoundary(
+                fetchQuestionnaireDataForAnswerPresenter);
+
 
         //assign_questionnaire use case
         AssignQuestionnaireController assignQuestionnaireController = new AssignQuestionnaireController();
@@ -142,7 +217,6 @@ public class Main {
         closeQuestionnaireInteractor.setCloseQuestionnaireOutputBoundary(closeQuestionnairePresenter);
 
 
-
         // Close study use case
         CloseStudyController closeStudyController = new CloseStudyController();
         CloseStudyInteractor closeStudyInteractor = new CloseStudyInteractor();
@@ -151,19 +225,21 @@ public class Main {
         closeStudyInteractor.setCloseStudyPresenter(closeStudyPresenter);
 
 
-        //TODO: create_questionnaire use case
-
         // Create study use case
         CreateStudyController createStudyController = new CreateStudyController();
         CreateStudyInteractor createStudyInteractor = new CreateStudyInteractor();
         CreateStudyPresenter createStudyPresenter = new CreateStudyPresenter();
         createStudyController.setCreateStudyInteractor(createStudyInteractor);
         createStudyInteractor.setCreateStudyPresenter(createStudyPresenter);
+        createStudyInteractor.setIdManager(idManager);
 
 
-        //TODO: edit_questionnaire use case
+        FetchEditQuestionnaireDataController fetchEditQuestionnaireDataController = new FetchEditQuestionnaireDataController();
+        FetchEditQuestionnaireDataInteractor fetchEditQuestionnaireDataInteractor = new FetchEditQuestionnaireDataInteractor();
+        FetchEditQuestionnaireDataPresenter fetchEditQuestionnaireDataPresenter = new FetchEditQuestionnaireDataPresenter();
+        fetchEditQuestionnaireDataController.setFetchEditQuestionnaireDataInteractor(fetchEditQuestionnaireDataInteractor);
+        fetchEditQuestionnaireDataInteractor.setFetchEditQuestionnaireDataPresenter(fetchEditQuestionnaireDataPresenter);
 
-        //TODO: edit_questionnaire_screen_data
 
         //Eligibility use case
         EligibilityCheckerController eligibilityCheckerController = new EligibilityCheckerController();
@@ -216,6 +292,7 @@ public class Main {
         AnswerQuestionnairePresenter answerQuestionnairePresenter = new AnswerQuestionnairePresenter();
         answerQuestionnaireController.setAnswerQuestionnaireInteractor(answerQuestionnaireInteractor);
         answerQuestionnaireInteractor.setAnswerQuestionnairePresenter(answerQuestionnairePresenter);
+        answerQuestionnaireInteractor.setIdManager(idManager);
 
 
         //Participant drop out use case
@@ -231,7 +308,6 @@ public class Main {
         ParticipantEnrollerPresenter participantEnrollerPresenter = new ParticipantEnrollerPresenter();
         participantEnrollerController.setParticipantEnrollerInteractor(participantEnrollerInteractor);
         participantEnrollerInteractor.setParticipantEnrollerPresenter(participantEnrollerPresenter);
-        RandomGroupGeneratorManager randomGroupGeneratorManager = new RandomGroupGeneratorManager();
         participantEnrollerInteractor.setRandomGroupGeneratorManager(randomGroupGeneratorManager);
 
 
@@ -242,15 +318,13 @@ public class Main {
         publishQuestionnaireController.setPublishQuestionnaireInteractor(publishQuestionnaireInteractor);
         publishQuestionnaireInteractor.setPublishQuestionnairePresenter(publishQuestionnairePresenter);
 
-        //questionnaire_answer_data_for_editing_request use case
-//        QuestionnaireAnswerDataRequestForEditingController questionnaireAnswerDataRequestForEditingController =
-//                new QuestionnaireAnswerDataRequestForEditingController();
-//        QuestionnaireAnswerDataRequestForEditingInteractor questionnaireAnswerDataRequestForEditingInteractor =
-//                new QuestionnaireAnswerDataRequestForEditingInteractor();
 
-
-
-        //TODO: questionnaire_answer_data_request use case
+        // Fetch study data for editing use case
+        FetchStudyDataForEditingController fetchStudyDataForEditingController = new FetchStudyDataForEditingController();
+        FetchStudyDataForEditingInteractor fetchStudyDataForEditingInteractor = new FetchStudyDataForEditingInteractor();
+        FetchStudyDataForEditingPresenter fetchStudyDataForEditingPresenter = new FetchStudyDataForEditingPresenter();
+        fetchStudyDataForEditingController.setFetchStudyDataForEditingInteractor(fetchStudyDataForEditingInteractor);
+        fetchStudyDataForEditingInteractor.setFetchStudyDataForEditingPresenter(fetchStudyDataForEditingPresenter);
 
         //questionnaire_screen_data_request use case
         FetchQuestionnaireScreenController fetchQuestionnaireScreenController = new FetchQuestionnaireScreenController();
@@ -266,7 +340,6 @@ public class Main {
         removeResearcherController.setRemoveResearcherInteractor(removeResearcherInteractor);
         removeResearcherInteractor.setRemoveResearcherPresenter(removeResearcherPresenter);
 
-        //TODO: researcher_edit_answer use case
 
         //researcher_enroller use case
         ResearcherEnrollerController researcherEnrollerController = new ResearcherEnrollerController();
@@ -281,8 +354,8 @@ public class Main {
         UserLogOutPresenter userLogOutPresenter = new UserLogOutPresenter();
         userLogOutController.setUserLogOutInteractor(userLogOutInteractor);
         userLogOutInteractor.setUserLogOutPresenter(userLogOutPresenter);
-
-        //TODO: researcher_edit_answer use case
+        userLogOutInteractor.setSaveApplicationState(saveApplicationState);
+        userLogOutInteractor.setEntityCollections(container);
 
         //User login use case
         UserLoginController userLoginController = new UserLoginController();
@@ -290,7 +363,8 @@ public class Main {
         UserLoginPresenter userLoginPresenter = new UserLoginPresenter();
         userLoginController.setUserLoginInteractor(userLoginInteractor);
         userLoginInteractor.setUserLoginPresenter(userLoginPresenter);
-        userLoginInteractor.setUserPool(userPool);
+        userLoginInteractor.setSaveApplicationState(saveApplicationState);
+        userLoginInteractor.setEntities(container);
 
         //Get target groups use case
         GetTargetGroupsController getTargetGroupsController = new GetTargetGroupsController();
@@ -299,12 +373,20 @@ public class Main {
         getTargetGroupsController.setGetTargetGroupsInteractor(getTargetGroupsInteractor);
         getTargetGroupsInteractor.setGetTargetGroupsPresenter(getTargetGroupsPresenter);
 
-        //Create Questionnaire use case
+        //Create and edit Questionnaire use case
         CreateQuestionnaireController createQuestionnaireController = new CreateQuestionnaireController();
         CreateQuestionnaireInteractor createQuestionnaireInteractor = new CreateQuestionnaireInteractor();
         CreateQuestionnairePresenter createQuestionnairePresenter = new CreateQuestionnairePresenter();
+        EditQuestionnaireInteractor editQuestionnaireInteractor = new EditQuestionnaireInteractor();
+        EditQuestionnaireController editQuestionnaireController = new EditQuestionnaireController();
+        EditQuestionnairePresenter editQuestionnairePresenter = new EditQuestionnairePresenter();
         createQuestionnaireController.setInputBoundary(createQuestionnaireInteractor);
-        createQuestionnaireInteractor.setOutputBoundary(createQuestionnairePresenter);
+        editQuestionnaireController.setInputBoundary(editQuestionnaireInteractor);
+        createQuestionnaireInteractor.setCreationOutputBoundary(createQuestionnairePresenter);
+        editQuestionnaireInteractor.setEditOutputBoundary(editQuestionnairePresenter);
+        createQuestionnaireInteractor.setIdManager(idManager);
+        editQuestionnaireInteractor.setIdManager(idManager);
+
 
         //ResultExtraction use case
         ResultExtractionController resultExtractionController = new ResultExtractionController();
@@ -312,15 +394,41 @@ public class Main {
         ResultExtractionPresenter resultExtractionPresenter = new ResultExtractionPresenter();
         resultExtractionController.setResultExtractionInteractor(resultExtractionInteractor);
         resultExtractionInteractor.setResultExtractionPresenter(resultExtractionPresenter);
+        ResultExtractionBuilder resultExtractionBuilder= new ResultExtractionBuilder();
+
+        // Create consent form use case
+        CreateConsentFormController createConsentFormController = new CreateConsentFormController();
+        CreateConsentFormInteractor createConsentFormInteractor = new CreateConsentFormInteractor();
+        CreateConsentFormPresenter createConsentFormPresenter = new CreateConsentFormPresenter();
+        createConsentFormController.setCreateConsentFormInteractor(createConsentFormInteractor);
+        createConsentFormInteractor.setCreateConsentFormPresenter(createConsentFormPresenter);
+
+        // Fetch consent form use case
+        FetchConsentFormController fetchConsentFormController = new FetchConsentFormController();
+        FetchConsentFormInteractor fetchConsentFormInteractor = new FetchConsentFormInteractor();
+        FetchConsentFormPresenter fetchConsentFormPresenter = new FetchConsentFormPresenter();
+        fetchConsentFormController.setFetchConsentFormInteractor(fetchConsentFormInteractor);
+        fetchConsentFormInteractor.setFetchConsentFormPresenter(fetchConsentFormPresenter);
+
+        // Fetch Versioned Answer for editing answers use case
+        FetchLatestAnswerDataRequestController fetchLatestAnswerDataRequestController = new FetchLatestAnswerDataRequestController();
+        FetchLatestAnswerDataRequestInteractor fetchLatestAnswerDataRequestInteractor = new FetchLatestAnswerDataRequestInteractor();
+        FetchLatestAnswerDataRequestPresenter fetchLatestAnswerDataRequestPresenter = new FetchLatestAnswerDataRequestPresenter();
+        fetchLatestAnswerDataRequestController.setInputBoundary(fetchLatestAnswerDataRequestInteractor);
+        fetchLatestAnswerDataRequestInteractor.setPresenter(fetchLatestAnswerDataRequestPresenter);
+
+        // Edit Questionnaire's versioned Answer use case
+        ResearcherEditAnswerController editQuestionnaireVersionedAnswerController = new ResearcherEditAnswerController();
+        ResearcherEditAnswerInteractor editQuestionnaireVersionedAnswerInteractor = new ResearcherEditAnswerInteractor();
+        ResearcherEditAnswerPresenter editQuestionnaireVersionedAnswerPresenter = new ResearcherEditAnswerPresenter();
+        editQuestionnaireVersionedAnswerController.setResearcherEditAnswerInputBoundary(editQuestionnaireVersionedAnswerInteractor);
+        editQuestionnaireVersionedAnswerInteractor.setResearcherEditAnswerOutputBoundary(editQuestionnaireVersionedAnswerPresenter);
+        editQuestionnaireVersionedAnswerInteractor.setIdManager(idManager);
+
 
         //Controller Manager and Screen Manager
         ScreenManager screenManager = new ScreenManager();
         ControllerManager controllerManager = new ControllerManager(screenManager);
-
-
-        // Screens
-        //TODO: initialize the user register screen
-
 
 
         //Presenter Managers
@@ -328,8 +436,6 @@ public class Main {
                 new DisplayGroupsToAssign(screenManager, controllerManager);
         DisplayEditQuestionnaire presenterManagerDisplayEditQuestionnaire =
                 new DisplayEditQuestionnaire(screenManager, controllerManager);
-        DisplayEditStudy presenterManagerDisplayEditStudy =
-                new DisplayEditStudy(screenManager, controllerManager);
         DisplayFailureMessage presenterManagerDisplayFailureMessage =
                 new DisplayFailureMessage();
         DisplayParticipantInfo presenterManagerDisplayParticipantInfo =
@@ -350,14 +456,18 @@ public class Main {
                 new DisplayResearcherStudyLog(screenManager, controllerManager);
         DisplayScreenForAnsweringQuestionnaire presenterManagerDisplayScreenForAnsweringQuestionnaire =
                 new DisplayScreenForAnsweringQuestionnaire(screenManager, controllerManager);
-        DisplayEditAnswers presenterManagerDisplayEditAnswers =
-                new DisplayEditAnswers(screenManager, controllerManager);
         DisplayStratification presenterManagerDisplayStratification =
                 new DisplayStratification(screenManager, controllerManager);
         DisplaySuccessMessage presenterManagerDisplaySuccessMessage =
                 new DisplaySuccessMessage();
         DisplayVersionedAnswer presenterManagerDisplayVersionedAnswer =
                 new DisplayVersionedAnswer(screenManager);
+        DisplayConsentForm presenterManagerDisplayConsentForm =
+                new DisplayConsentForm(screenManager, controllerManager);
+        DisplayEditStudy presenterManagerDisplayEditStudyData =
+                new DisplayEditStudy(screenManager, controllerManager);
+        DisplayEditAnswers presenterDisplayEditAnswersInterface =
+                new DisplayEditAnswers(screenManager, controllerManager);
 
 
         //Inject Presenter Managers and/or Controllers to Presenters
@@ -401,6 +511,7 @@ public class Main {
         publishQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         publishQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
         publishQuestionnairePresenter.setFetchStudyLogController(fetchStudyLogController);
+        publishQuestionnairePresenter.setAssignQuestionnaireController(assignQuestionnaireController);
 
         removeResearcherPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         removeResearcherPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
@@ -424,6 +535,7 @@ public class Main {
         getTargetGroupsPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
 
         fetchVersionedAnswerPresenter.setDisplayVersionedAnswerInterface(presenterManagerDisplayVersionedAnswer);
+        fetchVersionedAnswerPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
 
         answerQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         answerQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
@@ -437,13 +549,46 @@ public class Main {
         createQuestionnairePresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
 
         resultExtractionPresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
+        resultExtractionPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+        resultExtractionInteractor.setResultExtractionBuilder(resultExtractionBuilder);
 
         assignQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         assignQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+        assignQuestionnairePresenter.setFetchStudyLogController(fetchStudyLogController);
+        assignQuestionnairePresenter.setDisplayParticipantInfo(presenterManagerDisplayParticipantInfo);
 
         closeQuestionnairePresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
         closeQuestionnairePresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
         closeQuestionnairePresenter.setFetchStudyLogController(fetchStudyLogController);
+
+        createConsentFormPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
+        createConsentFormPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+        createConsentFormPresenter.setFetchStudyLogController(fetchStudyLogController);
+
+        fetchConsentFormPresenter.setDisplayConsentForm(presenterManagerDisplayConsentForm);
+        fetchConsentFormPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+
+        fetchEditQuestionnaireDataPresenter.setDisplayEditQuestionnaireInterface(presenterManagerDisplayEditQuestionnaire);
+        fetchEditQuestionnaireDataPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+
+
+        fetchStudyDataForEditingPresenter.setDisplayEditStudy(presenterManagerDisplayEditStudyData);
+        fetchStudyDataForEditingPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+
+        editQuestionnairePresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+        editQuestionnairePresenter.setDisplaySuccessMessageInterface(presenterManagerDisplaySuccessMessage);
+
+        fetchQuestionnaireDataForAnswerPresenter.setDisplayParticipantAnswerQuestionnairePanelInterface(
+                presenterManagerDisplayScreenForAnsweringQuestionnaire);
+        fetchQuestionnaireDataForAnswerPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+
+        fetchLatestAnswerDataRequestPresenter.setDisplayEditAnswersInterface(presenterDisplayEditAnswersInterface);
+        fetchLatestAnswerDataRequestPresenter.setDisplayFailureMessageInterface(presenterManagerDisplayFailureMessage);
+
+        editQuestionnaireVersionedAnswerPresenter.setDisplayFailureMessage(presenterManagerDisplayFailureMessage);
+        editQuestionnaireVersionedAnswerPresenter.setDisplaySuccessMessage(presenterManagerDisplaySuccessMessage);
+        editQuestionnaireVersionedAnswerPresenter.setFetchStudyLogController(fetchStudyLogController);
+        editQuestionnaireVersionedAnswerPresenter.setFetchParticipantStudyDataController(fetchParticipantStudyDataController);
 
 
         // Inject controllers to controller manager
@@ -468,6 +613,17 @@ public class Main {
         controllerManager.setResultExtractionController(resultExtractionController);
         controllerManager.setAssignQuestionnaireController(assignQuestionnaireController);
         controllerManager.setCloseQuestionnaireController(closeQuestionnaireController);
+        controllerManager.setCreateConsentFormController(createConsentFormController);
+        controllerManager.setFetchConsentFormController(fetchConsentFormController);
+        controllerManager.setEditQuestionnaireScreenDataController(fetchEditQuestionnaireDataController);
+        controllerManager.setEditQuestionnaireController(editQuestionnaireController);
+        controllerManager.setFetchStudyDataForEditingController(fetchStudyDataForEditingController);
+        controllerManager.setFetchQuestionnaireDataForAnswerController(fetchQuestionnaireDataForAnswerController);
+        controllerManager.setAnswerQuestionnaireController(answerQuestionnaireController);
+        controllerManager.setFetchVersionedAnswerDataController(fetchVersionedAnswerController);
+        controllerManager.setFetchLatestAnswerDataRequestController(fetchLatestAnswerDataRequestController);
+        controllerManager.setResearcherEditAnswerController(editQuestionnaireVersionedAnswerController);
+
 
         SetUpLogInScreenDriver setUpLogInScreenDriver = new SetUpLogInScreenDriver();
         SetUpSignUpScreenDriver setUpSignUpScreenDriver = new SetUpSignUpScreenDriver();
@@ -475,6 +631,8 @@ public class Main {
         SetUpStudyCreationScreenDriver setUpStudyCreationScreenDriver = new SetUpStudyCreationScreenDriver();
         SetUpQuestionnaireCreationScreenDriver setUpQuestionnaireCreationScreenDriver = new SetUpQuestionnaireCreationScreenDriver();
         SetQuestionnaireVersionedAnswerDriver setQuestionnaireVersionedAnswerDriver = new SetQuestionnaireVersionedAnswerDriver();
+        SetUpConsentFormCreationScreenDriver setUpConsentFormCreationScreenDriver = new SetUpConsentFormCreationScreenDriver();
+
 
         controllerManager.setLogInScreenDriver(setUpLogInScreenDriver);
         controllerManager.setSignUpScreenDriver(setUpSignUpScreenDriver);
@@ -482,35 +640,13 @@ public class Main {
         controllerManager.setStudyCreationScreenDriver(setUpStudyCreationScreenDriver);
         controllerManager.setSetUpQuestionnaireCreationScreenDriver(setUpQuestionnaireCreationScreenDriver);
         controllerManager.setSetQuestionnaireVersionedAnswerDriver(setQuestionnaireVersionedAnswerDriver);
-
+        controllerManager.setConsentFormCreationScreenDriver(setUpConsentFormCreationScreenDriver);
 
 
         UserRegisterScreen userRegisterScreen = new UserRegisterScreen(controllerManager);
         screenManager.setCurrentScreen(userRegisterScreen);
         userRegisterScreen.setVisible(true);
-
-
-        // The serializer object
-
-//        Serializer s = new Serializer();
-//        ArrayList<Object> objs = s.getAll();
-//
-//        for(Object obj : objs){
-//            switch (obj.getClass().getSimpleName()){
-//                case "UserPool":
-//                    userPool = (UserPool) obj;
-//                    break;
-//                case "StudyPool":
-//                    studyPool = (StudyPool) obj;
-//                    break;
-//                case "RandomGroupGeneratorManager":
-//                    randomGroupGeneratorManager = (RandomGroupGeneratorManager) obj;
-//                    break;
-//            }
-//        }
-
-
-
     }
 }
+
 

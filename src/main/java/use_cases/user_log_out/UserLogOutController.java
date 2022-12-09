@@ -1,7 +1,13 @@
 package use_cases.user_log_out;
 
+/**
+ * The controller that calls on the use case that logs out the user.
+ */
 public class UserLogOutController {
 
+    /**
+     * The use case that this controller calls on.
+     */
     private UserLogOutInputBoundary userLogOutInteractor;
 
 

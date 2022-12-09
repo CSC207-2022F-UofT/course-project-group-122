@@ -45,8 +45,8 @@ public class AnswerQuestionnairePresenter implements AnswerQuestionnaireOutputBo
     @Override
     public void presentAnswerQuestionnaireSuccess(int participantId, int modifierId, int questionnaireId, String time) {
         String message = "Participant " + participantId + " has answered questionnaire " + questionnaireId + " at " + time;
-        displaySuccessMessage.presentGeneralSuccessMessage(message);
         fetchParticipantStudyDataController.fetchParticipantStudyData(participantId, modifierId);
+        displaySuccessMessage.presentGeneralSuccessMessage(message);
     }
 
 

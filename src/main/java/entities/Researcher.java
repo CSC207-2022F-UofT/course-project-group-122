@@ -1,9 +1,10 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Researcher extends User implements java.io.Serializable{
+public class Researcher extends User implements Serializable {
 
     /**
      * A list of Study objects that this researcher belongs to (works in).
@@ -14,8 +15,8 @@ public class Researcher extends User implements java.io.Serializable{
      * @param username the username of this Researcher.
      * @param name     the name of this Researcher.
      */
-    public Researcher(String username, String name) {
-        super(username, name);
+    public Researcher(int id, String username, String name) {
+        super(id, username, name);
     }
 
     /**
@@ -63,10 +64,4 @@ public class Researcher extends User implements java.io.Serializable{
         }
         return false;
     }
-
-    public void editAnswer(Study study, String newAnswer) {
-
-    }
-
-
 }

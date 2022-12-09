@@ -3,6 +3,9 @@ package use_cases.close_study;
 import entities.Study;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that closes a study.
+ */
 public class CloseStudyInteractor implements CloseStudyInputBoundary {
 
     /**
@@ -15,6 +18,7 @@ public class CloseStudyInteractor implements CloseStudyInputBoundary {
      * Close a study
      *
      * @param studyId The id of the study to close
+     *
      */
     @Override
     public void closeStudy(int studyId, int researcherId) {

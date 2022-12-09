@@ -4,9 +4,14 @@ import entities.Participant;
 import entities.Study;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that checks the eligibility of a participant.
+ */
 public class EligibilityCheckerInteractor implements EligibilityCheckerInputBoundary {
 
-
+    /**
+     * The interface that the presenter implements and is called on by the use case.
+     */
     private EligibilityCheckerOutputBoundary eligibilityCheckerPresenter;
 
 

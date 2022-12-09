@@ -2,19 +2,20 @@ package entities;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
 public class ParticipantDataManagerTest {
 
-    Participant participant1 = new Participant("participant1", "participant1");
+    Participant participant1 = new Participant(1, "participant1", "participant1");
     ParticipantDataManager pdm1 = new ParticipantDataManager(participant1);
-    Participant participant2 = new Participant("participant2", "participant2");
+    Participant participant2 = new Participant(2, "participant2", "participant2");
     ParticipantDataManager pdm2 = new ParticipantDataManager(participant2);
-    Participant participant3 = new Participant("participant3", "participant3");
+    Participant participant3 = new Participant(3, "participant3", "participant3");
     ParticipantDataManager pdm3 = new ParticipantDataManager(participant3);
-    Participant participant4 = new Participant("participant4", "participant4");
+    Participant participant4 = new Participant(4, "participant4", "participant4");
     ParticipantDataManager pdm4 = new ParticipantDataManager(participant4);
 
     @Test
@@ -25,14 +26,14 @@ public class ParticipantDataManagerTest {
         assertNull(pdm4.getEligibilityQuestionnaire());
     }
 
-    Study study1 = new Study("title", 3);
-    Questionnaire questionnaireEligibility = new Questionnaire(study1, "title", "description", 1);
-    Questionnaire questionnaire2 = new Questionnaire(study1, "title", "description", 1);
-    Questionnaire questionnaire3 = new Questionnaire(study1, "title", "description", 1);
+    Study study1 = new RandomizedStudy(1, "title", 3);
+    Questionnaire questionnaireEligibility = new Questionnaire(1, study1, "title", "description", new ArrayList<>());
+    Questionnaire questionnaire2 = new Questionnaire(2, study1, "title", "description", new ArrayList<>());
+    Questionnaire questionnaire3 = new Questionnaire(3, study1, "title", "description", new ArrayList<>());
 
     @Test
     public void setEligibilityQuestionnaire() {
-        Participant participant9 = new Participant("username", "name");
+        Participant participant9 = new Participant(1, "username", "name");
         ParticipantDataManager pdm9 = new ParticipantDataManager(participant9);
         assertNull(pdm9.getEligibilityQuestionnaire());
         pdm9.setEligibilityQuestionnaire(questionnaireEligibility);
@@ -59,7 +60,7 @@ public class ParticipantDataManagerTest {
 
     @Test
     public void assignQuestionnaire() {
-        Participant participant10 = new Participant("username", "name");
+        Participant participant10 = new Participant(1, "username", "name");
         ParticipantDataManager pdm10 = new ParticipantDataManager(participant10);
         assertEquals(0, pdm10.getAssignedQuestionnaires().size());
         assertFalse(pdm10.assignQuestionnaire(questionnaire2));
@@ -77,7 +78,7 @@ public class ParticipantDataManagerTest {
 
     @Test
     public void completeQuestionnaire() {
-        Participant participant11 = new Participant("username", "name");
+        Participant participant11 = new Participant(1, "username", "name");
         ParticipantDataManager pdm11 = new ParticipantDataManager(participant11);
         assertEquals(0, pdm11.getCompletedQuestionnaires().size());
         assertFalse(pdm11.completeQuestionnaire(questionnaire2));
@@ -107,7 +108,7 @@ public class ParticipantDataManagerTest {
 
     @Test
     public void getCurrEligibilityAnswerContent() {
-        Participant participant13 = new Participant("username", "name");
+        Participant participant13 = new Participant(1, "username", "name");
         ParticipantDataManager pdm13 = new ParticipantDataManager(participant13);
         assertThrows(NullPointerException.class, () -> {pdm13.getCurrEligibilityAnswerContent();});
         participant13.setStudy(study1);
@@ -118,10 +119,10 @@ public class ParticipantDataManagerTest {
         assertThrows(NullPointerException.class, () -> {pdm13.getCurrEligibilityAnswerContent();});
         pdm13.setEligibilityQuestionnaire(questionnaireEligibility);
         assertThrows(NullPointerException.class, () -> {pdm13.getCurrEligibilityAnswerContent();});
-        Answer answer2 = new Answer(participant13, questionnaireEligibility);
+        Answer answer2 = new Answer(1, participant13, questionnaireEligibility);
         HashMap<String, String> answerContent2 = new HashMap<>();
         answerContent2.put("question1", "answer1");
-        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, participant13, answerContent2, answer2);
+        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, 1, participant13, answerContent2, answer2);
         answer2.addNewVersion(versionedAnswer2);
         pdm13.setEligibilityQuestionnaireAnswer(answer2);
         assertEquals(answerContent2, pdm13.getCurrEligibilityAnswerContent());
@@ -134,7 +135,7 @@ public class ParticipantDataManagerTest {
         answerContent3.put("question3", "answer3");
         answerContent3.put("question4", "answer4");
         answerContent3.put("question5", "answer5");
-        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, participant13, answerContent3, answer2);
+        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, 2, participant13, answerContent3, answer2);
         answer2.addNewVersion(versionedAnswer3);
         assertEquals(3, pdm13.getCurrEligibilityAnswerContent().size());
         assertEquals("answer3", pdm13.getCurrEligibilityAnswerContent().get("question3"));
@@ -151,7 +152,7 @@ public class ParticipantDataManagerTest {
         assertFalse(pdm3.hasCompletedEligibilityQuestionnaire());
         assertFalse(pdm4.hasCompletedEligibilityQuestionnaire());
 
-        Participant participant13 = new Participant("username", "name");
+        Participant participant13 = new Participant(1, "username", "name");
         ParticipantDataManager pdm13 = new ParticipantDataManager(participant13);
         assertFalse(pdm13.hasCompletedEligibilityQuestionnaire());
         assertThrows(NullPointerException.class, () -> {pdm13.getCurrEligibilityAnswerContent();});
@@ -163,10 +164,10 @@ public class ParticipantDataManagerTest {
         assertThrows(NullPointerException.class, () -> {pdm13.getCurrEligibilityAnswerContent();});
         pdm13.setEligibilityQuestionnaire(questionnaireEligibility);
         assertThrows(NullPointerException.class, () -> {pdm13.getCurrEligibilityAnswerContent();});
-        Answer answer2 = new Answer(participant13, questionnaireEligibility);
+        Answer answer2 = new Answer(1, participant13, questionnaireEligibility);
         HashMap<String, String> answerContent2 = new HashMap<>();
         answerContent2.put("question1", "answer1");
-        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, participant13, answerContent2, answer2);
+        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, 1, participant13, answerContent2, answer2);
         answer2.addNewVersion(versionedAnswer2);
         assertFalse(pdm13.hasCompletedEligibilityQuestionnaire());
         pdm13.setEligibilityQuestionnaireAnswer(answer2);
@@ -181,7 +182,7 @@ public class ParticipantDataManagerTest {
         answerContent3.put("question3", "answer3");
         answerContent3.put("question4", "answer4");
         answerContent3.put("question5", "answer5");
-        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, participant13, answerContent3, answer2);
+        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, 2, participant13, answerContent3, answer2);
         answer2.addNewVersion(versionedAnswer3);
         assertEquals(3, pdm13.getCurrEligibilityAnswerContent().size());
         assertEquals("answer3", pdm13.getCurrEligibilityAnswerContent().get("question3"));
@@ -194,9 +195,9 @@ public class ParticipantDataManagerTest {
 
     @Test
     public void setEligibilityQuestionnaireAnswer() {
-        Participant participant12 = new Participant("username", "name");
+        Participant participant12 = new Participant(1, "username", "name");
         ParticipantDataManager pdm12 = new ParticipantDataManager(participant12);
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
+        Answer answer1 = new Answer(1, participant12, questionnaireEligibility);
         assertNull(pdm12.getEligibilityQuestionnaireAnswer());
         pdm12.setEligibilityQuestionnaireAnswer(answer1);
         assertEquals(answer1, pdm12.getEligibilityQuestionnaireAnswer());
@@ -205,12 +206,12 @@ public class ParticipantDataManagerTest {
 
     @Test
     public void getQuestionnaireAnswers() {
-        Participant participant12 = new Participant("username", "name");
+        Participant participant12 = new Participant(1, "username", "name");
         ParticipantDataManager pdm12 = new ParticipantDataManager(participant12);
         assertEquals(0, pdm12.getQuestionnaireAnswers().size());
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
-        Answer answer2 = new Answer(participant12, questionnaire2);
-        Answer answer3 = new Answer(participant12, questionnaire3);
+        Answer answer1 = new Answer(1, participant12, questionnaireEligibility);
+        Answer answer2 = new Answer(2, participant12, questionnaire2);
+        Answer answer3 = new Answer(3, participant12, questionnaire3);
         assertEquals(0, pdm12.getQuestionnaireAnswers().size());
         pdm12.setEligibilityQuestionnaireAnswer(answer1);
         assertEquals(0, pdm12.getQuestionnaireAnswers().size());
@@ -235,15 +236,15 @@ public class ParticipantDataManagerTest {
 
     @Test
     public void getQuestionnaireAnswer() {
-        Participant participant12 = new Participant("username", "name");
+        Participant participant12 = new Participant(1, "username", "name");
         ParticipantDataManager pdm12 = new ParticipantDataManager(participant12);
         assertNull(pdm12.getQuestionnaireAnswer(questionnaireEligibility));
         assertNull(pdm12.getQuestionnaireAnswer(questionnaire2));
         assertNull(pdm12.getQuestionnaireAnswer(questionnaire3));
         assertEquals(0, pdm12.getQuestionnaireAnswers().size());
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
-        Answer answer2 = new Answer(participant12, questionnaire2);
-        Answer answer3 = new Answer(participant12, questionnaire3);
+        Answer answer1 = new Answer(1, participant12, questionnaireEligibility);
+        Answer answer2 = new Answer(2, participant12, questionnaire2);
+        Answer answer3 = new Answer(3, participant12, questionnaire3);
         assertEquals(0, pdm12.getQuestionnaireAnswers().size());
         pdm12.setEligibilityQuestionnaireAnswer(answer1);
         assertEquals(0, pdm12.getQuestionnaireAnswers().size());
@@ -276,11 +277,11 @@ public class ParticipantDataManagerTest {
 
     @Test
     public void addAnswer() {
-        Participant participant12 = new Participant("username", "name");
+        Participant participant12 = new Participant(1, "username", "name");
         ParticipantDataManager pdm12 = new ParticipantDataManager(participant12);
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
-        Answer answer2 = new Answer(participant12, questionnaire2);
-        Answer answer3 = new Answer(participant12, questionnaire3);
+        Answer answer1 = new Answer(2, participant12, questionnaireEligibility);
+        Answer answer2 = new Answer(2, participant12, questionnaire2);
+        Answer answer3 = new Answer(2, participant12, questionnaire3);
         assertEquals(0, pdm12.getQuestionnaireAnswers().size());
         assertFalse(pdm12.addAnswer(answer2, questionnaire2));
         pdm12.setEligibilityQuestionnaireAnswer(answer1);
@@ -312,11 +313,11 @@ public class ParticipantDataManagerTest {
 
     @Test
     public void getCurrVersionQuestionnaireAnswer() {
-        Participant participant12 = new Participant("username", "name");
+        Participant participant12 = new Participant(1, "username", "name");
         ParticipantDataManager pdm12 = new ParticipantDataManager(participant12);
-        Answer answer1 = new Answer(participant12, questionnaireEligibility);
-        Answer answer2 = new Answer(participant12, questionnaire2);
-        Answer answer3 = new Answer(participant12, questionnaire3);
+        Answer answer1 = new Answer(1, participant12, questionnaireEligibility);
+        Answer answer2 = new Answer(2, participant12, questionnaire2);
+        Answer answer3 = new Answer(3, participant12, questionnaire3);
         assertEquals(0, pdm12.getQuestionnaireAnswers().size());
         assertNull(pdm12.getCurrVersionQuestionnaireAnswer(questionnaireEligibility));
         assertNull(pdm12.getCurrVersionQuestionnaireAnswer(questionnaire2));
@@ -356,20 +357,20 @@ public class ParticipantDataManagerTest {
         HashMap<String, String> answerContent2 = new HashMap<>();
         answerContent2.put("question1", "answer1");
         answerContent2.put("question2", "answer2");
-        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, participant1, answerContent2, answer2);
+        VersionedAnswer versionedAnswer2 = new VersionedAnswer(1, 1, participant1, answerContent2, answer2);
         answer2.addNewVersion(versionedAnswer2);
         assertEquals(versionedAnswer2, pdm12.getCurrVersionQuestionnaireAnswer(questionnaire2));
         assertNull(pdm12.getCurrVersionQuestionnaireAnswer(questionnaire3));
         HashMap<String, String> answerContent3 = new HashMap<>();
         answerContent3.put("question1", "answer1");
         answerContent3.put("question2", "answer2");
-        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, participant1, answerContent3, answer3);
+        VersionedAnswer versionedAnswer3 = new VersionedAnswer(2, 2, participant1, answerContent3, answer3);
         answer2.addNewVersion(versionedAnswer3);
         assertEquals(versionedAnswer3, pdm12.getCurrVersionQuestionnaireAnswer(questionnaire2));
         assertNull(pdm12.getCurrVersionQuestionnaireAnswer(questionnaire3));
         HashMap<String, String> answerContent4 = new HashMap<>();
         answerContent4.put("question1", "answer1");
-        VersionedAnswer versionedAnswer4 = new VersionedAnswer(1, participant1, answerContent4, answer3);
+        VersionedAnswer versionedAnswer4 = new VersionedAnswer(3, 1, participant1, answerContent4, answer3);
         answer3.addNewVersion(versionedAnswer4);
         assertEquals(versionedAnswer4, pdm12.getCurrVersionQuestionnaireAnswer(questionnaire3));
     }

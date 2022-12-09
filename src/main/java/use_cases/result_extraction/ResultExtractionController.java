@@ -1,30 +1,26 @@
 package use_cases.result_extraction;
 
-
 /**
- * Controller for the Result Pulling and Extraction.
+ * The controller for the result extraction use case.
  */
-
 public class ResultExtractionController {
-    /*
-      The interactor for this use case.
-     */
 
     private ResultExtractionInputBoundary resultPullingAndExtractionInteractor;
 
-
-    /*
+    /**
      * Pull and extract the result of questionnaire in csv form
-     * @param study The given study from which the result pull
-     * @param filepath The file path to save the result csv file
+     * @param studyID The ID of the study that the researcher want to export
+     * @param filepath The file path to save the result folder
      */
     public void resultPullingAndExtraction(int studyID, String filepath){
-        System.out.println(filepath);
         resultPullingAndExtractionInteractor.resultPullingAndExtraction(studyID, filepath);
-
     }
 
-
+    /**
+     * Sets the interactor for this controller
+     * @param resultPullingAndExtractionInteractor the interactor for this controller
+     */
+    
     public void setResultExtractionInteractor(ResultExtractionInputBoundary
                                                                 resultPullingAndExtractionInteractor){
         this.resultPullingAndExtractionInteractor = resultPullingAndExtractionInteractor;

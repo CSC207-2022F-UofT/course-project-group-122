@@ -73,12 +73,13 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      *
      * @param participantId The participant to enroll.
      * @param studyId       The study to enroll the participant in.
-     * @param group         The group number to enroll the participant in.
+     * @param group         the group name to enroll the participant in.
      */
     @Override
     public void enroll(int participantId, int studyId, int group, int userId) {
         Participant participant = checkParticipantIdIsValid(participantId);
-        Study study = (Study) FetchId.getStudy(studyId);
+        Study study = FetchId.getStudy(studyId);
+        assert study instanceof GeneralStudy;
         if (enrollParticipant(participant, study, group)) {
             assignQuestionnaires(participant, study);
             participantEnrollerPresenter.presentEnrollmentSuccess(participantId, participant.getGroup(), studyId, userId);
@@ -105,14 +106,13 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      */
     private boolean enrollParticipant(Participant participant, Study study) {
         if (enrollable(participant, study)) {
-            if (study.getStudyType().equals("Randomized")) {
-                RandomGroupGenerator randomGroupGenerator = fetchRandomGroupGenerator(study);
+            if (study instanceof RandomizedStudy) {
+                RandomGroupGenerator randomGroupGenerator = fetchRandomGroupGenerator((RandomizedStudy) study);
                 int group = randomGroupGenerator.generateRandomGroup(study, participant);
                 participant.setGroup(group);
             } else {
                 participant.setGroup(1);
             }
-            study.removePotentialParticipant(participant);
             study.addParticipant(participant);
             participant.enroll();
             return true;
@@ -145,7 +145,6 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
             if (enrollable(participant, study)) {
                 if (1 <= group && group <= study.getNumGroups()) {
                     participant.setGroup(group);
-                    study.removePotentialParticipant(participant);
                     study.addParticipant(participant);
                     participant.enroll();
                     return true;
@@ -203,24 +202,14 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
      * @param study     The study to fetch the random group generator of.
      * @return the random group generator of the study.
      */
-    private @NotNull RandomGroupGenerator fetchRandomGroupGenerator(Study study) {
+    private @NotNull RandomGroupGenerator fetchRandomGroupGenerator(RandomizedStudy study) {
         if (randomGroupGeneratorManager.studyGeneratorExists(study)) {
             return randomGroupGeneratorManager.getStudyGenerator(study);
         } else {
-            String type = study.getRandomizationMethod();
-            if (type.equals("Block")) {
-                RandomGroupGenerator generator = new BlockRandomGroupGenerator(study);
-                randomGroupGeneratorManager.addStudyGenerator(study, generator);
-                return generator;
-            } else if (type.equals("Stratified")) {
-                RandomGroupGenerator generator =  new StratifiedRandomGroupGenerator(study);
-                randomGroupGeneratorManager.addStudyGenerator(study, generator);
-                return generator;
-            } else {
-                RandomGroupGenerator generator =  new SimpleRandomGroupGenerator(study);
-                randomGroupGeneratorManager.addStudyGenerator(study, generator);
-                return generator;
-            }
+            RandomGroupGenteratorFactoryInterface randomGroupGeneratorFactory = new RandomGroupGenteratorFactory();
+            RandomGroupGenerator randomGroupGenerator = randomGroupGeneratorFactory.createRandomGroupGenerator(study);
+            randomGroupGeneratorManager.addStudyGenerator(study, randomGroupGenerator);
+            return randomGroupGenerator;
         }
     }
 
@@ -235,7 +224,7 @@ public class ParticipantEnrollerInteractor implements ParticipantEnrollerInputBo
         List<Questionnaire> questionnaires = study.getQuestionnaires();
         int group = participant.getGroup();
         for (Questionnaire questionnaire : questionnaires) {
-            if (questionnaire.getTargetGroups().contains(group)) {
+            if (questionnaire.getTargetGroups().contains(Integer.toString(group))) {
                 participant.assignQuestionnaire(questionnaire);
             }
         }

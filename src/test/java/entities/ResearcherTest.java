@@ -8,12 +8,12 @@ import static org.junit.Assert.*;
 
 public class ResearcherTest extends UserTest {
 
-    Researcher researcher1 = new Researcher("username", "name");
-    Researcher researcher2 = new Researcher("", "name");
-    Researcher researcher3 = new Researcher("username", "");
-    Researcher researcher4 = new Researcher("", "");
-    Participant participant1 = new Participant("username", "name");
-    Researcher researcher5 = new Researcher("username", "name");
+    Researcher researcher1 = new Researcher(1, "username", "name");
+    Researcher researcher2 = new Researcher(2, "", "name");
+    Researcher researcher3 = new Researcher(3, "username", "");
+    Researcher researcher4 = new Researcher(4, "", "");
+    Participant participant1 = new Participant(5, "username", "name");
+    Researcher researcher5 = new Researcher(6, "username", "name");
 
     @Test
     @Override
@@ -67,19 +67,19 @@ public class ResearcherTest extends UserTest {
 
     @Test
     public void listStudiesContains() {
-        Study study1 = new Study("study1", 3);
+        Study study1 = new RandomizedStudy(1, "study1", 3);
         assertFalse(researcher1.listStudiesContains(study1));
     }
 
 
     @Test
     public void addToListStudies() {
-        Study study2 = new Study("study1", 3);
+        Study study2 = new RandomizedStudy(2, "study1", 3);
         assertFalse(researcher2.listStudiesContains(study2));
         assertTrue(researcher2.addToListStudies(study2));
         assertTrue(researcher2.listStudiesContains(study2));
         assertFalse(researcher2.addToListStudies(study2));
-        Study study3 = new Study("study2", 3);
+        Study study3 = new RandomizedStudy(3, "study2", 3);
         assertFalse(researcher2.listStudiesContains(study3));
         assertTrue(researcher2.addToListStudies(study3));
         assertTrue(researcher2.listStudiesContains(study3));
@@ -89,12 +89,12 @@ public class ResearcherTest extends UserTest {
 
     @Test
     public void removeFromListStudies() {
-        Study study3 = new Study("study1", 3);
+        Study study3 = new RandomizedStudy(4, "study1", 3);
         assertFalse(researcher3.listStudiesContains(study3));
         assertTrue(researcher3.addToListStudies(study3));
         assertTrue(researcher3.listStudiesContains(study3));
         assertFalse(researcher3.addToListStudies(study3));
-        Study study4 = new Study("study2", 3);
+        Study study4 = new RandomizedStudy(5, "study2", 3);
         assertFalse(researcher3.listStudiesContains(study4));
         assertTrue(researcher3.addToListStudies(study4));
         assertTrue(researcher3.listStudiesContains(study4));

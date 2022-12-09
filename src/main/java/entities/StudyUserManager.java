@@ -2,12 +2,13 @@ package entities;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StudyUserManager implements java.io.Serializable{
+public class StudyUserManager implements Serializable {
 
     /**
      * The study that this manager is managing.
@@ -198,7 +199,7 @@ public class StudyUserManager implements java.io.Serializable{
      * @return whether the addition is successful.
      */
     protected boolean addParticipant(Participant p) {
-        if (this.participants.contains(p)) {
+        if (!this.participants.contains(p)) {
             if (this.potentialParticipants.contains(p)) {
                 this.potentialParticipants.remove(p);
                 return this.participants.add(p);

@@ -2,8 +2,8 @@ package user_interface_layer.screens.study_data_log.study_data_log_panels;
 
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_study_log.FetchStudyLogResponseModel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
-import user_interface_layer.screen_setters.SetTableModel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetTableModel;
 import user_interface_layer.screens.ControllerManager;
 
 import javax.swing.*;
@@ -12,7 +12,15 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to display the researchers of a study.
+ */
 public class StudyLogResearcherPanel extends JPanel {
+    /**
+     * Creates the panel to display the researchers of a study.
+     * @param data The data to display.
+     * @param controllerManager The controller manager.
+     */
     public StudyLogResearcherPanel(@NotNull FetchStudyLogResponseModel data, ControllerManager controllerManager) {
         setLayout(new BorderLayout());
         String[] tableHeaders = {"ID", "Name"};
@@ -40,7 +48,8 @@ public class StudyLogResearcherPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please select a researcher to remove");
             } else {
                 int researcherId = keys.get(selectedRow);
-                controllerManager.removeResearcherFromStudyRequest(researcherId, data.getStudyId(),data.getResearcherId());
+                controllerManager.removeResearcherFromStudyRequest(
+                        researcherId, data.getStudyId(),data.getResearcherId());
             }
         });
 
@@ -61,14 +70,15 @@ public class StudyLogResearcherPanel extends JPanel {
                         controllerManager.fetchResearcher(researcherIdInt, data.getStudyId());
                         frame.dispose();
                     } catch (NumberFormatException exception) {
-                        JOptionPane.showMessageDialog(null, "Please enter a valid researcher identifier");
+                        JOptionPane.showMessageDialog(null,
+                                "Please enter a valid researcher identifier");
                     }
                 });
                 frame.add(label);
                 frame.add(textField);
                 frame.add(button);
                 frame.pack();
-                SetScreenToCenter s = new SetScreenToCenter(frame);
+                SetScreenToCenter.setCenter(frame);
                 frame.setVisible(true);
         });
 

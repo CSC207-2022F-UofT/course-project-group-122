@@ -17,13 +17,13 @@ public class UserTest {
     public void tearDown() throws Exception {
     }
 
-    User user = new User("username", "name");
-    User user2 = new User("username2", "name2");
-    User user3 = new User("username3", "name3");
-    User user4 = new User("username4", "name4");
-    User user5 = new User("", "name");
-    User user6 = new User("username", "");
-    User user7 = new User("", "");
+    User user = new User(1, "username", "name");
+    User user2 = new User(2, "username2", "name2");
+    User user3 = new User(3, "username3", "name3");
+    User user4 = new User(4, "username4", "name4");
+    User user5 = new User(5, "", "name");
+    User user6 = new User(6, "username", "");
+    User user7 = new User(7, "", "");
 
     @Test
     public void getId() {
@@ -56,7 +56,7 @@ public class UserTest {
 
     @Test
     public void getName() {
-        User user = new User("username", "name");
+        User user = new User(8, "username", "name");
         assertEquals("name", user.getName());
     }
 

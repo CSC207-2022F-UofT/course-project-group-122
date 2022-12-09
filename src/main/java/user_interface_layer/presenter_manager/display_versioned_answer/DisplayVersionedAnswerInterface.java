@@ -7,5 +7,8 @@ import use_cases.fetch_versioned_answer.FetchVersionedAnswerResponseModel;
  * answer of a questionnaire.
  */
 public interface DisplayVersionedAnswerInterface {
+    /**
+     * @param data The data needed to display the screen.
+     */
     void presentVersionedAnswersOfQuestionnaireScreen(FetchVersionedAnswerResponseModel data);
 }

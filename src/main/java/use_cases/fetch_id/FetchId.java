@@ -13,11 +13,31 @@ import java.util.List;
  */
 public class FetchId {
 
+    /**
+     * The user pool where all the users are stored.
+     */
     private static UserPool userPool;
+
+    /**
+     * The study pool where all the studies are stored.
+     */
     private static StudyPool studyPool;
 
-    public FetchId(UserPool userPool, StudyPool studyPool) {
+
+    /**
+     * Set the user pool
+     * @param userPool  the user pool
+     */
+    public static void setUserPool(UserPool userPool) {
         FetchId.userPool = userPool;
+    }
+
+
+    /**
+     * Set the study pool
+     * @param studyPool the study pool
+     */
+    public static void setStudyPool(StudyPool studyPool) {
         FetchId.studyPool = studyPool;
     }
 
@@ -111,7 +131,7 @@ public class FetchId {
                 return answer;
             }
         }
-        return null;
+        return participant.getEligibilityQuestionnaireAnswer();
     }
 
 

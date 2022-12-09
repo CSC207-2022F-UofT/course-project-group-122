@@ -1,19 +1,23 @@
 package user_interface_layer.screens.create_questionnaire_inputs_screen.question_screen;
 
-import user_interface_layer.screen_setters.SetLabelTextPanel;
-import user_interface_layer.screen_setters.SetScreenToCenter;
+import user_interface_layer.screen_helper_classes.SetLabelTextPanel;
+import user_interface_layer.screen_helper_classes.SetScreenToCenter;
 import user_interface_layer.screens.create_questionnaire_inputs_screen.QuestionModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The screen for creating a test question.
+ */
 public class TextQuestionScreen extends JFrame{
     private final JTextArea question = new JTextArea(5, 20);
     private final JTextField variable;
 
-    public TextQuestionScreen(List<QuestionModel> addedQuestions, DefaultTableModel model) {
+    public TextQuestionScreen(ArrayList<String> variables, List<QuestionModel> addedQuestions, DefaultTableModel model) {
         setTitle("Create Text Question");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -36,9 +40,13 @@ public class TextQuestionScreen extends JFrame{
         submitButton.addActionListener(e -> {
             if (question.getText().equals("") || variable.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields");
-            } else {
+            } else if (variables.contains(variable.getText())) {
+                JOptionPane.showMessageDialog(null, "Variable already exists");
+            }
+            else {
+                variables.add(variable.getText());
                 QuestionModel newQuestion = new QuestionModel(question.getText(), variable.getText());
-                model.addRow(new String[]{"Text",question.getText(), variable.getText(), ""});
+                model.addRow(new String[]{newQuestion.getType(),newQuestion.getContent(),newQuestion.getVariable(), newQuestion.getOptions()});
                 addedQuestions.add(newQuestion);
                 this.dispose();
             }
@@ -50,14 +58,6 @@ public class TextQuestionScreen extends JFrame{
 
         add(panel);
         pack();
-        SetScreenToCenter s = new SetScreenToCenter(this);
+        SetScreenToCenter.setCenter(this);
     }
-
-//    public static void main(String[] args) {
-//        List<QuestionModel> addedQuestions = new ArrayList<>();
-//        TextQuestionScreen t = new TextQuestionScreen(addedQuestions);
-//        t.setVisible(true);
-//    }
-
-
 }

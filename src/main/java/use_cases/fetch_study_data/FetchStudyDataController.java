@@ -14,7 +14,6 @@ public class FetchStudyDataController {
     /**
      * Fetches the study data for the given user.
      * @param userId  The user to fetch the study data for.
-     * @return The study data for the given user.
      */
     public void fetchStudyData(int userId) {
         fetchStudyDataInteractor.fetchStudyData(userId);

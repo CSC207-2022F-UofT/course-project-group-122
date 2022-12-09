@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -20,7 +21,7 @@ import java.util.stream.IntStream;
  * example, if there are 3 groups, the stratum size is 6. The participants are evenly distributed into the strata
  * using block randomization. The participants in each stratum are then randomly assigned to a group.
  */
-public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
+public class StratifiedRandomGroupGenerator implements RandomGroupGenerator, Serializable {
 
     /**
      * The number of groups in the study.
@@ -53,7 +54,7 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
     /**
      * Participants in this group.
      */
-    private List<Participant> participants = new ArrayList<>();
+    private final List<Participant> participants = new ArrayList<>();
 
     /**
      * The random number generator.
@@ -69,7 +70,7 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
      *
      * @param study     The study to assign the participant to a group at random.
      */
-    public StratifiedRandomGroupGenerator(@NotNull Study study) {
+    public StratifiedRandomGroupGenerator(@NotNull RandomizedStudy study) {
         this.numGroups = study.getNumGroups();
         this.stratifiedVariable = study.getStratificationMethod();
         this.stratifiedQuestion = (study.getEligibilityQuestionnaire()).getQuestionByVariableName(stratifiedVariable);
@@ -123,7 +124,6 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
     /**
      * Gets the strata specified by the stratified variable.
      * This is a helper method for the constructor.
-     *
      * Precondition: The stratified variable must correspond to a variable in the eligibility questionnaire that is a
      * multiple choice question or a scale question.
      *
@@ -144,7 +144,6 @@ public class StratifiedRandomGroupGenerator implements RandomGroupGenerator {
     /**
      * Gets the stratum of the participant.
      * This is a helper method for the generateRandomGroup method.
-     *
      * Precondition: The participant must have a response to the stratified question.
      *
      * @param participant   The participant to assign to a group at random.
