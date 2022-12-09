@@ -24,7 +24,6 @@ class StudyTest {
     private Questionnaire testQuestionnaire;
     private ConsentForm testConsentForm;
 
-    private static int testId = 0;
 
 
     @BeforeEach
@@ -37,7 +36,7 @@ class StudyTest {
         testResearcher = new Researcher(1, "M", "m");
         testQuestionnaire = new Questionnaire(1, testStudy, "flu", "hey");
         testConsentForm = new ConsentForm(testStudy, "1", "2", "3");
-        testId ++;
+
 
 
 
@@ -72,12 +71,6 @@ class StudyTest {
         testStudy.modifyTargetStudySize(expectNum);
         assertEquals(expectNum, testStudy.getTargetStudySize());
 
-    }
-
-    @Test
-    void getId() {
-        int expectNum = testId;
-        assertEquals(expectNum, testStudy.getId());
     }
 
     @Test

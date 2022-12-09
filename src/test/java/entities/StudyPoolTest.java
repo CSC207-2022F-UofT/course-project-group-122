@@ -14,8 +14,7 @@ class StudyPoolTest {
     private Map<Integer, Study> testStudies1;
 
     private Study testStudy1;
-    private Study testStudy2;
-    private Study testStudy3;
+
 
 
 
@@ -23,11 +22,8 @@ class StudyPoolTest {
     @BeforeEach
     void setup(){
         testStudy1 = new GeneralStudy(1, "a", 1);
-        testStudy2 = new GeneralStudy(1, "b", 2);
-        testStudy3 = new RandomizedStudy(1, "C", 3);
         testStudies1 = new HashMap<>();
         testStudies1.put(testStudy1.getId(), testStudy1);
-        testStudies1.put(testStudy3.getId(), testStudy3);
         testStudyPool1 = new StudyPool(testStudies1);
     }
 

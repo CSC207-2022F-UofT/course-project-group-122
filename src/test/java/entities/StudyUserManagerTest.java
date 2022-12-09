@@ -44,6 +44,7 @@ class StudyUserManagerTest {
     void resetGroups() {
         String[] expectList = {"group 1", "group 2"};
         int expectNum = 2;
+        testSUM1.resetGroups(expectNum, expectList);
         assertEquals(expectNum, testSUM1.getNumGroups());
         assertEquals(expectList, testSUM1.getGroupNames());
 
@@ -52,6 +53,7 @@ class StudyUserManagerTest {
     @Test
     void testResetGroups() {
         int expectNum = 2;
+        testSUM1.resetGroups(expectNum);
         assertEquals(expectNum, testSUM1.getNumGroups());
     }
 

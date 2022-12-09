@@ -27,8 +27,15 @@ class ScaleQuestionTest {
     }
 
     @Test
-    void getScaleRange() {
+    void modifyScaleRange(){
         int expectNum = 100;
+        testScaleQ1.modifyScaleRange(expectNum);
+        assertEquals(expectNum, testScaleQ1.getScaleRange());
+    }
+
+    @Test
+    void getScaleRange() {
+        int expectNum = 0;
         assertEquals(expectNum, testScaleQ1.getScaleRange());
 
     }
@@ -36,6 +43,7 @@ class ScaleQuestionTest {
     @Test
     void getScale() {
         int expectNum = 100;
+        testScaleQ1.modifyScaleRange(expectNum);
         ArrayList<Integer> expectList = new ArrayList<>();
         for (int i = 0; i < expectNum; i++){
             expectList.add(i);
@@ -53,6 +61,7 @@ class ScaleQuestionTest {
     @Test
     void getAnswerChoices() {
         int expectNum = 100;
+        testScaleQ1.modifyScaleRange(expectNum);
         String expectString1 = "0";
         String expectString2 = "100";
         String expectString3 = expectString1 + "," + expectString2 + "," + expectNum;

@@ -26,7 +26,7 @@ class MultipleChoiceQuestionTest {
     @Test
     void addChoice() {
         testMcq1.addChoice("0-5");
-        String expectChoice = "0-5";
+        String expectChoice = "1. 0-5";
         assertEquals(expectChoice, testMcq1.getChoices().get(0));
 
     }
@@ -46,8 +46,10 @@ class MultipleChoiceQuestionTest {
         testMcq1.addChoice("0-5");
         testMcq1.addChoice("0-5");
         testMcq1.addChoice("0-5");
-        List<String> expectList = List.of("0-5", "0-5","0-5","0-5");
-        assertEquals(expectList, testMcq1.getChoices());
+        List<String> expectList = List.of("1. 0-5", "2. 0-5","3. 0-5","4. 0-5");
+        for (int i = 0; i < expectList.size();i++){
+            assertEquals(expectList.get(i), testMcq1.getChoices().get(i));
+        }
      }
 
     @Test
@@ -60,7 +62,7 @@ class MultipleChoiceQuestionTest {
     void getAnswerChoices() {
         testMcq1.addChoice("0-5");
         testMcq1.addChoice("5-10");
-        String expectString = "<html>1. 0-5<BR>2. 5-10</html>";
+        String expectString = "1. 0-5,2. 5-10";
         assertEquals(expectString, testMcq1.getAnswerChoices());
 
     }
