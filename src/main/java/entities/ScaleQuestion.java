@@ -29,7 +29,6 @@ public class ScaleQuestion extends Question implements Serializable {
      */
     private final List<Integer> scale = new ArrayList<>();
 
-
     /**
      * The Constructor for the ScaleQuestion class.
      * This Constructor is overloaded. User doesn't specify the scaleRange when creating an instance of ScaleQuestion.
@@ -48,7 +47,9 @@ public class ScaleQuestion extends Question implements Serializable {
      *
      * @param newRange     The new scaleRange of this ScaleQuestion.
      */
+
     public void modifyScaleRange(int newRange) {
+
         if (newRange >= 0) {
             this.scaleRange = newRange;
             for (int i = 0; i < newRange; i++) {

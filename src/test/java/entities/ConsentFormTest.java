@@ -1,5 +1,6 @@
 package entities;
 
+
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,7 @@ public class ConsentFormTest {
     }
 
     @Test
+
     public void getStudy(){
         assertEquals(consentForm.getStudy(), study);
     }
@@ -36,3 +38,4 @@ public class ConsentFormTest {
 
 
 }
+
