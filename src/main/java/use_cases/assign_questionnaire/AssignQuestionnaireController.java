@@ -1,7 +1,15 @@
 package use_cases.assign_questionnaire;
 
+import java.util.List;
+
+/**
+ * The controller that the UI calls on to assign a questionnaire to a participant.
+ */
 public class AssignQuestionnaireController {
 
+    /**
+     * The interface that the use case implements and is called on by the controller.
+     */
     private AssignQuestionnaireInputBoundary assignQuestionnaireInteractor;
 
 
@@ -18,29 +26,54 @@ public class AssignQuestionnaireController {
      * This method is used to assign a questionnaire to a group of participants.
      * @param questionnaireId   The id of the questionnaire.
      * @param studyId           The id of the study.
-     * @param group             The group of participants.
+     * @param groups             The groups of participants.
      */
-    public void assignQuestionnaireToGroup(int questionnaireId, int studyId, String group) {
-        assignQuestionnaireInteractor.assignToGroup(questionnaireId, group, studyId);
+    public void assignQuestionnaireToGroups(int questionnaireId, int studyId, List<String> groups, int researcherId) {
+        assignQuestionnaireInteractor.assignToGroup(questionnaireId, groups, studyId, researcherId);
     }
 
 
     /**
      * This method is used to assign a questionnaire to all participant.
-     * @param questionnaireId   The id of the questionnaire.
-     * @param studyId           The id of the study.
+     *
+     * @param questionnaireId The id of the questionnaire.
+     * @param studyId         The id of the study.
+     * @param researcherId    The id of the researcher.
      */
-    public void assignQuestionnaireToAll(int questionnaireId, int studyId) {
-        assignQuestionnaireInteractor.assignToAll(questionnaireId, studyId);
+    public void assignQuestionnaireToAll(int questionnaireId, int studyId, int researcherId) {
+        assignQuestionnaireInteractor.assignToAll(questionnaireId, studyId, researcherId);
     }
 
     /**
      * This method is used to assign a questionnaire to a participant.
-     * @param researchId        The id of the researcher.
+     * @param questionnaireId   The id of the questionnaire.
      * @param studyId           The id of the study.
-     * @param participant       The participant.
+     * @param participantId     The id of the participant.
+     * @param researcherId      The id of the researcher.
      */
-    public void assignQuestionnaireToIndividual(int researchId, int studyId, int participant) {
-        assignQuestionnaireInteractor.assignToParticipant(researchId, studyId, participant);
+    public void assignQuestionnaireToIndividual(int questionnaireId, int studyId, int participantId, int researcherId) {
+        assignQuestionnaireInteractor.assignToParticipant(questionnaireId, participantId, studyId, researcherId);
+    }
+
+
+    /**
+     * This method is used to assign an eligibility questionnaire to all potential participant.
+     * @param questionnaireId   The id of the questionnaire.
+     * @param studyId           The id of the study.
+     */
+    public void assignEligibilityQuestionnaireToAll(int questionnaireId, int studyId, int researcherId) {
+        assignQuestionnaireInteractor.assignEligibilityQuestionnaireToAll(questionnaireId, studyId, researcherId);
+    }
+
+
+    /**
+     * Fetch the participant information to confirm the assignment.
+     * @param questionnaireId   The id of the questionnaire.
+     * @param studyId           The id of the study.
+     * @param participantId     The id of the participant.
+     * @param researcherId      The id of the researcher.
+     */
+    public void fetchParticipantInfoConfirmation(int questionnaireId, int studyId, int participantId, int researcherId) {
+        assignQuestionnaireInteractor.fetchParticipantInfoConfirmation(questionnaireId, studyId, participantId, researcherId);
     }
 }

@@ -6,8 +6,14 @@ import entities.User;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that enrolls a researcher in a study.
+ */
 public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoundary {
 
+    /**
+     * The presenter that the use case calls on to present the updated data.
+     */
     private ResearcherEnrollerOutputBoundary researcherEnrollerPresenter;
 
     /**
@@ -41,7 +47,7 @@ public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoun
             researcherEnrollerPresenter.invalidResearcherId(researcherId,
                     "The researcher is already enrolled in the study.");
         } else {
-            study.addResearchers(researcher);
+            study.addResearcher(researcher);
             researcher.addToListStudies(study);
             researcherEnrollerPresenter.presentEnrollmentSuccess(researcher.getId(), researcher.getName(),
                     study.getId(), study.getStudyName(), userId);
@@ -52,8 +58,9 @@ public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoun
 
     /**
      * Checks if the researcher ID is a valid researcher ID, and return the researcher object if it is.
-     * @param researcherId  The researcher's id.
-     * @return  The researcher object if the researcher ID is valid, null otherwise.
+     *
+     * @param researcherId The researcher's id.
+     * @return The researcher object if the researcher ID is valid, null otherwise.
      */
     private @NotNull Researcher checkValidResearcherId(int researcherId) {
         if (FetchId.checkUserExists(researcherId)) {
@@ -61,19 +68,20 @@ public class ResearcherEnrollerInteractor implements ResearcherEnrollerInputBoun
             if (user instanceof Researcher) {
                 return (Researcher) user;
             } else {
-                researcherEnrollerPresenter.invalidResearcherId(researcherId, "The user with the given id is not a " +
-                        "researcher.");
+                researcherEnrollerPresenter.invalidResearcherId(researcherId,
+                        "The user with the given id is not a researcher.");
             }
         } else {
-            researcherEnrollerPresenter.invalidResearcherId(researcherId, "The user with the given id does not exist.");
+            researcherEnrollerPresenter.invalidResearcherId(researcherId,
+                    "The user with the given id does not exist.");
         }
         throw new IllegalArgumentException("The researcher ID is invalid.");
     }
 
-
     /**
      * Sets the presenter for the interactor.
-     * @param researcherEnrollerPresenter   The presenter for the interactor.
+     *
+     * @param researcherEnrollerPresenter The presenter for the interactor.
      */
     public void setResearcherEnrollerPresenter(ResearcherEnrollerOutputBoundary researcherEnrollerPresenter) {
         this.researcherEnrollerPresenter = researcherEnrollerPresenter;

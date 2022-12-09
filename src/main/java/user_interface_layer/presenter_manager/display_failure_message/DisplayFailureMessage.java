@@ -1,15 +1,18 @@
 package user_interface_layer.presenter_manager.display_failure_message;
 
-import user_interface_layer.screens.GeneralFailureScreen;
+import user_interface_layer.screens.message_screens.GeneralFailureScreen;
 
 /**
  * The class that displays the failure message screen.
  */
 public class DisplayFailureMessage implements DisplayFailureMessageInterface {
 
+    /**
+     * @param message The failure message to display.
+     */
     @Override
     public void presentFailureMessage(String message) {
-        GeneralFailureScreen screen = new GeneralFailureScreen(message);
+        new GeneralFailureScreen(message);
     }
 
 }

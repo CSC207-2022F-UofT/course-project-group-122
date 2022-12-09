@@ -1,11 +1,20 @@
 package tutorial;
+import javax.swing.*;
 
 public class HelloWorld {
 
     public static void main(String[] args) {
-        for (int i = 1; i <= 100; i++) {
-            System.out.println(convert(i));
-        }
+        JFrame myFrame = new JFrame("morbin time");
+        JButton myButton = new JButton("click me");
+
+        myButton.setBounds(100,100,100,40);
+
+        myFrame.add(myButton);
+
+        myFrame.setSize(1280,720);
+        myFrame.setLayout(null);
+        myFrame.setVisible(true);
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static String convert(int decide) {

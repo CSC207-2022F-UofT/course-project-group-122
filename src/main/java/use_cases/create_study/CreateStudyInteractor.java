@@ -1,7 +1,6 @@
 package use_cases.create_study;
 
-import entities.Researcher;
-import entities.Study;
+import entities.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import use_cases.fetch_id.FetchId;
@@ -11,6 +10,10 @@ import java.util.Objects;
 public class CreateStudyInteractor implements CreateStudyInputBoundary {
 
     private CreateStudyOutputBoundary createStudyPresenter;
+
+    private final StudyFactoryInterface studyFactory = new StudyFactory();
+
+    private IDManager idManager;
 
     /**
      * Creates a new study.
@@ -24,10 +27,10 @@ public class CreateStudyInteractor implements CreateStudyInputBoundary {
     @Override
     public int createStudyObject(int researcherId, String studyType, String studyName,
                                   String description, int targetSize) {
-        Study newStudy = new Study(studyType, studyName, targetSize);
+        Study newStudy = studyFactory.createStudy(idManager.newStudyId(), studyType, studyName, targetSize);
         newStudy.setStudyDescription(description);
         Researcher researcher = (Researcher) FetchId.getUser(researcherId);
-        newStudy.addResearchers(researcher);
+        newStudy.addResearcher(researcher);
         researcher.addToListStudies(newStudy);
         return FetchId.addStudy(newStudy);
     }
@@ -140,6 +143,15 @@ public class CreateStudyInteractor implements CreateStudyInputBoundary {
      */
     public void setCreateStudyPresenter(CreateStudyOutputBoundary createStudyPresenter) {
         this.createStudyPresenter = createStudyPresenter;
+    }
+
+
+    /**
+     * Sets the ID manager for the interactor.
+     * @param idManager The ID manager.
+     */
+    public void setIdManager(IDManager idManager) {
+        this.idManager = idManager;
     }
 
 

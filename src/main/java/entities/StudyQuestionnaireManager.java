@@ -1,9 +1,10 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudyQuestionnaireManager implements java.io.Serializable{
+public class StudyQuestionnaireManager implements Serializable {
 
     /**
      * The study that this manager is managing.

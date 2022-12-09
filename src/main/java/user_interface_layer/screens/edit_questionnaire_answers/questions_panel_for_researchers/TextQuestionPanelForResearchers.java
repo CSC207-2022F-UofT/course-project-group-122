@@ -3,16 +3,40 @@ package user_interface_layer.screens.edit_questionnaire_answers.questions_panel_
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The panel that contains the question and the answer for a text question.
+ */
 public class TextQuestionPanelForResearchers extends JPanel implements ResearchersQuestionPanel {
+    /**
+     * The text area that contains the answer.
+     */
     private final JTextArea answerArea = new JTextArea(3, 20);
+    /**
+     * The question's type.
+     */
     private final String type;
+    /**
+     * The question's variable.
+     */
     private final String variable;
 
+    /**
+     * The question.
+     */
     private final String question;
+
+    /**
+     * @param question The question.
+     * @param type   The type of the question.
+     * @param variable The variable of the question.
+     * @param option The option of the question.
+     * @param answer The answer of the question.
+     */
     public TextQuestionPanelForResearchers(String question, String type, String variable, String option, String answer) {
         this.type = type;
         this.variable = variable;
         this.question = question;
+        this.answerArea.setText(answer);
 
         setLayout(new BorderLayout());
         JPanel questionAnswerPanel = new JPanel(new BorderLayout());
@@ -36,40 +60,45 @@ public class TextQuestionPanelForResearchers extends JPanel implements Researche
 
     }
 
+    /**
+     * @return The question's answer.
+     */
     @Override
     public String getAnswer() {
-        if (answerArea.getText().isEmpty()) {
-            return "";
-        }
         return answerArea.getText();
     }
 
+    /**
+     * @return The question's variable.
+     */
     @Override
     public String getVariable() {
         return variable;
     }
 
+    /**
+     * @return The question's panel.
+     */
     @Override
     public JPanel getQuestionPanel() {
         return this;
     }
 
+    /**
+     * @return The question's type.
+     */
     @Override
     public String getType() {
         return type;
     }
 
+    /**
+     * @return The question.
+     */
     @Override
     public String getQuestion() {
         return question;
     }
 
-//    public static void main(String[] args) {
-//        JFrame frame = new JFrame();
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.add(new TextQuestionPanelForResearchers("What is your name?", "text", "name", "text", "John"));
-//        frame.pack();
-//        frame.setVisible(true);
-//    }
 }
 

@@ -1,5 +1,5 @@
 package entities;
 
 public interface UserFactoryInterface {
-    User create(String type, String username, String name);
+    User create(int id, String type, String username, String name);
 }

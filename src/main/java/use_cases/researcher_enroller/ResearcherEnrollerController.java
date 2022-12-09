@@ -1,7 +1,13 @@
 package use_cases.researcher_enroller;
 
+/**
+ * The controller class that the screen calls on to enroll a researcher.
+ */
 public class ResearcherEnrollerController {
 
+    /**
+     * The use case that the controller calls on to enroll a researcher.
+     */
     private ResearcherEnrollerInputBoundary researcherEnrollerInterator;
 
 

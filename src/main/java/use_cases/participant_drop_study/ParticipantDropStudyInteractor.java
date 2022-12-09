@@ -4,7 +4,13 @@ import entities.Participant;
 import entities.Study;
 import use_cases.fetch_id.FetchId;
 
+/**
+ * The use case that drops a participant from a study.
+ */
 public class ParticipantDropStudyInteractor implements ParticipantDropStudyInputBoundary {
+    /**
+     * The output boundary for the use case, to call and update the screen.
+     */
     private ParticipantDropStudyOutputBoundary participantDropStudyPresenter;
 
 
@@ -31,8 +37,8 @@ public class ParticipantDropStudyInteractor implements ParticipantDropStudyInput
             participantDropStudyPresenter.displayError(participantId, "This study is no longer active.");
         } else {
             participant.dropOff();
-            participantDropStudyPresenter.displaySuccess(participantId, "You have successfully dropped the study.");
             participantDropStudyPresenter.showParticipantDroppedOffStudy(participantId, participantId);
+            participantDropStudyPresenter.displaySuccess(participantId, "You have successfully dropped the study.");
         }
     }
 

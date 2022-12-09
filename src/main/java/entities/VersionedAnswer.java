@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -12,13 +13,7 @@ import java.util.Map;
  * It is being composed by the Answer class, which contains all versions of the same answers to a same
  * questionnaire for a particular participant.
  */
-public class VersionedAnswer implements java.io.Serializable{
-
-
-    /**
-     * The current maximum ID of all the VersionedAnswers in the system. This is used to generate the next ID.
-     */
-    private static int currID;
+public class VersionedAnswer implements Serializable {
 
     /**
      * The id of the versioned answer. This is unique across the entire system, regardless of the study, questionnaire,
@@ -71,9 +66,8 @@ public class VersionedAnswer implements java.io.Serializable{
      * @param answerContent The actual answer contents to the questionnaire.
      * @param answer        The ID of the Answer that the VersionedAnswer is a part of.
      */
-    public VersionedAnswer(int version, User modifier, Map<String, String> answerContent, Answer answer) {
-        currID++;
-        this.id = currID;
+    public VersionedAnswer(int id, int version, User modifier, Map<String, String> answerContent, Answer answer) {
+        this.id = id;
         this.version = version;
         this.answers = answerContent;
         this.modifier = modifier;
@@ -95,10 +89,9 @@ public class VersionedAnswer implements java.io.Serializable{
      * @param answerContent The actual answer contents to the questionnaire.
      * @param answer        The ID of the Answer that the VersionedAnswer is a part of.
      */
-    public VersionedAnswer(int version, User modifier, Map<String, String> answerContent, Answer answer,
+    public VersionedAnswer(int id, int version, User modifier, Map<String, String> answerContent, Answer answer,
                            String reasonForModification) {
-        currID++;
-        this.id = currID;
+        this.id = id;
         this.version = version;
         this.answers = answerContent;
         this.modifier = modifier;
@@ -181,16 +174,6 @@ public class VersionedAnswer implements java.io.Serializable{
 
 
     /**
-     * Sets the reason for the modification of the answers this versioned answer belongs to.
-     *
-     * @param reasonForModification the reason for the modification of the answers this versioned answer belongs to.
-     */
-    public void setReasonForModification(String reasonForModification) {
-        this.reasonForModification = reasonForModification;
-    }
-
-
-    /**
      * Modify the answer contents of the VersionedAnswer. This is used when a researcher modifies the answers of a
      * participant. This method is used to create a new version of the answers. The new version of the answers is
      * stored in a new VersionedAnswer object. The new VersionedAnswer object is then added to the Answer object.
@@ -207,9 +190,9 @@ public class VersionedAnswer implements java.io.Serializable{
      * @param reasonForModification The reason for the modification of the answers this versioned answer belongs to.
      * @return The new VersionedAnswer object.
      */
-    public VersionedAnswer modify(Map<String, String> newAnswers, User modifier, String reasonForModification) {
+    public VersionedAnswer modify(int newId, Map<String, String> newAnswers, User modifier, String reasonForModification) {
         if (this.answer.getCurrentVersion() == this) {
-            return new VersionedAnswer(this.version + 1, modifier, newAnswers, this.answer,
+            return new VersionedAnswer(newId, this.version + 1, modifier, newAnswers, this.answer,
                     reasonForModification);
         } else {
             throw new IllegalArgumentException("This versioned answer is not the current version of the answers.");

@@ -4,6 +4,9 @@ import use_cases.fetch_study_log.FetchStudyLogController;
 import user_interface_layer.presenter_manager.display_failure_message.DisplayFailureMessageInterface;
 import user_interface_layer.presenter_manager.display_success_message.DisplaySuccessMessageInterface;
 
+/**
+ * The presenter that the use calls on to present the data to the user.
+ */
 public class EligibilityCheckerPresenter implements EligibilityCheckerOutputBoundary {
 
     /**
@@ -45,13 +48,14 @@ public class EligibilityCheckerPresenter implements EligibilityCheckerOutputBoun
     public void presentSuccess(int participantId, int studyId, int userId) {
         String successMessage = "Participant " + participantId + " is successfully made eligible to participate in " +
                 "the study " + studyId;
-        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
         fetchStudyLogController.fetchStudyLog(studyId, userId);
+        displaySuccessMessage.presentGeneralSuccessMessage(successMessage);
     }
 
 
     /**
      * Presents the failure to add a potential participant to a study.
+     *
      * @param displayFailureMessage The presenter to display the failure message.
      */
     public void setDisplayFailureMessage(DisplayFailureMessageInterface displayFailureMessage) {
@@ -61,6 +65,7 @@ public class EligibilityCheckerPresenter implements EligibilityCheckerOutputBoun
 
     /**
      * Presents the success to add a potential participant to a study.
+     *
      * @param displaySuccessMessage The presenter to display the success message.
      */
     public void setDisplaySuccessMessage(DisplaySuccessMessageInterface displaySuccessMessage) {
@@ -70,7 +75,8 @@ public class EligibilityCheckerPresenter implements EligibilityCheckerOutputBoun
 
     /**
      * Sets the fetch study log controller.
-     * @param fetchStudyLogController   The fetch study log controller.
+     *
+     * @param fetchStudyLogController The fetch study log controller.
      */
     public void setFetchStudyLogController(FetchStudyLogController fetchStudyLogController) {
         this.fetchStudyLogController = fetchStudyLogController;

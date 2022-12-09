@@ -19,7 +19,7 @@ class UserFactoryTest {
     @Test
     void create() throws Exception {
         UserFactory userFactory = new UserFactory();
-        User newUser = userFactory.create("Participant", "annarxy", "anna");
+        User newUser = userFactory.create(3, "Participant", "annarxy", "anna");
         assertTrue(newUser.getClass().equals(Participant.class));
     }
 }

@@ -18,18 +18,16 @@ public class ModifyStudyParameterController {
      * Modify the parameters of a study.
      * @param requestModel      The request model containing the new parameters of the study.
      */
-    public void modifystudyParameters(@NotNull ModifyStudyParameterRequestModel requestModel) {
+    public void modifyStudyParameters(@NotNull ModifyStudyParameterRequestModel requestModel) {
         int researcherId = requestModel.getResearcherId();
         int studyId = requestModel.getStudyId();
         String studyName = requestModel.getStudyName();
         String studyDescription = requestModel.getStudyDescription();
         int targetSize = requestModel.getStudyTargetSize();
-        String studyType = requestModel.getStudyType();
         int numGroups = requestModel.getNumGroups();
         String[] groupNames = requestModel.getGroupNames();
 
         modifyStudyParameterInteractor.modifyStudyBasicParameters(studyId, studyName, studyDescription, targetSize);
-        modifyStudyParameterInteractor.modifyStudyType(studyId, studyType);
         modifyStudyParameterInteractor.modifyStudyGrouping(studyId, numGroups, groupNames, researcherId);
     }
 

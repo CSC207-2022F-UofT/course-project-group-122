@@ -1,5 +1,8 @@
 package use_cases.participant_drop_study;
 
+/**
+ * The interface that the use case implements and is called on by the controller.
+ */
 public interface ParticipantDropStudyInputBoundary {
 
     /**

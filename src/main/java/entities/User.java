@@ -1,10 +1,12 @@
 package entities;
 
+import java.io.Serializable;
+
 /**
  * A user class.
  */
-public class User implements java.io.Serializable{
-    protected static int currId = 0;
+public class User implements Serializable {
+
     /**
      * The identifier of this user.
      */
@@ -25,11 +27,10 @@ public class User implements java.io.Serializable{
      * @param username the username of this User
      * @param name the name of this User
      */
-    public User(String username, String name) {
+    public User(int id, String username, String name) {
         this.username = username;
         this.name = name;
-        currId ++;
-        this.id = currId;
+        this.id = id;
     }
 
     /**
