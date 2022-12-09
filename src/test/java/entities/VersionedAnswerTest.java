@@ -3,8 +3,7 @@ package entities;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,29 +14,22 @@ class VersionedAnswerTest {
     private VersionedAnswer testVAnswer1;
     private VersionedAnswer testVAnswer2;
     private Researcher testResearcher1;
-    private Participant testParticipant1;
     private int testVersion1;
     private String testModReason1;
 
     private Map<String, String> testContent1;
-    private Answer testAnswer1;
-
-    private Questionnaire testQuestionnaire1;
-
-    private Study testStudy1;
-
 
 
     @BeforeEach
     void setup(){
-        testStudy1 = new StudyFactory().createStudy(23, "General", "aa", 1);
-        testQuestionnaire1 = new Questionnaire(22, testStudy1, "ss", "sss");
+        Study testStudy1 = new StudyFactory().createStudy(23, "General", "aa", 1);
+        Questionnaire testQuestionnaire1 = new Questionnaire(22, testStudy1, "ss", "sss");
         testResearcher1 = new Researcher(1, "a", "b");
-        testParticipant1 = new Participant(2, "s", "sb");
+        Participant testParticipant1 = new Participant(2, "s", "sb");
         testVersion1 = 2;
         testContent1 = new HashMap<>();
         testContent1.put("c", "d");
-        testAnswer1 = new Answer(2, testParticipant1, testQuestionnaire1);
+        Answer testAnswer1 = new Answer(2, testParticipant1, testQuestionnaire1);
         testVAnswer1 = new VersionedAnswer(24, testVersion1, testResearcher1, testContent1, testAnswer1);
         testAnswer1.addNewVersion(testVAnswer1);
         testModReason1 = "h";
