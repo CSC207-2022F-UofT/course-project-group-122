@@ -293,12 +293,14 @@ repository.
 
 #### Code Coverage
 The following is the code coverage of the tests:
- - Entity Classes: 100%
+ - Entity Classes: 86%
     
     The following classes are not tested:
 
-    
-    
+    - `IDManager` class: The `IDManager` class is a singleton class that is used to generate unique IDs for all
+    entities. There is no need to make a separate test for this class because its functionality is tested in all
+    other classes that use the `IDManager` class. In addition, its functionality is the same for all entities, and
+    there is no need to test the functionality of the `IDManager` class for each entity class.  
 
  - Use Case Classes: %
 
