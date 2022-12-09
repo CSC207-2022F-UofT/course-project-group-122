@@ -288,4 +288,18 @@ functionality of the system. However, not all use cases has been tested using th
 use cases manually, and we have ensured that all functionalities are working as expected. However, the unimplemented
 JUnit tests for the use case are primarily due to the time constraint as the lack of team members. The unimplemented
 use case tests should not be detrimental to the functionality of the system. We have prioritized the implementation
-of tests on more upstream and critical classes.
+of tests on more upstream and critical classes. Classes that are not tested are now identified as issues in the
+repository.
+
+#### Code Coverage
+The following is the code coverage of the tests:
+ - Entity Classes: 100%
+    
+    The following classes are not tested:
+
+    
+    
+
+ - Use Case Classes: %
+
+    The following classes are not tested:
