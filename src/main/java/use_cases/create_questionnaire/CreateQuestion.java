@@ -37,6 +37,7 @@ public class CreateQuestion {
             ((ScaleQuestion) question).setBottomLabel(options.get(0));
             ((ScaleQuestion) question).setTopLabel(options.get(1));
             ((ScaleQuestion) question).modifyScaleRange(Integer.parseInt(options.get(2)));
+
         }
         assert question != null;
         questionnaire.addQuestion(question);
