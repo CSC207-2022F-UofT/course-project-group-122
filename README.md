@@ -260,3 +260,32 @@ text, while the multiple choice answers will be saved as the `ID` of the selecte
 
 ![](images/screens_for_displays/data_extraction.png)
 ![](images/screens_for_displays/data_extraction_csv.png)
+
+
+## Additional Notes about the Repository
+### Study Implementation
+The implementation of the study classes primarily addresses the issues identified from Milestone 4, where we used
+inheritance to implement the study classes in this version. In addition, the `RandomizedStudy` class is set to 
+implement the `Randomizable` and `Stratifiable` interfaces. It may seem that these two interface are not necessary
+for the current state of implementation, and that they contain only getter and setter classes, they are necessary for
+defining the behavior of the `RandomizedStudy` class. These behaviors can be further extended in the future. For
+example, additional study types can be added to the system, and these interfaces can be selectively implemented.
+
+### Data Export
+One functionality in exporting all data (all version of records) is not implemented. This is because the current
+number of members in the team is not sufficient to implement this functionality. However, the current implementation
+of exporting the current data is sufficient for the current state of the project.
+
+### IntelliJ Warnings
+There are some warnings in the IntelliJ IDE. We have gone over the entire repository to address the warning, and 
+we have fixed all the warnings that we can fix. However, there are some warnings that we cannot fix, or, we believe
+that these warnings are not important/valid. We do not things these remaining warnings will affect the functionality.
+
+### Testing
+We have tried to test all the functionalities of the system. However, we have not been able to test all the 
+functionalities. In particular, we have ensured that the entity classes are tested, which provide the basic
+functionality of the system. However, not all use cases has been tested using the JUnit test. We have tested all
+use cases manually, and we have ensured that all functionalities are working as expected. However, the unimplemented
+JUnit tests for the use case are primarily due to the time constraint as the lack of team members. The unimplemented
+use case tests should not be detrimental to the functionality of the system. We have prioritized the implementation
+of tests on more upstream and critical classes.
